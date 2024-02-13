@@ -26,7 +26,6 @@ export default function RootLayout({
         <MantineProvider>
           <MainNavbar />
           {children}
-          <Footer />
         </MantineProvider>
       </body>
     </html>
