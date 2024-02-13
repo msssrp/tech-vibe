@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Tech Vibe
 
-## Getting Started
+#### Folder Structure
 
-First, run the development server:
+##### app
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    * ไว้สำหรับการจัดการ route ต่างๆของ nextjs อย่างเช่น app/SignIn/page.tsx = http://localhost:3000/SignIn
+        * ถ้า folder ไหนมี () ครอบอยู่อย่างเช่น (main) nextjs จะ ignore folder นั้นและจะไม่ route folder นั้นไปที่ url ช่วยในการจัดการไฟล์ของส่วนต่าง
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+##### componenets
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    * จัดการกับ components ต่างๆ แยกหมวดหมู่ด้วย
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+##### libs [supabase](https://supabase.com/)
 
-## Learn More
+    * ใช้สำหรับการจัดการ api ต่างๆและจัดเก็บ supabase api ไว้เรียกใช้ query api ต่างๆ
 
-To learn more about Next.js, take a look at the following resources:
+##### store [Zustand](https://zustand-demo.pmnd.rs/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    * จะใช้ Zustand ในการจัดการ State Management สำรหับส่วนๆ่างๆ
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+##### types
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    * ไว้เก็บ type Props ต่างๆของแต่ละ componets หรือแต่ละ function
