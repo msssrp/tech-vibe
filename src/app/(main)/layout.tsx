@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Lora } from "next/font/google";
 import "@/styles/globals.css";
 import "@mantine/core/styles.css";
 import MainNavbar from "@/components/main/MainNavbar";
 import Footer from "@/components/main/Footer";
 import { MantineProvider } from "@mantine/core";
 import LayoutWithFooter from "@/layout/LayoutWithFooter";
-export const inter = Inter({ subsets: ["latin"] });
+export const lora = Lora({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={lora.className}>
         <MantineProvider>
           <MainNavbar />
           {children}
