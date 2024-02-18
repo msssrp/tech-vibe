@@ -30,31 +30,31 @@ const populararticleslist = [
 ];
 const NpruAarticles = () => {
   return (
-    <div className="bg-red text-center py-10 sm:py-16">
+    <div className="bg-red text-center py-10 sm:py-16 ">
       <div className="flex flex-col justify-center items-center text-white space-y-2 sm:space-y-5">
-        <h2 className="uppercase text-xl sm:text-4xl font-semibold">
+        <h2 className="uppercase text-xl sm:text-4xl font-semibold ">
           Technology articles By NPRU
         </h2>
-        <p className="w-full sm:w-1/2 text-sm px-8 sm:text-md sm:px-0">
+        <p className="w-full text-sm px-5 sm:px-16 sm:text-base ">
           Articles about technology and IT that come from authors from Nakhon
           Pathom Rajabhat University that will be useful for you
         </p>
       </div>
-      <div className="flex justify-center mt-6 sm:mt-8">
-        <div className="flex flex-col md:flex-row space-y-5 sm:space-y-0">
+      <div className="flex justify-center mt-6 sm:mt-8 ">
+        <div className="grid grid-cols-1 sm:grid-cols-3 sm:mx-5 gap-2 space-y-5 sm:space-y-0">
           {populararticleslist.map((populararticles) => {
             return (
-              <div className="flex justify-center items-center mx-2 cursor-pointer">
-                <div className="card card-compact w-64 sm:w-72 h-64 sm:h-72  bg-base-100 shadow-xl ">
+              <div key={populararticles.id} className="flex justify-center items-center mx-2 cursor-pointer ">
+                <div className="card card-compact w-64 bg-base-100 shadow-xl ">
                   <figure>
                     <img
                       src={populararticles.image}
-                      alt="Shoes"
-                      className="w-full object-cover"
+                      alt=""
+                      className=""
                     />
                   </figure>
-                  <div className="card-body ">
-                    <h2 className="card-title text-lg line-clamp-2">{populararticles.title}</h2>
+                  <div className="card-body">
+                    <h2 className="text-lg font-semibold line-clamp-2">{populararticles.title}</h2>
                     <p className="line-clamp-2">
                       {populararticles.description}
                     </p>
@@ -65,7 +65,6 @@ const NpruAarticles = () => {
           })}
         </div>
       </div>
-      <div></div>
     </div>
   );
 };

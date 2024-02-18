@@ -41,27 +41,36 @@ const populararticleslist = [
 
 const NewArticles = () => {
   return (
-    <div className="my-10">
-      <div className="ml-24">
-        <h2 className="text-4xl ">New articles</h2>
-      </div>
-      <div className="grid grid-cols-2 gap-4 mt-9 mx-10 px-60">
-        {populararticleslist.map((populararticles) => {
-          return (
-            <div className="card card-side bg-base-100 shadow-xl border rounded-md">
-              <figure className="w-1/2">
-                <img
-                  src={populararticles.image}
-                  alt="Shoes"
-                  className="w-72 object-cover"
-                />
-              </figure>
-              <div className="card-body w-1/2">
-                <p>{populararticles.description}</p>
+    <div className="container mx-auto">
+      <div className="my-6 sm:my-10">
+        <div className="sm:ml-4">
+          <h2 className="text-3xl sm:text-4xl text-center sm:text-left ">
+            New articles
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 px-6 md:px-16">
+          {populararticleslist.map((populararticles) => {
+            return (
+              <div key={populararticles.id}>
+                <h2 className="card-title line-clamp-1 pr-6">
+                  {populararticles.title}
+                </h2>
+                <div className="card card-side bg-base-100 drop-shadow-sm border rounded-md">
+                  <figure>
+                    <img
+                      src={populararticles.image}
+                      alt=""
+                      className="object-cover h-48 sm:h-40 md:h-56 w-96 "
+                    />
+                  </figure>
+                  <div className="p-2">
+                    <p>{populararticles.description}</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
