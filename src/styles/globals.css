@@ -5,3 +5,15 @@
 :root {
   background-color: white;
 }
+
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  grid-auto-columns: 80%; 
+}
+.embla__slide {
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  position: relative;
+}
