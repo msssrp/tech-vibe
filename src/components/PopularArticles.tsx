@@ -50,12 +50,12 @@ const PopularArticles = () => {
   return (
     <div className="container mx-auto">
       <div className="my-6 sm:my-10 py-10 sm:py-14">
-        <div className="sm:ml-4">
+        <div className="sm:ml-5 lg:ml-20 ">
           <h2 className="text-3xl sm:text-4xl text-center sm:text-left ">
             Popular articles
           </h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-6 mt-6 sm:px-16 lg:px-36">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-6 sm:px-12 lg:px-40 xl:px-72 drop-shadow-md">
           {populararticleslist.map((populararticles) => {
             return (
               <div

@@ -38,17 +38,17 @@ const PopularTags = () => {
     <div className="bg-[#F1F1F1]">
       <div className="container mx-auto ">
         <div className="mt-6 sm:mt-10 py-10 sm:py-14">
-          <div className="sm:ml-4">
+          <div className="sm:ml-5 lg:ml-20">
             <h2 className="text-3xl sm:text-4xl text-center sm:text-left ">
               Popular Tags
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-6 md:px-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-6 md:px-20 lg:px-44 xl:px-60">
             {tags.map((tag) => {
               return (
                 <div
                   key={tag.tags_id}
-                  className="card bg-base-100 h-44 sm:h-56 drop-shadow-sm border rounded-md flex justify-center items-center"
+                  className="card bg-base-100 h-40 sm:h-48 drop-shadow-sm border rounded-md flex justify-center items-center"
                 >
                   <figure>
                     <img src={tag.tags_icon} alt="tag" className="w-14 h-14" />
