@@ -37,40 +37,67 @@ const populararticleslist = [
   {
     id: 7,
     image:
-    "https://images.unsplash.com/photo-1573167101669-476636b96cea?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1573167101669-476636b96cea?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
 const Carousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: 'center', direction:"ltr"}
-    ,[Autoplay({ delay: 4000 })]
+    { loop: true, align: "center", direction: "ltr" },
+    [Autoplay({ delay: 4000 })]
+  );
+  const [emblaRef2, emblaApi2] = useEmblaCarousel(
+    { loop: true, align: "center", direction: "rtl" },
+    [Autoplay({ delay: 4000 })]
   );
   useEffect(() => {
     if (emblaApi) {
-      console.log(emblaApi.slideNodes()); 
+      console.log(emblaApi.slideNodes());
     }
-  }, [emblaApi]);
+  }, [emblaApi, emblaApi2]);
 
   return (
-    <div className="embla">
-      <div className="emble__viweport" ref={emblaRef}>
-        <div className="embla__container grid grid-flow-col w-1/3">
-          {populararticleslist.map((populararticles) => {
-            return (
-              <div className="embla__slide" key={populararticles.id}>
-                <div className="embla__slide__img object-cover px-2">
-                  <img
-                    src={populararticles.image}
-                    alt=""
-                    className="rounded-3xl w-full h-64"
-                  />
-                </div>
-              </div>
-            );
-          })}
+    <>
+      <div className="space-y-4">
+        <div className="embla">
+          <div className="emble__viweport" ref={emblaRef}>
+            <div className="embla__container grid grid-flow-col w-1/3">
+              {populararticleslist.map((populararticles) => {
+                return (
+                  <div className="embla__slide" key={populararticles.id}>
+                    <div className="embla__slide__img object-cover px-2">
+                      <img
+                        src={populararticles.image}
+                        alt=""
+                        className="rounded-3xl w-full h-64"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        <div className="embla">
+          <div className="emble__viweport" ref={emblaRef2}>
+            <div className="embla__container grid grid-flow-col w-1/3">
+              {populararticleslist.map((populararticles) => {
+                return (
+                  <div className="embla__slide" key={populararticles.id}>
+                    <div className="embla__slide__img object-cover px-2">
+                      <img
+                        src={populararticles.image}
+                        alt=""
+                        className="rounded-3xl w-full h-64"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
