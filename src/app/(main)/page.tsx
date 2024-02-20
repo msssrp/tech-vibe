@@ -23,8 +23,8 @@ export default function Home() {
         <Carousel />
         <PopularArticles />
         <NpruAarticles />
-        <NewArticles/>
-        <PopularTags/>
+        <NewArticles />
+        <PopularTags />
       </div>
     </>
   );

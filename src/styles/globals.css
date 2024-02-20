@@ -9,11 +9,11 @@
 .embla {
   overflow: hidden;
 }
-.embla__container {
-  grid-auto-columns: 80%; 
+.embla__container{
+  display: flex;
 }
 .embla__slide {
-  flex: 0 0 var(--slide-size);
+  flex: 0 0 400px; 
   min-width: 0;
-  position: relative;
 }
+
