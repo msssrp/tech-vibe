@@ -51,7 +51,7 @@ const NewArticles = () => {
   };
   return (
     <div className="container mx-auto">
-      <div className="my-6 sm:my-10">
+      <div className="py-10">
         <div className="sm:ml-5 lg:ml-20 ">
           <h2 className="text-3xl sm:text-4xl text-center sm:text-left">
             New articles

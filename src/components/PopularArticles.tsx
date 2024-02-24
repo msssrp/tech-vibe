@@ -116,7 +116,7 @@ const PopularArticles = () => {
 
   return (
     <div className="container mx-auto">
-      <div className="mt-6 sm:mt-8 py-10 sm:py-">
+      <div className="sm:mt-8 py-10">
         <div className="sm:ml-5 lg:ml-20 ">
           <h2 className="text-3xl sm:text-4xl text-center sm:text-left ">
             Popular articles

@@ -106,8 +106,8 @@ const NpruAarticles = () => {
             );
           })}
         </div>
-        <div className="absolute inset-y-0 items-center hidden md:flex justify-center container mx-auto">
-          <div className="absolute -right-10 lg:right-0 2xl:right-56">
+        <div className="absolute inset-y-0 items-center hidden lg:flex justify-center container mx-auto">
+          <div className="absolute -right-10 lg:right-0 xl:right-28 2xl:right-56">
             <button
               onClick={() => setCurrentPage(currentPage + 1)}
               className="px-1 sm:px-2 rounded-full text-white"
@@ -124,8 +124,9 @@ const NpruAarticles = () => {
               >
                 <path d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" />
               </svg>
-            </button>          </div>
-          <div className="absolute -left-10 lg:left-0 2xl:left-56">
+            </button>{" "}
+          </div>
+          <div className="absolute -left-10 lg:left-0 xl:left-28 2xl:left-56">
             <button
               onClick={() => setCurrentPage(currentPage - 1)}
               className="px-1 sm:px-2 rounded-full text-white "
@@ -143,7 +144,7 @@ const NpruAarticles = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center py-5 space-x-2">
+      <div className="flex justify-center mt-8 space-x-2">
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index + 1}

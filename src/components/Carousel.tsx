@@ -56,18 +56,20 @@ const populararticleslist = [
   },
 ];
 const Carousel = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 3000 , align: "end"}, [
-    Autoplay({ delay: 2500 }),
-  ]);
-  const [emblaRef_2, emblaApi_2] = useEmblaCarousel({ direction: 'rtl', loop: true, duration: 3000, align: "center"}, [
-    Autoplay({ delay: 2500 }),
-  ]);
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, duration: 3000, align: "end" },
+    [Autoplay({ delay: 2500 })]
+  );
+  const [emblaRef_2, emblaApi_2] = useEmblaCarousel(
+    { direction: "rtl", loop: true, duration: 3000, align: "center" },
+    [Autoplay({ delay: 2500 })]
+  );
 
   useEffect(() => {
     if (emblaApi) {
       console.log(emblaApi.slideNodes());
     }
-  }, [emblaApi,emblaApi_2]);
+  }, [emblaApi, emblaApi_2]);
 
   return (
     <div className="space-y-4">
@@ -81,7 +83,7 @@ const Carousel = () => {
                   <img
                     src={populararticles.image}
                     alt=""
-                    className="rounded-3xl w-full h-64"
+                    className="rounded-3xl w-full"
                   />
                 </div>
               );
@@ -99,7 +101,7 @@ const Carousel = () => {
                   <img
                     src={populararticles.image}
                     alt=""
-                    className="rounded-3xl w-full h-64"
+                    className="rounded-3xl w-full"
                   />
                 </div>
               );
