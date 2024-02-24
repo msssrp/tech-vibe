@@ -5,7 +5,7 @@ import "@mantine/core/styles.css";
 import MainNavbar from "@/components/main/MainNavbar";
 import Footer from "@/components/main/Footer";
 import { MantineProvider } from "@mantine/core";
-import LayoutWithFooter from "@/layout/LayoutWithFooter";
+import getUserSession from "@/libs/actions/getSession";
 export const lora = Lora({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -15,11 +15,24 @@ export const metadata: Metadata = {
   },
   description: "Come and read Our Blog",
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { data } = await getUserSession();
+  if (data.user) {
+    return (
+      <html lang="en">
+        <body className={lora.className}>
+          <MantineProvider>
+            <MainNavbar />
+            {children}
+          </MantineProvider>
+        </body>
+      </html>
+    );
+  }
   return (
     <html lang="en">
       <body className={lora.className}>
