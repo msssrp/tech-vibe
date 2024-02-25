@@ -4,8 +4,6 @@ import HomePage from "./component/HomePage";
 export default async function Home() {
   const { data } = await getUserSession();
   if (data.user) {
-    console.log(data.user);
-
     return <UserPage />;
   }
 
