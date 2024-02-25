@@ -4,7 +4,7 @@ import { profileItems } from "../ui/Items";
 import NotiTabs from "../ui/notifications/NotiTabs";
 const UserNavbar = () => {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 border-b">
       <div className="flex-1">
         <img
           src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
