@@ -1,7 +1,25 @@
 import Link from "next/link";
 import React from "react";
-import { navItem } from "../ui/Items";
 const Navbar = () => {
+  const navItem = (
+    <>
+      <li>
+        <a>Popular articles</a>
+      </li>
+      <li>
+        <a>NPRU articles</a>
+      </li>
+      <li>
+        <a>New articles</a>
+      </li>
+      <li>
+        <a>Popular Tags</a>
+      </li>
+      <li>
+        <a>All ARTICLES</a>
+      </li>
+    </>
+  );
   return (
     <div className="flex justify-between items-center max-w-screen uppercase h-20">
       <div className="flex">
@@ -44,14 +62,14 @@ const Navbar = () => {
         <div className="h-full flex justify-center items-center mr-7">
           <Link
             href={"/SignIn"}
-            className="bg-white text-[13px] lg:text-sm h-full w-full  flex justify-center items-center">
+            className="bg-white text-[10px] lg:text-sm h-full w-full  flex justify-center items-center">
             Login
           </Link>
         </div>
         <div className="bg-[#952124] h-full  flex justify-center items-center">
           <Link
             href={"/SignUp"}
-            className=" text-white pl-7 pr-7 text-[13px] lg:text-sm w-full h-full flex justify-center items-center">
+            className=" text-white pl-7 pr-7 text-[10px] lg:text-sm w-full h-full flex justify-center items-center">
             get started
           </Link>
         </div>
