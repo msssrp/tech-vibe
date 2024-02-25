@@ -1,8 +1,17 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import { profileItems } from "../ui/Items";
 import NotiTabs from "../ui/notifications/NotiTabs";
+import { useRouter } from "next/navigation";
+import { SignOut } from "@/libs/actions/auth";
 const UserNavbar = () => {
+  const router = useRouter();
+  const handlerSignOut = async () => {
+    await SignOut();
+    router.push("/");
+    router.refresh();
+  };
   return (
     <div className="navbar bg-base-100 border-b">
       <div className="flex-1">
@@ -91,6 +100,26 @@ const UserNavbar = () => {
               </div>
             </div>
             {profileItems}
+            <li className="border-t mt-2">
+              <a>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="#952124"
+                  className="w-6 h-6">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+                  />
+                </svg>
+                <span className="text-red" onClick={handlerSignOut}>
+                  Log out
+                </span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
