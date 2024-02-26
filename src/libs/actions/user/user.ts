@@ -1,7 +1,6 @@
 "use server";
 import createSupabaseServerClient from "@/libs/supabase/server";
 import { userProps, userSocialProps } from "@/types/user/user";
-import { error } from "console";
 
 export async function getUser(userId: string): Promise<userProps> {
   const supabase = await createSupabaseServerClient();

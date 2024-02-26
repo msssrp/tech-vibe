@@ -1,10 +1,16 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense, useEffect } from "react";
 import { profileItems } from "../ui/Items";
 import NotiTabs from "../ui/notifications/NotiTabs";
 import { useRouter } from "next/navigation";
 import { SignOut } from "@/libs/actions/auth";
+import getUserSession from "@/libs/actions/getSession";
+import { getUser } from "@/libs/actions/user/user";
+import { useUserStore } from "@/store/user";
+import ProfileLoading from "../ui/ProfileLoading";
+import NameLoading from "../ui/NameLoading";
+import { ScrollArea } from "@mantine/core";
 const UserNavbar = () => {
   const router = useRouter();
   const handlerSignOut = async () => {
@@ -12,6 +18,25 @@ const UserNavbar = () => {
     router.push("/");
     router.refresh();
   };
+
+  const {
+    updateUserState,
+    updateLoading,
+    user_fullname,
+    user_profile,
+    isLoading,
+  } = useUserStore();
+  useEffect(() => {
+    const getUserFromSupabase = async () => {
+      const { data } = await getUserSession();
+      if (data.user?.id) {
+        const userData = await getUser(data.user?.id);
+        updateUserState(userData);
+        updateLoading(false);
+      }
+    };
+    getUserFromSupabase();
+  }, [user_profile]);
   return (
     <div className="navbar bg-base-100 border-b">
       <div className="flex-1">
@@ -62,12 +87,15 @@ const UserNavbar = () => {
               />
             </svg>
             <div
-              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-72 lg:w-80"
-              tabIndex={0}>
-              <div className="p-2">
-                <span className="text-lg">Notifications</span>
-                <NotiTabs />
-              </div>
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-72 lg:w-80 overflow-auto relative h-screen"
+              tabIndex={0}
+              style={{ maxHeight: "calc(100vh - 4rem)" }}>
+              <ScrollArea type="auto" scrollbarSize={8} offsetScrollbars>
+                <div className="p-2">
+                  <span className="text-lg">Notifications</span>
+                  <NotiTabs />
+                </div>
+              </ScrollArea>
             </div>
           </div>
         </div>
@@ -77,10 +105,11 @@ const UserNavbar = () => {
             role="button"
             className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
+              {isLoading ? (
+                <ProfileLoading />
+              ) : (
+                <img alt="Tech vibe user profile" src={user_profile} />
+              )}
             </div>
           </div>
           <ul
@@ -89,14 +118,15 @@ const UserNavbar = () => {
             <div className="border-b flex justify-stretch items-center">
               <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className=" w-9 rounded-full">
-                  <img
-                    alt="Tailwind CSS Navbar component"
-                    src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                  />
+                  {isLoading ? (
+                    <ProfileLoading />
+                  ) : (
+                    <img alt="Tech vibe user profile" src={user_profile} />
+                  )}
                 </div>
               </div>
               <div className="ml-2">
-                <span>Heather McLeod</span>
+                {isLoading ? <NameLoading /> : <span>{user_fullname}</span>}
               </div>
             </div>
             {profileItems}
