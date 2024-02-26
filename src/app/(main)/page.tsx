@@ -8,7 +8,6 @@ export default async function Home() {
   if (data.user) {
     const userId = data.user.id;
     const userData = await getUser(userId);
-    console.log(userData);
     if (userData.user_verify == false) {
       return redirect(`/verify/${userData.user_id}`);
     }
