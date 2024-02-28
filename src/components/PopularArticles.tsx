@@ -1,9 +1,10 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
 const populararticleslist = [
   {
     id: 1,
-    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
+    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit 1",
     description:
       "AI won’t replace designers, but designers who use AI will replace those who don’t. Similar to how....",
     image:
@@ -12,7 +13,7 @@ const populararticleslist = [
   },
   {
     id: 2,
-    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
+    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit 2",
     description:
       "AI won’t replace designers, but designers who use AI will replace those who don’t. Similar to how....",
     image:
@@ -21,7 +22,7 @@ const populararticleslist = [
   },
   {
     id: 3,
-    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
+    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit 3",
     description:
       "AI won’t replace designers, but designers who use AI will replace those who don’t. Similar to how....",
     image:
@@ -30,7 +31,61 @@ const populararticleslist = [
   },
   {
     id: 4,
-    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
+    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit 4",
+    description:
+      "AI won’t replace designers, but designers who use AI will replace those who don’t. Similar to how....",
+    image:
+      "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    author: "Heather McLeod in Human Parts",
+  },
+  {
+    id: 5,
+    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit 5",
+    description:
+      "AI won’t replace designers, but designers who use AI will replace those who don’t. Similar to how....",
+    image:
+      "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    author: "Heather McLeod in Human Parts",
+  },
+  {
+    id: 6,
+    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit 6",
+    description:
+      "AI won’t replace designers, but designers who use AI will replace those who don’t. Similar to how....",
+    image:
+      "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    author: "Heather McLeod in Human Parts",
+  },
+  {
+    id: 7,
+    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit 7",
+    description:
+      "AI won’t replace designers, but designers who use AI will replace those who don’t. Similar to how....",
+    image:
+      "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    author: "Heather McLeod in Human Parts",
+  },
+  {
+    id: 8,
+    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit 8",
+    description:
+      "AI won’t replace designers, but designers who use AI will replace those who don’t. Similar to how....",
+    image:
+      "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    author: "Heather McLeod in Human Parts",
+  },
+  {
+    id: 9,
+    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit 9",
+    description:
+      "AI won’t replace designers, but designers who use AI will replace those who don’t. Similar to how....",
+    image:
+      "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    author: "Heather McLeod in Human Parts",
+  },
+  {
+    id: 10,
+    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit 10",
     description:
       "AI won’t replace designers, but designers who use AI will replace those who don’t. Similar to how....",
     image:
@@ -38,7 +93,6 @@ const populararticleslist = [
     author: "Heather McLeod in Human Parts",
   },
 ];
-
 const tags = [
   { id: 1, text: "database", color: "bg-pink-300" },
   { id: 2, text: "UX/UI", color: "bg-yellow-400" },
@@ -47,16 +101,29 @@ const tags = [
 ];
 
 const PopularArticles = () => {
+  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(populararticleslist.length / itemsPerPage);
+
+  const sliceArticleslist = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(
+      startIndex + itemsPerPage,
+      populararticleslist.length
+    );
+    return populararticleslist.slice(startIndex, endIndex);
+  };
+
   return (
     <div className="container mx-auto">
-      <div className="my-6 sm:my-10 py-10 sm:py-14">
+      <div className="sm:mt-8 py-10">
         <div className="sm:ml-5 lg:ml-20 ">
           <h2 className="text-3xl sm:text-4xl text-center sm:text-left ">
             Popular articles
           </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-6 sm:px-12 lg:px-40 xl:px-72 drop-shadow-md">
-          {populararticleslist.map((populararticles) => {
+          {sliceArticleslist().map((populararticles) => {
             return (
               <div
                 key={populararticles.id}
@@ -112,6 +179,17 @@ const PopularArticles = () => {
               </div>
             );
           })}
+        </div>
+        <div className="text-center mt-8">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              className={`mr-2 w-12 h-[5px] rounded-full ${
+                index + 1 === currentPage ? "bg-red" : "bg-[#C8C2C2]"
+              }`}
+              onClick={() => setCurrentPage(index + 1)}
+            ></button>
+          ))}
         </div>
       </div>
     </div>

@@ -1,4 +1,6 @@
+import { userProps } from "../user/user";
+
 export type userAction = {
-  changeName: (newName: string) => void;
-  changeRole: (newRole: string) => void;
+  updateUserState: (userProps: Partial<userProps>) => void;
+  updateLoading: (status: boolean) => void;
 };

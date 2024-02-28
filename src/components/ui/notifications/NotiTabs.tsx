@@ -28,6 +28,42 @@ const NotiTabs = () => {
           <Noticard
             title="Lorem ipsum dolor "
             content="Lorem ipsum dolor sit amet consectetur. Leo mattis sodales suspendisse semper tempus "
+            type="publish"
+            status="unread"
+          />
+          <Noticard
+            title="Lorem ipsum dolor "
+            content="Lorem ipsum dolor sit amet consectetur. Leo mattis sodales suspendisse semper tempus "
+            type="publish"
+            status="unread"
+          />
+          <Noticard
+            title="Lorem ipsum dolor "
+            content="Lorem ipsum dolor sit amet consectetur. Leo mattis sodales suspendisse semper tempus "
+            type="publish"
+            status="unread"
+          />
+          <Noticard
+            title="Lorem ipsum dolor "
+            content="Lorem ipsum dolor sit amet consectetur. Leo mattis sodales suspendisse semper tempus "
+            type="publish"
+            status="unread"
+          />
+          <Noticard
+            title="Lorem ipsum dolor "
+            content="Lorem ipsum dolor sit amet consectetur. Leo mattis sodales suspendisse semper tempus "
+            type="publish"
+            status="unread"
+          />
+          <Noticard
+            title="Lorem ipsum dolor "
+            content="Lorem ipsum dolor sit amet consectetur. Leo mattis sodales suspendisse semper tempus "
+            type="publish"
+            status="unread"
+          />
+          <Noticard
+            title="Lorem ipsum dolor "
+            content="Lorem ipsum dolor sit amet consectetur. Leo mattis sodales suspendisse semper tempus "
             type="pending"
             status="read"
           />
