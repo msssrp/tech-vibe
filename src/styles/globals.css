@@ -17,14 +17,3 @@
   min-width: 0;
 }
 
-@media (min-width: 640px) {
-  .embla__slide {
-    flex: 0 0 350px; /* Breakpoint SM slide covers 50% of the viewport */
-  }
-}
-
-@media (min-width: 1024px) {
-  .embla__slide {
-    flex: 0 0 400px; /* Breakpoint SM slide covers 50% of the viewport */
-  }
-}
