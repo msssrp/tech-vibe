@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: "",
   };
 }
-const writepage = () => {
+export default function writepage({ params }: { params: { writeId: string } }) {
   return (
     <div className="container mx-auto px-32 py-10">
       <div className="flex items-center justify-center mt-10 divide-x">
@@ -20,8 +20,7 @@ const writepage = () => {
               viewBox="0 0 24 24"
               strokeWidth={0.5}
               stroke="#9A9A9B"
-              className="w-12 h-12"
-            >
+              className="w-12 h-12">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -39,10 +38,8 @@ const writepage = () => {
         </div>
       </div>
       <div className="mt-8">
-        <TinyEditor />
+        <TinyEditor writeId={params.writeId} />
       </div>
     </div>
   );
-};
-
-export default writepage;
+}

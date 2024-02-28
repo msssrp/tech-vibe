@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import { profileItems } from "../ui/Items";
 import NotiTabs from "../ui/notifications/NotiTabs";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ import { useUserStore } from "@/store/user";
 import ProfileLoading from "../ui/ProfileLoading";
 import NameLoading from "../ui/NameLoading";
 import { ScrollArea } from "@mantine/core";
+import { v4 as uuid } from "uuid";
 const UserNavbar = () => {
   const router = useRouter();
   const handlerSignOut = async () => {
@@ -55,7 +56,7 @@ const UserNavbar = () => {
         </div>
       </div>
       <div className="flex-none lg:mr-3">
-        <Link href={"/write"} className="mr-4 flex">
+        <Link href={`/write/${uuid()}`} className="mr-4 flex">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
