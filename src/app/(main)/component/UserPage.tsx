@@ -1,16 +1,7 @@
 "use client";
 import React, { useState } from "react";
-const tages = [
-  { tags_id: 1, tags_name: "database", tags_color: "bg-pink-300" },
-  { tags_id: 2, tags_name: "UX/UI", tags_color: "bg-yellow-400" },
-  { tags_id: 3, tags_name: "Tester", tags_color: "bg-blue-400" },
-  { tags_id: 4, tags_name: "Development", tags_color: "bg-green-400" },
-  { tags_id: 5, tags_name: "Github", tags_color: "bg-yellow-400" },
-  { tags_id: 6, tags_name: "PHP", tags_color: "bg-pink-300" },
-  { tags_id: 7, tags_name: "C/C+", tags_color: "bg-yellow-400" },
-  { tags_id: 8, tags_name: "Vite", tags_color: "bg-blue-400" },
-];
-const populararticleslist = [
+
+const articleslist = [
   {
     id: 1,
     title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
@@ -66,6 +57,16 @@ const populararticleslist = [
     author: "Heather McLeod in Human Parts",
   },
 ];
+const tag = [
+  { tag_id: 1, tag_name: "database", tag_color: "bg-pink-300" },
+  { tag_id: 2, tag_name: "UX/UI", tag_color: "bg-yellow-400" },
+  { tag_id: 3, tag_name: "Tester", tag_color: "bg-blue-400" },
+  { tag_id: 4, tag_name: "Development", tag_color: "bg-green-400" },
+  { tag_id: 5, tag_name: "Github", tag_color: "bg-yellow-400" },
+  { tag_id: 6, tag_name: "PHP", tag_color: "bg-pink-300" },
+  { tag_id: 7, tag_name: "C/C+", tag_color: "bg-yellow-400" },
+  { tag_id: 8, tag_name: "Vite", tag_color: "bg-blue-400" },
+];
 
 const UserPage = () => {
   const [itemsPerPage, setItemsPerPage] = useState(3);
@@ -75,9 +76,9 @@ const UserPage = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = Math.min(
       startIndex + itemsPerPage,
-      populararticleslist.length
+      articleslist.length
     );
-    return populararticleslist.slice(startIndex, endIndex);
+    return articleslist.slice(startIndex, endIndex);
   };
   return (
     <div className="container mx-auto ">
@@ -110,13 +111,13 @@ const UserPage = () => {
                 tabIndex={0}
                 className="dropdown-content z-[1] menu p-4 shadow bg-base-100 rounded-box w-72 flex flex-row"
               >
-                {tages.map((tag) => {
+                {tag.map((tag) => {
                   return (
                     <button
-                      key={tag.tags_id}
-                      className={`btn btn-sm badge ${tag.tags_color} text-white rounded-full `}
+                      key={tag.tag_id}
+                      className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full `}
                     >
-                      <p>{tag.tags_name}</p>
+                      <p>{tag.tag_name}</p>
                     </button>
                   );
                 })}
@@ -132,14 +133,14 @@ const UserPage = () => {
                 Following
               </button>
             </div>
-            <div className="selected-tags border-l pl-6 overflow-x-hidden">
-              {tages.map((tag) => {
+            <div className="selected-tag border-l pl-6 overflow-x-hidden">
+              {tag.map((tag) => {
                 return (
                   <button
-                    key={tag.tags_id}
-                    className={`btn btn-sm badge ${tag.tags_color} text-white rounded-full mr-[1px]`}
+                    key={tag.tag_id}
+                    className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full mr-[1px]`}
                   >
-                    <p>{tag.tags_name}</p>
+                    <p>{tag.tag_name}</p>
                   </button>
                 );
               })}
@@ -147,7 +148,7 @@ const UserPage = () => {
           </div>
           {/* allArticles */}
           <div className="space-y-2">
-            {populararticleslist.map((populararticles) => {
+            {articleslist.map((populararticles) => {
               return (
                 <div className="card card-side border-b rounded-none items-center ">
                   <div className="card-body pr-10">
@@ -165,13 +166,13 @@ const UserPage = () => {
                     </p>
                     <div className="flex items-center">
                       <div className="w-1/2 h-8 overflow-hidden space-x-1">
-                        {tages.map((tag) => {
+                        {tag.map((tag) => {
                           return (
                             <button
-                              key={tag.tags_id}
-                              className={`btn btn-sm badge ${tag.tags_color} text-white rounded-full `}
+                              key={tag.tag_id}
+                              className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full `}
                             >
-                              <p>{tag.tags_name}</p>
+                              <p>{tag.tag_name}</p>
                             </button>
                           );
                         })}
@@ -303,19 +304,19 @@ const UserPage = () => {
                   </a>
                 </div>
               </div>
-              {/* popularTags */}
+              {/* populartag */}
               <div className="w-full">
                 <h2 className="uppercase font-semibold text-lg">
-                  Popular Tags
+                  Popular tag
                 </h2>
                 <div className="mt-2 ">
-                  {tages.map((tag) => {
+                  {tag.map((tag) => {
                     return (
                       <button
-                        key={tag.tags_id}
-                        className={`btn btn-sm badge ${tag.tags_color} text-white rounded-full m-1`}
+                        key={tag.tag_id}
+                        className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full m-1`}
                       >
-                        <p>{tag.tags_name}</p>
+                        <p>{tag.tag_name}</p>
                       </button>
                     );
                   })}

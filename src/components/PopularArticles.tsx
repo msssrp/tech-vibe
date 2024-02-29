@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 
-const populararticleslist = [
+//mokup data articles
+const articleslist = [
   {
     id: 1,
     title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit 1",
@@ -93,26 +94,28 @@ const populararticleslist = [
     author: "Heather McLeod in Human Parts",
   },
 ];
-const tags = [
-  { tags_id: 1, tags_name: "database", tags_color: "bg-pink-300" },
-  { tags_id: 2, tags_name: "UX/UI", tags_color: "bg-yellow-400" },
-  { tags_id: 3, tags_name: "Tester", tags_color: "bg-blue-400" },
-  { tags_id: 4, tags_name: "Development", tags_color: "bg-green-400" },
+//mokup data tag
+const tag = [
+  { tag_id: 1, tag_name: "database", tag_color: "bg-pink-300" },
+  { tag_id: 2, tag_name: "UX/UI", tag_color: "bg-yellow-400" },
+  { tag_id: 3, tag_name: "Tester", tag_color: "bg-blue-400" },
+  { tag_id: 4, tag_name: "Development", tag_color: "bg-green-400" },
 ];
 
 const PopularArticles = () => {
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(populararticleslist.length / itemsPerPage);
 
   const sliceArticleslist = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = Math.min(
       startIndex + itemsPerPage,
-      populararticleslist.length
+      articleslist.length
     );
-    return populararticleslist.slice(startIndex, endIndex);
+    return articleslist.slice(startIndex, endIndex);
   };
+
+  const totalPages = Math.ceil(articleslist.length / itemsPerPage);
 
   return (
     <div className="container mx-auto">
@@ -123,34 +126,34 @@ const PopularArticles = () => {
           </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-6 sm:px-12 lg:px-40 xl:px-72 drop-shadow-md ">
-          {sliceArticleslist().map((populararticles) => {
+          {sliceArticleslist().map((articleslist) => {
             return (
               <div
-                key={populararticles.id}
+                key={articleslist.id}
                 className="flex justify-center cursor-pointer "
               >
                 <div className="card card-compact w-80 sm:w-[30rem] h-96 bg-base-100 drop-shadow-sm rounded-t-[50px] rounded-md border">
                   <figure>
                     <img
-                      src={populararticles.image}
+                      src={articleslist.image}
                       alt="Shoes"
                       className="w-full object-cover"
                     />
                   </figure>
                   <div className="card-body ">
                     <span className="space-x-1 line-clamp-1">
-                      {tags.map((badge) => (
+                      {tag.map((badge) => (
                         <div
-                          key={badge.tags_id}
-                          className={`badge ${badge.tags_color} text-white py-3`}
+                          key={badge.tag_id}
+                          className={`badge ${badge.tag_color} text-white py-3`}
                         >
-                          {badge.tags_name}
+                          {badge.tag_name}
                         </div>
                       ))}
                     </span>
-                    <h2 className="card-title">{populararticles.title}</h2>
+                    <h2 className="card-title">{articleslist.title}</h2>
                     <p className="line-clamp-2">
-                      {populararticles.description}
+                      {articleslist.description}
                     </p>
                     <div className="flex justify-between items-center mt-2">
                       <div className="avatar items-center ">
@@ -160,7 +163,7 @@ const PopularArticles = () => {
                             alt="Author"
                           />
                         </div>
-                        <p className="ml-2">{populararticles.author}</p>
+                        <p className="ml-2">{articleslist.author}</p>
                       </div>
                       <a className="cursor-pointer">
                         <svg
