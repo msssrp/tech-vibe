@@ -148,21 +148,21 @@ const UserPage = () => {
           </div>
           {/* allArticles */}
           <div className="space-y-2">
-            {articleslist.map((populararticles) => {
+            {articleslist.map((articleslist) => {
               return (
                 <div className="card card-side border-b rounded-none items-center ">
                   <div className="card-body pr-10">
                     <div className="avatar items-center">
                       <div className="w-8 rounded-full">
-                        <img src={populararticles.image} />
+                        <img src={articleslist.image} />
                       </div>
-                      <p className="ml-2 ">{populararticles.author}</p>
+                      <p className="ml-2 ">{articleslist.author}</p>
                     </div>
                     <h2 className="card-title text-2xl ">
-                      {populararticles.title}
+                      {articleslist.title}
                     </h2>
                     <p className="line-clamp-2">
-                      {populararticles.description}
+                      {articleslist.description}
                     </p>
                     <div className="flex items-center">
                       <div className="w-1/2 h-8 overflow-hidden space-x-1">
@@ -233,7 +233,7 @@ const UserPage = () => {
                     </div>
                   </div>
                   <div>
-                    <img src={populararticles.image} alt="" className="w-96" />
+                    <img src={articleslist.image} alt="" className="w-96" />
                   </div>
                 </div>
               );
@@ -249,20 +249,20 @@ const UserPage = () => {
                 <h2 className="uppercase font-semibold text-lg">
                   Popular articles
                 </h2>
-                {sliceArticleslist().map((populararticles) => {
+                {sliceArticleslist().map((articleslist) => {
                   return (
                     <div className="card-compact bg-[#F8F8F8] rounded-md px-4 py-2">
                       <div className="card-body">
                         <div className="avatar items-center">
                           <div className="w-8 rounded-full">
-                            <img src={populararticles.image} />
+                            <img src={articleslist.image} />
                           </div>
                           <p className="ml-2 text-[#606060]">
-                            {populararticles.author}
+                            {articleslist.author}
                           </p>
                         </div>
                         <div className="card-title line-clamp-2">
-                          <p>{populararticles.title}</p>
+                          <p>{articleslist.title}</p>
                         </div>
                       </div>
                     </div>
@@ -279,20 +279,20 @@ const UserPage = () => {
                 <h2 className="uppercase font-semibold text-lg">
                   Technology articles By NPRU
                 </h2>
-                {sliceArticleslist().map((populararticles) => {
+                {sliceArticleslist().map((articleslist) => {
                   return (
                     <div className="card-compact bg-[#F8F8F8] rounded-md px-4 py-2">
                       <div className="card-body">
                         <div className="avatar items-center">
                           <div className="w-8 rounded-full">
-                            <img src={populararticles.image} />
+                            <img src={articleslist.image} />
                           </div>
                           <p className="ml-2 text-[#606060]">
-                            {populararticles.author}
+                            {articleslist.author}
                           </p>
                         </div>
                         <div className="card-title line-clamp-2">
-                          <p>{populararticles.title}</p>
+                          <p>{articleslist.title}</p>
                         </div>
                       </div>
                     </div>
