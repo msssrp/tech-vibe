@@ -157,7 +157,7 @@ const UserPage = () => {
                       </div>
                       <p className="ml-2 ">{populararticles.author}</p>
                     </div>
-                    <h2 className="card-title text-2xl">
+                    <h2 className="card-title text-2xl ">
                       {populararticles.title}
                     </h2>
                     <p className="line-clamp-2">

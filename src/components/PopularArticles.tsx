@@ -97,7 +97,7 @@ const tags = [
   { tags_id: 1, tags_name: "database", tags_color: "bg-pink-300" },
   { tags_id: 2, tags_name: "UX/UI", tags_color: "bg-yellow-400" },
   { tags_id: 3, tags_name: "Tester", tags_color: "bg-blue-400" },
-  { tags_id: 4, tags_name: "Development", tags_colorlor: "bg-green-400" },
+  { tags_id: 4, tags_name: "Development", tags_color: "bg-green-400" },
 ];
 
 const PopularArticles = () => {
@@ -122,7 +122,7 @@ const PopularArticles = () => {
             Popular articles
           </h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-6 sm:px-12 lg:px-40 xl:px-72 drop-shadow-md">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-6 sm:px-12 lg:px-40 xl:px-72 drop-shadow-md ">
           {sliceArticleslist().map((populararticles) => {
             return (
               <div
