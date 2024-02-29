@@ -94,10 +94,10 @@ const populararticleslist = [
   },
 ];
 const tags = [
-  { id: 1, text: "database", color: "bg-pink-300" },
-  { id: 2, text: "UX/UI", color: "bg-yellow-400" },
-  { id: 3, text: "Tester", color: "bg-blue-400" },
-  { id: 4, text: "Development", color: "bg-green-400" },
+  { tags_id: 1, tags_name: "database", tags_color: "bg-pink-300" },
+  { tags_id: 2, tags_name: "UX/UI", tags_color: "bg-yellow-400" },
+  { tags_id: 3, tags_name: "Tester", tags_color: "bg-blue-400" },
+  { tags_id: 4, tags_name: "Development", tags_colorlor: "bg-green-400" },
 ];
 
 const PopularArticles = () => {
@@ -141,10 +141,10 @@ const PopularArticles = () => {
                     <span className="space-x-1 line-clamp-1">
                       {tags.map((badge) => (
                         <div
-                          key={badge.id}
-                          className={`badge ${badge.color} text-white py-3`}
+                          key={badge.tags_id}
+                          className={`badge ${badge.tags_color} text-white py-3`}
                         >
-                          {badge.text}
+                          {badge.tags_name}
                         </div>
                       ))}
                     </span>

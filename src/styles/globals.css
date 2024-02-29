@@ -17,3 +17,6 @@
   min-width: 0;
 }
 
+.tox-statusbar{
+  display: none !important;
+}
