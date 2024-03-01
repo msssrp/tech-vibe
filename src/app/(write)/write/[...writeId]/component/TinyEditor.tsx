@@ -6,6 +6,7 @@ import { v4 as uuid } from "uuid";
 import { tinyProps } from "@/types/article/article";
 import { clearTimeout } from "timers";
 import { useEditorStore } from "@/store/article";
+import { TagsInput } from "@mantine/core";
 const TinyEditor: React.FC<tinyProps> = ({ writeId }) => {
   const supabase = createSupabaseClient();
   const editorRef = useRef<any>(null);
@@ -66,12 +67,11 @@ const TinyEditor: React.FC<tinyProps> = ({ writeId }) => {
             plugins:
               "autoresize quickbars image media table hr paste link anchor lists codesample",
             content_style:
-              "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }",
+              "body { font-family:Helvetica,Arial,sans-serif; font-size:18px }",
             quickbars_selection_toolbar:
-              "bold italic | h1 h2 h3 blockquote codesample | alignleft aligncenter alignright | outdent indent",
+              "bold italic | h1 h2 h3 blockquote | alignleft aligncenter alignright | outdent indent",
             quickbars_insert_toolbar:
-              "image media link | alignleft aligncenter alignright table hr | numlist bullist anchor",
-            a11y_advanced_options: true,
+              "image media link | alignleft aligncenter alignright table hr | numlist bullist anchor codesample",
             file_picker_types: "image",
             quickbars_image_toolbar: false,
             images_upload_handler: handlerImageUpload,
@@ -82,14 +82,21 @@ const TinyEditor: React.FC<tinyProps> = ({ writeId }) => {
                   e.element.style.display = "block";
                   e.element.style.margin = "0 auto";
                   e.element.style.width = "60%";
+                  e.element.style.height="400px"
                 }
+               
               });
             },
           }}
         />
-      </div>
 
-      <button onClick={log}>log</button>
+        
+      </div>
+      <div className="container mx-auto w-full px-14 overflow-x-auto ">
+        <button onClick={log}>log</button>
+          <TagsInput className="w-1/3 " label="Press Enter to submit a tag" clearable placeholder="Enter tag"/>
+        </div>
+      
     </>
   );
 };
