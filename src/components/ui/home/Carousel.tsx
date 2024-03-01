@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 
-const populararticleslist = [
+const articleslist = [
   {
     id: 1,
     image:
@@ -77,11 +77,11 @@ const Carousel = () => {
       <div className="embla" dir="ltr">
         <div className="emble__viweport" ref={emblaRef}>
           <div className="embla__container">
-            {populararticleslist.map((populararticles) => {
+            {articleslist.map((articleslist) => {
               return (
-                <div className="embla__slide px-2" key={populararticles.id}>
+                <div className="embla__slide px-2" key={articleslist.id}>
                   <img
-                    src={populararticles.image}
+                    src={articleslist.image}
                     alt=""
                     className="rounded-3xl w-full"
                   />
@@ -95,11 +95,11 @@ const Carousel = () => {
       <div className="embla" dir="rtl">
         <div className="emble__viweport" ref={emblaRef_2}>
           <div className="embla__container ">
-            {populararticleslist.map((populararticles) => {
+            {articleslist.map((articleslist) => {
               return (
-                <div className="embla__slide px-2" key={populararticles.id}>
+                <div className="embla__slide px-2" key={articleslist.id}>
                   <img
-                    src={populararticles.image}
+                    src={articleslist.image}
                     alt=""
                     className="rounded-3xl w-full"
                   />

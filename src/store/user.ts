@@ -1,4 +1,4 @@
-import { userAction } from "@/types/store/user-store";
+import { userAction } from "@/types/store-type/user-store";
 import { Loading, userProps } from "@/types/user/user";
 import { create } from "zustand";
 
