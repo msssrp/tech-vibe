@@ -81,11 +81,11 @@ const UserPage = () => {
     return articleslist.slice(startIndex, endIndex);
   };
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto">
       <div className="flex divide-x">
         {/* left */}
         <div className="w-3/4 py-10 pr-11">
-          <div className="flex items-center space-x-4 border-b ">
+          <div className="flex items-center space-x-2 border-b px-2">
             <div className="dropdown">
               <div
                 tabIndex={0}
@@ -96,9 +96,9 @@ const UserPage = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  strokeWidth={0.5}
+                  strokeWidth={1.0}
                   stroke="currentColor"
-                  className="w-6 h-6"
+                  className="w-7 h-7"
                 >
                   <path
                     strokeLinecap="round"
@@ -124,12 +124,12 @@ const UserPage = () => {
               </ul>
             </div>
             <div className="topic">
-              <button className="btn btn-ghost  hover:bg-white text-[#606060] hover:text-black ">
+              <button className="btn btn-ghost px-2 hover:bg-white text-lg text-[#606060] hover:text-black">
                 All articles
               </button>
             </div>
             <div className="topic">
-              <button className="btn btn-ghost hover:bg-white text-[#606060] hover:text-black">
+              <button className="btn btn-ghost px-2 hover:bg-white text-lg text-[#606060] hover:text-black">
                 Following
               </button>
             </div>
@@ -138,7 +138,7 @@ const UserPage = () => {
                 return (
                   <button
                     key={tag.tag_id}
-                    className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full mr-[1px]`}
+                    className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full mr-[5px]`}
                   >
                     <p>{tag.tag_name}</p>
                   </button>
@@ -150,13 +150,13 @@ const UserPage = () => {
           <div className="space-y-2">
             {articleslist.map((articleslist) => {
               return (
-                <div className="card card-side border-b rounded-none items-center ">
-                  <div className="card-body pr-10">
+                <div className="card card-side  border-b rounded-none items-center ">
+                  <div className="card-body px-4">
                     <div className="avatar items-center">
                       <div className="w-8 rounded-full">
                         <img src={articleslist.image} />
                       </div>
-                      <p className="ml-2 ">{articleslist.author}</p>
+                      <p className="ml-2">{articleslist.author}</p>
                     </div>
                     <h2 className="card-title text-2xl ">
                       {articleslist.title}
@@ -241,11 +241,11 @@ const UserPage = () => {
           </div>
         </div>
         {/* right */}
-        <div className="w-1/3 py-14 pl-11">
+        <div className="w-1/3 py-14 pl-11 pr-2">
           <div className="flex items-center">
             <div className="grid grid-row-3">
               {/* popularArticles */}
-              <div className="w-full space-y-1 mb-4">
+              <div className="w-full space-y-3 mb-6">
                 <h2 className="uppercase font-semibold text-lg">
                   Popular articles
                 </h2>
@@ -262,20 +262,20 @@ const UserPage = () => {
                           </p>
                         </div>
                         <div className="card-title line-clamp-2">
-                          <p>{articleslist.title}</p>
+                          <p className="font-normal text-base">{articleslist.title}</p>
                         </div>
                       </div>
                     </div>
                   );
                 })}
-                <div className="text-center">
-                  <a href="#" className="underline cursor-pointer">
+                <div className="text-center pt-3">
+                  <a href="#" className="underline cursor-pointer ">
                     show more
                   </a>
                 </div>
               </div>
               {/* npruArticles */}
-              <div className="w-full space-y-1 mb-4">
+              <div className="w-full space-y-3 mb-6">
                 <h2 className="uppercase font-semibold text-lg">
                   Technology articles By NPRU
                 </h2>
@@ -292,13 +292,13 @@ const UserPage = () => {
                           </p>
                         </div>
                         <div className="card-title line-clamp-2">
-                          <p>{articleslist.title}</p>
+                          <p className="font-normal text-base">{articleslist.title}</p>
                         </div>
                       </div>
                     </div>
                   );
                 })}
-                <div className="text-center">
+                <div className="text-center pt-3">
                   <a href="#" className="underline cursor-pointer">
                     show more
                   </a>
