@@ -17,6 +17,21 @@
   min-width: 0;
 }
 
+@media (min-width: 640px) {
+  .embla__slide {
+    flex: 0 0 300px;
+    min-width: 0;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  .embla__slide {
+    flex: 0 0 400px;
+    min-width: 0;
+  }
+}
+
 .tox-statusbar {
   display: none !important;
 }
