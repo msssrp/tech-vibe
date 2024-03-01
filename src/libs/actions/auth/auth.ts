@@ -1,5 +1,4 @@
-import createSupabaseClient from "../supabase/client";
-
+import createSupabaseClient from "@/libs/supabase/client";
 const supabase = createSupabaseClient();
 export async function handlerGoogle() {
   await supabase.auth.signInWithOAuth({

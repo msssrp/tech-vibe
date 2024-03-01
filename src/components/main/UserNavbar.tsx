@@ -1,31 +1,25 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { profileItems } from "../ui/Items";
 import NotiTabs from "../ui/notifications/NotiTabs";
-import { useRouter } from "next/navigation";
-import { SignOut } from "@/libs/actions/auth";
-import getUserSession from "@/libs/actions/getSession";
+import getUserSession from "@/libs/actions/auth/getSession";
 import { getUser } from "@/libs/actions/user/user";
 import { useUserStore } from "@/store/user";
 import ProfileLoading from "../ui/ProfileLoading";
 import NameLoading from "../ui/NameLoading";
 import { ScrollArea } from "@mantine/core";
 import { v4 as uuid } from "uuid";
+import LogOut from "../ui/LogOut";
 const UserNavbar = () => {
-  const router = useRouter();
-  const handlerSignOut = async () => {
-    await SignOut();
-    router.push("/");
-    router.refresh();
-  };
-
+  const [uid, setUid] = useState("");
   const {
     updateUserState,
     updateLoading,
     user_fullname,
     user_profile,
     isLoading,
+    user_id,
   } = useUserStore();
   useEffect(() => {
     const getUserFromSupabase = async () => {
@@ -36,17 +30,22 @@ const UserNavbar = () => {
         updateLoading(false);
       }
     };
+    setUid(uuid());
     getUserFromSupabase();
   }, [user_profile]);
   return (
     <div className="navbar bg-base-100 border-b">
       <div className="flex-1">
-        <img
-          src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
-          width={50}
-          height={50}
-          className="lg:ml-3 mr-2 lg:mr-5"
-        />
+        <Link href={"/"}>
+          <button>
+            <img
+              src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
+              width={50}
+              height={50}
+              className="lg:ml-3 mr-2 lg:mr-5"
+            />
+          </button>
+        </Link>
         <div className="form-control">
           <input
             type="text"
@@ -56,21 +55,26 @@ const UserNavbar = () => {
         </div>
       </div>
       <div className="flex-none lg:mr-3">
-        <Link href={`/write/${uuid()}`} className="mr-4 flex">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="#C9C9C8"
-            className="w-6 h-6">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-            />
-          </svg>
-          <span className="uppercase">write</span>
+        <Link
+          href={`/write/[uid]/[user_id]`}
+          as={`/write/${uid}/${user_id}`}
+          className="mr-4 flex">
+          <button className="flex" type="button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="#C9C9C8"
+              className="w-6 h-6">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+              />
+            </svg>
+            <span className="uppercase">write</span>
+          </button>
         </Link>
         <div className="dropdown dropdown-end">
           <div className="mr-4" tabIndex={0} role="button">
@@ -146,9 +150,7 @@ const UserNavbar = () => {
                     d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
                   />
                 </svg>
-                <span className="text-red" onClick={handlerSignOut}>
-                  Log out
-                </span>
+                <LogOut />
               </a>
             </li>
           </ul>

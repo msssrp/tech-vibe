@@ -1,4 +1,4 @@
-import createSupabaseClient from "../supabase/client";
+import createSupabaseClient from "../../supabase/client";
 import { v4 as uuid } from "uuid";
 
 type uploadProps = {
