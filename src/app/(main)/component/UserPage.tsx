@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { ScrollArea } from "@mantine/core";
 
 const articleslist = [
   {
@@ -69,23 +70,20 @@ const tag = [
 ];
 
 const UserPage = () => {
-  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
 
   const sliceArticleslist = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(
-      startIndex + itemsPerPage,
-      articleslist.length
-    );
+    const endIndex = Math.min(startIndex + itemsPerPage, articleslist.length);
     return articleslist.slice(startIndex, endIndex);
   };
   return (
     <div className="container mx-auto">
       <div className="flex divide-x">
         {/* left */}
-        <div className="w-3/4 py-10 pr-11">
-          <div className="flex items-center space-x-2 border-b px-2">
+        <div className="w-3/4 py-10">
+          <div className="flex items-center space-x-2 border-b px-2 ">
             <div className="dropdown">
               <div
                 tabIndex={0}
@@ -147,111 +145,116 @@ const UserPage = () => {
             </div>
           </div>
           {/* allArticles */}
-          <div className="space-y-2">
-            {articleslist.map((articleslist) => {
-              return (
-                <div className="card card-side  border-b rounded-none items-center ">
-                  <div className="card-body px-4">
-                    <div className="avatar items-center">
-                      <div className="w-8 rounded-full">
-                        <img src={articleslist.image} />
+          <ScrollArea
+            className="pr-11 h-[85rem] overflow-auto"
+            type="auto"
+            scrollbarSize={8}
+            offsetScrollbars
+          >
+            <div className="space-y-2 ">
+              {articleslist.map((articleslist) => {
+                return (
+                  <div className="card card-side border-b rounded-none items-center ">
+                    <div className="card-body px-4">
+                      <div className="avatar items-center">
+                        <div className="w-8 rounded-full">
+                          <img src={articleslist.image} />
+                        </div>
+                        <p className="ml-2">{articleslist.author}</p>
                       </div>
-                      <p className="ml-2">{articleslist.author}</p>
-                    </div>
-                    <h2 className="card-title text-2xl ">
-                      {articleslist.title}
-                    </h2>
-                    <p className="line-clamp-2">
-                      {articleslist.description}
-                    </p>
-                    <div className="flex items-center">
-                      <div className="w-1/2 h-8 overflow-hidden space-x-1">
-                        {tag.map((tag) => {
-                          return (
-                            <button
-                              key={tag.tag_id}
-                              className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full `}
-                            >
-                              <p>{tag.tag_name}</p>
+                      <h2 className="card-title text-2xl ">
+                        {articleslist.title}
+                      </h2>
+                      <p className="line-clamp-2">{articleslist.description}</p>
+                      <div className="flex items-center">
+                        <div className="w-1/2 h-8 overflow-hidden space-x-1">
+                          {tag.map((tag) => {
+                            return (
+                              <button
+                                key={tag.tag_id}
+                                className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full `}
+                              >
+                                <p>{tag.tag_name}</p>
+                              </button>
+                            );
+                          })}
+                        </div>
+                        <div className="w-1/2 flex justify-between items-center ">
+                          <p>7 min read</p>
+                          <div>
+                            <button className="btn btn-circle btn-ghost hover:bg-white">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                                />
+                              </svg>
                             </button>
-                          );
-                        })}
-                      </div>
-                      <div className="w-1/2 flex justify-between items-center ">
-                        <p>7 min read</p>
-                        <div>
-                          <button className="btn btn-circle btn-ghost hover:bg-white">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className="w-6 h-6"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                              />
-                            </svg>
-                          </button>
-                          <button className="btn btn-circle btn-ghost hover:bg-white">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="#FFC107"
-                              className="w-6 h-6"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
-                              />
-                            </svg>
-                          </button>
-                          <button className="btn btn-circle btn-ghost hover:bg-white">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="#699BF7"
-                              className="w-6 h-6"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z"
-                              />
-                            </svg>
-                          </button>
+                            <button className="btn btn-circle btn-ghost hover:bg-white">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="#FFC107"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
+                                />
+                              </svg>
+                            </button>
+                            <button className="btn btn-circle btn-ghost hover:bg-white">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="#699BF7"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    <div>
+                      <img src={articleslist.image} alt="" className="w-96" />
+                    </div>
                   </div>
-                  <div>
-                    <img src={articleslist.image} alt="" className="w-96" />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          </ScrollArea>
         </div>
         {/* right */}
-        <div className="w-1/3 py-14 pl-11 pr-2">
+        <div className="w-1/3 py-[5.5rem] pl-11 pr-2 ">
           <div className="flex items-center">
             <div className="grid grid-row-3">
               {/* popularArticles */}
-              <div className="w-full space-y-3 mb-6">
+              <div className="w-full space-y-3 mb-6 ">
                 <h2 className="uppercase font-semibold text-lg">
                   Popular articles
                 </h2>
                 {sliceArticleslist().map((articleslist) => {
                   return (
-                    <div className="card-compact bg-[#F8F8F8] rounded-md px-4 py-2">
+                    <div className="card-compact bg-[#F8F8F8] rounded-md px-4 ">
                       <div className="card-body">
                         <div className="avatar items-center">
                           <div className="w-8 rounded-full">
@@ -262,7 +265,9 @@ const UserPage = () => {
                           </p>
                         </div>
                         <div className="card-title line-clamp-2">
-                          <p className="font-normal text-base">{articleslist.title}</p>
+                          <p className="font-normal text-base">
+                            {articleslist.title}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -281,7 +286,7 @@ const UserPage = () => {
                 </h2>
                 {sliceArticleslist().map((articleslist) => {
                   return (
-                    <div className="card-compact bg-[#F8F8F8] rounded-md px-4 py-2">
+                    <div className="card-compact bg-[#F8F8F8] rounded-md px-4">
                       <div className="card-body">
                         <div className="avatar items-center">
                           <div className="w-8 rounded-full">
@@ -292,7 +297,9 @@ const UserPage = () => {
                           </p>
                         </div>
                         <div className="card-title line-clamp-2">
-                          <p className="font-normal text-base">{articleslist.title}</p>
+                          <p className="font-normal text-base">
+                            {articleslist.title}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -306,9 +313,7 @@ const UserPage = () => {
               </div>
               {/* populartag */}
               <div className="w-full">
-                <h2 className="uppercase font-semibold text-lg">
-                  Popular tag
-                </h2>
+                <h2 className="uppercase font-semibold text-lg">Popular tag</h2>
                 <div className="mt-2 ">
                   {tag.map((tag) => {
                     return (
