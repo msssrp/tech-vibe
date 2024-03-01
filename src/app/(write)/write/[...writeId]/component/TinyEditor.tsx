@@ -14,7 +14,18 @@ const TinyEditor: React.FC<tinyProps> = ({ writeId }) => {
       console.log(editorRef.current.getContent());
     }
   };
+  const { content, setContent, setSaveStatus } = useEditorStore((state) => ({
+    content: state.content,
+    setContent: state.setContent,
+    setSaveStatus: state.setSaveStatus,
+  }));
+  useEffect(() => {
+    setSaveStatus("saving");
+  }, [content]);
 
+  const handlerEditorChange = (newContent: string, editor: any) => {
+    setContent(newContent);
+  };
   const handlerImageUpload: any = (
     blobInfo: any,
     success: any,
@@ -36,21 +47,9 @@ const TinyEditor: React.FC<tinyProps> = ({ writeId }) => {
     });
   };
 
-  const { content, setContent, setSaveStatus } = useEditorStore((state) => ({
-    content: state.content,
-    setContent: state.setContent,
-    setSaveStatus: state.setSaveStatus,
-  }));
-  useEffect(() => {
-    setSaveStatus("saving");
-  }, [content]);
-
-  const handlerEditorChange = (newContent: string, editor: any) => {
-    setContent(newContent);
-  };
   return (
     <>
-      <div className="container mx-auto px-14 border-none outline-none min-h-screen">
+      <div className="container mx-auto px-14 border-none outline-none overflow-auto min-h-96">
         <Editor
           apiKey="r867q9o4rl69mxxxwmj4ok0xypnt6hswpfhcaeq27kxma3wz"
           onInit={(evt, editor) => (editorRef.current = editor)}
@@ -77,6 +76,15 @@ const TinyEditor: React.FC<tinyProps> = ({ writeId }) => {
             quickbars_image_toolbar: false,
             images_upload_handler: handlerImageUpload,
             placeholder: "Write something",
+            setup: function (editor: any) {
+              editor.on("NodeChange", function (e: any) {
+                if (e.element.nodeName === "IMG") {
+                  e.element.style.display = "block";
+                  e.element.style.margin = "0 auto";
+                  e.element.style.width = "60%";
+                }
+              });
+            },
           }}
         />
       </div>
