@@ -72,7 +72,7 @@ const Carousel = () => {
   }, [emblaApi, emblaApi_2]);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 mt-16">
       {/* Carousel_1 */}
       <div className="embla" dir="ltr">
         <div className="emble__viweport" ref={emblaRef}>
