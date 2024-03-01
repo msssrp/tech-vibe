@@ -66,7 +66,7 @@ const TinyEditor: React.FC<tinyProps> = ({ writeId }) => {
             plugins:
               "autoresize quickbars image media table hr paste link anchor lists codesample",
             content_style:
-              "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+              "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }",
             quickbars_selection_toolbar:
               "bold italic | h1 h2 h3 blockquote codesample | alignleft aligncenter alignright | outdent indent",
             quickbars_insert_toolbar:

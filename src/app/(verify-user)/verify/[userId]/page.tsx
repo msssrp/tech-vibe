@@ -17,7 +17,7 @@ export default async function page({ params }: { params: { userId: string } }) {
       <div className="flex flex-col justify-center items-center max-w-md sm:max-w-lg text-center">
         <span className="font-medium text-3xl">Almost there!</span>
         <span className="mt-3">
-          Finish creating your account for the full Medium experience.
+          Finish creating your account for the full TechVibe experience.
         </span>
       </div>
       <VerifyInput
