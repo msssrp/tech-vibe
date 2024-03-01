@@ -1,4 +1,4 @@
-import getUserSession from "@/libs/actions/getSession";
+import getUserSession from "@/libs/actions/auth/getSession";
 import UserPage from "./component/UserPage";
 import HomePage from "./component/HomePage";
 import { getUser } from "@/libs/actions/user/user";

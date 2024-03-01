@@ -1,4 +1,4 @@
-import { userProps } from "../user/user";
+import { userProps } from "../../types/user/user";
 
 export type userAction = {
   updateUserState: (userProps: Partial<userProps>) => void;

@@ -9,6 +9,19 @@ export type userProps = {
   user_verify?: boolean;
 };
 
+export type userWriteProps = {
+  user: {
+    user_id?: string;
+    user_email?: string;
+    user_fullname?: string;
+    user_profile?: string;
+    user_provider?: string;
+    created_at?: string;
+    updated_at?: string;
+    user_verify?: boolean;
+  };
+};
+
 export type Loading = {
   isLoading: boolean;
 };

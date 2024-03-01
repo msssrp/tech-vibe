@@ -1,5 +1,5 @@
 import OauthButton from "@/components/authentication/OauthButton";
-import getUserSession from "@/libs/actions/getSession";
+import getUserSession from "@/libs/actions/auth/getSession";
 import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
