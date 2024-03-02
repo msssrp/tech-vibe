@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const populararticleslist = [
+const articleslist = [
   {
     id: 1,
     title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
@@ -60,16 +60,15 @@ const populararticleslist = [
 const NpruAarticles = () => {
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(populararticleslist.length / itemsPerPage);
 
   const sliceArticleslist = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(
-      startIndex + itemsPerPage,
-      populararticleslist.length
-    );
-    return populararticleslist.slice(startIndex, endIndex);
+    const endIndex = Math.min(startIndex + itemsPerPage, articleslist.length);
+    return articleslist.slice(startIndex, endIndex);
   };
+
+  const totalPages = Math.ceil(articleslist.length / itemsPerPage);
+  
   return (
     <div className="bg-red text-center py-10 sm:py-14">
       <div className="flex flex-col justify-center items-center text-white space-y-2 sm:space-y-5">
@@ -83,23 +82,21 @@ const NpruAarticles = () => {
       </div>
       <div className="flex justify-center mt-6 sm:mt-8 relative px-16">
         <div className="grid grid-cols-1 sm:grid-cols-3 sm:mx-5 gap-2 space-y-5 sm:space-y-0 ">
-          {sliceArticleslist().map((populararticles) => {
+          {sliceArticleslist().map((articleslist) => {
             return (
               <div
-                key={populararticles.id}
+                key={articleslist.id}
                 className="flex justify-center items-center mx-2 cursor-pointer "
               >
                 <div className="card card-compact w-64 bg-base-100 shadow-xl">
                   <figure>
-                    <img src={populararticles.image} alt="" className="" />
+                    <img src={articleslist.image} alt="" className="" />
                   </figure>
                   <div className="card-body">
                     <h2 className="text-lg font-semibold line-clamp-2">
-                      {populararticles.title}
+                      {articleslist.title}
                     </h2>
-                    <p className="line-clamp-2 ">
-                      {populararticles.description}
-                    </p>
+                    <p className="line-clamp-2 ">{articleslist.description}</p>
                   </div>
                 </div>
               </div>
@@ -112,8 +109,7 @@ const NpruAarticles = () => {
               onClick={() => setCurrentPage(currentPage + 1)}
               className="px-1 sm:px-2 rounded-full text-white"
               disabled={
-                currentPage ===
-                Math.ceil(populararticleslist.length / itemsPerPage)
+                currentPage === Math.ceil(articleslist.length / itemsPerPage)
               }
             >
               <svg
