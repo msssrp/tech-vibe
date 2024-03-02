@@ -1,10 +1,21 @@
-import { userAction } from "@/types/store/user-store";
-import { userProps } from "@/types/user/user";
+import { userAction } from "@/types/store-type/user-store";
+import { Loading, userProps } from "@/types/user/user";
 import { create } from "zustand";
 
-export const useUserStore = create<userProps & userAction>((set) => ({
-  firstName: "first",
-  role: "first",
-  changeName: (newName) => set(() => ({ firstName: newName })),
-  changeRole: (newRole) => set(() => ({ role: newRole })),
+const initialState: userProps = {
+  user_id: "",
+  user_email: "",
+  user_fullname: "",
+  user_provider: "",
+  user_profile: "",
+  user_verify: false,
+};
+
+export const useUserStore = create<userProps & Loading & userAction>((set) => ({
+  ...initialState,
+  isLoading: true,
+  updateLoading: (status) =>
+    set((state) => ({ isLoading: (state.isLoading = status) })),
+  updateUserState: (updateUser) =>
+    set((state) => ({ ...state, ...updateUser })),
 }));

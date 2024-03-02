@@ -1,4 +1,4 @@
-import { CounterActions, CounterState } from "@/types/store/counter-type";
+import { CounterActions, CounterState } from "@/types/store-type/counter-type";
 import { create } from "zustand";
 
 export const useCounterStore = create<CounterState & CounterActions>((set) => ({

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 
-const populararticleslist = [
+const articleslist = [
   {
     id: 1,
     image:
@@ -56,32 +56,34 @@ const populararticleslist = [
   },
 ];
 const Carousel = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 3000 , align: "end"}, [
-    Autoplay({ delay: 2500 }),
-  ]);
-  const [emblaRef_2, emblaApi_2] = useEmblaCarousel({ direction: 'rtl', loop: true, duration: 3000, align: "center"}, [
-    Autoplay({ delay: 2500 }),
-  ]);
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, duration: 3000, align: "end" },
+    [Autoplay({ delay: 2500 })]
+  );
+  const [emblaRef_2, emblaApi_2] = useEmblaCarousel(
+    { direction: "rtl", loop: true, duration: 3000, align: "center" },
+    [Autoplay({ delay: 2500 })]
+  );
 
   useEffect(() => {
     if (emblaApi) {
       console.log(emblaApi.slideNodes());
     }
-  }, [emblaApi,emblaApi_2]);
+  }, [emblaApi, emblaApi_2]);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 mt-16">
       {/* Carousel_1 */}
       <div className="embla" dir="ltr">
         <div className="emble__viweport" ref={emblaRef}>
           <div className="embla__container">
-            {populararticleslist.map((populararticles) => {
+            {articleslist.map((articleslist) => {
               return (
-                <div className="embla__slide px-2" key={populararticles.id}>
+                <div className="embla__slide px-2" key={articleslist.id}>
                   <img
-                    src={populararticles.image}
+                    src={articleslist.image}
                     alt=""
-                    className="rounded-3xl w-full h-64"
+                    className="rounded-3xl w-full"
                   />
                 </div>
               );
@@ -93,13 +95,13 @@ const Carousel = () => {
       <div className="embla" dir="rtl">
         <div className="emble__viweport" ref={emblaRef_2}>
           <div className="embla__container ">
-            {populararticleslist.map((populararticles) => {
+            {articleslist.map((articleslist) => {
               return (
-                <div className="embla__slide px-2" key={populararticles.id}>
+                <div className="embla__slide px-2" key={articleslist.id}>
                   <img
-                    src={populararticles.image}
+                    src={articleslist.image}
                     alt=""
-                    className="rounded-3xl w-full h-64"
+                    className="rounded-3xl w-full"
                   />
                 </div>
               );

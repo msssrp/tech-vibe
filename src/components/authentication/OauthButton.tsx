@@ -1,6 +1,6 @@
 "use client";
+import { handlerGithub, handlerGoogle } from "@/libs/actions/user/auth/auth";
 import React from "react";
-import { handlerGoogle, handlerGithub } from "@/libs/actions/auth";
 const OauthButton = () => {
   const handleGoogleSignUp = async () => {
     await handlerGoogle();

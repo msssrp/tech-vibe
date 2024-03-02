@@ -2,8 +2,8 @@ import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import OauthButton from "@/components/authentication/OauthButton";
-import getUserSession from "@/libs/actions/getSession";
 import { redirect } from "next/navigation";
+import getUserSession from "@/libs/actions/user/auth/getSession";
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Sign In",
