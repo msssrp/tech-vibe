@@ -9,10 +9,15 @@ import { useEditorStore } from "@/store/article";
 import { useEffect } from "react";
 
 const WriteNavbar: React.FC<userWriteProps> = ({ user }) => {
-  const { saveStatus } = useEditorStore((state) => ({
+  const { saveStatus, updateArticle, article } = useEditorStore((state) => ({
     saveStatus: state.saveStatus,
+    article: state.article,
+    updateArticle: state.updateArticle,
   }));
 
+  const handlerOnClick = () => {
+    console.log(article);
+  };
   return (
     <nav className="border-b">
       <div className="navbar bg-base-100  container mx-auto">
@@ -45,7 +50,7 @@ const WriteNavbar: React.FC<userWriteProps> = ({ user }) => {
                 </svg>
                 <span>saving</span>
               </>
-            ) : (
+            ) : saveStatus === "saved" ? (
               <>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -62,12 +67,31 @@ const WriteNavbar: React.FC<userWriteProps> = ({ user }) => {
                 </svg>
                 <span>saved</span>
               </>
+            ) : (
+              <>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9.75v6.75m0 0-3-3m3 3 3-3m-8.25 6a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z"
+                  />
+                </svg>
+                <span>start write</span>
+              </>
             )}
           </div>
         </div>
         <div className="flex-none space-x-5">
           <div className="">
-            <button className=" bg-green-600 py-1.5 px-4 rounded-full text-white">
+            <button
+              onClick={handlerOnClick}
+              className=" bg-green-600 py-1.5 px-4 rounded-full text-white">
               Publish
             </button>
           </div>
