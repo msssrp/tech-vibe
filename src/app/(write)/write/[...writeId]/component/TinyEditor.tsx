@@ -3,17 +3,29 @@ import React, { useEffect, useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { tinyProps } from "@/types/article/article";
 import { useEditorStore } from "@/store/article";
+import {
+  getArticleById,
+  newArticle,
+  updateArticleById,
+  uploadImage,
+} from "@/libs/actions/article/article";
+import { TagsInput } from "@mantine/core";
+
+const TinyEditor: React.FC<tinyProps> = ({
+  writeId,
+  title,
+  description,
+  user_id,
+}) => {
+  const [imageCover, setImageCover] = useState("");
 
   const editorRef = useRef<any>(null);
-
   const { article, updateArticle, setSaveStatus } = useEditorStore((state) => ({
     setSaveStatus: state.setSaveStatus,
     article: state.article,
     updateArticle: state.updateArticle,
   }));
-  const log = () => {
-    console.log(article);
-  };
+
   useEffect(() => {
     updateArticle({
       ...article,
@@ -22,21 +34,38 @@ import { useEditorStore } from "@/store/article";
       article_title: title,
       article_description: description,
       user_id: user_id,
+      article_status: "draft",
     });
+    const saveTimeOut = setTimeout(async () => {
+      const { article: articleData } = await getArticleById(writeId);
+      if (articleData) {
+        await updateArticleById(writeId, article);
+        return setSaveStatus("saved");
+      } else {
+        await newArticle(article);
+        return setSaveStatus("saved");
+      }
+    }, 30000);
 
-    setSaveStatus("saving");
-  }, [article.article_content, imageCover, user_id, title, description]);
+    return () => {
+      clearTimeout(saveTimeOut);
+      setSaveStatus("saving");
+    };
+  }, [article.article_content, imageCover, title, description]);
 
   const handlerEditorChange = (newContent: string, editor: any) => {
     updateArticle({ ...article, article_content: newContent });
   };
+
   const hasCoverImageBeenSet = useRef(false);
+
   const handleSetCoverImage = (imageUrl: string) => {
     if (!hasCoverImageBeenSet.current) {
       setImageCover(imageUrl);
       hasCoverImageBeenSet.current = true;
     }
   };
+
   const handlerImageUpload: any = (
     blobInfo: any,
     success: any,
@@ -59,11 +88,10 @@ import { useEditorStore } from "@/store/article";
 
   return (
     <>
-      <div className="container mx-auto px-14 border-none outline-none overflow-auto min-h-96">
+      <div className="container mx-auto px-32 border-none outline-none overflow-auto min-h-96">
         <Editor
           apiKey="r867q9o4rl69mxxxwmj4ok0xypnt6hswpfhcaeq27kxma3wz"
           onInit={(evt, editor) => (editorRef.current = editor)}
-          initialValue=""
           onEditorChange={(newContent, editor) => {
             handlerEditorChange(newContent, editor);
           }}
@@ -91,21 +119,21 @@ import { useEditorStore } from "@/store/article";
                   e.element.style.display = "block";
                   e.element.style.margin = "0 auto";
                   e.element.style.width = "60%";
-                  e.element.style.height="400px"
+                  e.element.style.height = "400px";
                 }
-               
               });
             },
           }}
         />
-
-        
       </div>
-      <div className="container mx-auto w-full px-14 overflow-x-auto ">
-        <button onClick={log}>log</button>
-          <TagsInput className="w-1/3 " label="Press Enter to submit a tag" clearable placeholder="Enter tag"/>
-        </div>
-      
+      <div className="container mx-auto w-full h-12 px-14 ">
+        <TagsInput
+          className="w-1/3 "
+          label="Press Enter to submit a tag"
+          clearable
+          placeholder="Enter tag"
+        />
+      </div>
     </>
   );
 };

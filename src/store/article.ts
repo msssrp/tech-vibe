@@ -8,7 +8,7 @@ interface EditorState {
   updateArticle: (updatedArticle: articleProps["article"]) => void;
 }
 export const useEditorStore = create<EditorState>((set) => ({
-  saveStatus: "",
+  saveStatus: "write",
   setSaveStatus: (status: string) => set({ saveStatus: status }),
   article: {
     article_id: "",
