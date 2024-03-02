@@ -1,13 +1,27 @@
+import { articleProps } from "@/types/article/article";
 import { create } from "zustand";
+
 interface EditorState {
-  content: string;
+  article: articleProps["article"];
   saveStatus: string;
-  setContent: (newContent: string) => void;
   setSaveStatus: (status: string) => void;
+  updateArticle: (updatedArticle: articleProps["article"]) => void;
 }
 export const useEditorStore = create<EditorState>((set) => ({
-  content: "",
-  setContent: (newContent: string) => set({ content: newContent }),
   saveStatus: "",
   setSaveStatus: (status: string) => set({ saveStatus: status }),
+  article: {
+    article_id: "",
+    article_title: "",
+    article_description: "",
+    article_cover: "",
+    article_content: "",
+    article_status: "",
+    user_id: "",
+  },
+  updateArticle: (updatedArticle) =>
+    set((state) => ({
+      ...state,
+      article: { ...state.article, ...updatedArticle },
+    })),
 }));

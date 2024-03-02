@@ -1,5 +1,5 @@
 "use client";
-import { SignOut } from "@/libs/actions/auth/auth";
+import { SignOut } from "@/libs/actions/user/auth/auth";
 import { useRouter } from "next/navigation";
 import React from "react";
 

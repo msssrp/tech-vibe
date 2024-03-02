@@ -1,7 +1,7 @@
 import MainNavbar from "@/components/main/MainNavbar";
 import Footer from "@/components/main/Footer";
-import getUserSession from "@/libs/actions/auth/getSession";
 import UserNavbar from "@/components/main/UserNavbar";
+import getUserSession from "@/libs/actions/user/auth/getSession";
 
 export default async function RootLayout({
   children,

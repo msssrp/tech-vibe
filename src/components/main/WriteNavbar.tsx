@@ -1,3 +1,4 @@
+"use clinet";
 import { profileItems } from "../ui/Items";
 import Link from "next/link";
 import { ScrollArea } from "@mantine/core";
@@ -5,9 +6,13 @@ import NotiTabs from "../ui/notifications/NotiTabs";
 import LogOut from "../ui/LogOut";
 import { userWriteProps } from "@/types/user/user";
 import { useEditorStore } from "@/store/article";
+import { useEffect } from "react";
 
 const WriteNavbar: React.FC<userWriteProps> = ({ user }) => {
-  const saveStatus = useEditorStore((state) => state.saveStatus);
+  const { saveStatus } = useEditorStore((state) => ({
+    saveStatus: state.saveStatus,
+  }));
+
   return (
     <nav className="border-b">
       <div className="navbar bg-base-100  container mx-auto">

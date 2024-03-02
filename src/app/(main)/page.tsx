@@ -1,8 +1,8 @@
-import getUserSession from "@/libs/actions/auth/getSession";
 import UserPage from "./component/UserPage";
 import HomePage from "./component/HomePage";
 import { getUser } from "@/libs/actions/user/user";
 import { redirect } from "next/navigation";
+import getUserSession from "@/libs/actions/user/auth/getSession";
 export default async function Home() {
   const { data } = await getUserSession();
   if (data.user) {

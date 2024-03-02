@@ -3,7 +3,6 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { profileItems } from "../ui/Items";
 import NotiTabs from "../ui/notifications/NotiTabs";
-import getUserSession from "@/libs/actions/auth/getSession";
 import { getUser } from "@/libs/actions/user/user";
 import { useUserStore } from "@/store/user";
 import ProfileLoading from "../ui/ProfileLoading";
@@ -11,6 +10,7 @@ import NameLoading from "../ui/NameLoading";
 import { ScrollArea } from "@mantine/core";
 import { v4 as uuid } from "uuid";
 import LogOut from "../ui/LogOut";
+import getUserSession from "@/libs/actions/user/auth/getSession";
 const UserNavbar = () => {
   const [uid, setUid] = useState("");
   const {
