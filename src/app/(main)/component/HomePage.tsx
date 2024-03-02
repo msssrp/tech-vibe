@@ -5,8 +5,12 @@ import NpruAarticles from "@/components/ui/home/NpruAarticles";
 import PopularTags from "@/components/ui/home/PopularTags";
 import React from "react";
 import HomepageTitle from "@/components/ui/home/HomepageTitle";
+import { getArticles } from "@/libs/actions/article/article";
 
-const HomePage = () => {
+const HomePage = async () => {
+  const articles = await getArticles();
+  console.log(articles);
+
   return (
     <div>
       <HomepageTitle />

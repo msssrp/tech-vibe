@@ -1,10 +1,10 @@
 "use client";
+import { updateFullname } from "@/libs/actions/user/user";
 import {
   getUserSocial,
   insertUserSocial,
-  updateFullname,
   updateUserSocial,
-} from "@/libs/actions/user/user";
+} from "@/libs/actions/user/user_social";
 import { userProps } from "@/types/user/user";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";

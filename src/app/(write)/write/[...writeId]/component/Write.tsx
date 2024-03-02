@@ -1,24 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import TinyEditor from "./TinyEditor";
 import WriteNavbar from "@/components/main/WriteNavbar";
-import useDraftStatus from "@/hook/useDraftStatus";
-
-type WriteProps = {
-  user: {
-    user_id?: string;
-    user_email?: string;
-    user_fullname?: string;
-    user_profile?: string;
-    user_provider?: string;
-    created_at?: string;
-    updated_at?: string;
-    user_verify?: boolean;
-  };
-  writeId: string;
-};
+import { WriteProps } from "@/types/article/article";
+import { useEditorStore } from "@/store/article";
 
 const Write: React.FC<WriteProps> = ({ user, writeId }) => {
+  const { article, updateArticle } = useEditorStore((state) => ({
+    updateArticle: state.updateArticle,
+    article: state.article,
+  }));
+
+  const handlerOnchangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateArticle({ ...article, article_title: e.target.value });
+  };
+  const handlerOnchangeDesc = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateArticle({ ...article, article_description: e.target.value });
+  };
   return (
     <div>
       <WriteNavbar user={user} />
@@ -42,15 +40,29 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
             </button>
           </div>
           <div className="w-full pl-4">
-            <input
-              type="text"
-              placeholder="Title"
-              className="input input-lg w-full focus:outline-none focus:border-none px-0 text-4xl font-semibold capitalize"
-            />
+            <div className="flex flex-col">
+              <input
+                onChange={(e) => handlerOnchangeTitle(e)}
+                type="text"
+                placeholder="Title"
+                className="input input-lg w-full focus:outline-none focus:border-none px-0 text-4xl font-semibold capitalize"
+              />
+              <input
+                onChange={(e) => handlerOnchangeDesc(e)}
+                type="text"
+                placeholder="description"
+                className="input input-md  w-full focus:outline-none focus:border-none px-0 text-xl font-light"
+              />
+            </div>
           </div>
         </div>
         <div className="mt-8">
-          <TinyEditor writeId={writeId} />
+          <TinyEditor
+            writeId={writeId}
+            title={article.article_title}
+            description={article.article_description}
+            user_id={user.user_id}
+          />
         </div>
       </div>
     </div>

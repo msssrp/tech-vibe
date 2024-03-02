@@ -1,30 +1,48 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import createSupabaseClient from "@/libs/supabase/client";
-import { v4 as uuid } from "uuid";
 import { tinyProps } from "@/types/article/article";
-import { clearTimeout } from "timers";
 import { useEditorStore } from "@/store/article";
-const TinyEditor: React.FC<tinyProps> = ({ writeId }) => {
-  const supabase = createSupabaseClient();
+import { uploadImage } from "@/libs/actions/article/article";
+const TinyEditor: React.FC<tinyProps> = ({
+  writeId,
+  title,
+  description,
+  user_id,
+}) => {
+  const [imageCover, setImageCover] = useState("");
   const editorRef = useRef<any>(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
-  const { content, setContent, setSaveStatus } = useEditorStore((state) => ({
-    content: state.content,
-    setContent: state.setContent,
+
+  const { article, updateArticle, setSaveStatus } = useEditorStore((state) => ({
     setSaveStatus: state.setSaveStatus,
+    article: state.article,
+    updateArticle: state.updateArticle,
   }));
+  const log = () => {
+    console.log(article);
+  };
   useEffect(() => {
+    updateArticle({
+      ...article,
+      article_id: writeId,
+      article_cover: imageCover,
+      article_title: title,
+      article_description: description,
+      user_id: user_id,
+    });
+
     setSaveStatus("saving");
-  }, [content]);
+  }, [article.article_content, imageCover, user_id, title, description]);
 
   const handlerEditorChange = (newContent: string, editor: any) => {
-    setContent(newContent);
+    updateArticle({ ...article, article_content: newContent });
+  };
+  const hasCoverImageBeenSet = useRef(false);
+  const handleSetCoverImage = (imageUrl: string) => {
+    if (!hasCoverImageBeenSet.current) {
+      setImageCover(imageUrl);
+      hasCoverImageBeenSet.current = true;
+    }
   };
   const handlerImageUpload: any = (
     blobInfo: any,
@@ -33,16 +51,15 @@ const TinyEditor: React.FC<tinyProps> = ({ writeId }) => {
   ) => {
     return new Promise(async (resolve, reject) => {
       const file = blobInfo.blob();
-      const { data: uploadData, error } = await supabase.storage
-        .from("Images")
-        .upload(writeId + "/" + uuid(), file);
-      if (uploadData) {
-        const imageUrl = uploadData.path;
+      const uploadData = await uploadImage(writeId, file);
+      if (uploadData.imagePath) {
+        const imageUrl = uploadData.imagePath;
         success(imageUrl);
-        console.log(uploadData.path);
+        handleSetCoverImage(imageUrl);
         resolve(
           `https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/${imageUrl}`
         );
+        console.log(imageCover);
       }
     });
   };
