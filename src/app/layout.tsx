@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lora } from "next/font/google";
 import "@/styles/globals.css";
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import { MantineProvider } from "@mantine/core";
 export const lora = Lora({ subsets: ["latin"] });
 

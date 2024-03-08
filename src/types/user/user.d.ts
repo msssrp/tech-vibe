@@ -20,6 +20,8 @@ export type userWriteProps = {
     updated_at?: string;
     user_verify?: boolean;
   };
+  writeId: string;
+  tagValue: string[];
 };
 
 export type Loading = {
