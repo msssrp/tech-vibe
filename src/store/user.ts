@@ -1,6 +1,6 @@
-import { userAction } from "@/types/store-type/user-store";
 import { Loading, userProps } from "@/types/user/user";
 import { create } from "zustand";
+import { userAction } from "./store-type/user-store";
 
 const initialState: userProps = {
   user_id: "",
