@@ -74,10 +74,7 @@ const UserPage = () => {
 
   const sliceArticleslist = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(
-      startIndex + itemsPerPage,
-      articleslist.length
-    );
+    const endIndex = Math.min(startIndex + itemsPerPage, articleslist.length);
     return articleslist.slice(startIndex, endIndex);
   };
   return (
@@ -90,16 +87,14 @@ const UserPage = () => {
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-circle btn-ghost hover:bg-white "
-              >
+                className="btn btn-circle btn-ghost hover:bg-white ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.0}
                   stroke="currentColor"
-                  className="w-7 h-7"
-                >
+                  className="w-7 h-7">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -109,14 +104,12 @@ const UserPage = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[1] menu p-4 shadow bg-base-100 rounded-box w-72 flex flex-row"
-              >
+                className="dropdown-content z-[1] menu p-4 shadow bg-base-100 rounded-box w-72 flex flex-row">
                 {tag.map((tag) => {
                   return (
                     <button
                       key={tag.tag_id}
-                      className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full `}
-                    >
+                      className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full `}>
                       <p>{tag.tag_name}</p>
                     </button>
                   );
@@ -138,8 +131,7 @@ const UserPage = () => {
                 return (
                   <button
                     key={tag.tag_id}
-                    className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full mr-[5px]`}
-                  >
+                    className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full mr-[5px]`}>
                     <p>{tag.tag_name}</p>
                   </button>
                 );
@@ -161,17 +153,14 @@ const UserPage = () => {
                     <h2 className="card-title text-2xl ">
                       {articleslist.title}
                     </h2>
-                    <p className="line-clamp-2">
-                      {articleslist.description}
-                    </p>
+                    <p className="line-clamp-2">{articleslist.description}</p>
                     <div className="flex items-center">
                       <div className="w-1/2 h-8 overflow-hidden space-x-1">
                         {tag.map((tag) => {
                           return (
                             <button
                               key={tag.tag_id}
-                              className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full `}
-                            >
+                              className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full `}>
                               <p>{tag.tag_name}</p>
                             </button>
                           );
@@ -187,8 +176,7 @@ const UserPage = () => {
                               viewBox="0 0 24 24"
                               strokeWidth={1.5}
                               stroke="currentColor"
-                              className="w-6 h-6"
-                            >
+                              className="w-6 h-6">
                               <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -203,8 +191,7 @@ const UserPage = () => {
                               viewBox="0 0 24 24"
                               strokeWidth={1.5}
                               stroke="#FFC107"
-                              className="w-6 h-6"
-                            >
+                              className="w-6 h-6">
                               <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -219,8 +206,7 @@ const UserPage = () => {
                               viewBox="0 0 24 24"
                               strokeWidth={1.5}
                               stroke="#699BF7"
-                              className="w-6 h-6"
-                            >
+                              className="w-6 h-6">
                               <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -262,7 +248,9 @@ const UserPage = () => {
                           </p>
                         </div>
                         <div className="card-title line-clamp-2">
-                          <p className="font-normal text-base">{articleslist.title}</p>
+                          <p className="font-normal text-base">
+                            {articleslist.title}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -292,7 +280,9 @@ const UserPage = () => {
                           </p>
                         </div>
                         <div className="card-title line-clamp-2">
-                          <p className="font-normal text-base">{articleslist.title}</p>
+                          <p className="font-normal text-base">
+                            {articleslist.title}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -306,16 +296,13 @@ const UserPage = () => {
               </div>
               {/* populartag */}
               <div className="w-full">
-                <h2 className="uppercase font-semibold text-lg">
-                  Popular tag
-                </h2>
+                <h2 className="uppercase font-semibold text-lg">Popular tag</h2>
                 <div className="mt-2 ">
                   {tag.map((tag) => {
                     return (
                       <button
                         key={tag.tag_id}
-                        className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full m-1`}
-                      >
+                        className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full m-1`}>
                         <p>{tag.tag_name}</p>
                       </button>
                     );

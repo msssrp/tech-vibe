@@ -5,7 +5,7 @@ export type articleProps = {
     article_description: string;
     article_cover: string;
     article_content: string;
-    article_status: string;
+    article_status?: string;
     created_at?: string;
     updated_at?: string;
     user_id?: string;

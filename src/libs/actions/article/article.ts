@@ -20,7 +20,6 @@ export async function getArticleById(
     .eq("article_id", article_id)
     .limit(1)
     .single();
-  if (error) console.log(error);
   return { article: data };
 }
 
@@ -44,6 +43,8 @@ export async function updateArticleById(
   articleData: articleProps["article"]
 ) {
   const supabase = createSupabaseClient();
+  const currentTime = new Date();
+  const timeStamp = currentTime.toISOString();
   const { error } = await supabase
     .from("article")
     .update({
@@ -51,6 +52,8 @@ export async function updateArticleById(
       article_description: articleData.article_description,
       article_content: articleData.article_content,
       article_status: articleData.article_status,
+      article_cover: articleData.article_cover,
+      updated_at: timeStamp,
     })
     .eq("article_id", article_id);
   if (error) console.log(error);

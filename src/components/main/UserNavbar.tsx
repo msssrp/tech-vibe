@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { profileItems } from "../ui/Items";
 import NotiTabs from "../ui/notifications/NotiTabs";
 import { getUser } from "@/libs/actions/user/user";
 import { useUserStore } from "@/store/user";
@@ -11,6 +10,7 @@ import { ScrollArea } from "@mantine/core";
 import { v4 as uuid } from "uuid";
 import LogOut from "../ui/LogOut";
 import getUserSession from "@/libs/actions/user/auth/getSession";
+import { profileItems } from "../ui/Items";
 const UserNavbar = () => {
   const [uid, setUid] = useState("");
   const {

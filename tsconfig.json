@@ -26,7 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/(write)/write/[...writeId]/component/TinyEditor.tsx"
+    "src/app/(write)/write/[...writeId]/component/TinyEditor.tsx",
+    "src/components/ui/notifications/notifications.tss"
   ],
   "exclude": ["node_modules"]
 }

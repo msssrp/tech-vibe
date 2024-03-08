@@ -5,19 +5,38 @@ import { ScrollArea } from "@mantine/core";
 import NotiTabs from "../ui/notifications/NotiTabs";
 import LogOut from "../ui/LogOut";
 import { userWriteProps } from "@/types/user/user";
-import { useEditorStore } from "@/store/article";
-import { useEffect } from "react";
+import { articleProps } from "@/types/article/article";
+import { updateArticleById } from "@/libs/actions/article/article";
+import { useRouter } from "next/navigation";
+import {
+  articleNotification,
+  rejectPublish,
+} from "../ui/notifications/notification";
+import { newTag } from "@/libs/actions/tag/tag";
 
-const WriteNavbar: React.FC<userWriteProps> = ({ user }) => {
-  const { saveStatus, updateArticle, article } = useEditorStore((state) => ({
-    saveStatus: state.saveStatus,
-    article: state.article,
-    updateArticle: state.updateArticle,
-  }));
-
-  const handlerOnClick = () => {
-    console.log(article);
+const WriteNavbar: React.FC<userWriteProps & articleProps> = ({
+  user,
+  writeId,
+  article,
+  tagValue,
+}) => {
+  const router = useRouter();
+  const handlerOnClick = async () => {
+    if (
+      !article.article_title ||
+      !article.article_content ||
+      !article.article_description ||
+      !article.article_cover ||
+      tagValue.length === 0
+    ) {
+      return rejectPublish("Error");
+    }
+    const updateArticle = { ...article, article_status: "pending" };
+    await updateArticleById(writeId, updateArticle);
+    articleNotification("Article Status", "publish", { router: router });
+    await newTag(article.article_id, { tag_name: tagValue });
   };
+
   return (
     <nav className="border-b">
       <div className="navbar bg-base-100  container mx-auto">
@@ -32,60 +51,6 @@ const WriteNavbar: React.FC<userWriteProps> = ({ user }) => {
               />
             </button>
           </Link>
-          <div className="flex space-x-2">
-            {saveStatus === "saving" ? (
-              <>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 9.75v6.75m0 0-3-3m3 3 3-3m-8.25 6a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z"
-                  />
-                </svg>
-                <span>saving</span>
-              </>
-            ) : saveStatus === "saved" ? (
-              <>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 9.75v6.75m0 0-3-3m3 3 3-3m-8.25 6a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z"
-                  />
-                </svg>
-                <span>saved</span>
-              </>
-            ) : (
-              <>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 9.75v6.75m0 0-3-3m3 3 3-3m-8.25 6a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z"
-                  />
-                </svg>
-                <span>start write</span>
-              </>
-            )}
-          </div>
         </div>
         <div className="flex-none space-x-5">
           <div className="">

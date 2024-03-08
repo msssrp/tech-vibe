@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { validate as uuidValidate } from "uuid";
 import { getUser } from "@/libs/actions/user/user";
 import Write from "./component/Write";
+import { Notifications } from "@mantine/notifications";
+import { articleNotification } from "@/components/ui/notifications/notification";
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Write",
@@ -28,6 +30,7 @@ export default async function writepage({
 
   return (
     <div>
+      <Notifications />
       <Write user={data} writeId={writeId} />
     </div>
   );
