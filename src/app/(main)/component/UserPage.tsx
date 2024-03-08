@@ -10,7 +10,7 @@ const articleslist = [
       "Lorem ipsum dolor sit amet consectetur. Consequat placerat vestibulum tempor amet tincidunt. Libero venenatis et at consequat quis nunc dignissim justo. Cras mollis volutpat amet odio sit...",
     image:
       "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Heather McLeod in Human Parts",
+    author: "Matheus Ferrero",
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const articleslist = [
       "Lorem ipsum dolor sit amet consectetur. Consequat placerat vestibulum tempor amet tincidunt. Libero venenatis et at consequat quis nunc dignissim justo. Cras mollis volutpat amet odio sit...",
     image:
       "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Heather McLeod in Human Parts",
+    author: "Matheus Ferrero",
   },
   {
     id: 3,
@@ -28,16 +28,16 @@ const articleslist = [
       "Lorem ipsum dolor sit amet consectetur. Consequat placerat vestibulum tempor amet tincidunt. Libero venenatis et at consequat quis nunc dignissim justo. Cras mollis volutpat amet odio sit...",
     image:
       "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Heather McLeod in Human Parts",
+    author: "Raj Rana",
   },
   {
     id: 4,
-    title: "maintain security",
+    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
     description:
       "Lorem ipsum dolor sit amet consectetur. Consequat placerat vestibulum tempor amet tincidunt. Libero venenatis et at consequat quis nunc dignissim justo. Cras mollis volutpat amet odio sit...",
     image:
       "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Heather McLeod in Human Parts",
+    author: "Jonas Kakaroto",
   },
   {
     id: 5,
@@ -46,7 +46,7 @@ const articleslist = [
       "Lorem ipsum dolor sit amet consectetur. Consequat placerat vestibulum tempor amet tincidunt. Libero venenatis et at consequat quis nunc dignissim justo. Cras mollis volutpat amet odio sit...",
     image:
       "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Heather McLeod in Human Parts",
+    author: "Jonas Kakaroto",
   },
   {
     id: 6,
@@ -55,18 +55,18 @@ const articleslist = [
       "Lorem ipsum dolor sit amet consectetur. Consequat placerat vestibulum tempor amet tincidunt. Libero venenatis et at consequat quis nunc dignissim justo. Cras mollis volutpat amet odio sit...",
     image:
       "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Heather McLeod in Human Parts",
+    author: "Raj Rana",
   },
 ];
 const tag = [
-  { tag_id: 1, tag_name: "database", tag_color: "bg-pink-300" },
-  { tag_id: 2, tag_name: "UX/UI", tag_color: "bg-yellow-400" },
-  { tag_id: 3, tag_name: "Tester", tag_color: "bg-blue-400" },
-  { tag_id: 4, tag_name: "Development", tag_color: "bg-green-400" },
-  { tag_id: 5, tag_name: "Github", tag_color: "bg-yellow-400" },
-  { tag_id: 6, tag_name: "PHP", tag_color: "bg-pink-300" },
-  { tag_id: 7, tag_name: "C/C+", tag_color: "bg-yellow-400" },
-  { tag_id: 8, tag_name: "Vite", tag_color: "bg-blue-400" },
+  { tag_id: 1, tag_name: "database" },
+  { tag_id: 2, tag_name: "UX/UI" },
+  { tag_id: 3, tag_name: "Development" },
+  { tag_id: 4, tag_name: "Tester" },
+  { tag_id: 5, tag_name: "Github" },
+  { tag_id: 6, tag_name: "tailwind" },
+  { tag_id: 7, tag_name: "python" },
+  { tag_id: 8, tag_name: "Express" },
 ];
 
 const UserPage = () => {
@@ -79,10 +79,10 @@ const UserPage = () => {
     return articleslist.slice(startIndex, endIndex);
   };
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-28">
       <div className="flex divide-x">
         {/* left */}
-        <div className="w-3/4 py-10">
+        <div className="w-2/3 py-10">
           <div className="flex items-center space-x-2 border-b px-2 ">
             <div className="dropdown">
               <div
@@ -107,13 +107,13 @@ const UserPage = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[1] menu p-4 shadow bg-base-100 rounded-box w-72 flex flex-row"
+                className="dropdown-content z-[1] menu p-3 shadow bg-base-100 rounded-box w-96 flex flex-row"
               >
                 {tag.map((tag) => {
                   return (
                     <button
                       key={tag.tag_id}
-                      className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full `}
+                      className={`btn btn-sm rounded-full badge bg-[#F2F2F2] text-[15px] mx-1 my-0.5`}
                     >
                       <p>{tag.tag_name}</p>
                     </button>
@@ -122,7 +122,7 @@ const UserPage = () => {
               </ul>
             </div>
             <div className="topic">
-              <button className="btn btn-ghost px-2 hover:bg-white text-lg text-[#606060] hover:text-black">
+              <button className="btn btn-ghost w-28 px-2 hover:bg-white text-lg text-[#606060] hover:text-black">
                 All articles
               </button>
             </div>
@@ -131,12 +131,12 @@ const UserPage = () => {
                 Following
               </button>
             </div>
-            <div className="selected-tag border-l pl-6 overflow-x-hidden">
+            <div className="selected-tag border-l pl-6 line-clamp-1">
               {tag.map((tag) => {
                 return (
                   <button
                     key={tag.tag_id}
-                    className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full mr-[5px]`}
+                    className={`badge bg-[#F2F2F2] text-black text-[15px] py-3 mr-1`}
                   >
                     <p>{tag.tag_name}</p>
                   </button>
@@ -146,8 +146,8 @@ const UserPage = () => {
           </div>
           {/* allArticles */}
           <ScrollArea
-            className="pr-11 h-[85rem] overflow-auto"
-            type="auto"
+            className="pr-11 h-[82.4rem] overflow-auto"
+            type="never"
             scrollbarSize={8}
             offsetScrollbars
           >
@@ -162,27 +162,31 @@ const UserPage = () => {
                         </div>
                         <p className="ml-2">{articleslist.author}</p>
                       </div>
-                      <h2 className="card-title text-2xl ">
+                      <h2 className="card-title text-2xl mt-3">
                         {articleslist.title}
                       </h2>
-                      <p className="line-clamp-2">{articleslist.description}</p>
-                      <div className="flex items-center">
-                        <div className="w-1/2 h-8 overflow-hidden space-x-1">
+                      <p className="line-clamp-2 ">
+                        {articleslist.description}
+                      </p>
+                      <div className="flex justify-between items-center mt-3">
+                        <div className="space-x-1 h-8 overflow-hidden w-full">
                           {tag.map((tag) => {
                             return (
                               <button
                                 key={tag.tag_id}
-                                className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full `}
+                                className={`btn btn-sm badge bg-[#F2F2F2] rounded-full `}
                               >
                                 <p>{tag.tag_name}</p>
                               </button>
                             );
                           })}
                         </div>
-                        <div className="w-1/2 flex justify-between items-center ">
-                          <p>7 min read</p>
+                        <div className="flex justify-between items-center w-2/3">
                           <div>
-                            <button className="btn btn-circle btn-ghost hover:bg-white">
+                            <p className="text-sm">7 min read</p>
+                          </div>
+                          <div>
+                            <button className="btn btn-sm btn-circle btn-ghost hover:bg-white">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -198,7 +202,7 @@ const UserPage = () => {
                                 />
                               </svg>
                             </button>
-                            <button className="btn btn-circle btn-ghost hover:bg-white">
+                            <button className="btn btn-sm btn-circle btn-ghost hover:bg-white">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -214,7 +218,7 @@ const UserPage = () => {
                                 />
                               </svg>
                             </button>
-                            <button className="btn btn-circle btn-ghost hover:bg-white">
+                            <button className="btn btn-sm btn-circle btn-ghost hover:bg-white">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -244,7 +248,7 @@ const UserPage = () => {
           </ScrollArea>
         </div>
         {/* right */}
-        <div className="w-1/3 py-[5.5rem] pl-11 pr-2 ">
+        <div className="w-2/6 py-12 pl-11 pr-2 ">
           <div className="flex items-center">
             <div className="grid grid-row-3">
               {/* popularArticles */}
@@ -292,8 +296,23 @@ const UserPage = () => {
                           <div className="w-8 rounded-full">
                             <img src={articleslist.image} />
                           </div>
-                          <p className="ml-2 text-[#606060]">
+                          <p className="ml-2 text-[#606060] flex items-center ">
                             {articleslist.author}
+                            <span className="ml-1">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="#952124"
+                                strokeWidth={1.5}
+                                className="w-4 h-4"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
                           </p>
                         </div>
                         <div className="card-title line-clamp-2">
@@ -319,7 +338,7 @@ const UserPage = () => {
                     return (
                       <button
                         key={tag.tag_id}
-                        className={`btn btn-sm badge ${tag.tag_color} text-white rounded-full m-1`}
+                        className={`btn btn-sm badge bg-[#f2f2f2] rounded-full m-1`}
                       >
                         <p>{tag.tag_name}</p>
                       </button>

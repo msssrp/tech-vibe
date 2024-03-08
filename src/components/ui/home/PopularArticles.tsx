@@ -9,10 +9,10 @@ interface Article {
 }
 // Mockup data for tags
 const tags = [
-  { tag_id: 1, tag_name: "database", tag_color: "bg-pink-300" },
-  { tag_id: 2, tag_name: "UX/UI", tag_color: "bg-yellow-400" },
-  { tag_id: 3, tag_name: "Tester", tag_color: "bg-blue-400" },
-  { tag_id: 4, tag_name: "Development", tag_color: "bg-green-400" },
+  { tag_id: 1, tag_name: "database"},
+  { tag_id: 2, tag_name: "UX/UI"},
+  { tag_id: 3, tag_name: "Tester"},
+  { tag_id: 4, tag_name: "Development"},
 ];
 
 const PopularArticles = () => {
@@ -76,7 +76,7 @@ const PopularArticles = () => {
                     {tags.map((tag) => (
                       <div
                         key={tag.tag_id}
-                        className={`badge ${tag.tag_color} text-white py-3`}
+                        className={`badge bg-[#F2F2F2] text-[15px] py-3`}
                       >
                         {tag.tag_name}
                       </div>
