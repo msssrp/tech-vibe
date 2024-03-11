@@ -1,73 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { ScrollArea } from "@mantine/core";
-
-const articleslist = [
-  {
-    id: 1,
-    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Consequat placerat vestibulum tempor amet tincidunt. Libero venenatis et at consequat quis nunc dignissim justo. Cras mollis volutpat amet odio sit...",
-    image:
-      "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Matheus Ferrero",
-  },
-  {
-    id: 2,
-    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Consequat placerat vestibulum tempor amet tincidunt. Libero venenatis et at consequat quis nunc dignissim justo. Cras mollis volutpat amet odio sit...",
-    image:
-      "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Matheus Ferrero",
-  },
-  {
-    id: 3,
-    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Consequat placerat vestibulum tempor amet tincidunt. Libero venenatis et at consequat quis nunc dignissim justo. Cras mollis volutpat amet odio sit...",
-    image:
-      "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Raj Rana",
-  },
-  {
-    id: 4,
-    title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Consequat placerat vestibulum tempor amet tincidunt. Libero venenatis et at consequat quis nunc dignissim justo. Cras mollis volutpat amet odio sit...",
-    image:
-      "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Jonas Kakaroto",
-  },
-  {
-    id: 5,
-    title: "maintain security",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Consequat placerat vestibulum tempor amet tincidunt. Libero venenatis et at consequat quis nunc dignissim justo. Cras mollis volutpat amet odio sit...",
-    image:
-      "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Jonas Kakaroto",
-  },
-  {
-    id: 6,
-    title: "maintain security",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Consequat placerat vestibulum tempor amet tincidunt. Libero venenatis et at consequat quis nunc dignissim justo. Cras mollis volutpat amet odio sit...",
-    image:
-      "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    author: "Raj Rana",
-  },
-];
-const tag = [
-  { tag_id: 1, tag_name: "database" },
-  { tag_id: 2, tag_name: "UX/UI" },
-  { tag_id: 3, tag_name: "Development" },
-  { tag_id: 4, tag_name: "Tester" },
-  { tag_id: 5, tag_name: "Github" },
-  { tag_id: 6, tag_name: "tailwind" },
-  { tag_id: 7, tag_name: "python" },
-  { tag_id: 8, tag_name: "Express" },
-];
+import { articleslist, tag } from "@/components/ui/Items";
+import AllArticleCard from "@/components/main/AllArticleCard";
 
 const UserPage = () => {
   const [itemsPerPage, setItemsPerPage] = useState(4);
@@ -79,11 +14,11 @@ const UserPage = () => {
     return articleslist.slice(startIndex, endIndex);
   };
   return (
-    <div className="container mx-auto px-28">
+    <div className="container mx-auto px-44">
       <div className="flex divide-x">
         {/* left */}
         <div className="w-2/3 py-10">
-          <div className="flex items-center space-x-2 border-b px-2 ">
+          <div className="flex items-center space-x-2 border-b px-2 sticky top-0 bg-base-100 z-10">
             <div className="dropdown">
               <div
                 tabIndex={0}
@@ -107,27 +42,27 @@ const UserPage = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[1] menu p-3 shadow bg-base-100 rounded-box w-96 flex flex-row"
+                className="dropdown-content  menu p-3 shadow bg-base-100 rounded-box w-96 flex flex-row"
               >
                 {tag.map((tag) => {
                   return (
                     <button
                       key={tag.tag_id}
-                      className={`btn btn-sm rounded-full badge bg-[#F2F2F2] text-[15px] mx-1 my-0.5`}
+                      className={`btn btn-xs rounded-full badge bg-[#F2F2F2] mx-1 my-0.5`}
                     >
-                      <p>{tag.tag_name}</p>
+                      <p className="text-xs">{tag.tag_name}</p>
                     </button>
                   );
                 })}
               </ul>
             </div>
             <div className="topic">
-              <button className="btn btn-ghost w-28 px-2 hover:bg-white text-lg text-[#606060] hover:text-black">
+              <button className="btn btn-ghost w-28 px-2 text-md hover:bg-white text-[#606060] hover:text-black">
                 All articles
               </button>
             </div>
             <div className="topic">
-              <button className="btn btn-ghost px-2 hover:bg-white text-lg text-[#606060] hover:text-black">
+              <button className="btn btn-ghost px-2 hover:bg-white text-md text-[#606060] hover:text-black">
                 Following
               </button>
             </div>
@@ -146,103 +81,14 @@ const UserPage = () => {
           </div>
           {/* allArticles */}
           <ScrollArea
-            className="pr-11 h-[82.4rem] overflow-auto"
+            className="pr-11 h-[1460px] overflow-auto"
             type="never"
             scrollbarSize={8}
             offsetScrollbars
           >
             <div className="space-y-2 ">
               {articleslist.map((articleslist) => {
-                return (
-                  <div className="card card-side border-b rounded-none items-center ">
-                    <div className="card-body px-4">
-                      <div className="avatar items-center">
-                        <div className="w-8 rounded-full">
-                          <img src={articleslist.image} />
-                        </div>
-                        <p className="ml-2">{articleslist.author}</p>
-                      </div>
-                      <h2 className="card-title text-2xl mt-3">
-                        {articleslist.title}
-                      </h2>
-                      <p className="line-clamp-2 ">
-                        {articleslist.description}
-                      </p>
-                      <div className="flex justify-between items-center mt-3">
-                        <div className="space-x-1 h-8 overflow-hidden w-full">
-                          {tag.map((tag) => {
-                            return (
-                              <button
-                                key={tag.tag_id}
-                                className={`btn btn-sm badge bg-[#F2F2F2] rounded-full `}
-                              >
-                                <p>{tag.tag_name}</p>
-                              </button>
-                            );
-                          })}
-                        </div>
-                        <div className="flex justify-between items-center w-2/3">
-                          <div>
-                            <p className="text-sm">7 min read</p>
-                          </div>
-                          <div>
-                            <button className="btn btn-sm btn-circle btn-ghost hover:bg-white">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                                />
-                              </svg>
-                            </button>
-                            <button className="btn btn-sm btn-circle btn-ghost hover:bg-white">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="#FFC107"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
-                                />
-                              </svg>
-                            </button>
-                            <button className="btn btn-sm btn-circle btn-ghost hover:bg-white">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="#699BF7"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <img src={articleslist.image} alt="" className="w-96" />
-                    </div>
-                  </div>
-                );
+                return <AllArticleCard article={articleslist} />;
               })}
             </div>
           </ScrollArea>
