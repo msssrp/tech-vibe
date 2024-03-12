@@ -112,12 +112,14 @@ const DrawerComment: React.FC<DrawerCommentProps> = ({
                   </div>
                   <div>
                     <div className="flex space-x-2 mt-3">
-                      <span>{parentComment.comment_content}</span>
-                      <button
-                        onClick={() => handleReply(parentComment.comment_id)}
-                        className="underline text-blue-300">
-                        reply
-                      </button>
+                      <span>
+                        {parentComment.comment_content}{" "}
+                        <button
+                          onClick={() => handleReply(parentComment.comment_id)}
+                          className="underline text-blue-300">
+                          reply
+                        </button>
+                      </span>
                     </div>
                     {showInput && replyingTo === parentComment.comment_id && (
                       <input
