@@ -15,7 +15,7 @@ const UserPage = () => {
   };
   return (
     <div className="container mx-auto px-44">
-      <div className="flex divide-x">
+      <div className="flex divide-x h-auto">
         {/* left */}
         <div className="w-2/3 py-10">
           <div className="flex items-center space-x-2 border-b px-2 sticky top-0 bg-base-100 z-10">
@@ -76,7 +76,7 @@ const UserPage = () => {
           </div>
           {/* allArticles */}
           <ScrollArea
-            className="pr-11 h-[82.4rem] overflow-auto"
+            className="pr-11 h-[150vh] overflow-auto"
             type="never"
             scrollbarSize={8}
             offsetScrollbars>

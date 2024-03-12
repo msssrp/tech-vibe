@@ -23,6 +23,19 @@ export async function getArticleById(
   return { article: data };
 }
 
+export async function getArticleByName(
+  article_Title: string
+): Promise<articleProps> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("article_title", article_Title)
+    .limit(1)
+    .single();
+  return { article: data };
+}
+
 export async function newArticle(articleData: articleProps["article"]) {
   const supabase = createSupabaseClient();
   const article_id = articleData.article_id;
