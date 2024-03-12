@@ -88,16 +88,14 @@ const UserPage = () => {
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-circle btn-ghost hover:bg-white "
-              >
+                className="btn btn-circle btn-ghost hover:bg-white ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.0}
                   stroke="currentColor"
-                  className="w-7 h-7"
-                >
+                  className="w-7 h-7">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -107,14 +105,12 @@ const UserPage = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[1] menu p-3 shadow bg-base-100 rounded-box w-96 flex flex-row"
-              >
+                className="dropdown-content z-[1] menu p-3 shadow bg-base-100 rounded-box w-96 flex flex-row">
                 {tag.map((tag) => {
                   return (
                     <button
                       key={tag.tag_id}
-                      className={`btn btn-sm rounded-full badge bg-[#F2F2F2] text-[15px] mx-1 my-0.5`}
-                    >
+                      className={`btn btn-sm rounded-full badge bg-[#F2F2F2] text-[15px] mx-1 my-0.5`}>
                       <p>{tag.tag_name}</p>
                     </button>
                   );
@@ -136,8 +132,7 @@ const UserPage = () => {
                 return (
                   <button
                     key={tag.tag_id}
-                    className={`badge bg-[#F2F2F2] text-black text-[15px] py-3 mr-1`}
-                  >
+                    className={`badge bg-[#F2F2F2] text-black text-[15px] py-3 mr-1`}>
                     <p>{tag.tag_name}</p>
                   </button>
                 );
@@ -146,11 +141,10 @@ const UserPage = () => {
           </div>
           {/* allArticles */}
           <ScrollArea
-            className="pr-11 h-[82.4rem] overflow-auto"
+            className="pr-11 h-[82.4rem]"
             type="never"
             scrollbarSize={8}
-            offsetScrollbars
-          >
+            offsetScrollbars>
             <div className="space-y-2 ">
               {articleslist.map((articleslist) => {
                 return (
@@ -174,8 +168,7 @@ const UserPage = () => {
                             return (
                               <button
                                 key={tag.tag_id}
-                                className={`btn btn-sm badge bg-[#F2F2F2] rounded-full `}
-                              >
+                                className={`btn btn-sm badge bg-[#F2F2F2] rounded-full `}>
                                 <p>{tag.tag_name}</p>
                               </button>
                             );
@@ -193,8 +186,7 @@ const UserPage = () => {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-6 h-6"
-                              >
+                                className="w-6 h-6">
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -209,8 +201,7 @@ const UserPage = () => {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="#FFC107"
-                                className="w-6 h-6"
-                              >
+                                className="w-6 h-6">
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -225,8 +216,7 @@ const UserPage = () => {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="#699BF7"
-                                className="w-6 h-6"
-                              >
+                                className="w-6 h-6">
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -304,8 +294,7 @@ const UserPage = () => {
                                 viewBox="0 0 20 20"
                                 fill="#952124"
                                 strokeWidth={1.5}
-                                className="w-4 h-4"
-                              >
+                                className="w-4 h-4">
                                 <path
                                   fill-rule="evenodd"
                                   d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
@@ -338,8 +327,7 @@ const UserPage = () => {
                     return (
                       <button
                         key={tag.tag_id}
-                        className={`btn btn-sm badge bg-[#f2f2f2] rounded-full m-1`}
-                      >
+                        className={`btn btn-sm badge bg-[#f2f2f2] rounded-full m-1`}>
                         <p>{tag.tag_name}</p>
                       </button>
                     );
