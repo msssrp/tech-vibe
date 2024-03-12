@@ -92,7 +92,7 @@ const DrawerComment: React.FC<DrawerCommentProps> = ({
 
       <Drawer opened={opened} onClose={close} position="right" title="Comment">
         {comment && comment.length > 0 ? (
-          <div className="w-full h-full flex flex-col space-y-4">
+          <div className="p-5 w-full h-full flex flex-col space-y-4">
             {comment
               .filter((comment) => !comment.commentParent_id) // Filter out parent comments
               .sort(
@@ -141,7 +141,9 @@ const DrawerComment: React.FC<DrawerCommentProps> = ({
                         comment.commentParent_id === parentComment.comment_id
                     )
                     .map((childComment) => (
-                      <div key={childComment.comment_id} className="ml-6 mt-3">
+                      <div
+                        key={childComment.comment_id}
+                        className="pl-6 pt-3 ml-2 mt-2 border-l-2">
                         {" "}
                         <div className="flex items-center space-x-3">
                           <CommentUser
