@@ -1,3 +1,5 @@
+import { commentProps } from "../comment/comment";
+import { userProps } from "./../user/user.d";
 export type articleProps = {
   article: {
     article_id: string;
@@ -21,7 +23,7 @@ export type tinyProps = {
 export type uploadProps = {
   imagePath: string | undefined;
 };
-type WriteProps = {
+export type WriteProps = {
   user: {
     user_id?: string;
     user_email?: string;
@@ -33,4 +35,10 @@ type WriteProps = {
     user_verify?: boolean;
   };
   writeId: string;
+};
+
+export type DrawerCommentProps = {
+  comment: commentProps[];
+  article_id: string;
+  user_id: string;
 };
