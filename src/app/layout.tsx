@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import { MantineProvider } from "@mantine/core";
+
 export const lora = Lora({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -12,6 +13,9 @@ export const metadata: Metadata = {
     template: "%s - TechVibe",
   },
   description: "Come and read Our Blog",
+  icons: {
+    icon: "https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/techvibe-logo.png",
+  },
 };
 export default async function RootLayout({
   children,

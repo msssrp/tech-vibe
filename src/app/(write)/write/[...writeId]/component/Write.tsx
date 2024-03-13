@@ -15,7 +15,7 @@ import {
   howtouseNotification,
   tipsNotification,
 } from "@/components/ui/notifications/notification";
-
+import * as Dompurify from "dompurify";
 const Write: React.FC<WriteProps> = ({ user, writeId }) => {
   const [article, setArticle] = useState<articleProps["article"]>({
     article_id: writeId,
@@ -54,7 +54,8 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
   const editorRef = useRef<any>(null);
 
   const handlerEditorChange = (newContent: string, editor: any) => {
-    setArticle((prev) => ({ ...prev, article_content: newContent }));
+    const clean = Dompurify.sanitize(newContent);
+    setArticle((prev) => ({ ...prev, article_content: clean }));
   };
 
   useEffect(() => {
