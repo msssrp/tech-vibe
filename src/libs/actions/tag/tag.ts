@@ -18,7 +18,6 @@ export async function newTag(article_id: string, tagData: tagProps) {
   const supabase = createSupabaseClient();
   const { error } = await supabase.from("tag").insert({
     tag_name: tagData.tag_name,
-    tag_color: "test",
     article_id: article_id,
   });
   if (error) console.log(error);

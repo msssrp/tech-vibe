@@ -3,6 +3,7 @@ import createSupabaseServerClient from "@/libs/supabase/server";
 
 export async function getUserFollower(user_id: string) {
   const supabase = await createSupabaseServerClient();
+
   const { count, error } = await supabase
     .from("user_following")
     .select("*", { count: "exact" })

@@ -54,8 +54,10 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
   const editorRef = useRef<any>(null);
 
   const handlerEditorChange = (newContent: string, editor: any) => {
-    const clean = Dompurify.sanitize(newContent);
-    setArticle((prev) => ({ ...prev, article_content: clean }));
+
+    const cleanHtml = Dompurify.sanitize(newContent);
+    setArticle((prev) => ({ ...prev, article_content: cleanHtml }));
+
   };
 
   useEffect(() => {
@@ -135,7 +137,7 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
                 }))
               }
               placeholder="Title"
-              className="textarea input-lg w-full h-auto  focus:outline-none focus:border-none overflow-hidden px-0 text-4xl font-semibold capitalize resize-none"
+              className="textarea mb-6 input-lg w-full h-auto  focus:outline-none focus:border-none overflow-hidden px-0 text-4xl font-semibold capitalize resize-none"
             />
             <textarea
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -145,7 +147,9 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
                 }))
               }
               placeholder="description"
+
               className="textarea input-sm w-full h-auto  focus:outline-none focus:border-none overflow-hidden px-0 text-xl font-light capitalize resize-none pt-5"
+
             />
           </div>
         </div>
