@@ -1,12 +1,76 @@
 "use client";
-import React from "react";
-import { useClipboard } from "@mantine/hooks";
-const InteractBtn = () => {
+import React, { useEffect, useState } from "react";
+import { useClipboard, useDisclosure } from "@mantine/hooks";
+import { Checkbox, Input, Modal } from "@mantine/core";
+import { readlistsProps } from "@/types/readlists/readlists";
+import { getReadlists, newReadlists } from "@/libs/actions/readlists/readlists";
+import {
+  deleteSavedArticle,
+  getSavedArticle,
+  saveArticle,
+} from "@/libs/actions/savedArticle/savedArticle";
+
+type interactProps = {
+  user_id: string | undefined;
+  article_id: string;
+};
+
+const InteractBtn: React.FC<interactProps> = ({ user_id, article_id }) => {
+  const [createInputOpen, setCreateInputOpen] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [readlists, setReadlists] = useState<readlistsProps[] | null>([]);
+  const [triggerReFetch, setTriggerReFetch] = useState(0);
+  const [savedInReadlists, setSavedInReadlists] = useState<string[]>([]);
   const currentUrl = typeof window !== "undefined" && window.location.href;
   const clipboard = useClipboard();
+  const [opened, { open, close }] = useDisclosure(false);
+  useEffect(() => {
+    if (user_id) {
+      const getReadlistsOnUser = async () => {
+        const data = await getReadlists(user_id);
+        setReadlists(data);
+
+        const savedLists: string[] = [];
+        if (data) {
+          for (const readlist of data) {
+            const { count } = await getSavedArticle(
+              readlist.readlists_id,
+              article_id
+            );
+            if (count && count > 0) {
+              savedLists.push(readlist.readlists_id);
+            }
+          }
+        }
+        setSavedInReadlists(savedLists);
+      };
+
+      getReadlistsOnUser();
+    }
+  }, [triggerReFetch, user_id, article_id]);
+  console.log(readlists);
+  const handleCreateReadlist = async (userid: string) => {
+    await newReadlists(userid, inputValue);
+    setTriggerReFetch(triggerReFetch + 1);
+    setInputValue("");
+  };
+
+  const handleSaveArticleOnReadlist = async (
+    user_id: string,
+    readlists_id: string
+  ) => {
+    await saveArticle(article_id, user_id, readlists_id);
+
+    setTriggerReFetch(triggerReFetch + 1);
+  };
+
+  const handleDeleteSaveArticleOnReadlist = async (readlists_id: string) => {
+    await deleteSavedArticle(readlists_id, article_id);
+    setTriggerReFetch(triggerReFetch + 1);
+  };
   return (
     <>
-      <button>
+      <button onClick={open}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -21,6 +85,100 @@ const InteractBtn = () => {
           />
         </svg>
       </button>
+      <Modal
+        opened={opened}
+        onClose={close}
+        title={`${user_id ? "save the article to" : "SignIn to save this!!"}`}
+        centered
+        radius={"md"}
+        size={230}>
+        {user_id ? (
+          <>
+            <div className="flex flex-col space-y-3 px-1.5">
+              {readlists && readlists.length > 0 ? (
+                readlists.map((readlist) => (
+                  <div
+                    key={readlist.readlists_id}
+                    className="flex space-x-3 items-center">
+                    <Checkbox
+                      checked={savedInReadlists.includes(readlist.readlists_id)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        if (e.target.checked) {
+                          handleSaveArticleOnReadlist(
+                            user_id,
+                            readlist.readlists_id
+                          );
+                        } else {
+                          handleDeleteSaveArticleOnReadlist(
+                            readlist.readlists_id
+                          );
+                        }
+                      }}
+                      label={readlist.readlists_name}
+                    />
+                  </div>
+                ))
+              ) : (
+                <span className="text-[13px] text-[#B1B1B0]">
+                  You dont have any readlists go create one!
+                </span>
+              )}
+            </div>
+
+            <div className="flex space-x-3 mt-5 mb-3 px-1.5">
+              {createInputOpen ? (
+                <div className="flex flex-col justify-items-center">
+                  <div className="flex flex-col">
+                    <Input.Wrapper label="Name">
+                      <Input
+                        maxLength={100}
+                        variant="unstyled"
+                        placeholder="Enter readlist title..."
+                        className="border-b"
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>
+                        ) => setInputValue(event.target.value)}
+                        value={inputValue}
+                      />
+                    </Input.Wrapper>
+                    <span className="text-xs ml-auto text-[#ADB5BD] mt-2">
+                      {inputValue ? inputValue.length : 0}/100
+                    </span>
+                  </div>
+                  <button
+                    className="ml-auto mt-6"
+                    onClick={() => handleCreateReadlist(user_id)}>
+                    create
+                  </button>
+                </div>
+              ) : (
+                <button
+                  className="flex space-x-3"
+                  onClick={() => setCreateInputOpen(!createInputOpen)}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1}
+                    stroke="currentColor"
+                    className="w-6 h-6">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 4.5v15m7.5-7.5h-15"
+                    />
+                  </svg>
+                  <span>Create new readlist</span>
+                </button>
+              )}
+            </div>
+          </>
+        ) : (
+          <button className="w-full btn btn-ghost">
+            <span className="text-center">Sign In</span>
+          </button>
+        )}
+      </Modal>
       <button>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +194,7 @@ const InteractBtn = () => {
           />
         </svg>
       </button>
-      <div className="dropdown">
+      <div className="dropdown dropdown-bottom dropdown-end">
         <button tabIndex={0} role="button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,9 +212,9 @@ const InteractBtn = () => {
         </button>
         <div
           tabIndex={0}
-          className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-lg w-32 flex flex-col justify-center items-center">
+          className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-lg w-40 flex flex-col space-y-3">
           <button
-            className="cursor-pointer flex items-center space-x-2"
+            className="cursor-pointer flex space-x-2"
             onClick={() => clipboard.copy(currentUrl)}>
             {clipboard.copied ? (
               <svg
@@ -89,6 +247,22 @@ const InteractBtn = () => {
             )}
 
             <span>{clipboard.copied ? "Copied Link" : "Copy Link"}</span>
+          </button>
+          <button className="cursor-pointer flex space-x-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1}
+              stroke="currentColor"
+              className="w-6 h-6">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"
+              />
+            </svg>
+            <span>report this story</span>
           </button>
         </div>
       </div>

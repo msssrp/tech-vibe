@@ -145,7 +145,7 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
                 }))
               }
               placeholder="description"
-              className="textarea input-sm w-full h-auto  focus:outline-none focus:border-none overflow-hidden px-0 text-xl font-light capitalize resize-none"
+              className="textarea input-sm w-full h-auto  focus:outline-none focus:border-none overflow-hidden px-0 text-xl font-light capitalize resize-none pt-5"
             />
           </div>
         </div>

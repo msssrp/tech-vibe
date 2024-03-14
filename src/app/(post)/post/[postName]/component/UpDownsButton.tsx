@@ -48,6 +48,8 @@ const UpDownsButton: React.FC<UpDownsButtonProps> = ({
       router.refresh();
     }
   };
+  console.log(articleUp);
+
   return (
     <>
       <div className="flex space-x-2">

@@ -16,7 +16,6 @@ import Follow from "./component/Follow";
 import { convertTime } from "@/libs/convertTime";
 import "./post.css";
 import {
-  getArticleDowns,
   getArticleUps,
   getUserDowns,
   getUserUps,
@@ -35,9 +34,6 @@ export async function generateMetadata({
   return {
     title: decodeTitle,
     description: article.article_description,
-    icons: {
-      icon: `${article.article_cover}`,
-    },
   };
 }
 
@@ -60,15 +56,17 @@ const page = async ({ params }: { params: { postName: string } }) => {
   if (userSession.data.user?.id) {
     await increaseArticleViews(article.article_id, userSession.data.user.id);
   }
-  const data = await getArticleUps(article.article_id);
+  const { data } = await getArticleUps(article.article_id);
   const UpCount = await getUserUps(
     article.article_id,
     userSession.data.user?.id
   );
+
   const DownCount = await getUserDowns(
     article.article_id,
     userSession.data.user?.id
   );
+
   return (
     <div>
       <div className="flex flex-col space-y-2 h-auto container px-64 mx-auto mt-9">
@@ -112,7 +110,7 @@ const page = async ({ params }: { params: { postName: string } }) => {
           <div className="border-t border-b flex justify-between items-center py-3 px-3">
             <div className="flex items-center space-x-4">
               <UpDownsButton
-                articleUp={data?.articleStat_ups}
+                articleUp={data}
                 user_id={userSession.data.user?.id}
                 article_id={article.article_id}
                 userUp={UpCount?.articleStat_ups}
@@ -129,7 +127,10 @@ const page = async ({ params }: { params: { postName: string } }) => {
               </div>
             </div>
             <div className="flex space-x-3">
-              <InteractBtn />
+              <InteractBtn
+                user_id={userSession.data.user?.id}
+                article_id={article.article_id}
+              />
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { Lora } from "next/font/google";
 import "@/styles/globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, createTheme } from "@mantine/core";
 
 export const lora = Lora({ subsets: ["latin"] });
 
@@ -17,6 +17,10 @@ export const metadata: Metadata = {
     icon: "https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/techvibe-logo.png",
   },
 };
+
+const theme = createTheme({
+  cursorType: "pointer",
+});
 export default async function RootLayout({
   children,
 }: {
@@ -25,7 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={lora.className}>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider theme={theme}>{children}</MantineProvider>
       </body>
     </html>
   );

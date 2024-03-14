@@ -48,13 +48,12 @@ export async function increaseArticleViews(
 
 export async function getArticleUps(article_id: string) {
   const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase
-    .from("article_statistics")
-    .select("articleStat_ups")
-    .eq("article_id", article_id)
-    .single();
+  const { data, error } = await supabase.rpc("getups", {
+    article_id_from_rpc: article_id,
+  });
   if (error) console.log(error);
-  if (data) return data;
+
+  return { data };
 }
 
 export async function getArticleDowns(article_id: string) {
