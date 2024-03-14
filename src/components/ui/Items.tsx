@@ -21,14 +21,14 @@ export const navItem = (
 );
 
 export const profileItems = (
-  <div className="text-[#898889] mt-2 flex flex-col space-y-4">
+  <div className="text-[#606060] mt-2 flex flex-col space-y-4">
     <Link href={""} className="flex mt-3 space-x-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
-        stroke="#CECBCA"
+        stroke="#606060"
         className="w-5 h-5">
         <path
           strokeLinecap="round"
@@ -44,7 +44,7 @@ export const profileItems = (
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
-        stroke="#CECBCA"
+        stroke="#606060"
         className="w-5 h-5">
         <path
           strokeLinecap="round"
@@ -60,7 +60,7 @@ export const profileItems = (
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
-        stroke="#CECBCA"
+        stroke="#606060"
         className="w-5 h-5">
         <path
           strokeLinecap="round"
@@ -76,7 +76,7 @@ export const profileItems = (
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
-        stroke="#CECBCA"
+        stroke="#606060"
         className="w-5 h-5">
         <path
           strokeLinecap="round"

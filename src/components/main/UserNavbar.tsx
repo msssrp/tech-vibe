@@ -120,7 +120,7 @@ const UserNavbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-64">
+            className="mt-3 z-[1] p-6 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-64">
             <div className="border-b flex justify-stretch items-center">
               <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className=" w-9 rounded-full">

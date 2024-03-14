@@ -90,9 +90,9 @@ const DrawerComment: React.FC<DrawerCommentProps> = ({
         <p className="text-[#616160]">{comment ? comment.length : 0}</p>
       </div>
 
-      <Drawer opened={opened} onClose={close} position="right" title="Comment">
+      <Drawer opened={opened} onClose={close} position="right" title="Comment"  >
         {comment && comment.length > 0 ? (
-          <div className="p-5 w-full h-full flex flex-col space-y-4">
+          <div className="p-5 w-full h-full flex flex-col space-y-4 ">
             {comment
               .filter((comment) => !comment.commentParent_id) // Filter out parent comments
               .sort(

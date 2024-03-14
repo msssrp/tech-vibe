@@ -8,7 +8,7 @@ const Noticard: React.FC<NoticardProps> = ({
   status,
 }) => {
   return (
-    <div className="flex border-b justify-around p-2">
+    <div className="flex border-b justify-around p-2 py-4">
       <div className="mr-3">
         {type === "comment" ? (
           <svg
