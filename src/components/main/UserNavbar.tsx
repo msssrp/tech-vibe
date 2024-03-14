@@ -11,6 +11,7 @@ import { v4 as uuid } from "uuid";
 import LogOut from "../ui/LogOut";
 import getUserSession from "@/libs/actions/user/auth/getSession";
 import { profileItems } from "../ui/Items";
+import { nprogress } from "@mantine/nprogress";
 const UserNavbar = () => {
   const [uid, setUid] = useState("");
   const {
@@ -119,7 +120,7 @@ const UserNavbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-64">
             <div className="border-b flex justify-stretch items-center">
               <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className=" w-9 rounded-full">
@@ -135,8 +136,8 @@ const UserNavbar = () => {
               </div>
             </div>
             {profileItems}
-            <li className="border-t mt-2">
-              <a>
+            <div className="border-t mt-4">
+              <div className="flex mt-3 space-x-2 items-center cursor-pointer">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -151,8 +152,8 @@ const UserNavbar = () => {
                   />
                 </svg>
                 <LogOut />
-              </a>
-            </li>
+              </div>
+            </div>
           </ul>
         </div>
       </div>
