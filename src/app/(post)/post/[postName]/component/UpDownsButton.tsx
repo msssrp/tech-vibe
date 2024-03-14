@@ -1,7 +1,6 @@
 "use client";
 import { DownsArticle, UpsArticle } from "@/libs/actions/article/articleStat";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type UpDownsButtonProps = {
   articleUp: any | null;
@@ -18,43 +17,47 @@ const UpDownsButton: React.FC<UpDownsButtonProps> = ({
   userUp,
   userDown,
 }) => {
-  console.log(articleUp);
+  const [hasUpvoted, setHasUpvoted] = useState<boolean>(userUp === 1);
+  const [hasDownvoted, setHasDownvoted] = useState<boolean>(userDown === 1);
 
-  const router = useRouter();
+  useEffect(() => {
+    setHasUpvoted(userUp === 1);
+    setHasDownvoted(userDown === 1);
+  }, [userUp, userDown]);
+
   const onUpClick = async () => {
     if (user_id) {
-      await UpsArticle(article_id, user_id, false);
-      await DownsArticle(article_id, user_id, true);
-      router.refresh();
-    }
-  };
-  const onCancelUp = async () => {
-    if (user_id) {
-      await UpsArticle(article_id, user_id, true);
-      router.refresh();
+      if (hasUpvoted) {
+        setHasUpvoted(false);
+        await UpsArticle(article_id, user_id, true);
+      } else {
+        setHasUpvoted(true);
+        setHasDownvoted(false);
+        await UpsArticle(article_id, user_id, false);
+        await DownsArticle(article_id, user_id, true);
+      }
     }
   };
 
   const onDownClick = async () => {
     if (user_id) {
-      await DownsArticle(article_id, user_id, false);
-      await UpsArticle(article_id, user_id, true);
-      router.refresh();
+      if (hasDownvoted) {
+        setHasDownvoted(false);
+        await DownsArticle(article_id, user_id, true);
+      } else {
+        setHasDownvoted(true);
+        setHasUpvoted(false);
+        await DownsArticle(article_id, user_id, false);
+        await UpsArticle(article_id, user_id, true);
+      }
     }
   };
-  const onDownCancel = async () => {
-    if (user_id) {
-      await DownsArticle(article_id, user_id, true);
-      router.refresh();
-    }
-  };
-  console.log(articleUp);
 
   return (
     <>
       <div className="flex space-x-2">
-        {userUp && userUp == 1 ? (
-          <button onClick={onCancelUp}>
+        {hasUpvoted ? (
+          <button onClick={onUpClick}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -90,8 +93,8 @@ const UpDownsButton: React.FC<UpDownsButtonProps> = ({
         <p className="text-[#616160]">{articleUp}</p>
       </div>
 
-      {userDown && userDown == 1 ? (
-        <button onClick={onDownCancel}>
+      {hasDownvoted ? (
+        <button onClick={onDownClick}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
