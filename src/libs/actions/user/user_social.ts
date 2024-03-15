@@ -1,10 +1,10 @@
-import createSupabaseServerClient from "@/libs/supabase/server";
+import createSupabaseClient from "@/libs/supabase/client";
 import { updatePromise, userSocialProps } from "@/types/user/user";
 
 export async function getUserSocial(
   user_id: string | undefined
 ): Promise<userSocialProps> {
-  const supabase = await createSupabaseServerClient();
+  const supabase = createSupabaseClient();
   const { data: userSocial, error } = await supabase
     .from("user_social")
     .select("*")
@@ -23,7 +23,7 @@ export async function updateUserSocial(
   twitter: string,
   user_id: string | undefined
 ): Promise<updatePromise> {
-  const supabase = await createSupabaseServerClient();
+  const supabase = createSupabaseClient();
   const { error: updateSocialError } = await supabase
     .from("user_social")
     .update({
@@ -41,7 +41,7 @@ export async function insertUserSocial(
   twitter: string,
   user_id: string | undefined
 ): Promise<updatePromise> {
-  const supabase = await createSupabaseServerClient();
+  const supabase = createSupabaseClient();
   const { error: InsertError } = await supabase.from("user_social").insert({
     user_social_facebook: facebook,
     user_social_github: github,
