@@ -48,11 +48,11 @@ const InteractBtn: React.FC<interactProps> = ({ user_id, article_id }) => {
       getReadlistsOnUser();
     }
   }, [triggerReFetch, user_id, article_id]);
-  console.log(readlists);
   const handleCreateReadlist = async (userid: string) => {
     await newReadlists(userid, inputValue);
     setTriggerReFetch(triggerReFetch + 1);
     setInputValue("");
+    setCreateInputOpen(false);
   };
 
   const handleSaveArticleOnReadlist = async (

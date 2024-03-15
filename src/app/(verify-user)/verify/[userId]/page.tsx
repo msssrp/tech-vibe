@@ -2,8 +2,11 @@ import { getUser } from "@/libs/actions/user/user";
 import { redirect } from "next/navigation";
 import React from "react";
 import VerifyInput from "./component/VerifyInput";
+import getUserSession from "@/libs/actions/user/auth/getSession";
 
 export default async function page({ params }: { params: { userId: string } }) {
+  const userSession = await getUserSession();
+  if (!userSession.data.user) redirect("/");
   if (!params.userId) {
     redirect("/");
   }

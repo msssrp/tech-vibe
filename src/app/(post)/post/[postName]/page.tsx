@@ -12,7 +12,6 @@ import getUserSession from "@/libs/actions/user/auth/getSession";
 import DrawerComment from "./component/DrawerComment";
 import { Metadata } from "next";
 import { getCommentOnArticle } from "@/libs/actions/comment/comment";
-import Follow from "./component/Follow";
 import { convertTime } from "@/libs/convertTime";
 import "./post.css";
 import {
@@ -23,6 +22,8 @@ import {
 } from "@/libs/actions/article/articleStat";
 import UpDownsButton from "./component/UpDownsButton";
 import InteractBtn from "./component/InteractBtn";
+import FollowText from "./component/FollowText";
+import FollowBtn from "./component/FollowBtn";
 export async function generateMetadata({
   params,
 }: {
@@ -41,7 +42,6 @@ const page = async ({ params }: { params: { postName: string } }) => {
   const userSession = await getUserSession();
   if (!params.postName) redirect("/");
   const decodeTitle = decodeURIComponent(params.postName);
-  console.log(decodeTitle);
   const { article } = await getArticleByName(decodeTitle);
   if (!article.created_at || !article.user_id) redirect("/");
   const user = await getUser(article.user_id);
@@ -92,11 +92,10 @@ const page = async ({ params }: { params: { postName: string } }) => {
                   <></>
                 ) : (
                   userSession.data.user && (
-                    <Follow
-                      isBtn={false}
-                      user_id={article.user_id}
-                      OurUser_id={userSession.data.user.id}
+                    <FollowText
                       isFollowing={userFollow}
+                      userIdToFollow={article.user_id}
+                      ourUserId={userSession.data.user.id}
                     />
                   )
                 )}
@@ -158,7 +157,7 @@ const page = async ({ params }: { params: { postName: string } }) => {
               <img
                 src={user.user_profile}
                 alt={article.article_title}
-                className="rounded-full"
+                className="rounded-full h-full w-full"
               />
             </div>
             <span className="text-lg">{user.user_fullname}</span>
@@ -173,11 +172,10 @@ const page = async ({ params }: { params: { postName: string } }) => {
               <></>
             ) : (
               userSession.data.user && (
-                <Follow
-                  user_id={article.user_id}
-                  OurUser_id={userSession.data.user.id}
-                  isBtn={true}
+                <FollowBtn
                   isFollowing={userFollow}
+                  ourUserId={userSession.data.user.id}
+                  userIdToFollow={article.user_id}
                 />
               )
             )}
