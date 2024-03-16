@@ -9,7 +9,6 @@ import { getArticles } from "@/libs/actions/article/article";
 
 const HomePage = async () => {
   const articles = await getArticles();
-  console.log(articles);
 
   return (
     <div>

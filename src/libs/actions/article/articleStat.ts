@@ -1,6 +1,5 @@
 import createSupabaseClient from "@/libs/supabase/client";
 import createSupabaseServerClient from "@/libs/supabase/server";
-import { articleStat } from "@/types/article/articleStat";
 
 export async function getArticleViews(article_id: string) {
   const supabase = await createSupabaseServerClient();

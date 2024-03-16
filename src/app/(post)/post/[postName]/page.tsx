@@ -24,6 +24,7 @@ import UpDownsButton from "./component/UpDownsButton";
 import InteractBtn from "./component/InteractBtn";
 import FollowText from "./component/FollowText";
 import FollowBtn from "./component/FollowBtn";
+import Image from "next/image";
 export async function generateMetadata({
   params,
 }: {
@@ -79,8 +80,10 @@ const page = async ({ params }: { params: { postName: string } }) => {
           </div>
           <div className="flex space-x-5 items-center">
             <div className="w-11 h-11">
-              <img
-                src={user.user_profile}
+              <Image
+                height={50}
+                width={50}
+                src={user.user_profile ? user.user_profile : ""}
                 className="rounded-full h-full w-full"
                 alt={article.article_title}
               />
@@ -154,8 +157,10 @@ const page = async ({ params }: { params: { postName: string } }) => {
         <div className="container mx-auto px-64 flex items-center justify-between py-10 pb-14">
           <div className="flex flex-col space-y-3">
             <div className="w-16 h-16">
-              <img
-                src={user.user_profile}
+              <Image
+                width={70}
+                height={70}
+                src={user.user_profile ? user.user_profile : ""}
                 alt={article.article_title}
                 className="rounded-full h-full w-full"
               />
