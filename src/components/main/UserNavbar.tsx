@@ -12,6 +12,7 @@ import LogOut from "../ui/LogOut";
 import getUserSession from "@/libs/actions/user/auth/getSession";
 import { profileItems } from "../ui/Items";
 import { nprogress } from "@mantine/nprogress";
+import Image from "next/image";
 const UserNavbar = () => {
   const [uid, setUid] = useState("");
   const {
@@ -33,15 +34,16 @@ const UserNavbar = () => {
     };
     setUid(uuid());
     getUserFromSupabase();
-  }, [user_profile]);
+  }, [updateLoading, updateUserState]);
   return (
     <div className="navbar bg-base-100 border-b">
       <div className="flex-1">
         <Link href={"/"}>
           <button>
-            <img
+            <Image
               src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
               width={50}
+              alt="TechVibe"
               height={50}
               className="lg:ml-3 mr-2 lg:mr-5"
             />
@@ -114,7 +116,13 @@ const UserNavbar = () => {
               {isLoading ? (
                 <ProfileLoading />
               ) : (
-                <img alt="Tech vibe user profile" src={user_profile} />
+                <Image
+                  alt="Tech vibe user profile"
+                  src={user_profile ? user_profile : ""}
+                  height={40}
+                  width={40}
+                  className="w-full"
+                />
               )}
             </div>
           </div>
@@ -127,7 +135,13 @@ const UserNavbar = () => {
                   {isLoading ? (
                     <ProfileLoading />
                   ) : (
-                    <img alt="Tech vibe user profile" src={user_profile} />
+                    <Image
+                      alt="Tech vibe user profile"
+                      src={user_profile ? user_profile : ""}
+                      height={40}
+                      width={40}
+                      className="w-full"
+                    />
                   )}
                 </div>
               </div>

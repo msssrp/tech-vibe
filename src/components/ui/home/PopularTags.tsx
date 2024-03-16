@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const tags = [
@@ -48,10 +49,14 @@ const PopularTags = () => {
               return (
                 <div
                   key={tag.tags_id}
-                  className="card bg-base-100 h-40 sm:h-48 drop-shadow-sm border rounded-md flex justify-center items-center"
-                >
-                  <figure>
-                    <img src={tag.tags_icon} alt="tag" className="w-14 h-14" />
+                  className="card bg-base-100 h-40 sm:h-48 drop-shadow-sm border rounded-md flex justify-center items-center">
+                  <figure className="w-14 h-14">
+                    <Image
+                      height={56}
+                      width={56}
+                      src={tag.tags_icon}
+                      alt="tag"
+                    />
                   </figure>
                   <div className="mt-4">
                     <p className="text-center uppercase px-2">

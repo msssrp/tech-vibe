@@ -49,7 +49,7 @@ const DrawerComment: React.FC<DrawerCommentProps> = ({
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [supabase, router]);
+  }, [supabase, router, article_id]);
 
   const handleOnKeyDown = async (
     e: React.KeyboardEvent<HTMLInputElement>,

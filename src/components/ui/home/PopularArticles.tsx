@@ -1,4 +1,5 @@
-'use client'
+"use client";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 interface Article {
   id: number;
@@ -9,10 +10,10 @@ interface Article {
 }
 // Mockup data for tags
 const tags = [
-  { tag_id: 1, tag_name: "database"},
-  { tag_id: 2, tag_name: "UX/UI"},
-  { tag_id: 3, tag_name: "Tester"},
-  { tag_id: 4, tag_name: "Development"},
+  { tag_id: 1, tag_name: "database" },
+  { tag_id: 2, tag_name: "UX/UI" },
+  { tag_id: 3, tag_name: "Tester" },
+  { tag_id: 4, tag_name: "Development" },
 ];
 
 const PopularArticles = () => {
@@ -27,7 +28,7 @@ const PopularArticles = () => {
       try {
         // โดยตอนนี้จะดึงมาจากไฟล์ Mokup Data ที่เตรียมไว้
         const response = await fetch("/articleslist.json");
-        // แปลงข้อมูลจาก JSON เป็น obj || Article[] คือประเภทของตัวแปร data 
+        // แปลงข้อมูลจาก JSON เป็น obj || Article[] คือประเภทของตัวแปร data
         const data: Article[] = await response.json();
         setArticles(data);
       } catch (error) {
@@ -37,8 +38,8 @@ const PopularArticles = () => {
     fetchData();
   }, []);
 
-   // totalPages เป็นฟังก์ชันที่จะคำนวณจำนวนหน้าทั้งหมด โดยใช้ method ceil จะปัดเศษเลขทศนิยมขึ้นไปเป็นจำนวนเต็ม
-   const totalPages = Math.ceil(articles.length / itemsPerPage);
+  // totalPages เป็นฟังก์ชันที่จะคำนวณจำนวนหน้าทั้งหมด โดยใช้ method ceil จะปัดเศษเลขทศนิยมขึ้นไปเป็นจำนวนเต็ม
+  const totalPages = Math.ceil(articles.length / itemsPerPage);
 
   // sliceArticles เป็นฟังก์ชันที่แบ่ง articles ออกเป็นส่วนๆ
   const sliceArticles = () => {
@@ -64,11 +65,13 @@ const PopularArticles = () => {
           {sliceArticles().map((article, index) => (
             <div key={index} className="flex justify-center cursor-pointer">
               <div className="card card-compact w-80 sm:w-[30rem] h-96 bg-base-100 drop-shadow-sm rounded-t-[50px] rounded-md border">
-                <figure>
-                  <img
+                <figure className="w-full">
+                  <Image
+                    width={520}
+                    height={520}
                     src={article.image}
                     alt="Article"
-                    className="w-full object-cover"
+                    className="object-cover"
                   />
                 </figure>
                 <div className="card-body">
@@ -76,8 +79,7 @@ const PopularArticles = () => {
                     {tags.map((tag) => (
                       <div
                         key={tag.tag_id}
-                        className={`badge bg-[#F2F2F2] text-[15px] py-3`}
-                      >
+                        className={`badge bg-[#F2F2F2] text-[15px] py-3`}>
                         {tag.tag_name}
                       </div>
                     ))}
@@ -87,7 +89,9 @@ const PopularArticles = () => {
                   <div className="flex justify-between items-center mt-2">
                     <div className="avatar items-center">
                       <div className="w-8 rounded-full">
-                        <img
+                        <Image
+                          width={32}
+                          height={32}
                           src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
                           alt="Author"
                         />
@@ -100,8 +104,7 @@ const PopularArticles = () => {
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
-                        className="w-6 h-6 stroke-blue-500"
-                      >
+                        className="w-6 h-6 stroke-blue-500">
                         <path d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
                       </svg>
                     </a>
@@ -112,8 +115,8 @@ const PopularArticles = () => {
           ))}
         </div>
         <div className="text-center mt-8">
-           {/* ใช้ Array.from เพื่อสร้าง array ของปุ่มตามจำนวนหน้าทั้งหมด และทำการวนลูป array ของปุ่ม */}
-           {Array.from({ length: totalPages }, (_, index) => (
+          {/* ใช้ Array.from เพื่อสร้าง array ของปุ่มตามจำนวนหน้าทั้งหมด และทำการวนลูป array ของปุ่ม */}
+          {Array.from({ length: totalPages }, (_, index) => (
             <button
               // ทำไมถึงกำหนด key เป็น index + 1 เพราะช่วยให้ React อัปเดต UI ได้อย่างมีประสิทธิภาพและปุ่มแต่ละปุ่มมี key ที่ไม่ซ้ำกัน
               key={index + 1}
@@ -121,8 +124,7 @@ const PopularArticles = () => {
                 index + 1 === currentPage ? "bg-red" : "bg-[#C8C2C2]"
               }`}
               // เมื่อกดปุ่มฟังก์ชัน setCurrentPage(index + 1) จะถูกเรียกและจะอัพเดท state currentPage เป็นหมายเลขหน้า
-              onClick={() => setCurrentPage(index + 1)}
-            ></button>
+              onClick={() => setCurrentPage(index + 1)}></button>
           ))}
         </div>
       </div>

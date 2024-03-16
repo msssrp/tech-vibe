@@ -1,6 +1,7 @@
 import { getUserFromClient } from "@/libs/actions/user/userClient";
 import { convertTimeWithHM } from "@/libs/convertTime";
 import { userProps } from "@/types/user/user";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 type commentUserProps = {
@@ -24,8 +25,10 @@ const CommentUser: React.FC<commentUserProps> = ({ user_id, timeStamp }) => {
   return (
     <>
       <div className="w-11 h-11">
-        <img
-          src={userComment?.user_profile}
+        <Image
+          height={50}
+          width={50}
+          src={userComment?.user_profile ? userComment?.user_profile : ""}
           alt=""
           className="w-full h-full rounded-full"
         />
