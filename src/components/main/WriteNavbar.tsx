@@ -41,14 +41,14 @@ const WriteNavbar: React.FC<userWriteProps & articleProps> = ({
 
   return (
     <nav className="border-b">
-      <div className="navbar bg-base-100  container mx-auto">
+      <div className="navbar h-3 bg-base-100  container mx-auto">
         <div className="flex-1">
           <Link href={"/"}>
             <button type="button">
               <Image
                 src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
-                width={50}
-                height={50}
+                width={40}
+                height={35}
                 alt="TechVibe"
                 className="lg:ml-3 mr-2 lg:mr-5"
               />
@@ -56,13 +56,11 @@ const WriteNavbar: React.FC<userWriteProps & articleProps> = ({
           </Link>
         </div>
         <div className="flex-none space-x-5">
-          <div className="">
-            <button
-              onClick={handlerOnClick}
-              className=" bg-green-600 py-1.5 px-4 rounded-full text-white">
-              Publish
-            </button>
-          </div>
+          <button
+            onClick={handlerOnClick}
+            className=" bg-green-600 py-1.5 px-4 rounded-full text-white text-xs">
+            Publish
+          </button>
           <div className="dropdown dropdown-end">
             <div className="" tabIndex={0} role="button">
               <svg
@@ -96,7 +94,7 @@ const WriteNavbar: React.FC<userWriteProps & articleProps> = ({
               tabIndex={0}
               role="button"
               className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
+              <div className="w-9 rounded-full">
                 <Image
                   width={52}
                   height={52}
