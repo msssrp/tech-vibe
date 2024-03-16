@@ -1,5 +1,5 @@
 "use client";
-import { updateFullname } from "@/libs/actions/user/user";
+import { updateFullname } from "@/libs/actions/user/userClient";
 import {
   getUserSocial,
   insertUserSocial,
