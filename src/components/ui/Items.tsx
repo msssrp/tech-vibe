@@ -22,7 +22,7 @@ export const navItem = (
 
 export const profileItems = (
   <div className="text-[#898889] mt-2 flex flex-col space-y-4">
-    <Link href={""} className="flex mt-3 space-x-2">
+    <Link href={"/profile"} className="flex mt-3 space-x-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
