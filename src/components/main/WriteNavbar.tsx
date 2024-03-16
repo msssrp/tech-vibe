@@ -13,6 +13,7 @@ import {
   rejectPublish,
 } from "../ui/notifications/notification";
 import { newTag } from "@/libs/actions/tag/tag";
+import Image from "next/image";
 
 const WriteNavbar: React.FC<userWriteProps & articleProps> = ({
   user,
@@ -21,6 +22,7 @@ const WriteNavbar: React.FC<userWriteProps & articleProps> = ({
   tagValue,
 }) => {
   const router = useRouter();
+
   const handlerOnClick = async () => {
     if (
       !article.article_title ||
@@ -43,10 +45,11 @@ const WriteNavbar: React.FC<userWriteProps & articleProps> = ({
         <div className="flex-1">
           <Link href={"/"}>
             <button type="button">
-              <img
+              <Image
                 src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
                 width={50}
                 height={50}
+                alt="TechVibe"
                 className="lg:ml-3 mr-2 lg:mr-5"
               />
             </button>
@@ -94,7 +97,16 @@ const WriteNavbar: React.FC<userWriteProps & articleProps> = ({
               role="button"
               className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img alt="Tech vibe user profile" src={user.user_profile} />
+                <Image
+                  width={52}
+                  height={52}
+                  alt="Tech vibe user profile"
+                  src={
+                    user.user_profile
+                      ? user.user_profile
+                      : "https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
+                  }
+                />
               </div>
             </div>
             <ul
@@ -103,7 +115,17 @@ const WriteNavbar: React.FC<userWriteProps & articleProps> = ({
               <div className="border-b flex justify-stretch items-center">
                 <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
                   <div className=" w-9 rounded-full">
-                    <img alt="Tech vibe user profile" src={user.user_profile} />
+                    <Image
+                      height={40}
+                      width={40}
+                      className="w-full"
+                      alt="Tech vibe user profile"
+                      src={
+                        user.user_profile
+                          ? user.user_profile
+                          : "https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
+                      }
+                    />
                   </div>
                 </div>
                 <div className="ml-2">
