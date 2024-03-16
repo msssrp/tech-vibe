@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 
 const articleslist = [
@@ -68,7 +69,7 @@ const NpruAarticles = () => {
   };
 
   const totalPages = Math.ceil(articleslist.length / itemsPerPage);
-  
+
   return (
     <div className="bg-red text-center py-10 sm:py-14">
       <div className="flex flex-col justify-center items-center text-white space-y-2 sm:space-y-5">
@@ -86,11 +87,17 @@ const NpruAarticles = () => {
             return (
               <div
                 key={articleslist.id}
-                className="flex justify-center items-center mx-2 cursor-pointer "
-              >
+                className="flex justify-center items-center mx-2 cursor-pointer ">
                 <div className="card card-compact w-64 bg-base-100 shadow-xl">
                   <figure>
-                    <img src={articleslist.image} alt="" className="" />
+                    <Image
+                      width={200}
+                      height={200}
+                      src={articleslist.image}
+                      alt={articleslist.title}
+                      className="h-full w-full"
+                      loading="lazy"
+                    />
                   </figure>
                   <div className="card-body">
                     <h2 className="text-lg font-semibold line-clamp-2">
@@ -110,14 +117,12 @@ const NpruAarticles = () => {
               className="px-1 sm:px-2 rounded-full text-white"
               disabled={
                 currentPage === Math.ceil(articleslist.length / itemsPerPage)
-              }
-            >
+              }>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
-                className="w-16 h-16"
-              >
+                className="w-16 h-16">
                 <path d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" />
               </svg>
             </button>{" "}
@@ -126,14 +131,12 @@ const NpruAarticles = () => {
             <button
               onClick={() => setCurrentPage(currentPage - 1)}
               className="px-1 sm:px-2 rounded-full text-white "
-              disabled={currentPage === 1}
-            >
+              disabled={currentPage === 1}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
-                className="w-16 h-16"
-              >
+                className="w-16 h-16">
                 <path d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z" />
               </svg>
             </button>
@@ -149,8 +152,7 @@ const NpruAarticles = () => {
                 ? "bg-[#FFFFFF]"
                 : "bg-[#C8C2C2] opacity-60"
             }`}
-            onClick={() => setCurrentPage(index + 1)}
-          ></button>
+            onClick={() => setCurrentPage(index + 1)}></button>
         ))}
       </div>
     </div>

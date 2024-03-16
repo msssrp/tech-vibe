@@ -1,5 +1,6 @@
 import React from "react";
 import { articleTestLists, tag } from "../ui/Items";
+import Image from "next/image";
 
 const AllArticleCard: React.FC<articleTestLists> = ({ article }) => {
   return (
@@ -7,7 +8,13 @@ const AllArticleCard: React.FC<articleTestLists> = ({ article }) => {
       <div className="card-body px-4">
         <div className="avatar items-center">
           <div className="w-8 rounded-full">
-            <img src={article.image} />
+            <Image
+              loading="lazy"
+              width={52}
+              height={52}
+              alt={article.title}
+              src={article.image}
+            />
           </div>
           <p className="ml-2">{article.author}</p>
         </div>
@@ -19,8 +26,7 @@ const AllArticleCard: React.FC<articleTestLists> = ({ article }) => {
               return (
                 <button
                   key={tag.tag_id}
-                  className={`btn btn-sm badge bg-[#F2F2F2] rounded-full `}
-                >
+                  className={`btn btn-sm badge bg-[#F2F2F2] rounded-full `}>
                   <p>{tag.tag_name}</p>
                 </button>
               );
@@ -38,8 +44,7 @@ const AllArticleCard: React.FC<articleTestLists> = ({ article }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6"
-                >
+                  className="w-6 h-6">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -54,8 +59,7 @@ const AllArticleCard: React.FC<articleTestLists> = ({ article }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="#FFC107"
-                  className="w-6 h-6"
-                >
+                  className="w-6 h-6">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -70,8 +74,7 @@ const AllArticleCard: React.FC<articleTestLists> = ({ article }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="#699BF7"
-                  className="w-6 h-6"
-                >
+                  className="w-6 h-6">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -83,8 +86,14 @@ const AllArticleCard: React.FC<articleTestLists> = ({ article }) => {
           </div>
         </div>
       </div>
-      <div>
-        <img src={article.image} alt="" className="w-96" />
+      <div className="w-96">
+        <Image
+          width={450}
+          height={450}
+          src={article.image}
+          alt={article.title}
+          loading="lazy"
+        />
       </div>
     </div>
   );

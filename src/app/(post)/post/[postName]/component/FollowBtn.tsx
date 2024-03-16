@@ -20,7 +20,7 @@ const FollowBtn: React.FC<FollowBtnProps> = ({
   const { isFollowingUser, setIsFollowingUser } = useFollowStore();
   useEffect(() => {
     setIsFollowingUser(isFollowing === 1);
-  }, [isFollowing]);
+  }, [isFollowing, setIsFollowingUser]);
   const handleFollow = async () => {
     setIsFollowingUser(true);
     await newFollowUser(ourUserId, userIdToFollow);

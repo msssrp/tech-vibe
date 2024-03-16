@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const articleslist = [
@@ -56,15 +57,20 @@ const NewArticles = () => {
                   {articleslist.title}
                 </h2>
                 <div className="card card-side bg-base-100 drop-shadow-sm border rounded-md">
-                  <figure>
-                    <img
+                  <figure className="h-44 sm:h-40 md:h-56 w-96 ">
+                    <Image
                       src={articleslist.image}
-                      alt=""
-                      className="object-cover h-44 sm:h-40 md:h-56 w-96 "
+                      alt={articleslist.title}
+                      width={300}
+                      height={200}
+                      className="object-cover w-full h-full"
+                      loading="lazy"
                     />
                   </figure>
                   <div className="text-sm py-2 px-2 md:px-3 lg:px-4 xl:px-6 w-96 md:w-4/5 flex justify-center items-center">
-                    <p className="text-center line-clamp-6">{articleslist.description}</p>
+                    <p className="text-center line-clamp-6">
+                      {articleslist.description}
+                    </p>
                   </div>
                 </div>
               </div>
