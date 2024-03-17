@@ -24,9 +24,9 @@ export default async function page({ params }: { params: { userId: string } }) {
         </span>
       </div>
       <VerifyInput
-        user_email={userData?.user_email}
-        user_fullname={userData?.user_fullname}
-        user_id={userData?.user_id}
+        user_email={userData.user_email}
+        user_fullname={userData.user_fullname}
+        user_id={userData.user_id}
       />
     </div>
   );

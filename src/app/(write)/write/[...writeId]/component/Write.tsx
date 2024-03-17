@@ -19,7 +19,7 @@ import * as Dompurify from "dompurify";
 import Link from "next/link";
 import Image from "next/image";
 const Write: React.FC<WriteProps> = ({ user, writeId }) => {
-  const [article, setArticle] = useState<articleProps["article"]>({
+  const [article, setArticle] = useState<articleProps>({
     article_id: writeId,
     article_content: "",
     article_cover: "",
@@ -32,7 +32,7 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
   const hasCoverImageBeenSet = useRef(false);
   const handleSetCoverImage = (imageUrl: string) => {
     if (!hasCoverImageBeenSet.current) {
-      setArticle((prev) => ({ ...prev, article_cover: imageUrl }));
+      setArticle((prev: any) => ({ ...prev, article_cover: imageUrl }));
       hasCoverImageBeenSet.current = true;
     }
   };
@@ -57,14 +57,14 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
 
   const handlerEditorChange = (newContent: string, editor: any) => {
     const cleanHtml = Dompurify.sanitize(newContent);
-    setArticle((prev) => ({ ...prev, article_content: cleanHtml }));
+    setArticle((prev: any) => ({ ...prev, article_content: cleanHtml }));
   };
 
   useEffect(() => {
     let saveTimeOut: NodeJS.Timeout;
 
     const saveArticle = async () => {
-      const { article: articleData } = await getArticleById(writeId);
+      const articleData = await getArticleById(writeId);
 
       if (articleData && articleData.article_status !== "pending") {
         await updateArticleById(writeId, article);
@@ -144,7 +144,7 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
             <div className="w-full pl-4 border-b">
               <textarea
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                  setArticle((prev) => ({
+                  setArticle((prev: any) => ({
                     ...prev,
                     article_title: e.target.value,
                   }))
@@ -154,7 +154,7 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
               />
               <textarea
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                  setArticle((prev) => ({
+                  setArticle((prev: any) => ({
                     ...prev,
                     article_description: e.target.value,
                   }))
