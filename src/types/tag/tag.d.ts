@@ -1,3 +1,3 @@
 export type tagProps = {
-  tag_name: string[];
+  tag_name: string[] | null;
 };

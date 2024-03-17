@@ -5,7 +5,10 @@ import createSupabaseClient from "@/libs/supabase/client";
 
 export async function getArticles(): Promise<articleProps[]> {
   const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase.from("article").select("*");
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("article_status", "public");
   if (error) throw new Error(error.message);
   return data as articleProps[];
 }
@@ -20,7 +23,7 @@ export async function getArticleById(
     .eq("article_id", article_id)
     .limit(1)
     .single();
-  return { article: data };
+  return data;
 }
 
 export async function getArticleByName(
@@ -33,10 +36,10 @@ export async function getArticleByName(
     .eq("article_title", article_Title)
     .limit(1)
     .single();
-  return { article: data };
+  return data;
 }
 
-export async function newArticle(articleData: articleProps["article"]) {
+export async function newArticle(articleData: articleProps) {
   const supabase = createSupabaseClient();
   const article_id = articleData.article_id;
   const { error } = await supabase.from("article").insert({
@@ -53,7 +56,7 @@ export async function newArticle(articleData: articleProps["article"]) {
 
 export async function updateArticleById(
   article_id: string,
-  articleData: articleProps["article"]
+  articleData: articleProps
 ) {
   const supabase = createSupabaseClient();
   const currentTime = new Date();
