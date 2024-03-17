@@ -15,7 +15,11 @@ import {
 import { newTag } from "@/libs/actions/tag/tag";
 import Image from "next/image";
 
-const WriteNavbar: React.FC<userWriteProps & articleProps> = ({
+type WriteProps = {
+  article: articleProps;
+};
+
+const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
   user,
   writeId,
   article,

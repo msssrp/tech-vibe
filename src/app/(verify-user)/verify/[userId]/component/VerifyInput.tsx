@@ -19,7 +19,12 @@ type Inputs = {
   facebook: string;
   twitter: string;
 };
-const VerifyInput: React.FC<userProps> = ({
+type InputsProps = {
+  user_email: string;
+  user_fullname: string;
+  user_id: string;
+};
+const VerifyInput: React.FC<InputsProps> = ({
   user_email,
   user_fullname,
   user_id,

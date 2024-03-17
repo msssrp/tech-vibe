@@ -30,11 +30,12 @@ export async function generateMetadata({
 }: {
   params: { postName: string };
 }): Promise<Metadata> {
-  const decodeTitle = decodeURIComponent(params.postName);
+  const decode = decodeURIComponent(params.postName);
+  const replaced = decode.replace(/-/g, " ");
 
-  const { article } = await getArticleByName(decodeTitle);
+  const article = await getArticleByName(replaced);
   return {
-    title: decodeTitle,
+    title: article.article_title,
     description: article.article_description,
   };
 }
@@ -42,8 +43,10 @@ export async function generateMetadata({
 const page = async ({ params }: { params: { postName: string } }) => {
   const userSession = await getUserSession();
   if (!params.postName) redirect("/");
-  const decodeTitle = decodeURIComponent(params.postName);
-  const { article } = await getArticleByName(decodeTitle);
+  const decode = decodeURIComponent(params.postName);
+  const replaced = decode.replace(/-/g, " ");
+
+  const article = await getArticleByName(replaced);
   if (!article.created_at || !article.user_id) redirect("/");
   const user = await getUser(article.user_id);
   const { day, month } = convertTime(article.created_at);
@@ -132,6 +135,7 @@ const page = async ({ params }: { params: { postName: string } }) => {
               <InteractBtn
                 user_id={userSession.data.user?.id}
                 article_id={article.article_id}
+                url_title={article.article_title}
               />
             </div>
           </div>
@@ -141,16 +145,17 @@ const page = async ({ params }: { params: { postName: string } }) => {
           className="pt-7"
         />
         <div className="flex space-x-3 pt-8 pb-10">
-          {Tagdata?.tag_name.map((tag: any, index: any) => (
-            <Badge
-              key={index}
-              size="lg"
-              autoContrast
-              color="rgba(242,242,242)"
-              className="text-black">
-              {tag}
-            </Badge>
-          ))}
+          {Tagdata &&
+            Tagdata.tag_name.map((tag: any, index: any) => (
+              <Badge
+                key={index}
+                size="lg"
+                autoContrast
+                color="rgba(242,242,242)"
+                className="text-black">
+                {tag}
+              </Badge>
+            ))}
         </div>
       </div>
       <footer className="bg-[#F5F5F5] mt-5">
