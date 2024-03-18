@@ -17,8 +17,12 @@ function ChartTooltip({ label, payload }: ChartTooltipProps) {
         {label}
       </Text>
       {getFilteredChartTooltipPayload(payload).map((item: any) => (
-        <Text key={item.name} c={item.color} fz="sm" className="flex justify-between">
-           {item.name} <p>{item.value}</p>
+        <Text
+          key={item.name}
+          c={item.color}
+          fz="sm"
+          className="flex justify-between">
+          {item.name} <p>{item.value}</p>
         </Text>
       ))}
     </Paper>
@@ -46,7 +50,6 @@ const StatisticChat = () => {
         { name: "View", color: "red" },
         { name: "Ups", color: "blue" },
       ]}
-
     />
   );
 };
