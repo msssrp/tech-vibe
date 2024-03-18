@@ -26,6 +26,16 @@ export async function getArticleById(
   return data;
 }
 
+export async function getArticleByUserId(userId: string) {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("user_id", userId);
+  if (error) console.log(error);
+  return data as articleProps[];
+}
+
 export async function getArticleByName(
   article_Title: string
 ): Promise<articleProps> {

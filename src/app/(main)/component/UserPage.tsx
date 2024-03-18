@@ -77,7 +77,11 @@ const UserPage: React.FC<userPageProps> = async ({ user_id }) => {
             <div className="space-y-2 ">
               {articles.map((articleslist) => {
                 return (
-                  <AllArticleCard article={articleslist} user_id={user_id} />
+                  <AllArticleCard
+                    key={articleslist.article_id}
+                    article={articleslist}
+                    user_id={user_id}
+                  />
                 );
               })}
             </div>
