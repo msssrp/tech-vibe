@@ -13,15 +13,20 @@ import {
 type interactProps = {
   user_id: string | undefined;
   article_id: string;
+  url_title: string;
 };
 
-const InteractBtn: React.FC<interactProps> = ({ user_id, article_id }) => {
+const InteractBtn: React.FC<interactProps> = ({
+  user_id,
+  article_id,
+  url_title,
+}) => {
   const [createInputOpen, setCreateInputOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [readlists, setReadlists] = useState<readlistsProps[] | null>([]);
   const [triggerReFetch, setTriggerReFetch] = useState(0);
   const [savedInReadlists, setSavedInReadlists] = useState<string[]>([]);
-  const currentUrl = typeof window !== "undefined" && window.location.href;
+  const currentHost = typeof window !== "undefined" && window.location.hostname;
   const clipboard = useClipboard();
   const [opened, { open, close }] = useDisclosure(false);
   useEffect(() => {
@@ -212,10 +217,12 @@ const InteractBtn: React.FC<interactProps> = ({ user_id, article_id }) => {
         </button>
         <div
           tabIndex={0}
-          className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-lg w-40 flex flex-col space-y-3">
+          className="p-2 shadow menu dropdown-content z-50 bg-base-100 rounded-lg w-40 flex flex-col space-y-3">
           <button
             className="cursor-pointer flex space-x-2"
-            onClick={() => clipboard.copy(currentUrl)}>
+            onClick={() =>
+              clipboard.copy(`${currentHost}:3000/post/${url_title}`)
+            }>
             {clipboard.copied ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"

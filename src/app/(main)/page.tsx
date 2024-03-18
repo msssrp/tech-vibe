@@ -11,7 +11,7 @@ export default async function Home() {
     if (userData.user_verify == false) {
       return redirect(`/verify/${userData.user_id}`);
     }
-    return <UserPage />;
+    return <UserPage user_id={data.user.id} />;
   }
 
   return <HomePage />;
