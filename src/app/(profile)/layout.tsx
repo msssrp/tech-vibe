@@ -1,7 +1,5 @@
-import React from 'react'
 import UserNavbar from "@/components/main/UserNavbar";
 import { Metadata } from "next";
-import Profile from './component/Profile';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -10,13 +8,15 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const page = () => {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div>
-      <UserNavbar/>
-      <Profile />
+      <UserNavbar />
+      {children}
     </div>
-  )
+  );
 }
-
-export default page;

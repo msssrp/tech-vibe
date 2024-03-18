@@ -10,8 +10,8 @@ import { ScrollArea } from "@mantine/core";
 import { v4 as uuid } from "uuid";
 import LogOut from "../ui/LogOut";
 import getUserSession from "@/libs/actions/user/auth/getSession";
-import { profileItems } from "../ui/Items";
 import Image from "next/image";
+import ProfileItems from "../ui/ProfileItems";
 const UserNavbar = () => {
   const [uid, setUid] = useState("");
   const {
@@ -146,7 +146,7 @@ const UserNavbar = () => {
                 {isLoading ? <NameLoading /> : <span>{user_fullname}</span>}
               </div>
             </div>
-            {profileItems}
+            <ProfileItems user_id={user_id} />
             <div className="border-t mt-4">
               <div className="flex mt-3 space-x-2 items-center cursor-pointer">
                 <svg
