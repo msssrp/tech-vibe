@@ -13,6 +13,18 @@ export async function getUserFollower(user_id: string) {
   return { count };
 }
 
+export async function getUserFollowerFromClient(user_id: string) {
+  const supabase = createSupabaseClient();
+
+  const { count, error } = await supabase
+    .from("user_following")
+    .select("*", { count: "exact" })
+    .eq("user_follow_id", user_id);
+  if (error) console.log(error);
+
+  return { count };
+}
+
 export async function getUserThatFollowing(
   user_id: string,
   OurUserId: string | undefined

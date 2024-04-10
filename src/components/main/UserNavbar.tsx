@@ -10,9 +10,8 @@ import { ScrollArea } from "@mantine/core";
 import { v4 as uuid } from "uuid";
 import LogOut from "../ui/LogOut";
 import getUserSession from "@/libs/actions/user/auth/getSession";
-import { profileItems } from "../ui/Items";
-import { nprogress } from "@mantine/nprogress";
 import Image from "next/image";
+import ProfileItems from "../ui/ProfileItems";
 const UserNavbar = () => {
   const [uid, setUid] = useState("");
   const {
@@ -36,15 +35,15 @@ const UserNavbar = () => {
     getUserFromSupabase();
   }, [updateLoading, updateUserState]);
   return (
-    <div className="navbar bg-base-100 border-b">
+    <div className="navbar h-2 bg-base-100 border-b">
       <div className="flex-1">
         <Link href={"/"}>
           <button>
             <Image
               src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
-              width={50}
+              width={40}
               alt="TechVibe"
-              height={50}
+              height={35}
               className="lg:ml-3 mr-2 lg:mr-5"
             />
           </button>
@@ -53,7 +52,7 @@ const UserNavbar = () => {
           <input
             type="text"
             placeholder="Search"
-            className="input input-bordered w-20 md:w-72 bg-[#F5F4F5] border-none"
+            className="input h-10 rounded-xl input-bordered w-20 md:w-56 bg-[#F5F4F5] border-none"
           />
         </div>
       </div>
@@ -61,23 +60,21 @@ const UserNavbar = () => {
         <Link
           href={`/write/[uid]/[user_id]`}
           as={`/write/${uid}/${user_id}`}
-          className="mr-4 flex">
-          <button className="flex" type="button">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="#C9C9C8"
-              className="w-6 h-6">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-              />
-            </svg>
-            <span className="uppercase">write</span>
-          </button>
+          className="mr-4 flex items-center space-x-2.5">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="#C9C9C8"
+            className="w-6 h-6">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+            />
+          </svg>
+          <span className="uppercase text-[#616160] text-xs">write</span>
         </Link>
         <div className="dropdown dropdown-end">
           <div className="mr-4" tabIndex={0} role="button">
@@ -112,15 +109,15 @@ const UserNavbar = () => {
             tabIndex={0}
             role="button"
             className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
+            <div className="w-9 rounded-full">
               {isLoading ? (
                 <ProfileLoading />
               ) : (
                 <Image
                   alt="Tech vibe user profile"
                   src={user_profile ? user_profile : ""}
-                  height={40}
-                  width={40}
+                  height={30}
+                  width={30}
                   className="w-full"
                 />
               )}
@@ -149,7 +146,7 @@ const UserNavbar = () => {
                 {isLoading ? <NameLoading /> : <span>{user_fullname}</span>}
               </div>
             </div>
-            {profileItems}
+            <ProfileItems user_id={user_id} />
             <div className="border-t mt-4">
               <div className="flex mt-3 space-x-2 items-center cursor-pointer">
                 <svg
