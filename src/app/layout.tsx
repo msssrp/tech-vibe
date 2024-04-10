@@ -3,6 +3,7 @@ import { Lora } from "next/font/google";
 import "@/styles/globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
+import "@mantine/spotlight/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
 export const lora = Lora({ subsets: ["latin"] });
 import NextTopLoader from "nextjs-toploader";
