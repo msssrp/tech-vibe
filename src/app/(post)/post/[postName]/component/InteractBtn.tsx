@@ -1,7 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useClipboard, useDisclosure } from "@mantine/hooks";
-import { Checkbox, Input, Modal } from "@mantine/core";
+import { create } from "ipfs-http-client";
+import contractABI from "@/reviewAbi.json";
+import {
+  Checkbox,
+  Drawer,
+  Group,
+  Input,
+  Loader,
+  Modal,
+  Rating,
+  Text,
+  Textarea,
+  TextInput,
+  Tooltip,
+} from "@mantine/core";
 import { readlistsProps } from "@/types/readlists/readlists";
 import { getReadlists, newReadlists } from "@/libs/actions/readlists/readlists";
 import {
@@ -9,12 +23,28 @@ import {
   getSavedArticle,
   saveArticle,
 } from "@/libs/actions/savedArticle/savedArticle";
+import { Dropzone, FileWithPath } from "@mantine/dropzone";
+import {
+  IconBookUpload,
+  IconPhoto,
+  IconUpload,
+  IconX,
+} from "@tabler/icons-react";
+import { File } from "buffer";
+import { Notifications, notifications } from "@mantine/notifications";
+import ReviewsCard from "./ReviewsCard";
+import { reviewProps } from "@/types/article/article";
+import { ethers } from "ethers";
 
 type interactProps = {
   user_id: string | undefined;
   article_id: string;
   url_title: string;
 };
+
+interface UploadedFile extends File {
+  preview: string;
+}
 
 const InteractBtn: React.FC<interactProps> = ({
   user_id,
@@ -29,6 +59,9 @@ const InteractBtn: React.FC<interactProps> = ({
   const currentHost = typeof window !== "undefined" && window.location.hostname;
   const clipboard = useClipboard();
   const [opened, { open, close }] = useDisclosure(false);
+  const [isWalletFound, setIsWalletFound] = useState(false);
+  const [reviewsData, setReviewsData] = useState<any[]>();
+  const ethereum = window.ethereum;
   useEffect(() => {
     if (user_id) {
       const getReadlistsOnUser = async () => {
@@ -49,10 +82,27 @@ const InteractBtn: React.FC<interactProps> = ({
         }
         setSavedInReadlists(savedLists);
       };
-
+      const getReviews = async () => {
+        const accounts = await ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const from = accounts[0];
+        const provider = new ethers.BrowserProvider(ethereum);
+        const runner = await provider.getSigner(from);
+        const contract = new ethers.Contract(
+          "0xD63A9525765e84Bf5da59E4d921fe4bE0b80c6eC",
+          contractABI,
+          runner
+        );
+        const result = await contract.getAllReviews(article_id);
+        setReviewsData(result);
+      };
+      if (window.ethereum) setIsWalletFound(true);
       getReadlistsOnUser();
+      getReviews();
     }
   }, [triggerReFetch, user_id, article_id]);
+
   const handleCreateReadlist = async (userid: string) => {
     await newReadlists(userid, inputValue);
     setTriggerReFetch(triggerReFetch + 1);
@@ -73,8 +123,124 @@ const InteractBtn: React.FC<interactProps> = ({
     await deleteSavedArticle(readlists_id, article_id);
     setTriggerReFetch(triggerReFetch + 1);
   };
+
+  const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
+    useDisclosure(false);
+  const handlerReviewPost = () => {
+    openDrawer();
+  };
+
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+  const [reviewDesc, setReviewDesc] = useState("");
+  const [reviewRate, setReviewRate] = useState(0);
+  const [isSubmit, setIsSubmit] = useState(false);
+  const handleUpLoad = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      setIsSubmit(true);
+      const ipfs = create({ host: "localhost", port: 5001, protocol: "http" });
+
+      const hashPromises = uploadedFiles.map(async (file) => {
+        const fileBuffer = await file.arrayBuffer();
+        const result = await ipfs.add(fileBuffer);
+        return result.path;
+      });
+
+      const hashImage = await Promise.all(hashPromises);
+
+      if (hashImage.length > 0) {
+        const accounts = await ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const from = accounts[0];
+        const provider = new ethers.BrowserProvider(ethereum);
+        const runner = await provider.getSigner(from);
+        const contract = new ethers.Contract(
+          "0xD63A9525765e84Bf5da59E4d921fe4bE0b80c6eC",
+          contractABI,
+          runner
+        );
+        const tx = await contract.addReview(
+          article_id,
+          reviewDesc,
+          reviewRate,
+          hashImage
+        );
+        await tx.wait();
+        console.log(tx.hash);
+
+        setIsSubmit(false);
+        notifications.show({
+          title: "reviewed !",
+          message: "You're review has been published",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      setIsSubmit(false);
+    }
+  };
+
+  const handleDrop = (files: FileWithPath[]) => {
+    const newUploadedFiles = files.map((file) => {
+      const blob = file as Blob;
+      return Object.assign(blob, {
+        preview: URL.createObjectURL(blob),
+      }) as UploadedFile;
+    });
+
+    setUploadedFiles([...uploadedFiles, ...newUploadedFiles]);
+  };
+
+  const handleRemove = (index: number) => {
+    const newFiles = [...uploadedFiles];
+    newFiles.splice(index, 1);
+    setUploadedFiles(newFiles);
+  };
+
+  const [openedReviews, { open: openReview, close: closeReview }] =
+    useDisclosure(false);
+
   return (
     <>
+      <Notifications />
+      <Modal
+        opened={openedReviews}
+        onClose={closeReview}
+        title="Reviews from public"
+        size={1200}
+        withCloseButton={false}>
+        {reviewsData && reviewsData.length > 0 ? (
+          reviewsData.map((review, index) => (
+            <ReviewsCard
+              key={index}
+              ReviewId={review[0]}
+              Timestamp={review[1]}
+              Reviewer={review[2]}
+              Rating={review[4]}
+              Title={review[3]}
+              IpfsHash={review[5]}
+            />
+          ))
+        ) : (
+          <div>no review on this blog</div>
+        )}
+      </Modal>
+      <button onClick={openReview}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1}
+          stroke="currentColor"
+          className="w-6 h-6">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+          />
+        </svg>
+      </button>
       <button onClick={open}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -271,8 +437,135 @@ const InteractBtn: React.FC<interactProps> = ({
             </svg>
             <span>report this story</span>
           </button>
+          <button
+            className="cursor-pointer flex space-x-2"
+            onClick={handlerReviewPost}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
+              />
+            </svg>
+            <span>review this blog</span>
+          </button>
         </div>
       </div>
+      <Drawer
+        opened={openedDrawer}
+        onClose={closeDrawer}
+        title="Review this blog">
+        {isWalletFound ? (
+          <form
+            className="flex flex-col space-y-5 mt-6"
+            onSubmit={handleUpLoad}>
+            <div className="flex flex-col items-center justify-center space-y-4">
+              <span>Rate this blog</span>
+              <Rating value={reviewRate} onChange={setReviewRate} size={"xl"} />
+            </div>
+            <Textarea
+              label="Review description"
+              placeholder="input you're review description"
+              autosize
+              minRows={3}
+              value={reviewDesc}
+              onChange={(event) => setReviewDesc(event.target.value)}
+            />
+            <div className="flex space-x-4 flex-wrap ">
+              {uploadedFiles.map((file, index) => (
+                <Tooltip key={index} label="click to delete" color="red">
+                  <div
+                    key={index}
+                    className="relative cursor-pointer mt-4"
+                    onClick={() => handleRemove(index)}>
+                    <img
+                      src={file.preview}
+                      alt={`Uploaded ${index}`}
+                      style={{ width: 80, height: 80 }}
+                    />
+                  </div>
+                </Tooltip>
+              ))}
+            </div>
+            <Dropzone
+              onDrop={(files) => handleDrop(files)}
+              onReject={(files) => console.log("rejected files", files)}
+              maxSize={5 * 1024 ** 2}>
+              <Group
+                justify="center"
+                gap="md"
+                mih={200}
+                style={{ pointerEvents: "none" }}>
+                <Dropzone.Accept>
+                  <IconUpload
+                    style={{
+                      width: 80,
+                      height: 80,
+                      color: "var(--mantine-color-blue-6)",
+                    }}
+                    stroke={1}
+                  />
+                </Dropzone.Accept>
+                <Dropzone.Reject>
+                  <IconX
+                    style={{
+                      width: 80,
+                      height: 80,
+                      color: "var(--mantine-color-red-6)",
+                    }}
+                    stroke={1}
+                  />
+                </Dropzone.Reject>
+                <Dropzone.Idle>
+                  <IconPhoto
+                    style={{
+                      width: 80,
+                      height: 80,
+                      color: "var(--mantine-color-dimmed)",
+                    }}
+                    stroke={1}
+                  />
+                </Dropzone.Idle>
+
+                <div>
+                  <Text size="xl" inline>
+                    Drag images here or click to select files
+                  </Text>
+                  <Text size="sm" c="dimmed" inline mt={7}>
+                    Attach as many files as you like, each file should not
+                    exceed 5mb
+                  </Text>
+                </div>
+              </Group>
+            </Dropzone>
+            <button
+              type="submit"
+              className="btn flex items-center justify-center bg-blue-500 hover:bg-blue-400 p-2 rounded-md text-white">
+              {isSubmit ? (
+                <>
+                  <span>Submitting...</span>
+                  <Loader color="red" size={"sm"} />
+                </>
+              ) : (
+                <>
+                  <span>Submit</span>
+                  <IconBookUpload />
+                </>
+              )}
+            </button>
+          </form>
+        ) : (
+          <div className="flex items-center justify-center">
+            <span>Metamask not found please install</span>
+          </div>
+        )}
+      </Drawer>
     </>
   );
 };
