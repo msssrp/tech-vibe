@@ -32,3 +32,12 @@ export type DrawerCommentProps = {
 
   user_id: string | undefined;
 };
+
+export type reviewProps = {
+  ReviewId: string;
+  Timestamp: number;
+  Reviewer: string;
+  Title: string;
+  Rating: number;
+  IpfsHash: string[];
+};
