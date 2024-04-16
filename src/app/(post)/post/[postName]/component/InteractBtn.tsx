@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useClipboard, useDisclosure } from "@mantine/hooks";
-import { create } from "ipfs-http-client";
 import contractABI from "@/reviewAbi.json";
 import {
   Checkbox,
@@ -13,7 +12,6 @@ import {
   Rating,
   Text,
   Textarea,
-  TextInput,
   Tooltip,
 } from "@mantine/core";
 import { readlistsProps } from "@/types/readlists/readlists";
@@ -33,7 +31,6 @@ import {
 import { File } from "buffer";
 import { Notifications, notifications } from "@mantine/notifications";
 import ReviewsCard from "./ReviewsCard";
-import { reviewProps } from "@/types/article/article";
 import { ethers } from "ethers";
 
 type interactProps = {
@@ -62,6 +59,8 @@ const InteractBtn: React.FC<interactProps> = ({
   const [isWalletFound, setIsWalletFound] = useState(false);
   const [reviewsData, setReviewsData] = useState<any[]>();
   const ethereum = window.ethereum;
+
+  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
   useEffect(() => {
     if (user_id) {
       const getReadlistsOnUser = async () => {
@@ -90,7 +89,7 @@ const InteractBtn: React.FC<interactProps> = ({
         const provider = new ethers.BrowserProvider(ethereum);
         const runner = await provider.getSigner(from);
         const contract = new ethers.Contract(
-          "0xD63A9525765e84Bf5da59E4d921fe4bE0b80c6eC",
+          contractAddress,
           contractABI,
           runner
         );
@@ -138,15 +137,27 @@ const InteractBtn: React.FC<interactProps> = ({
     try {
       e.preventDefault();
       setIsSubmit(true);
-      const ipfs = create({ host: "localhost", port: 5001, protocol: "http" });
 
       const hashPromises = uploadedFiles.map(async (file) => {
         const fileBuffer = await file.arrayBuffer();
-        const result = await ipfs.add(fileBuffer);
-        return result.path;
+        const formData = new FormData();
+        formData.append("file", new Blob([fileBuffer]));
+        const uploadResponse = await fetch(
+          `https://api.pinata.cloud/pinning/pinFileToIPFS`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
+            },
+            body: formData,
+          }
+        );
+        const result = await uploadResponse.json();
+        return result.IpfsHash;
       });
 
       const hashImage = await Promise.all(hashPromises);
+      console.log(hashImage);
 
       if (hashImage.length > 0) {
         const accounts = await ethereum.request({
@@ -156,7 +167,7 @@ const InteractBtn: React.FC<interactProps> = ({
         const provider = new ethers.BrowserProvider(ethereum);
         const runner = await provider.getSigner(from);
         const contract = new ethers.Contract(
-          "0xD63A9525765e84Bf5da59E4d921fe4bE0b80c6eC",
+          contractAddress,
           contractABI,
           runner
         );
@@ -167,7 +178,6 @@ const InteractBtn: React.FC<interactProps> = ({
           hashImage
         );
         await tx.wait();
-        console.log(tx.hash);
 
         setIsSubmit(false);
         notifications.show({

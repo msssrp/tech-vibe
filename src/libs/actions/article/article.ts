@@ -49,6 +49,19 @@ export async function getArticleByName(
   return data;
 }
 
+export async function getAuthorIdByArticleId(
+  article_id: string
+): Promise<string> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("user_id")
+    .eq("article_id", article_id)
+    .limit(1)
+    .single();
+  return data?.user_id;
+}
+
 export async function newArticle(articleData: articleProps) {
   const supabase = createSupabaseClient();
   const article_id = articleData.article_id;
