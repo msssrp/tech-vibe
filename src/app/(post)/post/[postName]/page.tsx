@@ -25,6 +25,7 @@ import InteractBtn from "./component/InteractBtn";
 import FollowText from "./component/FollowText";
 import FollowBtn from "./component/FollowBtn";
 import Image from "next/image";
+import usePost from "@/hook/usePost";
 export async function generateMetadata({
   params,
 }: {
@@ -41,35 +42,28 @@ export async function generateMetadata({
 }
 
 const page = async ({ params }: { params: { postName: string } }) => {
-  const userSession = await getUserSession();
   if (!params.postName) redirect("/");
   const decode = decodeURIComponent(params.postName);
   const replaced = decode.replace(/-/g, " ");
-
-  const article = await getArticleByName(replaced);
+  const {
+    article,
+    userSession,
+    user,
+    userFollow,
+    day,
+    month,
+    data,
+    UpCount,
+    DownCount,
+    CommentData,
+    Tagdata,
+    UserFollowers,
+  } = await usePost(replaced);
   if (!article.created_at || !article.user_id) redirect("/");
-  const user = await getUser(article.user_id);
-  const { day, month } = convertTime(article.created_at);
-  const Tagdata = await getArticleTags(article.article_id);
-  const { count: UserFollowers } = await getUserFollower(article.user_id);
-  const { data: CommentData } = await getCommentOnArticle(article.article_id);
-  const { count: userFollow } = await getUserThatFollowing(
-    article.user_id,
-    userSession?.data?.user?.id
-  );
+
   if (userSession.data.user?.id) {
     await increaseArticleViews(article.article_id, userSession.data.user.id);
   }
-  const { data } = await getArticleUps(article.article_id);
-  const UpCount = await getUserUps(
-    article.article_id,
-    userSession.data.user?.id
-  );
-
-  const DownCount = await getUserDowns(
-    article.article_id,
-    userSession.data.user?.id
-  );
 
   return (
     <div>

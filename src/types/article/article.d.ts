@@ -41,3 +41,13 @@ export type reviewProps = {
   Rating: number;
   IpfsHash: string[];
 };
+interface UploadedFile extends File {
+  preview: string;
+}
+
+type Inputs = {
+  fullname: string;
+  github: string;
+  facebook: string;
+  twitter: string;
+};

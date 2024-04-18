@@ -1,10 +1,6 @@
 "use client";
-import {
-  newFollowUser,
-  unFollowUser,
-} from "@/libs/actions/user/user_following";
-import { useFollowStore } from "@/store/followStore";
-import React, { useEffect, useState } from "react";
+import useFollowBtn from "@/hook/useFollowBtn";
+import React from "react";
 
 type FollowBtnProps = {
   isFollowing: number | null;
@@ -17,18 +13,11 @@ const FollowBtn: React.FC<FollowBtnProps> = ({
   ourUserId,
   userIdToFollow,
 }) => {
-  const { isFollowingUser, setIsFollowingUser } = useFollowStore();
-  useEffect(() => {
-    setIsFollowingUser(isFollowing === 1);
-  }, [isFollowing, setIsFollowingUser]);
-  const handleFollow = async () => {
-    setIsFollowingUser(true);
-    await newFollowUser(ourUserId, userIdToFollow);
-  };
-  const handleUnFollow = async () => {
-    setIsFollowingUser(false);
-    await unFollowUser(userIdToFollow);
-  };
+  const { isFollowingUser, handleUnFollow, handleFollow } = useFollowBtn(
+    isFollowing,
+    ourUserId,
+    userIdToFollow
+  );
 
   if (isFollowingUser) {
     return (

@@ -1,16 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { articleslist, tag } from "@/components/ui/Items";
+import React from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa6";
 import Link from "next/link";
-import { userProps } from "@/types/user/user";
 import Image from "next/image";
-import { getUserFromClient } from "@/libs/actions/user/userClient";
-import { getUserFollowerFromClient } from "@/libs/actions/user/user_following";
 import ProfileLoading from "@/components/ui/ProfileLoading";
 import NameLoading from "@/components/ui/NameLoading";
+import useProfile from "@/hook/useProfile";
 
 type profileProps = {
   userId: string;
@@ -18,29 +15,8 @@ type profileProps = {
 };
 
 const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
-  const [userData, setUserData] = useState<userProps>();
-  const [userFollower, setUserFollower] = useState<number | null>();
-  const [itemsPerPage, setItemsPerPage] = useState(4);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const getUserData = async () => {
-      const user = await getUserFromClient(userId);
-      setUserData(user);
-      const userFollow = await getUserFollowerFromClient(userId);
-      setUserFollower(userFollow.count);
-      setIsLoading(false);
-    };
-    getUserData();
-  }, [userId]);
-
-  const sliceArticleslist = () => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(startIndex + itemsPerPage, articleslist.length);
-    return articleslist.slice(startIndex, endIndex);
-  };
-
+  const { isLoading, userData, userFollower, sliceArticleslist } =
+    useProfile(userId);
   return (
     <div className="w-2/6 py-12 pl-11 pr-2 ">
       <div className="flex flex-col items-center">
@@ -100,7 +76,12 @@ const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
                 <div className="card-body">
                   <div className="avatar items-center">
                     <div className="w-8 rounded-full">
-                      <img src={articleslist.image} />
+                      <Image
+                        src={articleslist.image}
+                        alt={articleslist.title}
+                        width={50}
+                        height={50}
+                      />
                     </div>
                     <p className="ml-2 text-[#606060]">{articleslist.author}</p>
                   </div>

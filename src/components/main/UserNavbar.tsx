@@ -12,6 +12,9 @@ import LogOut from "../ui/LogOut";
 import getUserSession from "@/libs/actions/user/auth/getSession";
 import Image from "next/image";
 import ProfileItems from "../ui/ProfileItems";
+import { notificationProps } from "@/types/notification/notification";
+import { getNotification } from "@/libs/actions/notification/notification";
+import createSupabaseClient from "@/libs/supabase/client";
 const UserNavbar = () => {
   const [uid, setUid] = useState("");
   const {
@@ -22,18 +25,39 @@ const UserNavbar = () => {
     isLoading,
     user_id,
   } = useUserStore();
+  const [notificationData, setNotificationData] =
+    useState<notificationProps[]>();
+
+  const supabase = createSupabaseClient();
+
   useEffect(() => {
     const getUserFromSupabase = async () => {
       const { data } = await getUserSession();
       if (data.user?.id) {
         const userData = await getUser(data.user?.id);
+        const notification = await getNotification(data.user.id);
+        setNotificationData(notification);
         updateUserState(userData);
         updateLoading(false);
+        supabase
+          .channel("notification-channel")
+          .on(
+            "postgres_changes",
+            { event: "*", schema: "public", table: "notification" },
+            (payload: any) => {
+              setNotificationData((prevData) => [
+                ...(prevData || []),
+                payload.new,
+              ]);
+            }
+          )
+          .subscribe();
       }
     };
     setUid(uuid());
     getUserFromSupabase();
   }, [updateLoading, updateUserState]);
+
   return (
     <div className="navbar h-2 bg-base-100 border-b">
       <div className="flex-1">
@@ -77,7 +101,7 @@ const UserNavbar = () => {
           <span className="uppercase text-[#616160] text-xs">write</span>
         </Link>
         <div className="dropdown dropdown-end">
-          <div className="mr-4" tabIndex={0} role="button">
+          <div className="mr-4 relative" tabIndex={0} role="button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -91,6 +115,8 @@ const UserNavbar = () => {
                 d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
               />
             </svg>
+            <span className="absolute top-0 right-0 inline-flex rounded-full w-2.5 h-2.5 bg-red animate-ping opacity-75"></span>
+            <span className="absolute top-0 right-0 inline-flex rounded-full h-2.5 w-2.5 bg-red"></span>
             <div
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-72 lg:w-80 overflow-auto relative h-screen"
               tabIndex={0}
@@ -98,7 +124,7 @@ const UserNavbar = () => {
               <ScrollArea type="auto" scrollbarSize={8} offsetScrollbars>
                 <div className="p-2">
                   <span className="text-lg">Notifications</span>
-                  <NotiTabs />
+                  <NotiTabs notification={notificationData} userId={user_id} />
                 </div>
               </ScrollArea>
             </div>
