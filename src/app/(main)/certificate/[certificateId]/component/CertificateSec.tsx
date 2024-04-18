@@ -1,11 +1,12 @@
 "use client";
 import { ethers } from "ethers";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
 import contractABI from "@/reviewAbi.json";
 import InformationSection from "./InformationSection";
 import { useClipboard } from "@mantine/hooks";
-import Link from "next/link";
+import Image from "next/image";
+import { Skeleton } from "@mantine/core";
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
 type certificateProps = {
   certificateId: string;
@@ -15,29 +16,35 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
   const [certData, setCertData] = useState([]);
   const [tokenUrl, setTokenUrl] = useState("");
   const [ownerOfToken, setOwnerOfToken] = useState("");
-  const ethereum = window.ethereum;
+  const [currentUrl, setCurrentUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const ethereum = typeof window !== "undefined" && window.ethereum;
   useEffect(() => {
-    const getCertData = async () => {
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      const from = accounts[0];
-      const provider = new ethers.BrowserProvider(ethereum);
-      const runner = await provider.getSigner(from);
-      const contract = new ethers.Contract(
-        contractAddress,
-        contractABI,
-        runner
-      );
-      const result = await contract.getCertificate(certificateId);
-      const tokenurl = await contract.tokenURI(certificateId);
-      const tokenOwner = await contract.ownerOf(certificateId);
-      setCertData(result);
-      setTokenUrl(tokenurl);
-      setOwnerOfToken(tokenOwner);
-    };
-    getCertData();
-  }, []);
+    if (ethereum) {
+      const getCertData = async () => {
+        const accounts = await ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const from = accounts[0];
+        const provider = new ethers.BrowserProvider(ethereum);
+        const runner = await provider.getSigner(from);
+        const contract = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          runner
+        );
+        const result = await contract.getCertificate(certificateId);
+        const tokenurl = await contract.tokenURI(certificateId);
+        const tokenOwner = await contract.ownerOf(certificateId);
+        setCertData(result);
+        setTokenUrl(tokenurl);
+        setOwnerOfToken(tokenOwner);
+        setCurrentUrl(window.location.href);
+        setIsLoading(false);
+      };
+      getCertData();
+    }
+  }, [ethereum, certificateId]);
   const gateway_url = process.env.NEXT_PUBLIC_GATEWAY_URL as string;
   const dateInt = Number(certData[6]);
   const certDate = new Date(dateInt * 1000);
@@ -50,7 +57,20 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
     <div className="container max-w-[1100px] mx-auto flex space-x-7 justify-center mt-6">
       <div className="flex flex-col w-1/2 space-y-4">
         <div className="w-full flex flex-col items-start justify-start">
-          <img src={`${gateway_url}/ipfs/${certData[4]}`} alt={certData[3]} />
+          <div className="h-[350px] w-full">
+            {isLoading ? (
+              <Skeleton height={350} width={550} />
+            ) : (
+              <Image
+                width={450}
+                height={350}
+                src={`${gateway_url}/ipfs/${certData[4]}`}
+                alt={certData[3]}
+                className="h-full w-full"
+              />
+            )}
+          </div>
+
           <div className="p-3 flex items-center space-x-3 border w-full shadow-md">
             <button
               onClick={() =>
@@ -216,7 +236,7 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
         <div className="border rounded-md flex flex-col">
           <InformationSection
             title="Certificate URI"
-            data={`${window.location.href}`}
+            data={`${currentUrl}`}
             withBtn={true}
           />
           <InformationSection

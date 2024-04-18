@@ -100,7 +100,12 @@ const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
                 <div className="card-body">
                   <div className="avatar items-center">
                     <div className="w-8 rounded-full">
-                      <img src={articleslist.image} />
+                      <Image
+                        src={articleslist.image}
+                        alt={articleslist.title}
+                        width={50}
+                        height={50}
+                      />
                     </div>
                     <p className="ml-2 text-[#606060]">{articleslist.author}</p>
                   </div>

@@ -32,6 +32,7 @@ import { File } from "buffer";
 import { Notifications, notifications } from "@mantine/notifications";
 import ReviewsCard from "./ReviewsCard";
 import { ethers } from "ethers";
+import Image from "next/image";
 
 type interactProps = {
   user_id: string | undefined;
@@ -58,7 +59,7 @@ const InteractBtn: React.FC<interactProps> = ({
   const [opened, { open, close }] = useDisclosure(false);
   const [isWalletFound, setIsWalletFound] = useState(false);
   const [reviewsData, setReviewsData] = useState<any[]>();
-  const ethereum = window.ethereum;
+  const ethereum = typeof window !== "undefined" && window.ethereum;
 
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
   useEffect(() => {
@@ -81,26 +82,28 @@ const InteractBtn: React.FC<interactProps> = ({
         }
         setSavedInReadlists(savedLists);
       };
-      const getReviews = async () => {
-        const accounts = await ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const from = accounts[0];
-        const provider = new ethers.BrowserProvider(ethereum);
-        const runner = await provider.getSigner(from);
-        const contract = new ethers.Contract(
-          contractAddress,
-          contractABI,
-          runner
-        );
-        const result = await contract.getAllReviews(article_id);
-        setReviewsData(result);
-      };
-      if (window.ethereum) setIsWalletFound(true);
-      getReadlistsOnUser();
-      getReviews();
+      if (ethereum) {
+        const getReviews = async () => {
+          const accounts = await ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          const from = accounts[0];
+          const provider = new ethers.BrowserProvider(ethereum);
+          const runner = await provider.getSigner(from);
+          const contract = new ethers.Contract(
+            contractAddress,
+            contractABI,
+            runner
+          );
+          const result = await contract.getAllReviews(article_id);
+          setReviewsData(result);
+        };
+        if (window.ethereum) setIsWalletFound(true);
+        getReadlistsOnUser();
+        getReviews();
+      }
     }
-  }, [triggerReFetch, user_id, article_id]);
+  }, [triggerReFetch, user_id, article_id, contractAddress, ethereum]);
 
   const handleCreateReadlist = async (userid: string) => {
     await newReadlists(userid, inputValue);
@@ -137,53 +140,54 @@ const InteractBtn: React.FC<interactProps> = ({
     try {
       e.preventDefault();
       setIsSubmit(true);
-
-      const hashPromises = uploadedFiles.map(async (file) => {
-        const fileBuffer = await file.arrayBuffer();
-        const formData = new FormData();
-        formData.append("file", new Blob([fileBuffer]));
-        const uploadResponse = await fetch(
-          `https://api.pinata.cloud/pinning/pinFileToIPFS`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
-            },
-            body: formData,
-          }
-        );
-        const result = await uploadResponse.json();
-        return result.IpfsHash;
-      });
-
-      const hashImage = await Promise.all(hashPromises);
-      console.log(hashImage);
-
-      if (hashImage.length > 0) {
-        const accounts = await ethereum.request({
-          method: "eth_requestAccounts",
+      if (ethereum) {
+        const hashPromises = uploadedFiles.map(async (file) => {
+          const fileBuffer = await file.arrayBuffer();
+          const formData = new FormData();
+          formData.append("file", new Blob([fileBuffer]));
+          const uploadResponse = await fetch(
+            `https://api.pinata.cloud/pinning/pinFileToIPFS`,
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
+              },
+              body: formData,
+            }
+          );
+          const result = await uploadResponse.json();
+          return result.IpfsHash;
         });
-        const from = accounts[0];
-        const provider = new ethers.BrowserProvider(ethereum);
-        const runner = await provider.getSigner(from);
-        const contract = new ethers.Contract(
-          contractAddress,
-          contractABI,
-          runner
-        );
-        const tx = await contract.addReview(
-          article_id,
-          reviewDesc,
-          reviewRate,
-          hashImage
-        );
-        await tx.wait();
 
-        setIsSubmit(false);
-        notifications.show({
-          title: "reviewed !",
-          message: "You're review has been published",
-        });
+        const hashImage = await Promise.all(hashPromises);
+
+        if (hashImage.length > 0) {
+          const accounts = await ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          const from = accounts[0];
+          const provider = new ethers.BrowserProvider(ethereum);
+          const runner = await provider.getSigner(from);
+          const contract = new ethers.Contract(
+            contractAddress,
+            contractABI,
+            runner
+          );
+          const tx = await contract.addReview(
+            article_id,
+            reviewDesc,
+            reviewRate,
+            hashImage
+          );
+          await tx.wait();
+
+          setIsSubmit(false);
+          notifications.show({
+            title: "reviewed !",
+            message: "You're review has been published",
+          });
+          closeDrawer();
+        }
       }
     } catch (error) {
       console.log(error);
@@ -471,7 +475,7 @@ const InteractBtn: React.FC<interactProps> = ({
         opened={openedDrawer}
         onClose={closeDrawer}
         title="Review this blog">
-        {isWalletFound ? (
+        {isWalletFound && ethereum ? (
           <form
             className="flex flex-col space-y-5 mt-6"
             onSubmit={handleUpLoad}>
@@ -494,10 +498,11 @@ const InteractBtn: React.FC<interactProps> = ({
                     key={index}
                     className="relative cursor-pointer mt-4"
                     onClick={() => handleRemove(index)}>
-                    <img
+                    <Image
+                      height={80}
+                      width={80}
                       src={file.preview}
                       alt={`Uploaded ${index}`}
-                      style={{ width: 80, height: 80 }}
                     />
                   </div>
                 </Tooltip>

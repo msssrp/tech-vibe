@@ -5,6 +5,7 @@ import { ethers } from "ethers";
 
 import contractABI from "@/reviewAbi.json";
 import { Notifications, notifications } from "@mantine/notifications";
+import Image from "next/image";
 type certiProps = {
   userFullName: string;
   articleName: string;
@@ -14,7 +15,7 @@ const CertificateGen: React.FC<certiProps> = ({
   userFullName,
   articleName,
 }) => {
-  const hostName = window.location.origin;
+  const hostName = typeof window !== "undefined" && window.location.origin;
 
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
   const onButtonClick = async () => {
@@ -105,17 +106,19 @@ const CertificateGen: React.FC<certiProps> = ({
         <div className="flex flex-col space-y-3 items-center">
           <span className="text-xl font-semibold">Congratulation 🎉🎉</span>
           <p className="font-semibold">{userFullName}</p>
-          <span>you're blog</span>
+          <span>youre blog</span>
           <span className="italic">{articleName}</span>
           <span>
-            has reach 100 Ups here's is you're certificate by us click accept to
+            has reach 100 Ups heres is youre certificate by us click accept to
             get this certificate !!
           </span>
         </div>
         <div className="w-[560px] h-[400px] relative" id="content">
-          <img
+          <Image
+            width={560}
+            height={400}
             src={`${hostName}/images/certificateTechVibe.png`}
-            alt=""
+            alt="TechVibe-Certificate-Themeplate"
             className="w-full h-full"
           />
           <div className="absolute top-0 left-0 h-full w-full box-border">
