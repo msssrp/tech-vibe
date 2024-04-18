@@ -25,7 +25,7 @@ const useInteractBtn = (user_id: string | undefined, article_id: string) => {
   const [isWalletFound, setIsWalletFound] = useState(false);
   const [reviewsData, setReviewsData] = useState<any[]>();
   const ethereum = typeof window !== "undefined" && window.ethereum;
-
+  const currentPath = typeof window !== "undefined" && window.location.href;
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
   useEffect(() => {
     if (user_id) {
@@ -180,7 +180,13 @@ const useInteractBtn = (user_id: string | undefined, article_id: string) => {
   const [openedReviews, { open: openReview, close: closeReview }] =
     useDisclosure(false);
 
+  const [openedReport, { open: openReport, close: closeReport }] =
+    useDisclosure(false);
+
   return {
+    openedReport,
+    openReport,
+    closeReport,
     open,
     close,
     reviewDesc,
@@ -215,6 +221,7 @@ const useInteractBtn = (user_id: string | undefined, article_id: string) => {
     setReviewRate,
     uploadedFiles,
     isSubmit,
+    currentPath,
   };
 };
 

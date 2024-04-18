@@ -1,6 +1,7 @@
+"use client";
 import { NoticardProps } from "@/types/navbar/navbar-tpye";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Noticard: React.FC<NoticardProps> = ({
   title,
@@ -8,11 +9,18 @@ const Noticard: React.FC<NoticardProps> = ({
   type,
   status,
   userId,
+  articleTitle,
 }) => {
+  const [link, setLink] = useState("/");
+  useEffect(() => {
+    if (articleTitle !== undefined && type === "comment") {
+      setLink(`post/${encodeURIComponent(articleTitle)}?commend=true`);
+    }
+    return () => setLink("/");
+  }, []);
+
   return (
-    <Link
-      href={`/profile/${userId}`}
-      className="flex border-b justify-around p-2">
+    <Link href={link} className="flex border-b justify-around p-2">
       <div className="mr-3">
         {type === "comment" ? (
           <svg

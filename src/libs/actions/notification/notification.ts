@@ -16,20 +16,33 @@ export async function getNotification(
   return data as notificationProps[];
 }
 
+type notificationInsert = {
+  notification_title: string;
+  notification_type: string;
+  notification_content: string;
+  user_id: string;
+  article_title?: string;
+};
+
 export async function createNewNotification(
   title: string,
   type: string,
   content: string,
-  userId: string
+  userId: string,
+  articleTitle?: string
 ) {
   const supabase = createSupabaseClient();
-  const { error } = await supabase.from("notification").insert({
+  let insertObject: notificationInsert = {
     notification_title: title,
     notification_type: type,
     notification_content: content,
     user_id: userId,
-  });
-  if (error) {
-    return console.log(error);
+  };
+
+  if (articleTitle) {
+    insertObject.article_title = articleTitle;
   }
+
+  const { error } = await supabase.from("notification").insert(insertObject);
+  if (error) return console.log(error);
 }
