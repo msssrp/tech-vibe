@@ -1,4 +1,5 @@
 "use client";
+import useVerifyInput from "@/hook/useVerifyInput";
 import { updateFullname } from "@/libs/actions/user/userClient";
 import {
   getUserSocial,
@@ -13,12 +14,6 @@ import { DiGithubBadge } from "react-icons/di";
 import { FaFacebook } from "react-icons/fa";
 import { RiTwitterXLine } from "react-icons/ri";
 
-type Inputs = {
-  fullname: string;
-  github: string;
-  facebook: string;
-  twitter: string;
-};
 type InputsProps = {
   user_email: string;
   user_fullname: string;
@@ -29,46 +24,8 @@ const VerifyInput: React.FC<InputsProps> = ({
   user_fullname,
   user_id,
 }) => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const { register, handleSubmit } = useForm<Inputs>();
-
-  console.log(user_id);
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    setIsLoading(!isLoading);
-    const updateError = await updateFullname(data.fullname, user_id);
-    if (updateError.error) {
-      return console.log("error from update name ", updateError.error);
-    }
-
-    const resp = await getUserSocial(user_id);
-
-    if (resp.user_social) {
-      const { error } = await updateUserSocial(
-        data.facebook,
-        data.github,
-        data.twitter,
-        user_id
-      );
-      if (error) {
-        return console.log("error from update", error);
-      }
-      router.push("/");
-      router.refresh();
-    } else {
-      const { error } = await insertUserSocial(
-        data.facebook,
-        data.github,
-        data.twitter,
-        user_id
-      );
-      if (error) {
-        return console.log("error from insert", error);
-      }
-      router.push("/");
-      router.refresh();
-    }
-  };
+  const { handleSubmit, register, onSubmit, isLoading } =
+    useVerifyInput(user_id);
   return (
     <form className="w-full max-w-lg mt-5" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col justify-center items-center border-b ">

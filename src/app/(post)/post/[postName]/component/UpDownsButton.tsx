@@ -1,6 +1,6 @@
 "use client";
-import { DownsArticle, UpsArticle } from "@/libs/actions/article/articleStat";
-import React, { useEffect, useState } from "react";
+import useUpDownsbutton from "@/hook/useUpDownsbutton";
+import React from "react";
 
 type UpDownsButtonProps = {
   articleUp: any | null;
@@ -17,41 +17,12 @@ const UpDownsButton: React.FC<UpDownsButtonProps> = ({
   userUp,
   userDown,
 }) => {
-  const [hasUpvoted, setHasUpvoted] = useState<boolean>(userUp === 1);
-  const [hasDownvoted, setHasDownvoted] = useState<boolean>(userDown === 1);
-
-  useEffect(() => {
-    setHasUpvoted(userUp === 1);
-    setHasDownvoted(userDown === 1);
-  }, [userUp, userDown]);
-
-  const onUpClick = async () => {
-    if (user_id) {
-      if (hasUpvoted) {
-        setHasUpvoted(false);
-        await UpsArticle(article_id, user_id, true);
-      } else {
-        setHasUpvoted(true);
-        setHasDownvoted(false);
-        await UpsArticle(article_id, user_id, false);
-        await DownsArticle(article_id, user_id, true);
-      }
-    }
-  };
-
-  const onDownClick = async () => {
-    if (user_id) {
-      if (hasDownvoted) {
-        setHasDownvoted(false);
-        await DownsArticle(article_id, user_id, true);
-      } else {
-        setHasDownvoted(true);
-        setHasUpvoted(false);
-        await DownsArticle(article_id, user_id, false);
-        await UpsArticle(article_id, user_id, true);
-      }
-    }
-  };
+  const { hasDownvoted, hasUpvoted, onDownClick, onUpClick } = useUpDownsbutton(
+    userUp,
+    userDown,
+    article_id,
+    user_id
+  );
 
   return (
     <>

@@ -1,7 +1,6 @@
 import { Card, Image, Text } from "@mantine/core";
-import { create } from "ipfs-http-client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 type certificateProps = {
   tokenId: string;

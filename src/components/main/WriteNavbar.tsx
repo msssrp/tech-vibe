@@ -1,5 +1,4 @@
 "use clinet";
-import { profileItems } from "../ui/Items";
 import Link from "next/link";
 import { ScrollArea } from "@mantine/core";
 import NotiTabs from "../ui/notifications/NotiTabs";
@@ -14,6 +13,8 @@ import {
 } from "../ui/notifications/notification";
 import { newTag } from "@/libs/actions/tag/tag";
 import Image from "next/image";
+import { createNewNotification } from "@/libs/actions/notification/notification";
+import ProfileItems from "../ui/ProfileItems";
 
 type WriteProps = {
   article: articleProps;
@@ -33,6 +34,7 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
       !article.article_content ||
       !article.article_description ||
       !article.article_cover ||
+      !user ||
       tagValue.length === 0
     ) {
       return rejectPublish("Error");
@@ -41,6 +43,12 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
     await updateArticleById(writeId, updateArticle);
     articleNotification("Article Status", "publish", { router: router });
     await newTag(article.article_id, { tag_name: tagValue });
+    await createNewNotification(
+      `You're article ${article.article_title} is now pending`,
+      "pending",
+      "Please wait for moderator to approve this article",
+      user.user_id
+    );
   };
 
   return (
@@ -87,7 +95,7 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
                 <ScrollArea type="auto" scrollbarSize={8} offsetScrollbars>
                   <div className="p-2">
                     <span className="text-lg">Notifications</span>
-                    <NotiTabs />
+                    <NotiTabs userId={user.user_id} />
                   </div>
                 </ScrollArea>
               </div>
@@ -134,7 +142,7 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
                   <span>{user.user_fullname}</span>
                 </div>
               </div>
-              {profileItems}
+              {user.user_id && <ProfileItems user_id={user.user_id} />}
               <li className="border-t mt-2">
                 <a>
                   <svg

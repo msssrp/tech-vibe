@@ -1,3 +1,4 @@
+import { userProps } from "./user.d";
 export type userProps = {
   user_id: string;
   user_email: string;
@@ -10,16 +11,7 @@ export type userProps = {
 };
 
 export type userWriteProps = {
-  user: {
-    user_id?: string;
-    user_email?: string;
-    user_fullname?: string;
-    user_profile?: string;
-    user_provider?: string;
-    created_at?: string;
-    updated_at?: string;
-    user_verify?: boolean;
-  };
+  user: userProps;
   writeId: string;
   tagValue: string[];
 };

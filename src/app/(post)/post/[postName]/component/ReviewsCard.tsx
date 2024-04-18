@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Avatar, Rating as RatingComp, Tooltip } from "@mantine/core";
 import ImageGallery from "react-image-gallery";
 import Image from "next/image";
+import useReviewCard from "@/hook/useReviewCard";
 type reviewProps = {
   ReviewId: string;
   Timestamp: bigint;
@@ -19,34 +20,14 @@ const ReviewsCard: React.FC<reviewProps> = ({
   Rating,
   IpfsHash,
 }) => {
-  const covertBigInt = Number(Timestamp);
-  const date = new Date(covertBigInt * 1000);
-  const convertRating = Number(Rating);
-  const convertedTime = date.toLocaleString("en-US", {
-    weekday: "short",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    timeZone: "UTC",
-  });
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
-    null
-  );
+  const {
+    convertRating,
+    convertedTime,
+    handleImageClick,
+    selectedImageIndex,
+    images,
+  } = useReviewCard(Timestamp, Rating, IpfsHash);
 
-  const images = IpfsHash.map((value) => ({
-    original: `${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${value}`,
-    thumbnail: `${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${value}`,
-  }));
-
-  const handleImageClick = (index: number) => {
-    if (selectedImageIndex === index) {
-      setSelectedImageIndex(null);
-    } else {
-      setSelectedImageIndex(index);
-    }
-  };
   return (
     <div className="h-auto flex flex-col space-y-4 py-6 border-t">
       <div className="flex justify-between items-center">
