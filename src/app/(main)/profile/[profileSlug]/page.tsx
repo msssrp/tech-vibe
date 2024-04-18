@@ -3,8 +3,20 @@ import Profile from "./component/Profile";
 import getUserSession from "@/libs/actions/user/auth/getSession";
 import { redirect } from "next/navigation";
 import ProfilTabs from "./component/ProfilTabs";
+import { Metadata } from "next";
 import { getUser } from "@/libs/actions/user/user";
-import { getUserFollower } from "@/libs/actions/user/user_following";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { profileSlug: string };
+}): Promise<Metadata> {
+  const user = await getUser(params.profileSlug);
+  return {
+    title: `${user.user_fullname}`,
+    description: "TechVibe user profile",
+  };
+}
 
 const page = async ({ params }: { params: { profileSlug: string } }) => {
   const { data } = await getUserSession();

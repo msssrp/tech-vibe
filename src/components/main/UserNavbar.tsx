@@ -13,9 +13,13 @@ import getUserSession from "@/libs/actions/user/auth/getSession";
 import Image from "next/image";
 import ProfileItems from "../ui/ProfileItems";
 import { notificationProps } from "@/types/notification/notification";
-import { getNotification } from "@/libs/actions/notification/notification";
 import createSupabaseClient from "@/libs/supabase/client";
-const UserNavbar = () => {
+
+type userNavbarProps = {
+  notification: notificationProps[];
+};
+
+const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
   const [uid, setUid] = useState("");
   const {
     updateUserState,
@@ -26,7 +30,7 @@ const UserNavbar = () => {
     user_id,
   } = useUserStore();
   const [notificationData, setNotificationData] =
-    useState<notificationProps[]>();
+    useState<notificationProps[]>(notification);
 
   const supabase = createSupabaseClient();
 
@@ -35,8 +39,6 @@ const UserNavbar = () => {
       const { data } = await getUserSession();
       if (data.user?.id) {
         const userData = await getUser(data.user?.id);
-        const notification = await getNotification(data.user.id);
-        setNotificationData(notification);
         updateUserState(userData);
         updateLoading(false);
         supabase
@@ -45,10 +47,22 @@ const UserNavbar = () => {
             "postgres_changes",
             { event: "*", schema: "public", table: "notification" },
             (payload: any) => {
-              setNotificationData((prevData) => [
-                ...(prevData || []),
-                payload.new,
-              ]);
+              setNotificationData((prevData) => {
+                const index = prevData.findIndex(
+                  (item) => item.notification_id === payload.new.notification_id
+                );
+                //-1 in array is not found
+                if (index === -1) {
+                  return [...prevData, payload.new];
+                } else {
+                  return prevData.map((item, i) => {
+                    if (i === index) {
+                      return payload.new;
+                    }
+                    return item;
+                  });
+                }
+              });
             }
           )
           .subscribe();
@@ -115,8 +129,15 @@ const UserNavbar = () => {
                 d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
               />
             </svg>
-            <span className="absolute top-0 right-0 inline-flex rounded-full w-2.5 h-2.5 bg-red animate-ping opacity-75"></span>
-            <span className="absolute top-0 right-0 inline-flex rounded-full h-2.5 w-2.5 bg-red"></span>
+            {notificationData &&
+              notificationData.some(
+                (notification) => notification.notification_status === "unread"
+              ) && (
+                <>
+                  <span className="absolute top-0 right-0 inline-flex rounded-full h-2.5 w-2.5 bg-red"></span>
+                </>
+              )}
+
             <div
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-72 lg:w-80 overflow-auto relative h-screen"
               tabIndex={0}
