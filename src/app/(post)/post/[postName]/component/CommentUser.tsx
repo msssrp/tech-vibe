@@ -1,8 +1,6 @@
-import { getUserFromClient } from "@/libs/actions/user/userClient";
-import { convertTimeWithHM } from "@/libs/convertTime";
-import { userProps } from "@/types/user/user";
+import useCommentUser from "@/hook/useCommentUser";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 type commentUserProps = {
   user_id: string;
@@ -10,17 +8,10 @@ type commentUserProps = {
 };
 
 const CommentUser: React.FC<commentUserProps> = ({ user_id, timeStamp }) => {
-  const [userComment, setUserComment] = useState<userProps>();
-  const { day, month, hours, minutes } = convertTimeWithHM(timeStamp);
-  useEffect(() => {
-    const fetchUserComment = async () => {
-      const data = await getUserFromClient(user_id);
-      if (data) {
-        return setUserComment(data);
-      }
-    };
-    fetchUserComment();
-  }, [user_id]);
+  const { userComment, day, minutes, month, hours } = useCommentUser(
+    user_id,
+    timeStamp
+  );
 
   return (
     <>

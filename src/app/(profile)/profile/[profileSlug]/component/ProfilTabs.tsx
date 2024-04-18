@@ -9,23 +9,12 @@ import { getUserFromClient } from "@/libs/actions/user/userClient";
 import { getArticleByUserId } from "@/libs/actions/article/article";
 import TabHomeLoading from "@/components/ui/TabHomeLoading";
 import Image from "next/image";
+import useProfileTabs from "@/hook/useProfileTabs";
 type profileTabsProps = {
   userId: string;
 };
 const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
-  const [userData, setUserData] = useState<userProps>();
-  const [articles, setArticles] = useState<articleProps[]>();
-  const [homeLoading, setHomeLoading] = useState(true);
-  useEffect(() => {
-    const fetchAllData = async () => {
-      const userData = await getUserFromClient(userId);
-      if (userData) setUserData(userData);
-      const articleData = await getArticleByUserId(userId);
-      if (articleData) setArticles(articleData);
-      setHomeLoading(false);
-    };
-    fetchAllData();
-  }, [userId]);
+  const { userData, homeLoading, articles } = useProfileTabs(userId);
   return (
     <div className="w-2/3 py-10">
       <div className="flex justify-between items-center mb-2">

@@ -1,4 +1,5 @@
 import { NoticardProps } from "@/types/navbar/navbar-tpye";
+import Link from "next/link";
 import React from "react";
 
 const Noticard: React.FC<NoticardProps> = ({
@@ -6,9 +7,12 @@ const Noticard: React.FC<NoticardProps> = ({
   content,
   type,
   status,
+  userId,
 }) => {
   return (
-    <div className="flex border-b justify-around p-2">
+    <Link
+      href={`/profile/${userId}`}
+      className="flex border-b justify-around p-2">
       <div className="mr-3">
         {type === "comment" ? (
           <svg
@@ -73,7 +77,7 @@ const Noticard: React.FC<NoticardProps> = ({
         <span className="font-bold">{title}</span>
         <span>{content}</span>
       </div>
-    </div>
+    </Link>
   );
 };
 

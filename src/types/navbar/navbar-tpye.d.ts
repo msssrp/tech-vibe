@@ -3,6 +3,7 @@ export type NoticardProps = {
   title: string;
   content: string;
   status: string;
+  userId: string;
 };
 
 export type WriteState = {

@@ -1,58 +1,26 @@
 "use client";
-import { ethers } from "ethers";
-import React, { Suspense, useEffect, useState } from "react";
-
-import contractABI from "@/reviewAbi.json";
+import React from "react";
 import InformationSection from "./InformationSection";
-import { useClipboard } from "@mantine/hooks";
 import Image from "next/image";
 import { Skeleton } from "@mantine/core";
-const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+import useCertificateSection from "@/hook/useCertificateSection";
 type certificateProps = {
   certificateId: string;
 };
 
 const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
-  const [certData, setCertData] = useState([]);
-  const [tokenUrl, setTokenUrl] = useState("");
-  const [ownerOfToken, setOwnerOfToken] = useState("");
-  const [currentUrl, setCurrentUrl] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const ethereum = typeof window !== "undefined" && window.ethereum;
-  useEffect(() => {
-    if (ethereum) {
-      const getCertData = async () => {
-        const accounts = await ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const from = accounts[0];
-        const provider = new ethers.BrowserProvider(ethereum);
-        const runner = await provider.getSigner(from);
-        const contract = new ethers.Contract(
-          contractAddress,
-          contractABI,
-          runner
-        );
-        const result = await contract.getCertificate(certificateId);
-        const tokenurl = await contract.tokenURI(certificateId);
-        const tokenOwner = await contract.ownerOf(certificateId);
-        setCertData(result);
-        setTokenUrl(tokenurl);
-        setOwnerOfToken(tokenOwner);
-        setCurrentUrl(window.location.href);
-        setIsLoading(false);
-      };
-      getCertData();
-    }
-  }, [ethereum, certificateId]);
-  const gateway_url = process.env.NEXT_PUBLIC_GATEWAY_URL as string;
-  const dateInt = Number(certData[6]);
-  const certDate = new Date(dateInt * 1000);
-  const yearCert = certDate.getUTCFullYear().toString();
-  const fullDate = `${certDate.getUTCFullYear()}-${
-    certDate.getUTCMonth() + 1
-  }-${certDate.getUTCDate()}`;
-  const clipboard = useClipboard({ timeout: 2000 });
+  const {
+    isLoading,
+    gateway_url,
+    certData,
+    clipboard,
+    tokenUrl,
+    ownerOfToken,
+    contractAddress,
+    currentUrl,
+    fullDate,
+    yearCert,
+  } = useCertificateSection(certificateId);
   return (
     <div className="container max-w-[1100px] mx-auto flex space-x-7 justify-center mt-6">
       <div className="flex flex-col w-1/2 space-y-4">
