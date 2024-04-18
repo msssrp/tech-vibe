@@ -8,6 +8,7 @@ import { userProps } from "@/types/user/user";
 import { getUserFromClient } from "@/libs/actions/user/userClient";
 import { getArticleByUserId } from "@/libs/actions/article/article";
 import TabHomeLoading from "@/components/ui/TabHomeLoading";
+import Image from "next/image";
 type profileTabsProps = {
   userId: string;
 };
@@ -68,6 +69,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                       articles.map((articleslist) => {
                         return (
                           <AllArticleCardClient
+                            key={articleslist.article_id}
                             article={articleslist}
                             userId={userId}
                             user={userData}
@@ -95,7 +97,12 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     <div className="flex items-center space-x-9">
                       <div className="avatar items-center">
                         <div className="w-8 rounded-full">
-                          <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                          <Image
+                            width={50}
+                            height={50}
+                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            alt="user Profile"
+                          />
                         </div>
                         <p className="ml-2 ">Heather McLeod in Human Parts</p>
                       </div>
@@ -107,9 +114,11 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     </div>
                   </div>
                   <div>
-                    <img
+                    <Image
+                      height={200}
+                      width={200}
                       src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt=""
+                      alt="Picture"
                       className="w-44"
                     />
                   </div>
@@ -126,7 +135,12 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     <div className="flex items-center space-x-9">
                       <div className="avatar items-center">
                         <div className="w-8 rounded-full">
-                          <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                          <Image
+                            width={50}
+                            height={50}
+                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            alt="user Profile"
+                          />
                         </div>
                         <p className="ml-2 ">Heather McLeod in Human Parts</p>
                       </div>
@@ -138,9 +152,11 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     </div>
                   </div>
                   <div>
-                    <img
+                    <Image
+                      height={200}
+                      width={200}
                       src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt=""
+                      alt="Picture"
                       className="w-44"
                     />
                   </div>
@@ -157,7 +173,12 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     <div className="flex items-center space-x-9">
                       <div className="avatar items-center">
                         <div className="w-8 rounded-full">
-                          <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                          <Image
+                            width={50}
+                            height={50}
+                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            alt="user Profile"
+                          />
                         </div>
                         <p className="ml-2 ">Heather McLeod in Human Parts</p>
                       </div>
@@ -169,9 +190,11 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     </div>
                   </div>
                   <div>
-                    <img
+                    <Image
+                      height={200}
+                      width={200}
                       src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt=""
+                      alt="Picture"
                       className="w-44"
                     />
                   </div>
@@ -188,7 +211,12 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     <div className="flex items-center space-x-9">
                       <div className="avatar items-center">
                         <div className="w-8 rounded-full">
-                          <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                          <Image
+                            width={50}
+                            height={50}
+                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            alt="user Profile"
+                          />
                         </div>
 
                         <p className="ml-2 ">Heather McLeod in Human Parts</p>
@@ -201,9 +229,11 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     </div>
                   </div>
                   <div>
-                    <img
+                    <Image
+                      height={200}
+                      width={200}
                       src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt=""
+                      alt="Picture"
                       className="w-44"
                     />
                   </div>
@@ -220,7 +250,12 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     <div className="flex items-center space-x-9">
                       <div className="avatar items-center">
                         <div className="w-8 rounded-full">
-                          <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                          <Image
+                            width={50}
+                            height={50}
+                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            alt="user Profile"
+                          />
                         </div>
                         <p className="ml-2 ">Heather McLeod in Human Parts</p>
                       </div>
@@ -245,9 +280,11 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     </div>
                   </div>
                   <div>
-                    <img
+                    <Image
+                      height={200}
+                      width={200}
                       src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt=""
+                      alt="Picture"
                       className="w-44"
                     />
                   </div>
@@ -260,7 +297,12 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     <div className="flex items-center space-x-9">
                       <div className="avatar items-center">
                         <div className="w-8 rounded-full">
-                          <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                          <Image
+                            width={50}
+                            height={50}
+                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            alt="user Profile"
+                          />
                         </div>
                         <p className="ml-2 ">Heather McLeod in Human Parts</p>
                       </div>
@@ -285,9 +327,11 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     </div>
                   </div>
                   <div>
-                    <img
+                    <Image
+                      height={200}
+                      width={200}
                       src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt=""
+                      alt="Picture"
                       className="w-44"
                     />
                   </div>
@@ -300,7 +344,12 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     <div className="flex items-center space-x-9">
                       <div className="avatar items-center">
                         <div className="w-8 rounded-full">
-                          <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                          <Image
+                            width={50}
+                            height={50}
+                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            alt="user Profile"
+                          />
                         </div>
                         <p className="ml-2 ">Heather McLeod in Human Parts</p>
                       </div>
@@ -325,9 +374,11 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     </div>
                   </div>
                   <div>
-                    <img
+                    <Image
+                      height={200}
+                      width={200}
                       src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt=""
+                      alt="Picture"
                       className="w-44"
                     />
                   </div>
@@ -340,7 +391,12 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     <div className="flex items-center space-x-9">
                       <div className="avatar items-center">
                         <div className="w-8 rounded-full">
-                          <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                          <Image
+                            width={50}
+                            height={50}
+                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            alt="user Profile"
+                          />
                         </div>
                         <p className="ml-2 ">Heather McLeod in Human Parts</p>
                       </div>
@@ -365,9 +421,11 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     </div>
                   </div>
                   <div>
-                    <img
+                    <Image
+                      height={200}
+                      width={200}
                       src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt=""
+                      alt="Picture"
                       className="w-44"
                     />
                   </div>

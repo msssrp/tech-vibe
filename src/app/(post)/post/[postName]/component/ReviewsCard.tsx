@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, Rating as RatingComp, Tooltip } from "@mantine/core";
 import ImageGallery from "react-image-gallery";
+import Image from "next/image";
 type reviewProps = {
   ReviewId: string;
   Timestamp: bigint;
@@ -30,7 +31,6 @@ const ReviewsCard: React.FC<reviewProps> = ({
     minute: "numeric",
     timeZone: "UTC",
   });
-  const [imageSrc, setImagesSrc] = useState<string[]>();
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null
   );
@@ -67,12 +67,15 @@ const ReviewsCard: React.FC<reviewProps> = ({
       <div className="flex items-center justify-center flex-wrap space-x-3">
         {IpfsHash &&
           IpfsHash.map((result, index) => (
-            <Tooltip label="click image again to close gallery">
+            <Tooltip key={index} label="click image again to close gallery">
               <div
                 className="w-[220px] h-[150px] mt-4 cursor-pointer"
                 key={index}
                 onClick={() => handleImageClick(index)}>
-                <img
+                <Image
+                  width={220}
+                  height={150}
+                  alt="web3-picture"
                   src={`${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${result}`}
                   className="w-full h-full"
                 />
