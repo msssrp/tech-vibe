@@ -1,5 +1,6 @@
 import MainNavbar from "@/components/main/MainNavbar";
 import UserNavbar from "@/components/main/UserNavbar";
+import { getNotification } from "@/libs/actions/notification/notification";
 import getUserSession from "@/libs/actions/user/auth/getSession";
 
 export default async function RootLayout({
@@ -9,9 +10,10 @@ export default async function RootLayout({
 }) {
   const { data } = await getUserSession();
   if (data.user) {
+    const notification = await getNotification(data.user.id);
     return (
       <div>
-        <UserNavbar />
+        <UserNavbar notification={notification} />
         {children}
       </div>
     );

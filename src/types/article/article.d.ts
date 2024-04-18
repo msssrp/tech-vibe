@@ -29,8 +29,8 @@ export type WriteProps = {
 export type DrawerCommentProps = {
   comment: commentProps[];
   article_id: string;
-
   user_id: string | undefined;
+  openCommend?: string;
 };
 
 export type reviewProps = {

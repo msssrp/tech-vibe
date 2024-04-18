@@ -4,7 +4,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const useDrawerComment = (article_id: string) => {
+const useDrawerComment = (article_id: string, openCommend?: string) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [showInput, setShowInput] = useState(false);
   const [newCommentValue, setNewCommentValue] = useState("");
@@ -23,6 +23,9 @@ const useDrawerComment = (article_id: string) => {
   const supabase = createSupabaseClient();
   const router = useRouter();
   useEffect(() => {
+    if (openCommend && openCommend === "true") {
+      open();
+    }
     const channel = supabase
       .channel("realtime comment")
       .on(

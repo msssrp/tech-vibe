@@ -4,6 +4,7 @@ export type NoticardProps = {
   content: string;
   status: string;
   userId: string;
+  articleTitle?: string;
 };
 
 export type WriteState = {

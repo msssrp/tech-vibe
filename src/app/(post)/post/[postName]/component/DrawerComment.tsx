@@ -9,6 +9,7 @@ const DrawerComment: React.FC<DrawerCommentProps> = ({
   comment,
   article_id,
   user_id,
+  openCommend,
 }) => {
   const {
     open,
@@ -22,7 +23,7 @@ const DrawerComment: React.FC<DrawerCommentProps> = ({
     setNewReply,
     newReply,
     close,
-  } = useDrawerComment(article_id);
+  } = useDrawerComment(article_id, openCommend);
   return (
     <div className="flex items-center">
       <div className="flex items-center space-x-2">

@@ -1,39 +1,26 @@
 import { getArticleByName } from "@/libs/actions/article/article";
-import { getUser } from "@/libs/actions/user/user";
 import React from "react";
 import { redirect } from "next/navigation";
 import { Badge } from "@mantine/core";
-import { getArticleTags } from "@/libs/actions/tag/tag";
-import {
-  getUserFollower,
-  getUserThatFollowing,
-} from "@/libs/actions/user/user_following";
-import getUserSession from "@/libs/actions/user/auth/getSession";
 import DrawerComment from "./component/DrawerComment";
 import { Metadata } from "next";
-import { getCommentOnArticle } from "@/libs/actions/comment/comment";
-import { convertTime } from "@/libs/convertTime";
 import "./post.css";
-import {
-  getArticleUps,
-  getUserDowns,
-  getUserUps,
-  increaseArticleViews,
-} from "@/libs/actions/article/articleStat";
 import UpDownsButton from "./component/UpDownsButton";
 import InteractBtn from "./component/InteractBtn";
 import FollowText from "./component/FollowText";
 import FollowBtn from "./component/FollowBtn";
 import Image from "next/image";
 import usePost from "@/hook/usePost";
+import { increaseArticleViews } from "@/libs/actions/article/articleStat";
+
 export async function generateMetadata({
   params,
 }: {
   params: { postName: string };
+  searchParams: { commend: boolean };
 }): Promise<Metadata> {
   const decode = decodeURIComponent(params.postName);
   const replaced = decode.replace(/-/g, " ");
-
   const article = await getArticleByName(replaced);
   return {
     title: article.article_title,
@@ -41,10 +28,18 @@ export async function generateMetadata({
   };
 }
 
-const page = async ({ params }: { params: { postName: string } }) => {
+const page = async ({
+  params,
+  searchParams,
+}: {
+  params: { postName: string };
+  searchParams: { commend: string };
+}) => {
   if (!params.postName) redirect("/");
   const decode = decodeURIComponent(params.postName);
   const replaced = decode.replace(/-/g, " ");
+  const openCommend = searchParams.commend;
+
   const {
     article,
     userSession,
@@ -121,6 +116,7 @@ const page = async ({ params }: { params: { postName: string } }) => {
                     comment={CommentData}
                     article_id={article.article_id}
                     user_id={userSession?.data?.user?.id}
+                    openCommend={openCommend}
                   />
                 )}
               </div>
