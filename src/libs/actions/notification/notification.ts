@@ -5,7 +5,7 @@ import { notificationProps } from "@/types/notification/notification";
 export async function getNotification(
   user_id: string
 ): Promise<notificationProps[]> {
-  const supabase = createSupabaseClient();
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("notification")
     .select("*")
