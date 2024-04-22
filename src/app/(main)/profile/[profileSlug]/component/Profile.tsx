@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa6";
@@ -17,6 +17,17 @@ type profileProps = {
 const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
   const { isLoading, userData, userFollower, sliceArticleslist } =
     useProfile(userId);
+
+  const [showInput, setShowInput] = useState(false);
+
+  const handleShowInput = () => {
+    setShowInput(!showInput);
+  };
+
+  const handleCancelInput = () => {
+    setShowInput(false);
+  };
+
   return (
     <div className="w-2/6 py-12 pl-11 pr-2 ">
       <div className="flex flex-col items-center">
@@ -47,23 +58,69 @@ const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
           ) : (
             <p className="text-[#606060]">{userFollower} Follower</p>
           )}
-
-          <div className="social flex justify-center items-center space-x-3">
-            <Link href="">
-              <FaGithub className="w-6 h-6" />
-            </Link>
-            <Link href="">
-              <FaFacebook className="w-6 h-6 text-[#1877F2]" />
-            </Link>
-            <Link href="">
-              <FaSquareXTwitter className="w-6 h-6" />
-            </Link>
+          <div
+            className={`social ${
+              showInput
+                ? "flex flex-col items-center space-y-2"
+                : "flex space-x-3"
+            } justify-center items-center`}
+          >
+            <div className="flex items-center">
+              <Link href="" className="flex items-center">
+                <FaGithub className="w-8 h-8" />
+              </Link>
+              {showInput && (
+                <input
+                  className="input input-bordered border-2 border-[#F1F1F1] focus:outline-none ml-2 h-8"
+                  type="text"
+                  placeholder=""
+                />
+              )}
+            </div>
+            <div className="flex items-center">
+              <Link href="">
+                <FaFacebook className="w-8 h-8 text-[#1877F2]" />
+              </Link>
+              {showInput && (
+                <input
+                  className="input input-bordered border-2 border-[#F1F1F1] focus:outline-none ml-2 h-8"
+                  type="text"
+                  placeholder=""
+                />
+              )}
+            </div>
+            <div className="flex items-center">
+              <Link href="">
+                <FaSquareXTwitter className="w-8 h-8" />
+              </Link>
+              {showInput && (
+                <input
+                  className="input input-bordered border-2 border-[#F1F1F1] focus:outline-none ml-2 h-8"
+                  type="text"
+                  placeholder=""
+                />
+              )}
+            </div>
           </div>
           {sessionUserId === userId && (
-            <button className="btn bg-black text-white rounded-full px-6 py-2">
+            <button
+              className={`btn ${showInput ? "hidden": ""} bg-black text-white text-base rounded-full px-6 py-2 `}
+              onClick={handleShowInput}
+            >
               Edit
             </button>
           )}
+          <div className={`${!showInput ? "hidden": ""} space-x-4`}>
+            <button
+              className="btn btn-outline border-2 border-[#F1F1F1] rounded-full text-base px-6 py-2"
+              onClick={handleCancelInput}
+            >
+              Cancel
+            </button>
+            <button className="btn bg-black text-white rounded-full text-base px-6 py-2">
+              Update
+            </button>
+          </div>
         </div>
         {/* popularArticles */}
         <div className="w-full space-y-3 mb-6 ">
@@ -72,7 +129,8 @@ const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
             return (
               <div
                 key={articleslist.id}
-                className="card-compact bg-[#F8F8F8] rounded-md px-4 ">
+                className="card-compact bg-[#F8F8F8] rounded-md px-4 "
+              >
                 <div className="card-body">
                   <div className="avatar items-center">
                     <div className="w-8 rounded-full">
