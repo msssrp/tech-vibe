@@ -115,6 +115,13 @@ const InteractBtn: React.FC<interactProps> = ({
       console.log(error);
     }
   };
+  const averageRating =
+    reviewsData && reviewsData.length > 0
+      ? (
+          reviewsData.reduce((acc, review) => acc + parseInt(review[4]), 0) /
+          reviewsData.length
+        ).toFixed(2)
+      : "0.00";
   return (
     <>
       <Notifications autoClose={false} />
@@ -125,17 +132,24 @@ const InteractBtn: React.FC<interactProps> = ({
         size={1200}
         withCloseButton={false}>
         {reviewsData && reviewsData.length > 0 ? (
-          reviewsData.map((review, index) => (
-            <ReviewsCard
-              key={index}
-              ReviewId={review[0]}
-              Timestamp={review[1]}
-              Reviewer={review[2]}
-              Rating={review[4]}
-              Title={review[3]}
-              IpfsHash={review[5]}
-            />
-          ))
+          <>
+            <div className="flex items-center justify-start space-x-2">
+              <span>Average Rating : </span>
+
+              <Rating value={parseFloat(averageRating)} readOnly />
+            </div>
+            {reviewsData.map((review, index) => (
+              <ReviewsCard
+                key={index}
+                ReviewId={review[0]}
+                Timestamp={review[1]}
+                Reviewer={review[2]}
+                Rating={review[4]}
+                Title={review[3]}
+                IpfsHash={review[5]}
+              />
+            ))}
+          </>
         ) : (
           <div>no review on this blog</div>
         )}

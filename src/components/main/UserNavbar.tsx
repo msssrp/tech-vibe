@@ -14,6 +14,7 @@ import Image from "next/image";
 import ProfileItems from "../ui/ProfileItems";
 import { notificationProps } from "@/types/notification/notification";
 import createSupabaseClient from "@/libs/supabase/client";
+import { getUserRole } from "@/libs/actions/user/user_role";
 
 type userNavbarProps = {
   notification: notificationProps[];
@@ -33,15 +34,19 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
     useState<notificationProps[]>(notification);
   const [userId, setUserId] = useState("");
   const supabase = createSupabaseClient();
-
+  const [userRole, setUserRole] = useState<
+    { user_role_name: string }[] | null
+  >();
   useEffect(() => {
     const getUserFromSupabase = async () => {
       const { data } = await getUserSession();
       if (data.user?.id) {
-        const userData = await getUser(data.user?.id);
+        const userData = await getUser(data.user.id);
+        const userRole = await getUserRole(data.user.id);
         updateUserState(userData);
         updateLoading(false);
         setUserId(data.user.id);
+        setUserRole(userRole);
       }
     };
     setUid(uuid());
@@ -200,7 +205,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
                 {isLoading ? <NameLoading /> : <span>{user_fullname}</span>}
               </div>
             </div>
-            <ProfileItems user_id={user_id} />
+            <ProfileItems user_id={user_id} userRoles={userRole} />
             <div className="border-t mt-4">
               <div className="flex mt-3 space-x-2 items-center cursor-pointer">
                 <svg
