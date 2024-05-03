@@ -8,13 +8,15 @@ import Image from "next/image";
 import ProfileLoading from "@/components/ui/ProfileLoading";
 import NameLoading from "@/components/ui/NameLoading";
 import useProfile from "@/hook/useProfile";
+import { userSocialProps } from "@/types/user/user";
 
 type profileProps = {
+  social: userSocialProps;
   userId: string;
   sessionUserId: string;
 };
 
-const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
+const Profile: React.FC<profileProps> = ({ userId, sessionUserId, social }) => {
   const { isLoading, userData, userFollower, sliceArticleslist } =
     useProfile(userId);
 
@@ -66,51 +68,60 @@ const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
             } justify-center items-center`}
           >
             <div className="flex items-center">
-              <Link href="" className="flex items-center">
+              <Link
+                href={social?.user_social?.user_social_github || ""}
+                className="flex items-center"
+              >
                 <FaGithub className="w-8 h-8" />
               </Link>
               {showInput && (
                 <input
                   className="input input-bordered border-2 border-[#F1F1F1] focus:outline-none ml-2 h-8"
                   type="text"
-                  placeholder=""
+                  placeholder={social?.user_social?.user_social_github || "Enter text"}
                 />
               )}
             </div>
             <div className="flex items-center">
-              <Link href="">
+              <Link href={social?.user_social?.user_social_facebook || ""}>
                 <FaFacebook className="w-8 h-8 text-[#1877F2]" />
               </Link>
               {showInput && (
                 <input
                   className="input input-bordered border-2 border-[#F1F1F1] focus:outline-none ml-2 h-8"
                   type="text"
-                  placeholder=""
+                  placeholder={
+                    social?.user_social?.user_social_facebook || "Enter text"
+                  }
                 />
               )}
             </div>
             <div className="flex items-center">
-              <Link href="">
+              <Link href={social?.user_social?.user_social_twitter || ""}>
                 <FaSquareXTwitter className="w-8 h-8" />
               </Link>
               {showInput && (
                 <input
                   className="input input-bordered border-2 border-[#F1F1F1] focus:outline-none ml-2 h-8"
                   type="text"
-                  placeholder=""
+                  placeholder={
+                    social?.user_social?.user_social_twitter || "Enter text"
+                  }
                 />
               )}
             </div>
           </div>
           {sessionUserId === userId && (
             <button
-              className={`btn ${showInput ? "hidden": ""} bg-black text-white text-base rounded-full px-6 py-2 `}
+              className={`btn ${
+                showInput ? "hidden" : ""
+              } bg-black text-white text-base rounded-full px-6 py-2 `}
               onClick={handleShowInput}
             >
               Edit
             </button>
           )}
-          <div className={`${!showInput ? "hidden": ""} space-x-4`}>
+          <div className={`${!showInput ? "hidden" : ""} space-x-4`}>
             <button
               className="btn btn-outline border-2 border-[#F1F1F1] rounded-full text-base px-6 py-2"
               onClick={handleCancelInput}
