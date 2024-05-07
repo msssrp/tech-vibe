@@ -88,9 +88,16 @@ const page = async ({
             npruTab={true}
           />
           <div className="flex flex-wrap w-full justify-center items-center mt-5">
-            {filterBySearchParams.map((article) => (
-              <ArticleApproveCard key={article.article_id} article={article} />
-            ))}
+            {filterBySearchParams.length > 0 ? (
+              filterBySearchParams.map((article) => (
+                <ArticleApproveCard
+                  key={article.article_id}
+                  article={article}
+                />
+              ))
+            ) : (
+              <div>No article on this status yet</div>
+            )}
           </div>
         </div>
       </div>

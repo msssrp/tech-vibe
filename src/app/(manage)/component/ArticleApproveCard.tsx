@@ -1,4 +1,3 @@
-import AllArticleCard from "@/components/main/AllArticleCard";
 import { getArticleTags } from "@/libs/actions/tag/tag";
 import { getUser } from "@/libs/actions/user/user";
 import { ConvertUrlToSlug } from "@/libs/urlConvert";
@@ -17,6 +16,8 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = async ({
   const user = await getUser(article.user_id);
   const slugUrl = ConvertUrlToSlug(article.article_title);
   const tags = await getArticleTags(article.article_id);
+  console.log(article);
+
   return (
     <div className="w-2/6 mr-7 bg-white mt-6 rounded-lg flex flex-col">
       <div className="flex space-x-3 rounded-none items-center h-auto pb-2 p-4">
@@ -78,12 +79,14 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = async ({
           />
         </div>
       </div>
-      <div className="flex items-center space-x-3 mr-2 justify-end py-2">
-        <button className="btn">DISAPPROVE</button>
-        <button className="btn bg-green-500 text-white hover:bg-green-400">
-          APPROVE
-        </button>
-      </div>
+      {article && article.article_status !== "public" && (
+        <div className="flex items-center space-x-3 mr-2 justify-end py-2">
+          <button className="btn">DISAPPROVE</button>
+          <button className="btn bg-green-500 text-white hover:bg-green-400">
+            APPROVE
+          </button>
+        </div>
+      )}
     </div>
   );
 };
