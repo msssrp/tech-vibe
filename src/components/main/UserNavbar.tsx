@@ -14,6 +14,7 @@ import Image from "next/image";
 import ProfileItems from "../ui/ProfileItems";
 import { notificationProps } from "@/types/notification/notification";
 import createSupabaseClient from "@/libs/supabase/client";
+import { getUserRole } from "@/libs/actions/user/user_role";
 
 type userNavbarProps = {
   notification: notificationProps[];
@@ -31,47 +32,58 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
   } = useUserStore();
   const [notificationData, setNotificationData] =
     useState<notificationProps[]>(notification);
-
+  const [userId, setUserId] = useState("");
   const supabase = createSupabaseClient();
-
+  const [userRole, setUserRole] = useState<
+    { user_role_name: string }[] | null
+  >();
   useEffect(() => {
     const getUserFromSupabase = async () => {
       const { data } = await getUserSession();
       if (data.user?.id) {
-        const userData = await getUser(data.user?.id);
+        const userData = await getUser(data.user.id);
+        const userRole = await getUserRole(data.user.id);
         updateUserState(userData);
         updateLoading(false);
-        supabase
-          .channel("notification-channel")
-          .on(
-            "postgres_changes",
-            { event: "*", schema: "public", table: "notification" },
-            (payload: any) => {
-              setNotificationData((prevData) => {
-                const index = prevData.findIndex(
-                  (item) => item.notification_id === payload.new.notification_id
-                );
-                //-1 in array is not found
-                if (index === -1) {
-                  return [...prevData, payload.new];
-                } else {
-                  return prevData.map((item, i) => {
-                    if (i === index) {
-                      return payload.new;
-                    }
-                    return item;
-                  });
-                }
-              });
-            }
-          )
-          .subscribe();
+        setUserId(data.user.id);
+        setUserRole(userRole);
       }
     };
     setUid(uuid());
     getUserFromSupabase();
   }, [updateLoading, updateUserState]);
 
+  supabase
+    .channel("notification-channel")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "notification" },
+      (payload: any) => {
+        setNotificationData((prevData) => {
+          if (userId !== payload.new.user_id) return prevData;
+          const index =
+            Array.isArray(prevData) &&
+            prevData.findIndex(
+              (item) => item.notification_id === payload.new.notification_id
+            );
+          //-1 in array is not found
+          if (index === -1) {
+            return [...prevData, payload.new];
+          } else {
+            return (
+              prevData &&
+              prevData.map((item, i) => {
+                if (i === index) {
+                  return payload.new;
+                }
+                return item;
+              })
+            );
+          }
+        });
+      }
+    )
+    .subscribe();
   return (
     <div className="navbar h-2 bg-base-100 border-b">
       <div className="flex-1">
@@ -129,7 +141,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
                 d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
               />
             </svg>
-            {notificationData &&
+            {Array.isArray(notificationData) &&
               notificationData.some(
                 (notification) => notification.notification_status === "unread"
               ) && (
@@ -193,7 +205,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
                 {isLoading ? <NameLoading /> : <span>{user_fullname}</span>}
               </div>
             </div>
-            <ProfileItems user_id={user_id} />
+            <ProfileItems user_id={user_id} userRoles={userRole} />
             <div className="border-t mt-4">
               <div className="flex mt-3 space-x-2 items-center cursor-pointer">
                 <svg

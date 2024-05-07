@@ -6,4 +6,5 @@ export type notificationProps = {
   notification_status: string;
   created_at: string;
   user_id: string;
+  article_title?: string;
 };

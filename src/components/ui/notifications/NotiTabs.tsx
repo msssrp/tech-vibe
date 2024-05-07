@@ -10,6 +10,11 @@ type notitabsProps = {
 };
 
 const NotiTabs: React.FC<notitabsProps> = ({ notification, userId }) => {
+  const commentNotification =
+    notification &&
+    notification.filter(
+      (notification) => notification.notification_type === "comment"
+    );
   return (
     <div>
       <Tabs defaultValue="All" color="black">
@@ -28,11 +33,30 @@ const NotiTabs: React.FC<notitabsProps> = ({ notification, userId }) => {
                 type={noti.notification_type}
                 status={noti.notification_status}
                 userId={userId}
+                articleTitle={noti.article_title}
               />
             ))
           ) : (
             <div className="mt-7 flex items-center justify-center">
               <p>You dont have any notify.</p>
+            </div>
+          )}
+        </Tabs.Panel>
+        <Tabs.Panel value="Comments">
+          {commentNotification && commentNotification.length > 0 ? (
+            commentNotification.map((noti, index) => (
+              <Noticard
+                key={index}
+                title={noti.notification_title}
+                content={noti.notification_content}
+                type={noti.notification_type}
+                status={noti.notification_status}
+                userId={userId}
+              />
+            ))
+          ) : (
+            <div className="mt-7 flex items-center justify-center">
+              <p>You dont have any comment notify.</p>
             </div>
           )}
         </Tabs.Panel>

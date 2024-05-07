@@ -1,11 +1,24 @@
+import createSupabaseClient from "@/libs/supabase/client";
 import createSupabaseServerClient from "@/libs/supabase/server";
 import { complaintProps } from "@/types/complaint/complaint";
 
 export async function newComplaint(
   user_id: string,
   article_id: string,
-  complaintData: complaintProps
-) {}
+  reportTitle: string,
+  reportDesc: string,
+  reportStatus: string
+) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase.from("complaint").insert({
+    complaint_title: reportTitle,
+    complaint_description: reportDesc,
+    complaint_status: reportStatus,
+    user_id: user_id,
+    article_id: article_id,
+  });
+  if (error) return console.log(error);
+}
 
 export async function getComplaints() {}
 

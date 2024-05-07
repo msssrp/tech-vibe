@@ -3,9 +3,10 @@ import React from "react";
 
 type profileProps = {
   user_id: string;
+  userRoles: { user_role_name: string }[] | null | undefined;
 };
 
-const ProfileItems: React.FC<profileProps> = ({ user_id }) => {
+const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
   return (
     <div className="text-[#898889] mt-2 flex flex-col space-y-4">
       <Link href={`/profile/${user_id}`} className="flex mt-3 space-x-2">
@@ -72,6 +73,27 @@ const ProfileItems: React.FC<profileProps> = ({ user_id }) => {
         </svg>
         <span>Statistics</span>
       </Link>
+      {userRoles &&
+        userRoles.some(
+          (userRole) => userRole.user_role_name === "moderator"
+        ) && (
+          <Link href={"/manage"} className="flex mb-3 space-x-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="#CECBCA"
+              className="w-6 h-6">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
+              />
+            </svg>
+            <span>manage article</span>
+          </Link>
+        )}
     </div>
   );
 };

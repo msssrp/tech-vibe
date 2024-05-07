@@ -1,17 +1,26 @@
 "use client";
-import React from "react";
+import React, { FormEvent, FormEventHandler, useState } from "react";
 import {
   Checkbox,
+  Combobox,
   Drawer,
   Group,
   Input,
+  InputBase,
   Loader,
   Modal,
   Rating,
   Text,
   Textarea,
   Tooltip,
+  useCombobox,
 } from "@mantine/core";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+} from "react-share";
 import { Dropzone } from "@mantine/dropzone";
 import {
   IconBookUpload,
@@ -19,10 +28,11 @@ import {
   IconUpload,
   IconX,
 } from "@tabler/icons-react";
-import { Notifications } from "@mantine/notifications";
+import { notifications, Notifications } from "@mantine/notifications";
 import ReviewsCard from "./ReviewsCard";
 import Image from "next/image";
 import useInteractBtn from "@/hook/useInteractBtn";
+import { newComplaint } from "@/libs/actions/complaint/complaint";
 type interactProps = {
   user_id: string | undefined;
   article_id: string;
@@ -66,10 +76,55 @@ const InteractBtn: React.FC<interactProps> = ({
     setReviewRate,
     uploadedFiles,
     isSubmit,
+    openedReport,
+    openReport,
+    closeReport,
+    currentPath,
   } = useInteractBtn(user_id, article_id);
+
+  const reportType = ["HARASMENT", "RULES VIOLATION", "SPAM"];
+  const combobox = useCombobox({
+    onDropdownClose: () => combobox.resetSelectedOption(),
+  });
+
+  const [value, setValue] = useState<string | null>(null);
+  const [reportDesc, setReportDesc] = useState("");
+  const options = reportType.map((item) => (
+    <Combobox.Option value={item} key={item}>
+      {item}
+    </Combobox.Option>
+  ));
+  const [errorText, setErrorText] = useState("");
+  const handleReportArticle = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      if (user_id !== undefined && value !== null && reportDesc !== "") {
+        await newComplaint(user_id, article_id, value, reportDesc, "pending");
+        notifications.show({
+          title: `repoted ${url_title} !!`,
+          message: "this report will wait for moderator to verify",
+        });
+        setValue(null);
+        setReportDesc("");
+        setErrorText("");
+        return;
+      }
+      setErrorText("Title and Description required...");
+    } catch (error: any) {
+      setErrorText(error);
+      console.log(error);
+    }
+  };
+  const averageRating =
+    reviewsData && reviewsData.length > 0
+      ? (
+          reviewsData.reduce((acc, review) => acc + parseInt(review[4]), 0) /
+          reviewsData.length
+        ).toFixed(2)
+      : "0.00";
   return (
     <>
-      <Notifications />
+      <Notifications autoClose={false} />
       <Modal
         opened={openedReviews}
         onClose={closeReview}
@@ -77,17 +132,24 @@ const InteractBtn: React.FC<interactProps> = ({
         size={1200}
         withCloseButton={false}>
         {reviewsData && reviewsData.length > 0 ? (
-          reviewsData.map((review, index) => (
-            <ReviewsCard
-              key={index}
-              ReviewId={review[0]}
-              Timestamp={review[1]}
-              Reviewer={review[2]}
-              Rating={review[4]}
-              Title={review[3]}
-              IpfsHash={review[5]}
-            />
-          ))
+          <>
+            <div className="flex items-center justify-start space-x-2">
+              <span>Average Rating : </span>
+
+              <Rating value={parseFloat(averageRating)} readOnly />
+            </div>
+            {reviewsData.map((review, index) => (
+              <ReviewsCard
+                key={index}
+                ReviewId={review[0]}
+                Timestamp={review[1]}
+                Reviewer={review[2]}
+                Rating={review[4]}
+                Title={review[3]}
+                IpfsHash={review[5]}
+              />
+            ))}
+          </>
         ) : (
           <div>no review on this blog</div>
         )}
@@ -216,8 +278,10 @@ const InteractBtn: React.FC<interactProps> = ({
           </button>
         )}
       </Modal>
-      <button>
+      <div className="dropdown dropdown-end">
         <svg
+          tabIndex={0}
+          role="button"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -230,7 +294,19 @@ const InteractBtn: React.FC<interactProps> = ({
             d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z"
           />
         </svg>
-      </button>
+
+        <div
+          tabIndex={0}
+          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-14 flex flex-col items-center justify-center space-y-3">
+          <FacebookShareButton url={`${currentPath}post/${url_title}`}>
+            <FacebookIcon size={32} round />
+          </FacebookShareButton>
+          <TwitterShareButton url={`${currentPath}post/${url_title}`}>
+            <TwitterIcon size={32} round />
+          </TwitterShareButton>
+        </div>
+      </div>
+
       <div className="dropdown dropdown-bottom dropdown-end">
         <button tabIndex={0} role="button">
           <svg
@@ -287,7 +363,72 @@ const InteractBtn: React.FC<interactProps> = ({
 
             <span>{clipboard.copied ? "Copied Link" : "Copy Link"}</span>
           </button>
-          <button className="cursor-pointer flex space-x-2">
+          <Modal
+            opened={openedReport}
+            onClose={closeReport}
+            withCloseButton={false}
+            size={500}
+            centered>
+            <form
+              onSubmit={handleReportArticle}
+              className="flex flex-col items-center justify-center container mx-auto space-y-5 mt-5 mb-5">
+              <h1 className="text-xl font-semibold">REPORT THIS STORY</h1>
+              <span className="text-gray-500">{url_title}</span>
+              <Combobox
+                width={300}
+                store={combobox}
+                onOptionSubmit={(val) => {
+                  setValue(val);
+                  combobox.closeDropdown();
+                }}>
+                <Combobox.Target>
+                  <InputBase
+                    component="button"
+                    type="button"
+                    pointer
+                    className="w-[300px]"
+                    rightSection={<Combobox.Chevron />}
+                    rightSectionPointerEvents="none"
+                    onClick={() => combobox.toggleDropdown()}>
+                    {value || <Input.Placeholder>Pick value</Input.Placeholder>}
+                  </InputBase>
+                </Combobox.Target>
+
+                <Combobox.Dropdown>
+                  <Combobox.Options>{options}</Combobox.Options>
+                </Combobox.Dropdown>
+              </Combobox>
+
+              <Textarea
+                className="w-[300px]"
+                autosize
+                error={errorText && errorText}
+                minRows={2}
+                value={reportDesc}
+                onChange={(e) => setReportDesc(e.target.value)}
+                placeholder={`${
+                  value ? "Describe report..." : "CHOOSE A TOPIC FIRST"
+                }`}
+                disabled={value ? false : true}
+              />
+              <div className="flex space-x-4">
+                <button
+                  type="button"
+                  onClick={closeReport}
+                  className="btn px-6 py-1 bg-white hover:bg-white">
+                  CANCEL
+                </button>
+                <button
+                  className="btn px-6 py-1 bg-red text-white hover:bg-red"
+                  type="submit">
+                  CONFIRM
+                </button>
+              </div>
+            </form>
+          </Modal>
+          <button
+            className="cursor-pointer flex space-x-2"
+            onClick={openReport}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
