@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { toBlob } from "html-to-image";
 
-import contractABI from "@/reviewAbi.json";
+import contractABI from "@/hardhat/artifacts/contracts/BlogReview.sol/BlogReview.json";
 import { notifications } from "@mantine/notifications";
 const useCertificateGen = (articleName: string, userFullName: string) => {
   const hostName = typeof window !== "undefined" && window.location.origin;
@@ -37,7 +37,7 @@ const useCertificateGen = (articleName: string, userFullName: string) => {
             const runner = await provider.getSigner(from);
             const contract = new ethers.Contract(
               contractAddress,
-              contractABI,
+              contractABI.abi,
               runner
             );
 

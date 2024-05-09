@@ -9,7 +9,7 @@ import { useClipboard, useDisclosure } from "@mantine/hooks";
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 
-import contractABI from "@/reviewAbi.json";
+import contractABI from "@/hardhat/artifacts/contracts/BlogReview.sol/BlogReview.json";
 import { UploadedFile } from "@/types/article/article";
 import { notifications } from "@mantine/notifications";
 import { FileWithPath } from "@mantine/dropzone";
@@ -57,10 +57,13 @@ const useInteractBtn = (user_id: string | undefined, article_id: string) => {
           const runner = await provider.getSigner(from);
           const contract = new ethers.Contract(
             contractAddress,
-            contractABI,
+            contractABI.abi,
             runner
           );
+
           const result = await contract.getAllReviews(article_id);
+          console.log(result);
+
           setReviewsData(result);
         };
         if (window.ethereum) setIsWalletFound(true);
@@ -135,7 +138,7 @@ const useInteractBtn = (user_id: string | undefined, article_id: string) => {
           const runner = await provider.getSigner(from);
           const contract = new ethers.Contract(
             contractAddress,
-            contractABI,
+            contractABI.abi,
             runner
           );
           const tx = await contract.addReview(
