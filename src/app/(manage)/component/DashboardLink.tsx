@@ -40,8 +40,7 @@ const DashboardLink = () => {
       className={`btn border-none flex items-center justify-start hover:bg-base-content ${
         item.textColor
       } ${item.label === isActive ? "bg-base-content" : "bg-transparent"}`}
-      onClick={(e) => {
-        e.preventDefault();
+      onClick={() => {
         setIsActive(item.label);
       }}>
       {item.icon}

@@ -6,3 +6,10 @@ export default function createSupabaseClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 }
+
+export function adminClient() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+    process.env.NEXT_PUBLIC_SUPABASE_SERVICE_KEY as string
+  );
+}

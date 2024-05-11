@@ -16,6 +16,7 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
     handlerEditorChange,
     handlerImageUpload,
     setTagValue,
+    userRole,
   } = useWrite(writeId, user);
 
   if (isDesktop) {
@@ -26,6 +27,7 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
           writeId={writeId}
           article={article}
           tagValue={tagValue}
+          userRole={userRole}
         />
         <div className="container mx-auto px-32 py-10">
           <div className="flex items-center justify-center mt-10 divide-x">
