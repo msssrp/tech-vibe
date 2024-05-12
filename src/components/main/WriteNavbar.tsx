@@ -18,6 +18,7 @@ import ProfileItems from "../ui/ProfileItems";
 
 type WriteProps = {
   article: articleProps;
+  userRole: { user_role_name: string }[] | null | undefined;
 };
 
 const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
@@ -25,6 +26,7 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
   writeId,
   article,
   tagValue,
+  userRole,
 }) => {
   const router = useRouter();
 
@@ -142,7 +144,9 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
                   <span>{user.user_fullname}</span>
                 </div>
               </div>
-              {user.user_id && <ProfileItems user_id={user.user_id} />}
+              {user.user_id && (
+                <ProfileItems user_id={user.user_id} userRoles={userRole} />
+              )}
               <li className="border-t mt-2">
                 <a>
                   <svg

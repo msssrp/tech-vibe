@@ -9,6 +9,7 @@ import {
   updateArticleById,
   uploadImage,
 } from "@/libs/actions/article/article";
+import { getUserRole } from "@/libs/actions/user/user_role";
 import { articleProps } from "@/types/article/article";
 import { userProps } from "@/types/user/user";
 import DOMPurify from "dompurify";
@@ -26,6 +27,9 @@ const useWrite = (writeId: string, user: userProps) => {
   const [navStatus, setNavStatus] = useState("");
   const [tagValue, setTagValue] = useState<string[]>([]);
   const hasCoverImageBeenSet = useRef(false);
+  const [userRole, setUserRole] = useState<
+    { user_role_name: string }[] | null
+  >();
   const handleSetCoverImage = (imageUrl: string) => {
     if (!hasCoverImageBeenSet.current) {
       setArticle((prev: any) => ({ ...prev, article_cover: imageUrl }));
@@ -105,9 +109,14 @@ const useWrite = (writeId: string, user: userProps) => {
   ]);
   const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
-    const handleResize = () => {
+    const getUserRoleClient = async () => {
+      const userRole = await getUserRole(user.user_id);
+      setUserRole(userRole);
+    };
+    const handleResize = async () => {
       setIsDesktop(window.innerWidth > 1300);
     };
+    getUserRoleClient();
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -134,6 +143,7 @@ const useWrite = (writeId: string, user: userProps) => {
     handlerEditorChange,
     handlerImageUpload,
     setTagValue,
+    userRole,
   };
 };
 

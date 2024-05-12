@@ -1,23 +1,32 @@
-import { getArticleTags } from "@/libs/actions/tag/tag";
-import { getUser } from "@/libs/actions/user/user";
+"use client";
+import { getArticleTagsOnClient } from "@/libs/actions/tag/tag";
 import { ConvertUrlToSlug } from "@/libs/urlConvert";
 import { articleProps } from "@/types/article/article";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import ApproveBtn from "./ApproveBtn";
+import { userProps } from "@/types/user/user";
+import { getUserFromClient } from "@/libs/actions/user/userClient";
 
 type ArticleApproveCardProps = {
   article: articleProps;
 };
 
-const ArticleApproveCard: React.FC<ArticleApproveCardProps> = async ({
-  article,
-}) => {
-  const user = await getUser(article.user_id);
+const ArticleApproveCard: React.FC<ArticleApproveCardProps> = ({ article }) => {
+  const [user, setUser] = useState<userProps>();
+  const [tags, setTags] = useState<any>();
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = await getUserFromClient(article.user_id);
+      const tags = await getArticleTagsOnClient(article.article_id);
+      setUser(user);
+      setTags(tags);
+    };
+    fetchData();
+  }, []);
   const slugUrl = ConvertUrlToSlug(article.article_title);
-  const tags = await getArticleTags(article.article_id);
-  console.log(article);
-
+  if (!user) return;
   return (
     <div className="w-2/6 mr-7 bg-white mt-6 rounded-lg flex flex-col">
       <div className="flex space-x-3 rounded-none items-center h-auto pb-2 p-4">
@@ -80,12 +89,11 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = async ({
         </div>
       </div>
       {article && article.article_status !== "public" && (
-        <div className="flex items-center space-x-3 mr-2 justify-end py-2">
-          <button className="btn">DISAPPROVE</button>
-          <button className="btn bg-green-500 text-white hover:bg-green-400">
-            APPROVE
-          </button>
-        </div>
+        <ApproveBtn
+          articleId={article.article_id}
+          articleTitle={article.article_title}
+          userId={user.user_id}
+        />
       )}
     </div>
   );

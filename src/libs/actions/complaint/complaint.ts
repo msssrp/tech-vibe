@@ -2,6 +2,15 @@ import createSupabaseClient from "@/libs/supabase/client";
 import createSupabaseServerClient from "@/libs/supabase/server";
 import { complaintProps } from "@/types/complaint/complaint";
 
+export async function getTotalOfComplaint() {
+  const supabase = await createSupabaseServerClient();
+  const { count, error } = await supabase
+    .from("complaint")
+    .select("*", { count: "exact", head: true });
+  if (error) return error.message;
+  return count;
+}
+
 export async function newComplaint(
   user_id: string,
   article_id: string,
@@ -20,11 +29,38 @@ export async function newComplaint(
   if (error) return console.log(error);
 }
 
-export async function getComplaints() {}
+export async function getComplaints() {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase.from("complaint").select("*");
+  if (error) return { error };
+  return { data };
+}
 
 export async function getComplaintByStatus(status: string) {}
 
-export async function deleteComplaint(complaint_id: string) {}
+export async function deleteComplaint(complaintId: string) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("complaint")
+    .update({ complaint_status: "delete" })
+    .eq("complaint_id", complaintId);
+  if (error) return error.message;
+}
+
+export async function confirmComplaint(
+  complaintId: string,
+  complaintContent: string
+) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("complaint")
+    .update({
+      complaint_status: "complaint",
+      complaint_mod_comment: complaintContent,
+    })
+    .eq("complaint_id", complaintId);
+  if (error) return error.message;
+}
 
 export async function insertModComment(
   complaint_id: string,

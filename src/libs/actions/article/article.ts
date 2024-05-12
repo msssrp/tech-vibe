@@ -2,15 +2,26 @@ import { articleProps, uploadProps } from "@/types/article/article";
 import { v4 as uuid } from "uuid";
 import createSupabaseServerClient from "@/libs/supabase/server";
 import createSupabaseClient from "@/libs/supabase/client";
-
+import { adminClient } from "@/libs/supabase/client";
 export async function getArticles(): Promise<articleProps[]> {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("article")
     .select("*")
     .eq("article_status", "public");
-  if (error) throw new Error(error.message);
+  if (error) console.log(error);
+
   return data as articleProps[];
+}
+
+export async function getTotalOfArticle() {
+  const supabase = await createSupabaseServerClient();
+  const { count, error } = await supabase
+    .from("article")
+    .select("*", { count: "exact", head: true });
+  if (error) return error.message;
+
+  return count;
 }
 
 export async function getAllArticle(): Promise<articleProps[]> {
@@ -20,8 +31,41 @@ export async function getAllArticle(): Promise<articleProps[]> {
   return data as articleProps[];
 }
 
+export async function getAllArticleOnClient(): Promise<articleProps[]> {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase.from("article").select("*");
+  if (error) throw new Error(error.message);
+  return data as articleProps[];
+}
+
 export async function getNpruArticle(): Promise<articleProps[]> {
   const supabase = await createSupabaseServerClient();
+  const { data: userRoles, error: rolesError } = await supabase
+    .from("user_role")
+    .select("user_id")
+    .filter("user_role_name", "eq", "npru");
+
+  if (rolesError) {
+    console.error("Error fetching user roles:", rolesError.message);
+    return [];
+  }
+
+  const userIds = userRoles.map((role) => role.user_id);
+  const { data: articles, error: articlesError } = await supabase
+    .from("article")
+    .select("*")
+    .in("user_id", userIds);
+
+  if (articlesError) {
+    console.error("Error fetching NPRU articles:", articlesError.message);
+    return [];
+  }
+
+  return articles as articleProps[];
+}
+
+export async function getNpruArticleOnClient(): Promise<articleProps[]> {
+  const supabase = createSupabaseClient();
   const { data: userRoles, error: rolesError } = await supabase
     .from("user_role")
     .select("user_id")
@@ -143,4 +187,17 @@ export async function uploadImage(
     .from("Images")
     .upload(write_id + "/" + uid, file);
   return { imagePath: data?.path };
+}
+
+export async function manageArticleStatus(articleId: string, status: string) {
+  const supabase = adminClient();
+  const { data, error } = await supabase
+    .from("article")
+    .update({ article_status: status })
+    .eq("article_id", articleId);
+  console.log(data, error);
+  if (error) {
+    console.log(error);
+    return error;
+  }
 }
