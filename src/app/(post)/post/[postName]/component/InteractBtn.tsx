@@ -82,7 +82,7 @@ const InteractBtn: React.FC<interactProps> = ({
     currentPath,
   } = useInteractBtn(user_id, article_id);
 
-  const reportType = ["HARASMENT", "RULES VIOLATION", "SPAM"];
+  const reportType = ["HARASSMENT", "RULES VIOLATION", "SPAM"];
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
@@ -107,6 +107,7 @@ const InteractBtn: React.FC<interactProps> = ({
         setValue(null);
         setReportDesc("");
         setErrorText("");
+        closeReport();
         return;
       }
       setErrorText("Title and Description required...");

@@ -1,3 +1,5 @@
+import { getTotalOfArticle } from "@/libs/actions/article/article";
+import { getTotalOfComplaint } from "@/libs/actions/complaint/complaint";
 import getUserSession from "@/libs/actions/user/auth/getSession";
 import { getUser } from "@/libs/actions/user/user";
 import Image from "next/image";
@@ -8,6 +10,8 @@ const UserProfile = async () => {
   const user = await getUserSession();
   if (!user.data.user) return redirect("/");
   const userData = await getUser(user.data.user.id);
+  const totalArticle = await getTotalOfArticle();
+  const totalComplaint = await getTotalOfComplaint();
   return (
     <div className="flex items-center space-x-5 p-9">
       <div className="avatar">
@@ -40,7 +44,8 @@ const UserProfile = async () => {
           </svg>
 
           <span className="text-base-content">
-            You have a list of managing articles 30,complaints 3
+            You have a list of managing articles {totalArticle},complaints{" "}
+            {totalComplaint}
           </span>
         </div>
       </div>

@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { GoReport } from "react-icons/go";
 import { IoIosLogOut } from "react-icons/io";
 import { MdOutlineManageAccounts } from "react-icons/md";
+import { GiFox } from "react-icons/gi";
 const links = [
   {
     link: "/manage",
@@ -22,6 +23,12 @@ const links = [
     link: "/manage/account",
     label: "Manage account",
     icon: <MdOutlineManageAccounts size={25} />,
+    textColor: "text-white",
+  },
+  {
+    link: "/manage/web3",
+    label: "Web3 setting",
+    icon: <GiFox size={25} />,
     textColor: "text-white",
   },
   {

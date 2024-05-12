@@ -1,12 +1,8 @@
 "use client";
 import { Tabs } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import StatisticChat from "./StatisticChat";
-import { articleProps } from "@/types/article/article";
 import AllArticleCardClient from "@/components/main/AllArticleCardClient";
-import { userProps } from "@/types/user/user";
-import { getUserFromClient } from "@/libs/actions/user/userClient";
-import { getArticleByUserId } from "@/libs/actions/article/article";
 import TabHomeLoading from "@/components/ui/TabHomeLoading";
 import Image from "next/image";
 import useProfileTabs from "@/hook/useProfileTabs";
@@ -63,6 +59,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                             userId={userId}
                             user={userData}
                             articleId={articleslist.article_id}
+                            interactBtn={true}
                           />
                         );
                       })}

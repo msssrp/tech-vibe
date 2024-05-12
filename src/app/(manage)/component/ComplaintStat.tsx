@@ -6,6 +6,8 @@ type complaintStatProps = {
   inProgress: number;
   complaint: number;
   deleteTotal: number;
+  rulesViolationTab?: boolean;
+  spamTab?: boolean;
 };
 
 const ComplaintStat: React.FC<complaintStatProps> = ({
@@ -13,6 +15,8 @@ const ComplaintStat: React.FC<complaintStatProps> = ({
   inProgress,
   complaint,
   deleteTotal,
+  rulesViolationTab,
+  spamTab,
 }) => {
   return (
     <div className="flex items-center justify-center space-x-6 mt-11">
@@ -21,19 +25,37 @@ const ComplaintStat: React.FC<complaintStatProps> = ({
         <span>All articles</span>
       </div>
       <Link
-        href={`/manage/complaint?complaint=pending`}
+        href={`${
+          rulesViolationTab
+            ? "/manage/complaint/rules-violation?complaint=pending"
+            : spamTab
+            ? "/manage/complaint/spam?complaint=pending"
+            : "/manage/complaint?complaint=pending"
+        }`}
         className="h-[160px] w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
         <h1 className="text-6xl font-semibold text-orange-500">{inProgress}</h1>
         <span>In progress</span>
       </Link>
       <Link
-        href={`/manage/complaint?complaint=complaint`}
+        href={`${
+          rulesViolationTab
+            ? "/manage/complaint/rules-violation?complaint=complaint"
+            : spamTab
+            ? "/manage/complaint/spam?complaint=complaint"
+            : "/manage/complaint?complaint=complaint"
+        }`}
         className="h-[160px] w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
         <h1 className="text-6xl font-semibold text-green-500">{complaint}</h1>
         <span>Complaint</span>
       </Link>
       <Link
-        href={`/manage/complaint?complaint=delete`}
+        href={`${
+          rulesViolationTab
+            ? "/manage/complaint/rules-violation?complaint=delete"
+            : spamTab
+            ? "/manage/complaint/spam?complaint=delete"
+            : "/manage/complaint?complaint=delete"
+        }`}
         className="h-[160px] w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
         <h1 className="text-6xl font-semibold text-[#E0524C]">{deleteTotal}</h1>
         <span>Delete</span>

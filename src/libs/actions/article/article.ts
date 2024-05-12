@@ -14,6 +14,16 @@ export async function getArticles(): Promise<articleProps[]> {
   return data as articleProps[];
 }
 
+export async function getTotalOfArticle() {
+  const supabase = await createSupabaseServerClient();
+  const { count, error } = await supabase
+    .from("article")
+    .select("*", { count: "exact", head: true });
+  if (error) return error.message;
+
+  return count;
+}
+
 export async function getAllArticle(): Promise<articleProps[]> {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.from("article").select("*");
