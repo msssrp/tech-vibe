@@ -17,6 +17,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import React, { useEffect, useState } from "react";
 import { createNewNotification } from "../../../../../libs/actions/notification/notification";
+import Image from "next/image";
 
 type complaintCardProps = {
   complaint: complaintProps;
@@ -87,7 +88,8 @@ const ComplaintCard: React.FC<complaintCardProps> = ({ complaint }) => {
       window.location.reload();
     }, 5000);
   };
-  if (article === undefined) return;
+  if (article === undefined || !userComplaint) return;
+
   return (
     <>
       <Modal
@@ -155,10 +157,16 @@ const ComplaintCard: React.FC<complaintCardProps> = ({ complaint }) => {
           </div>
         </div>
       </Modal>
-      <div className="flex flex-col space-y-3 p-6 w-2/5 bg-white rounded-xl mr-5 mb-5">
+      <div className="flex flex-col space-y-3 p-6 w-full lg:w-2/5 bg-white rounded-xl mr-5 mb-5">
         <div className="flex items-center space-x-3">
-          <Avatar src={userComplaint?.user_profile} alt="it's me" />
-          <span>{userComplaint?.user_fullname}</span>
+          <Image
+            src={userComplaint.user_profile}
+            alt="image"
+            width={35}
+            height={35}
+            className="rounded-full"
+          />
+          <span>{userComplaint.user_fullname}</span>
         </div>
 
         <Textarea
@@ -177,15 +185,19 @@ const ComplaintCard: React.FC<complaintCardProps> = ({ complaint }) => {
             articleId={article.article_id}
           />
         </div>
+        {complaint.complaint_status !== "complaint" && (
+          <div className="flex justify-end items-center space-x-4">
+            {complaint.complaint_status !== "delete" && (
+              <button className="btn" onClick={open}>
+                DELETE
+              </button>
+            )}
 
-        <div className="flex justify-end items-center space-x-4">
-          <button className="btn" onClick={open}>
-            DELETE
-          </button>
-          <button className="btn bg-orange-500 text-white" onClick={open}>
-            COMPLAINT
-          </button>
-        </div>
+            <button className="btn bg-orange-500 text-white" onClick={open}>
+              COMPLAINT
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

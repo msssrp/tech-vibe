@@ -11,7 +11,7 @@ const CertificateGen: React.FC<certiProps> = ({
   userFullName,
   articleName,
 }) => {
-  const { hostName, onButtonClick } = useCertificateGen(
+  const { certificateUri, onButtonClick, loadingState } = useCertificateGen(
     articleName,
     userFullName
   );
@@ -34,7 +34,7 @@ const CertificateGen: React.FC<certiProps> = ({
           <Image
             width={560}
             height={400}
-            src={`${hostName}/images/certificateTechVibe.png`}
+            src={`https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/${certificateUri}`}
             alt="TechVibe-Certificate-Themeplate"
             className="w-full h-full"
           />
@@ -48,7 +48,7 @@ const CertificateGen: React.FC<certiProps> = ({
           </div>
         </div>
         <button className="btn bg-green-500 text-white" onClick={onButtonClick}>
-          Accept
+          {loadingState}
         </button>
       </div>
     </>

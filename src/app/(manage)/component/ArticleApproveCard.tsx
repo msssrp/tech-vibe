@@ -28,7 +28,7 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = ({ article }) => {
   const slugUrl = ConvertUrlToSlug(article.article_title);
   if (!user) return;
   return (
-    <div className="w-2/6 mr-7 bg-white mt-6 rounded-lg flex flex-col">
+    <div className="w-full lg:w-2/6 mr-7 bg-white mt-6 rounded-lg flex flex-col">
       <div className="flex space-x-3 rounded-none items-center h-auto pb-2 p-4">
         <div className="flex flex-col  space-y-3 px-4 w-3/4 h-full">
           <div className="flex flex-col max-h-32 ">

@@ -25,7 +25,7 @@ const UserProfile = async () => {
         </div>
       </div>
       <div className="flex flex-col space-y-4">
-        <h1 className="text-2xl font-semibold">
+        <h1 className="lg:text-2xl font-semibold">
           Welcome back, {userData.user_fullname}
         </h1>
         <div className="flex items-center space-x-2">
@@ -35,7 +35,7 @@ const UserProfile = async () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-4 h-4">
+            className="w-4 h-4 hidden lg:block">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
