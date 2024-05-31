@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa6";
@@ -8,27 +8,15 @@ import Image from "next/image";
 import ProfileLoading from "@/components/ui/ProfileLoading";
 import NameLoading from "@/components/ui/NameLoading";
 import useProfile from "@/hook/useProfile";
-import { userSocialProps } from "@/types/user/user";
 
 type profileProps = {
-  social: userSocialProps;
   userId: string;
   sessionUserId: string;
 };
 
-const Profile: React.FC<profileProps> = ({ userId, sessionUserId, social }) => {
+const Profile: React.FC<profileProps> = ({ userId }) => {
   const { isLoading, userData, userFollower, sliceArticleslist } =
     useProfile(userId);
-
-  const [showInput, setShowInput] = useState(false);
-
-  const handleShowInput = () => {
-    setShowInput(!showInput);
-  };
-
-  const handleCancelInput = () => {
-    setShowInput(false);
-  };
 
   return (
     <div className="w-2/6 py-12 pl-11 pr-2 ">
@@ -60,78 +48,28 @@ const Profile: React.FC<profileProps> = ({ userId, sessionUserId, social }) => {
           ) : (
             <p className="text-[#606060]">{userFollower} Follower</p>
           )}
-          <div
-            className={`social ${
-              showInput
-                ? "flex flex-col items-center space-y-2"
-                : "flex space-x-3"
-            } justify-center items-center`}
-          >
+          <div className="social flex space-x-3 justify-center items-center">
             <div className="flex items-center">
-              <Link
-                href={social?.user_social?.user_social_github || ""}
-                className="flex items-center"
-              >
+              <Link href="" className="flex items-center">
                 <FaGithub className="w-8 h-8" />
               </Link>
-              {showInput && (
-                <input
-                  className="input input-bordered border-2 border-[#F1F1F1] focus:outline-none ml-2 h-8"
-                  type="text"
-                  placeholder={social?.user_social?.user_social_github || "Enter text"}
-                />
-              )}
             </div>
             <div className="flex items-center">
-              <Link href={social?.user_social?.user_social_facebook || ""}>
+              <Link href="">
                 <FaFacebook className="w-8 h-8 text-[#1877F2]" />
               </Link>
-              {showInput && (
-                <input
-                  className="input input-bordered border-2 border-[#F1F1F1] focus:outline-none ml-2 h-8"
-                  type="text"
-                  placeholder={
-                    social?.user_social?.user_social_facebook || "Enter text"
-                  }
-                />
-              )}
             </div>
             <div className="flex items-center">
-              <Link href={social?.user_social?.user_social_twitter || ""}>
+              <Link href="">
                 <FaSquareXTwitter className="w-8 h-8" />
               </Link>
-              {showInput && (
-                <input
-                  className="input input-bordered border-2 border-[#F1F1F1] focus:outline-none ml-2 h-8"
-                  type="text"
-                  placeholder={
-                    social?.user_social?.user_social_twitter || "Enter text"
-                  }
-                />
-              )}
             </div>
           </div>
-          {sessionUserId === userId && (
-            <button
-              className={`btn ${
-                showInput ? "hidden" : ""
-              } bg-black text-white text-base rounded-full px-6 py-2 `}
-              onClick={handleShowInput}
-            >
+          {userId && (
+            <button className="btn bg-black text-white text-base rounded-full px-6 py-2">
               Edit
             </button>
           )}
-          <div className={`${!showInput ? "hidden" : ""} space-x-4`}>
-            <button
-              className="btn btn-outline border-2 border-[#F1F1F1] rounded-full text-base px-6 py-2"
-              onClick={handleCancelInput}
-            >
-              Cancel
-            </button>
-            <button className="btn bg-black text-white rounded-full text-base px-6 py-2">
-              Update
-            </button>
-          </div>
         </div>
         {/* popularArticles */}
         <div className="w-full space-y-3 mb-6 ">
