@@ -1,10 +1,16 @@
 "use client";
+import React, { useState } from "react";
 import { Tabs } from "@mantine/core";
-import React from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa6";
 import Link from "next/link";
+import ModalName from "./Modals/ModalName";
+import ModalGithub from "./Modals/ModalGithub";
+import ModalFacebook from "./Modals/ModalFacebook";
+import ModalTwitter from "./Modals/ModalTwitter";
+import ModalDelete from "./Modals/ModalDelete";
+
 
 const EditProfile = () => {
   return (
@@ -74,42 +80,15 @@ const EditProfile = () => {
                       </div>
                       <div className="mt-6">
                         {/* email */}
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center h-12">
                           <p className="font-medium">Eamil address</p>
-                          <div className="flex items-center">
-                            <button className="btn btn-ghost btn-circle hover:bg-inherit">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width={1.5}
-                                stroke="#C8C2C2"
-                                className="size-6"
-                              >
-                                <path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                              </svg>
-                            </button>
-                            <p className="text-[#606060]">
-                              Chirtopher@gmail.com
-                            </p>
-                          </div>
+                          <p className="text-[#606060]">Chirtopher@gmail.com</p>
                         </div>
                         {/* Name */}
                         <div className="flex justify-between items-center">
                           <p className="font-medium">Name</p>
-                          <div className="flex items-center">
-                            <button className="btn btn-ghost btn-circle hover:bg-inherit">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width={1.5}
-                                stroke="#C8C2C2"
-                                className="size-6"
-                              >
-                                <path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                              </svg>
-                            </button>
+                          <div className="flex items-center ">
+                            <ModalName/>
                             <p className="text-[#606060]">
                               Christopher Campbell
                             </p>
@@ -122,18 +101,7 @@ const EditProfile = () => {
                             <p className="font-medium">Github link</p>
                           </div>
                           <div className="flex items-center">
-                            <button className="btn btn-ghost btn-circle hover:bg-inherit">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width={1.5}
-                                stroke="#C8C2C2"
-                                className="size-6"
-                              >
-                                <path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                              </svg>
-                            </button>
+                            <ModalGithub/>
                             <p className="text-[#606060]">Christopher2410</p>
                           </div>
                         </div>
@@ -143,18 +111,7 @@ const EditProfile = () => {
                             <p className="font-medium">Facebook link</p>
                           </div>
                           <div className="flex items-center">
-                            <button className="btn btn-ghost btn-circle hover:bg-inherit">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width={1.5}
-                                stroke="#C8C2C2"
-                                className="size-6"
-                              >
-                                <path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                              </svg>
-                            </button>
+                            <ModalFacebook/>
                             <p className="text-[#606060]">Christopher</p>
                           </div>
                         </div>
@@ -164,25 +121,14 @@ const EditProfile = () => {
                             <p className="font-medium">Twitter link</p>
                           </div>
                           <div className="flex items-center">
-                            <button className="btn btn-ghost btn-circle hover:bg-inherit">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width={1.5}
-                                stroke="#C8C2C2"
-                                className="size-6"
-                              >
-                                <path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                              </svg>
-                            </button>
+                            <ModalTwitter/>
                             <p className="text-[#606060]">Christopher</p>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className="pt-8 space-y-4">
-                      <button className="text-[#952124] font-medium">Delete account</button>
+                      <ModalDelete/>
                       <p className="text-[#C8C2C2]">
                         Permanently delete your account and all of your content.
                       </p>
