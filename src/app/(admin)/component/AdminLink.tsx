@@ -1,22 +1,27 @@
 "use client";
-import ManageArticle from "@/components/svg/ManageArticle";
 import Link from "next/link";
 import React, { useState } from "react";
-import { GoReport } from "react-icons/go";
 import { IoIosLogOut } from "react-icons/io";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { GiFox } from "react-icons/gi";
+import { IoSettingsOutline } from "react-icons/io5";
 const links = [
   {
-    link: "/manage",
-    label: "Manage articles",
-    icon: <ManageArticle />,
+    link: "/admin-dashboard",
+    label: "Manage account",
+    icon: <MdOutlineManageAccounts size={25} />,
     textColor: "text-white",
   },
   {
-    link: "/manage/complaint",
-    label: "Complaint",
-    icon: <GoReport size={25} />,
+    link: "/admin-dashboard/setting",
+    label: "Settings",
+    icon: <IoSettingsOutline size={25} />,
+    textColor: "text-white",
+  },
+  {
+    link: "/admin-dashboard/web3",
+    label: "Web3 setting",
+    icon: <GiFox size={25} />,
     textColor: "text-white",
   },
   {
@@ -26,7 +31,7 @@ const links = [
     textColor: "text-[#F50403]",
   },
 ];
-const DashboardLink = () => {
+const AdminLink = () => {
   const [isActive, setIsActive] = useState("Manage articles");
   const link = links.map((item, index) => (
     <Link
@@ -50,4 +55,4 @@ const DashboardLink = () => {
   );
 };
 
-export default DashboardLink;
+export default AdminLink;
