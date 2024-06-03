@@ -66,9 +66,9 @@ const Profile: React.FC<profileProps> = ({ userId }) => {
             </div>
           </div>
           {userId && (
-            <button className="btn bg-black text-white text-base rounded-full px-6 py-2">
+            <Link href="/profile/editprofile" className="btn bg-black text-white text-base rounded-full px-6 py-2">
               Edit
-            </button>
+            </Link>
           )}
         </div>
         {/* popularArticles */}

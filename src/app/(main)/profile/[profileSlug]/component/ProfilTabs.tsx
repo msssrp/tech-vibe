@@ -47,7 +47,6 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                 </label>
               </div>
             </Tabs.List>
-
             <Tabs.Panel value="Home">
               {homeLoading ? (
                 <div className="flex justify-center items-center w-full h-96">
