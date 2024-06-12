@@ -1,15 +1,15 @@
 import getUserSession from "@/libs/actions/user/auth/getSession";
-import { getUser } from "@/libs/actions/user/user";
+import { getTotalUser, getUser } from "@/libs/actions/user/user";
 import { getUserRoleOnServer } from "@/libs/actions/user/user_role";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { FaFacebook, FaGithub } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
-import DashboardLink from "./component/DashboardLink";
 
 import { Metadata } from "next";
-import UserProfile from "./component/UserProfile";
+import AdminLink from "./component/AdminLink";
+import AdminProfile from "./component/AdminProfile";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -28,9 +28,9 @@ export default async function RootLayout({
   const userData = await getUser(data.user.id);
   const userRole = await getUserRoleOnServer(data.user.id);
   if (!userRole) return redirect("/");
-  if (userRole.every((user) => user.user_role_name !== "moderator"))
+  if (userRole.every((user) => user.user_role_name !== "admin"))
     return redirect("/");
-
+  const totalUser = await getTotalUser();
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -52,7 +52,7 @@ export default async function RootLayout({
             />
           </svg>
         </label>
-        <UserProfile />
+        <AdminProfile totalUser={totalUser} />
         {children}
       </div>
       <div className="drawer-side">
@@ -135,7 +135,7 @@ export default async function RootLayout({
             </div>
           </div>
           {/*dashboard*/}
-          <DashboardLink />
+          <AdminLink />
         </div>
       </div>
     </div>

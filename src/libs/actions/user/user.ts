@@ -12,3 +12,13 @@ export async function getUser(userId: string): Promise<userProps> {
     .single();
   return data;
 }
+
+export async function getTotalUser() {
+  const supabase = await createSupabaseServerClient();
+  const { count, error } = await supabase
+    .from("user")
+    .select("*", { count: "exact", head: true });
+  if (error) console.log(error);
+
+  return count;
+}

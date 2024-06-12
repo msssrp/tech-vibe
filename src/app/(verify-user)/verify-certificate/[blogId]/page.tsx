@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 import CertificateGen from "./component/CertificateGen";
 import getUserSession from "@/libs/actions/user/auth/getSession";
+import { getUpvotes } from "@/libs/actions/web3/web3";
 
 const page = async ({ params }: { params: { blogId: string } }) => {
   const { data } = await getUserSession();
@@ -20,7 +21,9 @@ const page = async ({ params }: { params: { blogId: string } }) => {
     return redirect("/");
   }
   const { data: articleUps } = await getArticleUps(params.blogId);
-  if (articleUps < 2) {
+  const upvotes = await getUpvotes();
+
+  if (articleUps < upvotes) {
     return redirect("/");
   }
   const user = await getUser(articleData.user_id);

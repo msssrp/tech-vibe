@@ -3,6 +3,45 @@
 import createSupabaseClient from "@/libs/supabase/client";
 import { updatePromise, userProps } from "@/types/user/user";
 
+export async function getAdminOrNpru() {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("user_role")
+    .select(`user_id,user_role_name,user (*)`)
+    .or("user_role_name.eq.admin,user_role_name.eq.npru");
+  if (error) console.log(error);
+  return data;
+}
+
+export async function getModeratorOrNpru() {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("user_role")
+    .select(`user_id,user_role_name,user (*)`)
+    .or("user_role_name.eq.moderator,user_role_name.eq.npru");
+  if (error) console.log(error);
+  return data;
+}
+
+export async function getUserOrNpru() {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("user_role")
+    .select(`user_id,user_role_name,user (*)`)
+    .or("user_role_name.eq.user,user_role_name.eq.npru");
+  if (error) console.log(error);
+  return data;
+}
+
+export async function getUserCount(): Promise<number | null> {
+  const supabase = createSupabaseClient();
+  const { count, error } = await supabase
+    .from("user")
+    .select("*", { count: "exact", head: true });
+  if (error) console.log(error);
+  return count;
+}
+
 export async function getUserFromClient(userId: string): Promise<userProps> {
   const supabase = createSupabaseClient();
   const { data, error } = await supabase

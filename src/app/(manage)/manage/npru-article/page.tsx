@@ -44,7 +44,7 @@ const page = () => {
             isLoading={isLoading}
             npruTab={true}
           />
-          <div className="flex flex-wrap w-full justify-center items-center mt-5">
+          <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-5">
             {filterBySearchParams.length > 0 ? (
               filterBySearchParams.map((article) => (
                 <ArticleApproveCard

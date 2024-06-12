@@ -42,7 +42,7 @@ const page = () => {
             complaint={harassComplaintTotal.length}
             deleteTotal={harassDeleteTotal.length}
           />
-          <div className="flex flex-wrap w-full justify-center items-center mt-10">
+          <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-10">
             {filterBySearchParams.length > 0 ? (
               filterBySearchParams.map((complaint) => (
                 <ComplaintCard

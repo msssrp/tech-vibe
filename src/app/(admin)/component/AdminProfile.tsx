@@ -1,17 +1,18 @@
-import { getTotalOfArticle } from "@/libs/actions/article/article";
-import { getTotalOfComplaint } from "@/libs/actions/complaint/complaint";
 import getUserSession from "@/libs/actions/user/auth/getSession";
 import { getUser } from "@/libs/actions/user/user";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import React from "react";
 
-const UserProfile = async () => {
+type adminProps = {
+  totalUser: number | null;
+};
+
+const AdminProfile: React.FC<adminProps> = async ({ totalUser }) => {
   const user = await getUserSession();
   if (!user.data.user) return redirect("/");
   const userData = await getUser(user.data.user.id);
-  const totalArticle = await getTotalOfArticle();
-  const totalComplaint = await getTotalOfComplaint();
+
   return (
     <div className="flex items-center space-x-5 p-9">
       <div className="avatar">
@@ -44,8 +45,7 @@ const UserProfile = async () => {
           </svg>
 
           <span className="text-base-content">
-            You have a list of managing articles {totalArticle},complaints{" "}
-            {totalComplaint}
+            You have {totalUser} users to manage
           </span>
         </div>
       </div>
@@ -53,4 +53,4 @@ const UserProfile = async () => {
   );
 };
 
-export default UserProfile;
+export default AdminProfile;

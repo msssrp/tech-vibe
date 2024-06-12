@@ -20,9 +20,11 @@ const ComplaintStat: React.FC<complaintStatProps> = ({
 }) => {
   return (
     <div className="flex items-center justify-center space-x-6 mt-11">
-      <div className="h-[160px] w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
-        <h1 className="text-6xl font-semibold text-blue-500">{allArticle}</h1>
-        <span>All articles</span>
+      <div className="h-[100px] w-[350px] lg:h-[160px] lg:w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
+        <h1 className="text-2xl lg:text-6xl font-semibold text-blue-500">
+          {allArticle}
+        </h1>
+        <span className="text-sm lg:text-lg">All articles</span>
       </div>
       <Link
         href={`${
@@ -32,9 +34,11 @@ const ComplaintStat: React.FC<complaintStatProps> = ({
             ? "/manage/complaint/spam?complaint=pending"
             : "/manage/complaint?complaint=pending"
         }`}
-        className="h-[160px] w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
-        <h1 className="text-6xl font-semibold text-orange-500">{inProgress}</h1>
-        <span>In progress</span>
+        className="h-[100px] w-[350px] lg:h-[160px] lg:w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
+        <h1 className="text-2xl lg:text-6xl font-semibold text-orange-500">
+          {inProgress}
+        </h1>
+        <span className="text-sm lg:text-lg">In progress</span>
       </Link>
       <Link
         href={`${
@@ -44,9 +48,11 @@ const ComplaintStat: React.FC<complaintStatProps> = ({
             ? "/manage/complaint/spam?complaint=complaint"
             : "/manage/complaint?complaint=complaint"
         }`}
-        className="h-[160px] w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
-        <h1 className="text-6xl font-semibold text-green-500">{complaint}</h1>
-        <span>Complaint</span>
+        className="h-[100px] w-[350px] lg:h-[160px] lg:w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
+        <h1 className="text-2xl lg:text-6xl font-semibold text-green-500">
+          {complaint}
+        </h1>
+        <span className="text-sm lg:text-lg">Complaint</span>
       </Link>
       <Link
         href={`${
@@ -56,9 +62,11 @@ const ComplaintStat: React.FC<complaintStatProps> = ({
             ? "/manage/complaint/spam?complaint=delete"
             : "/manage/complaint?complaint=delete"
         }`}
-        className="h-[160px] w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
-        <h1 className="text-6xl font-semibold text-[#E0524C]">{deleteTotal}</h1>
-        <span>Delete</span>
+        className="h-[100px] w-[350px] lg:h-[160px] lg:w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
+        <h1 className="text-2xl lg:text-6xl font-semibold text-[#E0524C]">
+          {deleteTotal}
+        </h1>
+        <span className="text-sm lg:text-lg">Delete</span>
       </Link>
     </div>
   );
