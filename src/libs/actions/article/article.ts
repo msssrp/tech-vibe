@@ -126,6 +126,29 @@ export async function getArticleByName(
   return data;
 }
 
+export async function getArticleByUsernamandPostId(
+  userName: string,
+  article_Title: string,
+  article_id: string
+): Promise<any> {
+  const supabase = await createSupabaseServerClient();
+  const articleIdWithWildCard = article_id + "%";
+  const usernameReplace = userName.replace(/-/g, " ");
+  const articleTitleReplace = article_Title.replace(/-/g, " ");
+  const decodedArticleTitle = decodeURIComponent(articleTitleReplace);
+
+  const { data, error } = await supabase
+    .rpc("fetch_articles_by_partial_uuid", {
+      partial_uuid: articleIdWithWildCard,
+      username: usernameReplace,
+      articletitle: decodedArticleTitle,
+    })
+    .single();
+  if (error) console.log("error from getArticleByUsernamePostId", error);
+
+  return data;
+}
+
 export async function getAuthorIdByArticleId(
   article_id: string
 ): Promise<string> {

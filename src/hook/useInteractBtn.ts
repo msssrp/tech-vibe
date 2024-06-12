@@ -7,7 +7,7 @@ import {
 import { readlistsProps } from "@/types/readlists/readlists";
 import { useClipboard, useDisclosure } from "@mantine/hooks";
 import { ethers } from "ethers";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import contractABI from "@/hardhat/artifacts/contracts/BlogReview.sol/BlogReview.json";
 import { UploadedFile } from "@/types/article/article";
@@ -27,26 +27,31 @@ const useInteractBtn = (user_id: string | undefined, article_id: string) => {
   const ethereum = typeof window !== "undefined" && window.ethereum;
   const currentPath = typeof window !== "undefined" && window.location.href;
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
-  useEffect(() => {
-    if (user_id) {
-      const getReadlistsOnUser = async () => {
-        const data = await getReadlists(user_id);
-        setReadlists(data);
 
-        const savedLists: string[] = [];
-        if (data) {
-          for (const readlist of data) {
-            const { count } = await getSavedArticle(
-              readlist.readlists_id,
-              article_id
-            );
-            if (count && count > 0) {
-              savedLists.push(readlist.readlists_id);
-            }
+  const handleOnReadListOpen = async () => {
+    if (user_id) {
+      open();
+      const data = await getReadlists(user_id);
+      setReadlists(data);
+      const savedLists: string[] = [];
+      if (data) {
+        for (const readlist of data) {
+          const { count } = await getSavedArticle(
+            readlist.readlists_id,
+            article_id
+          );
+          if (count && count > 0) {
+            savedLists.push(readlist.readlists_id);
           }
         }
         setSavedInReadlists(savedLists);
-      };
+      }
+    }
+  };
+
+  const handleOnOpenReview = async () => {
+    if (user_id) {
+      openReview();
       if (ethereum) {
         const getReviews = async () => {
           const accounts = await ethereum.request({
@@ -62,22 +67,23 @@ const useInteractBtn = (user_id: string | undefined, article_id: string) => {
           );
 
           const result = await contract.getAllReviews(article_id);
-          console.log(result);
 
           setReviewsData(result);
         };
         if (window.ethereum) setIsWalletFound(true);
-        getReadlistsOnUser();
         getReviews();
       }
     }
-  }, [triggerReFetch, user_id, article_id, contractAddress, ethereum]);
+  };
 
   const handleCreateReadlist = async (userid: string) => {
-    await newReadlists(userid, inputValue);
-    setTriggerReFetch(triggerReFetch + 1);
-    setInputValue("");
-    setCreateInputOpen(false);
+    if (user_id) {
+      await newReadlists(userid, inputValue);
+      const data = await getReadlists(user_id);
+      setReadlists(data);
+      setInputValue("");
+      setCreateInputOpen(false);
+    }
   };
 
   const handleSaveArticleOnReadlist = async (
@@ -85,13 +91,10 @@ const useInteractBtn = (user_id: string | undefined, article_id: string) => {
     readlists_id: string
   ) => {
     await saveArticle(article_id, user_id, readlists_id);
-
-    setTriggerReFetch(triggerReFetch + 1);
   };
 
   const handleDeleteSaveArticleOnReadlist = async (readlists_id: string) => {
     await deleteSavedArticle(readlists_id, article_id);
-    setTriggerReFetch(triggerReFetch + 1);
   };
 
   const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
@@ -225,6 +228,9 @@ const useInteractBtn = (user_id: string | undefined, article_id: string) => {
     uploadedFiles,
     isSubmit,
     currentPath,
+    handleOnReadListOpen,
+    handleOnOpenReview,
+    setSavedInReadlists,
   };
 };
 
