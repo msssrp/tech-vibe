@@ -36,12 +36,14 @@ import { newComplaint } from "@/libs/actions/complaint/complaint";
 type interactProps = {
   user_id: string | undefined;
   article_id: string;
-  url_title: string;
+  username: string;
+  articleTitle: string;
 };
 const InteractBtn: React.FC<interactProps> = ({
   user_id,
   article_id,
-  url_title,
+  username,
+  articleTitle,
 }) => {
   const {
     openReview,
@@ -52,6 +54,7 @@ const InteractBtn: React.FC<interactProps> = ({
     closeReview,
     reviewsData,
     open,
+    handleOnReadListOpen,
     opened,
     readlists,
     savedInReadlists,
@@ -80,6 +83,8 @@ const InteractBtn: React.FC<interactProps> = ({
     openReport,
     closeReport,
     currentPath,
+    handleOnOpenReview,
+    setSavedInReadlists,
   } = useInteractBtn(user_id, article_id);
 
   const reportType = ["HARASSMENT", "RULES VIOLATION", "SPAM"];
@@ -101,7 +106,7 @@ const InteractBtn: React.FC<interactProps> = ({
       if (user_id !== undefined && value !== null && reportDesc !== "") {
         await newComplaint(user_id, article_id, value, reportDesc, "pending");
         notifications.show({
-          title: `repoted ${url_title} !!`,
+          title: `repoted ${articleTitle} !!`,
           message: "this report will wait for moderator to verify",
         });
         setValue(null);
@@ -123,6 +128,12 @@ const InteractBtn: React.FC<interactProps> = ({
           reviewsData.length
         ).toFixed(2)
       : "0.00";
+
+  console.log("interact btn", articleTitle, username, article_id);
+  const usernameWithHyphen = username.replace(/ /g, "-");
+  const articleTitleWithHypen = articleTitle.replace(/ /g, "-");
+  const articleFirstId = article_id.split("-")[0];
+  const articleTitleWithId = articleTitleWithHypen + "-" + articleFirstId;
   return (
     <>
       <Notifications autoClose={false} />
@@ -155,7 +166,7 @@ const InteractBtn: React.FC<interactProps> = ({
           <div>no review on this blog</div>
         )}
       </Modal>
-      <button onClick={openReview}>
+      <button onClick={handleOnOpenReview}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -170,7 +181,7 @@ const InteractBtn: React.FC<interactProps> = ({
           />
         </svg>
       </button>
-      <button onClick={open}>
+      <button onClick={handleOnReadListOpen}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -202,15 +213,26 @@ const InteractBtn: React.FC<interactProps> = ({
                     className="flex space-x-3 items-center">
                     <Checkbox
                       checked={savedInReadlists.includes(readlist.readlists_id)}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      onChange={async (
+                        e: React.ChangeEvent<HTMLInputElement>
+                      ) => {
                         if (e.target.checked) {
-                          handleSaveArticleOnReadlist(
+                          await handleSaveArticleOnReadlist(
                             user_id,
                             readlist.readlists_id
                           );
+                          setSavedInReadlists([
+                            ...savedInReadlists,
+                            readlist.readlists_id,
+                          ]);
                         } else {
-                          handleDeleteSaveArticleOnReadlist(
+                          await handleDeleteSaveArticleOnReadlist(
                             readlist.readlists_id
+                          );
+                          setSavedInReadlists(
+                            savedInReadlists.filter(
+                              (id) => id !== readlist.readlists_id
+                            )
                           );
                         }
                       }}
@@ -299,10 +321,12 @@ const InteractBtn: React.FC<interactProps> = ({
         <div
           tabIndex={0}
           className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-14 flex flex-col items-center justify-center space-y-3">
-          <FacebookShareButton url={`${currentPath}post/${url_title}`}>
+          <FacebookShareButton
+            url={`${currentPath}${usernameWithHyphen}/${articleTitleWithId}`}>
             <FacebookIcon size={32} round />
           </FacebookShareButton>
-          <TwitterShareButton url={`${currentPath}post/${url_title}`}>
+          <TwitterShareButton
+            url={`${currentPath}${usernameWithHyphen}/${articleTitleWithId}`}>
             <TwitterIcon size={32} round />
           </TwitterShareButton>
         </div>
@@ -330,7 +354,9 @@ const InteractBtn: React.FC<interactProps> = ({
           <button
             className="cursor-pointer flex space-x-2"
             onClick={() =>
-              clipboard.copy(`${currentHost}:3000/post/${url_title}`)
+              clipboard.copy(
+                `${currentHost}:3000/${usernameWithHyphen}/${articleTitleWithId}`
+              )
             }>
             {clipboard.copied ? (
               <svg
@@ -374,7 +400,7 @@ const InteractBtn: React.FC<interactProps> = ({
               onSubmit={handleReportArticle}
               className="flex flex-col items-center justify-center container mx-auto space-y-5 mt-5 mb-5">
               <h1 className="text-xl font-semibold">REPORT THIS STORY</h1>
-              <span className="text-gray-500">{url_title}</span>
+              <span className="text-gray-500">{articleTitle}</span>
               <Combobox
                 width={300}
                 store={combobox}

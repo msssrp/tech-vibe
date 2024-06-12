@@ -1,5 +1,5 @@
 "use client";
-import InteractBtn from "@/app/(post)/post/[postName]/component/InteractBtn";
+import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
 import { getArticleTagsFromClient } from "@/libs/actions/tag/tag";
 import { ConvertUrlToSlug } from "@/libs/urlConvert";
 import { articleProps } from "@/types/article/article";

@@ -1,4 +1,4 @@
-import { getArticleByName } from "@/libs/actions/article/article";
+import { getArticleByUsernamandPostId } from "@/libs/actions/article/article";
 import {
   getArticleUps,
   getUserDowns,
@@ -14,29 +14,45 @@ import {
 } from "@/libs/actions/user/user_following";
 import { convertTime } from "@/libs/convertTime";
 
-const usePost = async (replaced: string) => {
+const usePost = async (
+  userName: string,
+  articleTitle: string,
+  articleId: string
+) => {
   const userSession = await getUserSession();
 
-  const article = await getArticleByName(replaced);
-  const user = await getUser(article.user_id);
-  const { day, month } = convertTime(article.created_at);
-  const Tagdata = await getArticleTags(article.article_id);
-  const { count: UserFollowers } = await getUserFollower(article.user_id);
-  const { data: CommentData } = await getCommentOnArticle(article.article_id);
+  const article = await getArticleByUsernamandPostId(
+    userName,
+    articleTitle,
+    articleId
+  );
+
+  const user = await getUser(article.pgrst_scalar.user_id);
+  const { day, month } = convertTime(
+    article.pgrst_scalar.created_at ? article.pgrst_scalar.created_at : ""
+  );
+  const Tagdata = await getArticleTags(article.pgrst_scalar.article_id);
+  const { count: UserFollowers } = await getUserFollower(
+    article.pgrst_scalar.user_id
+  );
+  const { data: CommentData } = await getCommentOnArticle(
+    article.pgrst_scalar.article_id
+  );
   const { count: userFollow } = await getUserThatFollowing(
-    article.user_id,
+    article.pgrst_scalar.user_id,
     userSession?.data?.user?.id
   );
-  const { data } = await getArticleUps(article.article_id);
+  const { data } = await getArticleUps(article.pgrst_scalar.article_id);
   const UpCount = await getUserUps(
-    article.article_id,
+    article.pgrst_scalar.article_id,
     userSession.data.user?.id
   );
 
   const DownCount = await getUserDowns(
-    article.article_id,
+    article.pgrst_scalar.article_id,
     userSession.data.user?.id
   );
+
   return {
     article,
     userSession,

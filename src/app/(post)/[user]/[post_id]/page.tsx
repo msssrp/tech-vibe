@@ -1,4 +1,3 @@
-import { getArticleByName } from "@/libs/actions/article/article";
 import React from "react";
 import { redirect } from "next/navigation";
 import { Badge } from "@mantine/core";
@@ -12,19 +11,31 @@ import FollowBtn from "./component/FollowBtn";
 import Image from "next/image";
 import usePost from "@/hook/usePost";
 import { increaseArticleViews } from "@/libs/actions/article/articleStat";
+import { getArticleByUsernamandPostId } from "@/libs/actions/article/article";
 
 export async function generateMetadata({
   params,
 }: {
-  params: { postName: string };
+  params: { user: string; post_id: string };
   searchParams: { commend: boolean };
 }): Promise<Metadata> {
-  const decode = decodeURIComponent(params.postName);
-  const replaced = decode.replace(/-/g, " ");
-  const article = await getArticleByName(replaced);
+  const userName = params.user;
+  const articleNameAndId = params.post_id;
+  const splitArticle = articleNameAndId.split("-");
+  const articleTitleArray = splitArticle.slice(0, -1);
+
+  const articleTitle = articleTitleArray.join("-");
+  const articleId = splitArticle[splitArticle.length - 1];
+  const article = await getArticleByUsernamandPostId(
+    userName,
+    articleTitle,
+    articleId
+  );
+  console.log("log article from page : ", article);
+
   return {
-    title: article.article_title,
-    description: article.article_description,
+    title: article.pgrst_scalar.article_title,
+    description: article.pgrst_scalar.article_description,
   };
 }
 
@@ -32,14 +43,18 @@ const page = async ({
   params,
   searchParams,
 }: {
-  params: { postName: string };
+  params: { user: string; post_id: string };
   searchParams: { commend: string };
 }) => {
-  if (!params.postName) redirect("/");
-  const decode = decodeURIComponent(params.postName);
-  const replaced = decode.replace(/-/g, " ");
-  const openCommend = searchParams.commend;
+  if (!params.user && !params.post_id) redirect("/");
+  const userName = params.user;
+  const articleNameAndId = params.post_id;
+  const splitArticle = articleNameAndId.split("-");
+  const articleTitleArray = splitArticle.slice(0, -1);
+  const articleTitle = articleTitleArray.join("-");
+  const articleId = splitArticle[splitArticle.length - 1];
 
+  const openCommend = searchParams.commend;
   const {
     article,
     userSession,
@@ -53,11 +68,15 @@ const page = async ({
     CommentData,
     Tagdata,
     UserFollowers,
-  } = await usePost(replaced);
-  if (!article.created_at || !article.user_id) redirect("/");
+  } = await usePost(userName, articleTitle, articleId);
+  if (!article.pgrst_scalar.created_at || !article.pgrst_scalar.user_id)
+    redirect("/");
 
   if (userSession.data.user?.id) {
-    await increaseArticleViews(article.article_id, userSession.data.user.id);
+    await increaseArticleViews(
+      article.pgrst_scalar.article_id,
+      userSession.data.user.id
+    );
   }
 
   return (
@@ -65,10 +84,10 @@ const page = async ({
       <div className="flex flex-col space-y-2 h-auto container px-64 mx-auto mt-9">
         <div className="flex flex-col space-y-4">
           <div className="font-semibold text-3xl">
-            <span>{article.article_title}</span>
+            <span>{article.pgrst_scalar.article_title}</span>
           </div>
           <div className="text-[#616160]">
-            <span>{article.article_description}</span>
+            <span>{article.pgrst_scalar.article_description}</span>
           </div>
           <div className="flex space-x-5 items-center">
             <div className="w-11 h-11">
@@ -77,19 +96,19 @@ const page = async ({
                 width={50}
                 src={user.user_profile ? user.user_profile : ""}
                 className="rounded-full h-full w-full"
-                alt={article.article_title}
+                alt={article.pgrst_scalar.article_title}
               />
             </div>
             <div className="flex flex-col space-y-1">
               <div className="flex space-x-4">
                 <span className="">{user.user_fullname}</span>
-                {article.user_id === userSession.data.user?.id ? (
+                {article.pgrst_scalar.user_id === userSession.data.user?.id ? (
                   <></>
                 ) : (
                   userSession.data.user && (
                     <FollowText
                       isFollowing={userFollow}
-                      userIdToFollow={article.user_id}
+                      userIdToFollow={article.pgrst_scalar.user_id}
                       ourUserId={userSession.data.user.id}
                     />
                   )
@@ -106,7 +125,7 @@ const page = async ({
               <UpDownsButton
                 articleUp={data}
                 user_id={userSession.data.user?.id}
-                article_id={article.article_id}
+                article_id={article.pgrst_scalar.article_id}
                 userUp={UpCount?.articleStat_ups}
                 userDown={DownCount?.articleStat_downs}
               />
@@ -114,7 +133,7 @@ const page = async ({
                 {CommentData && (
                   <DrawerComment
                     comment={CommentData}
-                    article_id={article.article_id}
+                    article_id={article.pgrst_scalar.article_id}
                     user_id={userSession?.data?.user?.id}
                     openCommend={openCommend}
                   />
@@ -124,14 +143,17 @@ const page = async ({
             <div className="flex space-x-3">
               <InteractBtn
                 user_id={userSession.data.user?.id}
-                article_id={article.article_id}
-                url_title={article.article_title}
+                article_id={article.pgrst_scalar.article_id}
+                username={userName}
+                articleTitle={article.pgrst_scalar.article_title}
               />
             </div>
           </div>
         </div>
         <div
-          dangerouslySetInnerHTML={{ __html: article.article_content }}
+          dangerouslySetInnerHTML={{
+            __html: article.pgrst_scalar.article_content,
+          }}
           className="pt-7"
         />
         <div className="flex space-x-3 pt-8 pb-10">
@@ -156,7 +178,7 @@ const page = async ({
                 width={70}
                 height={70}
                 src={user.user_profile ? user.user_profile : ""}
-                alt={article.article_title}
+                alt={article.pgrst_scalar.article_title}
                 className="rounded-full h-full w-full"
               />
             </div>
@@ -168,14 +190,14 @@ const page = async ({
             )}
           </div>
           <div>
-            {article.user_id === userSession.data.user?.id ? (
+            {article.pgrst_scalar.user_id === userSession.data.user?.id ? (
               <></>
             ) : (
               userSession.data.user && (
                 <FollowBtn
                   isFollowing={userFollow}
                   ourUserId={userSession.data.user.id}
-                  userIdToFollow={article.user_id}
+                  userIdToFollow={article.pgrst_scalar.user_id}
                 />
               )
             )}

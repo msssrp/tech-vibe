@@ -5,7 +5,7 @@ import { getUser } from "@/libs/actions/user/user";
 import Link from "next/link";
 import { ConvertUrlToSlug } from "@/libs/urlConvert";
 import { getArticleTags } from "@/libs/actions/tag/tag";
-import InteractBtn from "@/app/(post)/post/[postName]/component/InteractBtn";
+import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
 type AllArticlesProps = {
   article: articleProps;
   user_id: string;
@@ -16,9 +16,11 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
   user_id,
 }) => {
   const user = await getUser(article.user_id);
-  const slugUrl = ConvertUrlToSlug(article.article_title);
   const tags = await getArticleTags(article.article_id);
-
+  const userWithHyphen = user.user_fullname.replace(/ /g, "-");
+  const articleTitleWithHypen = article.article_title.replace(/ /g, "-");
+  const firstArticleId = article.article_id.split("-")[0];
+  const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
   return (
     <div className="flex space-x-3 border-b mt-5 rounded-none items-center h-auto pb-5">
       <div className="flex flex-col mt-5 space-y-3 px-4 w-3/4 h-full">
@@ -38,7 +40,7 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
             <p className="ml-2">{user.user_fullname}</p>
           </Link>
           <Link
-            href={`/post/${ConvertUrlToSlug(slugUrl)}`}
+            href={`/${userWithHyphen}/${articleSlug}`}
             className="card-title text-2xl flex-1 mt-3">
             {article.article_title}
           </Link>
@@ -69,7 +71,8 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
               <InteractBtn
                 user_id={user_id}
                 article_id={article.article_id}
-                url_title={`${article.article_title}`}
+                username={user.user_fullname}
+                articleTitle={article.article_title}
               />
             </div>
           </div>
