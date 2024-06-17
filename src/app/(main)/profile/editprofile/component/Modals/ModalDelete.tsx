@@ -16,7 +16,7 @@ const ModalDelete = () => {
           blur: 3,
         }}
       >
-        <div className="px-7 space-y-5">
+        <div className="px-7 space-y-5 py-3">
           <h3 className="font-semibold text-lg text-center text-red uppercase">
             Delete account
           </h3>
