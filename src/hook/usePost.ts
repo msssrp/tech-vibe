@@ -14,7 +14,7 @@ import {
 } from "@/libs/actions/user/user_following";
 import { convertTime } from "@/libs/convertTime";
 
-const usePost = async (
+const usePostPage = async (
   userName: string,
   articleTitle: string,
   articleId: string
@@ -69,4 +69,4 @@ const usePost = async (
   };
 };
 
-export default usePost;
+export default usePostPage;

@@ -9,7 +9,7 @@ import InteractBtn from "./component/InteractBtn";
 import FollowText from "./component/FollowText";
 import FollowBtn from "./component/FollowBtn";
 import Image from "next/image";
-import usePost from "@/hook/usePost";
+import usePostPage from "@/hook/usePost";
 import { increaseArticleViews } from "@/libs/actions/article/articleStat";
 import { getArticleByUsernamandPostId } from "@/libs/actions/article/article";
 
@@ -31,15 +31,13 @@ export async function generateMetadata({
     articleTitle,
     articleId
   );
-  console.log("log article from page : ", article);
-
   return {
     title: article.pgrst_scalar.article_title,
     description: article.pgrst_scalar.article_description,
   };
 }
 
-const page = async ({
+const Page = async ({
   params,
   searchParams,
 }: {
@@ -68,7 +66,7 @@ const page = async ({
     CommentData,
     Tagdata,
     UserFollowers,
-  } = await usePost(userName, articleTitle, articleId);
+  } = await usePostPage(userName, articleTitle, articleId);
   if (!article.pgrst_scalar.created_at || !article.pgrst_scalar.user_id)
     redirect("/");
 
@@ -208,4 +206,4 @@ const page = async ({
   );
 };
 
-export default page;
+export default Page;

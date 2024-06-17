@@ -11,7 +11,7 @@ import { notifications } from "@mantine/notifications";
 import Image from "next/image";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-const page = () => {
+const Page = () => {
   const [certificateUri, setCertificateUri] = useState("");
   const [upvotes, setUpvotes] = useState<number>();
   const [newUpvotes, setNewUpvotes] = useState("");
@@ -128,4 +128,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

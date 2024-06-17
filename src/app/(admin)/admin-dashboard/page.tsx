@@ -7,7 +7,7 @@ import UserStat from "../component/UserStat";
 import { useSearchParams } from "next/navigation";
 import UserCard from "../component/UserCard";
 
-const page = () => {
+const Page = () => {
   const { userCount, adminCount, moderatorCount } =
     useContext(AdminUserContext);
   const [user, setUser] = useState<any>();
@@ -51,7 +51,11 @@ const page = () => {
           />
           <div className="flex flex-col lg:flex-row flex-wrap justify-center items-center mt-5 w-full">
             {filterUser?.map((user: any) => (
-              <UserCard userRole={user.user_role_name} user={user.user} />
+              <UserCard
+                key={user.user.user_id}
+                userRole={user.user_role_name}
+                user={user.user}
+              />
             ))}
           </div>
         </div>
@@ -60,4 +64,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
