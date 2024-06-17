@@ -6,7 +6,7 @@ import { ComplaintContext } from "@/context/ComplaintContext";
 import ComplaintCard from "./component/ComplaintCard";
 import { useSearchParams } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const { harassment, spam, rulesViolation } = useContext(ComplaintContext);
   const searchParams = useSearchParams();
   const articleQry = searchParams.get("complaint");
@@ -60,4 +60,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

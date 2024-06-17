@@ -11,7 +11,7 @@ const LogOut = () => {
     router.refresh();
   };
   return (
-    <span className="text-red" onClick={handlerSignOut}>
+    <span className="text-red " onClick={handlerSignOut}>
       Log out
     </span>
   );

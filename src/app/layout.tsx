@@ -6,7 +6,7 @@ import "@mantine/notifications/styles.css";
 import "@mantine/spotlight/styles.css";
 import "@mantine/dropzone/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
-export const lora = Lora({ subsets: ["latin"] });
+//export const lora = Lora({ subsets: ["latin"] });
 import NextTopLoader from "nextjs-toploader";
 import { Notifications } from "@mantine/notifications";
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={lora.className}>
+      <body>
         <MantineProvider theme={theme}>
           <NextTopLoader
             color="#2299DD"

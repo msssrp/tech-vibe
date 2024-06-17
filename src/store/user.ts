@@ -9,6 +9,8 @@ const initialState: userProps = {
   user_provider: "",
   user_profile: "",
   user_verify: false,
+  created_at: "",
+  updated_at: "",
 };
 
 export const useUserStore = create<userProps & Loading & userAction>((set) => ({

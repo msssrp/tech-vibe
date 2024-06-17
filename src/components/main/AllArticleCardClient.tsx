@@ -79,11 +79,12 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
               <p className="text-sm">7 min read</p>
             </div>
             <div className="flex space-x-3 items-center justify-center">
-              {interactBtn && (
+              {interactBtn && user && (
                 <InteractBtn
                   user_id={userId}
                   article_id={article.article_id}
-                  url_title={`${article.article_title}`}
+                  articleTitle={article.article_title}
+                  username={user.user_fullname}
                 />
               )}
             </div>
