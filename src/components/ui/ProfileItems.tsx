@@ -8,14 +8,14 @@ type profileProps = {
 
 const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
   return (
-    <div className="text-[#898889] mt-2 flex flex-col space-y-4">
+    <div className="text-[#606060] mt-2 flex flex-col space-y-4 px-1">
       <Link href={`/profile/${user_id}`} className="flex mt-3 space-x-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
-          stroke="#CECBCA"
+          stroke="#C6C6C6"
           className="w-5 h-5">
           <path
             strokeLinecap="round"
@@ -31,7 +31,7 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
-          stroke="#CECBCA"
+          stroke="#C6C6C6"
           className="w-5 h-5">
           <path
             strokeLinecap="round"
@@ -47,7 +47,7 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
-          stroke="#CECBCA"
+          stroke="#C6C6C6"
           className="w-5 h-5">
           <path
             strokeLinecap="round"
@@ -63,7 +63,7 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
-          stroke="#CECBCA"
+          stroke="#C6C6C6"
           className="w-5 h-5">
           <path
             strokeLinecap="round"

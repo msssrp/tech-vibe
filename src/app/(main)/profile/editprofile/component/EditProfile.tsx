@@ -25,23 +25,6 @@ const EditProfile = () => {
                   <Tabs.Tab value="Home" className="font-semibold text-base">
                     Manage account
                   </Tabs.Tab>
-                  <div className="ml-auto flex items-center">
-                    <label className="rounded-none border-b flex items-center">
-                      <input type="text" className="grow focus:outline-none " />
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="#606060"
-                        className="w-4 h-4 opacity-70"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </label>
-                  </div>
                 </Tabs.List>
                 <Tabs.Panel value="Home">
                   <div className="ml-11">
@@ -88,10 +71,10 @@ const EditProfile = () => {
                         <div className="flex justify-between items-center">
                           <p className="font-medium">Name</p>
                           <div className="flex items-center ">
-                            <ModalName/>
                             <p className="text-[#606060]">
                               Christopher Campbell
                             </p>
+                            <ModalName/>
                           </div>
                         </div>
                         {/* social */}
@@ -101,8 +84,8 @@ const EditProfile = () => {
                             <p className="font-medium">Github link</p>
                           </div>
                           <div className="flex items-center">
-                            <ModalGithub/>
                             <p className="text-[#606060]">Christopher2410</p>
+                            <ModalGithub/>
                           </div>
                         </div>
                         <div className="flex justify-between items-center">
@@ -111,8 +94,8 @@ const EditProfile = () => {
                             <p className="font-medium">Facebook link</p>
                           </div>
                           <div className="flex items-center">
-                            <ModalFacebook/>
                             <p className="text-[#606060]">Christopher</p>
+                            <ModalFacebook/>
                           </div>
                         </div>
                         <div className="flex justify-between items-center">
@@ -121,8 +104,8 @@ const EditProfile = () => {
                             <p className="font-medium">Twitter link</p>
                           </div>
                           <div className="flex items-center">
-                            <ModalTwitter/>
                             <p className="text-[#606060]">Christopher</p>
+                            <ModalTwitter/>
                           </div>
                         </div>
                       </div>
