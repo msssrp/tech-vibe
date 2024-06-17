@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs } from "@mantine/core";
 import { FaFacebook } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
@@ -10,13 +10,31 @@ import ModalGithub from "./Modals/ModalGithub";
 import ModalFacebook from "./Modals/ModalFacebook";
 import ModalTwitter from "./Modals/ModalTwitter";
 import ModalDelete from "./Modals/ModalDelete";
+import { userProps, userSocialProps } from "@/types/user/user";
+import { getUserSocial } from "@/libs/actions/user/user_social";
 
+type editProfileProps = {
+  user: userProps;
+  userFollowerCount: number | null;
+};
 
-const EditProfile = () => {
+const EditProfile: React.FC<editProfileProps> = ({
+  user,
+  userFollowerCount,
+}) => {
+  const [userSocials, setUserSocials] = useState<userSocialProps>();
+  useEffect(() => {
+    const getUserSocials = async () => {
+      const userSocials = await getUserSocial(user.user_id);
+      setUserSocials(userSocials);
+    };
+    getUserSocials();
+  }, []);
+
   return (
     <div>
       <div className="container mx-auto px-44 py-12">
-        <h1 className="font-semibold text-3xl">Christopher Campbell</h1>
+        <h1 className="font-semibold text-3xl">{user.user_fullname}</h1>
         <div className="mt-6">
           <div className="flex items-center space-x-2 mx-2 sticky top-0 bg-base-100 z-10">
             <div className="w-full">
@@ -32,21 +50,43 @@ const EditProfile = () => {
                       <div className="flex justify-between items-center">
                         {/* left */}
                         <div className="space-y-5">
-                          <h2 className="text-xl">Christopher Campbell</h2>
-                          <p className="text-[#606060]">45 Follws</p>
+                          <h2 className="text-xl">{user.user_fullname}</h2>
+                          <p className="text-[#606060]">
+                            {userFollowerCount}{" "}
+                            {userFollowerCount && userFollowerCount > 1
+                              ? "Followers"
+                              : "Follower"}
+                          </p>
                           <div className="social flex space-x-4">
                             <div className="flex items-center">
-                              <Link href="" className="flex items-center">
+                              <Link
+                                href={
+                                  userSocials?.user_social.user_social_github
+                                    ? `${userSocials.user_social.user_social_github}`
+                                    : "/#"
+                                }
+                                className="flex items-center">
                                 <FaGithub className="w-7 h-7" />
                               </Link>
                             </div>
                             <div className="flex items-center">
-                              <Link href="">
+                              <Link
+                                href={
+                                  userSocials?.user_social.user_social_facebook
+                                    ? `${userSocials.user_social.user_social_facebook}`
+                                    : "/#"
+                                }
+                                passHref={true}>
                                 <FaFacebook className="w-7 h-7 text-[#1877F2]" />
                               </Link>
                             </div>
                             <div className="flex items-center">
-                              <Link href="">
+                              <Link
+                                href={
+                                  userSocials?.user_social.user_social_twitter
+                                    ? `${userSocials.user_social.user_social_twitter}`
+                                    : "/#"
+                                }>
                                 <FaSquareXTwitter className="w-7 h-7" />
                               </Link>
                             </div>
@@ -56,7 +96,7 @@ const EditProfile = () => {
                         <div className="image-user-profile">
                           <div className="avatar">
                             <div className="w-36 rounded-full">
-                              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                              <img src={user.user_profile} />
                             </div>
                           </div>
                         </div>
@@ -65,16 +105,19 @@ const EditProfile = () => {
                         {/* email */}
                         <div className="flex justify-between items-center h-12">
                           <p className="font-medium">Eamil address</p>
-                          <p className="text-[#606060]">Chirtopher@gmail.com</p>
+                          <p className="text-[#606060]">{user.user_email}</p>
                         </div>
                         {/* Name */}
                         <div className="flex justify-between items-center">
                           <p className="font-medium">Name</p>
                           <div className="flex items-center ">
                             <p className="text-[#606060]">
-                              Christopher Campbell
+                              {user.user_fullname}
                             </p>
-                            <ModalName/>
+                            <ModalName
+                              userId={user.user_id}
+                              userName={user.user_fullname}
+                            />
                           </div>
                         </div>
                         {/* social */}
@@ -84,8 +127,19 @@ const EditProfile = () => {
                             <p className="font-medium">Github link</p>
                           </div>
                           <div className="flex items-center">
-                            <p className="text-[#606060]">Christopher2410</p>
-                            <ModalGithub/>
+                            <p className="text-[#606060] italic">
+                              {userSocials?.user_social.user_social_github
+                                ? userSocials.user_social.user_social_github
+                                : "you dont have a github link yet."}
+                            </p>
+                            <ModalGithub
+                              userId={user.user_id}
+                              githubLink={
+                                userSocials?.user_social.user_social_github
+                                  ? userSocials.user_social.user_social_github
+                                  : "update github link."
+                              }
+                            />
                           </div>
                         </div>
                         <div className="flex justify-between items-center">
@@ -94,8 +148,19 @@ const EditProfile = () => {
                             <p className="font-medium">Facebook link</p>
                           </div>
                           <div className="flex items-center">
-                            <p className="text-[#606060]">Christopher</p>
-                            <ModalFacebook/>
+                            <p className="text-[#606060] italic">
+                              {userSocials?.user_social.user_social_facebook
+                                ? userSocials.user_social.user_social_facebook
+                                : "you dont have a facebook link yet."}
+                            </p>
+                            <ModalFacebook
+                              userId={user.user_id}
+                              facebookLink={
+                                userSocials?.user_social.user_social_facebook
+                                  ? userSocials.user_social.user_social_facebook
+                                  : "update facebook link."
+                              }
+                            />
                           </div>
                         </div>
                         <div className="flex justify-between items-center">
@@ -104,14 +169,25 @@ const EditProfile = () => {
                             <p className="font-medium">Twitter link</p>
                           </div>
                           <div className="flex items-center">
-                            <p className="text-[#606060]">Christopher</p>
-                            <ModalTwitter/>
+                            <p className="text-[#606060] italic">
+                              {userSocials?.user_social.user_social_twitter
+                                ? userSocials.user_social.user_social_twitter
+                                : "you dont have a twitter link yet."}
+                            </p>
+                            <ModalTwitter
+                              userId={user.user_id}
+                              twitterLink={
+                                userSocials?.user_social.user_social_twitter
+                                  ? userSocials.user_social.user_social_twitter
+                                  : "update twitter link."
+                              }
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className="pt-8 space-y-4">
-                      <ModalDelete/>
+                      <ModalDelete />
                       <p className="text-[#C8C2C2]">
                         Permanently delete your account and all of your content.
                       </p>

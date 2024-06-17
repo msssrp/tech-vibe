@@ -35,6 +35,47 @@ export async function updateUserSocial(
   return { error: updateSocialError };
 }
 
+export async function updateUserSocialFacebook(
+  facebook: string,
+  user_id: string
+): Promise<updatePromise> {
+  const supabase = createSupabaseClient();
+  const { error: updateSocialError } = await supabase
+    .from("user_social")
+    .update({
+      user_social_facebook: facebook,
+    })
+    .eq("user_id", user_id);
+  return { error: updateSocialError };
+}
+export async function updateUserSocialGithub(
+  github: string,
+  user_id: string
+): Promise<updatePromise> {
+  const supabase = createSupabaseClient();
+  const { error: updateSocialError } = await supabase
+    .from("user_social")
+    .update({
+      user_social_github: github,
+    })
+    .eq("user_id", user_id);
+  return { error: updateSocialError };
+}
+
+export async function updateUserSocialTwitter(
+  twitter: string,
+  user_id: string
+): Promise<updatePromise> {
+  const supabase = createSupabaseClient();
+  const { error: updateSocialError } = await supabase
+    .from("user_social")
+    .update({
+      user_social_twitter: twitter,
+    })
+    .eq("user_id", user_id);
+  return { error: updateSocialError };
+}
+
 export async function insertUserSocial(
   facebook: string,
   github: string,
