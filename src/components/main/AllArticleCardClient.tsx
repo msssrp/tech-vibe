@@ -83,8 +83,8 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
                 <InteractBtn
                   user_id={userId}
                   article_id={article.article_id}
-                  username={user?.user_fullname}
                   articleTitle={article.article_title}
+                  username={user.user_fullname}
                 />
               )}
             </div>
