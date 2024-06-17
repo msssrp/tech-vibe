@@ -14,7 +14,7 @@ type profileProps = {
   sessionUserId: string;
 };
 
-const Profile: React.FC<profileProps> = ({ userId }) => {
+const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
   const { isLoading, userData, userFollower, sliceArticleslist } =
     useProfile(userId);
 
@@ -65,8 +65,10 @@ const Profile: React.FC<profileProps> = ({ userId }) => {
               </Link>
             </div>
           </div>
-          {userId && (
-            <Link href="/profile/editprofile" className="btn bg-black text-white text-base rounded-full px-6 py-2">
+          {userId === sessionUserId && (
+            <Link
+              href={`/profile/edit-profile`}
+              className="btn bg-black text-white text-base rounded-full px-6 py-2">
               Edit
             </Link>
           )}
@@ -78,8 +80,7 @@ const Profile: React.FC<profileProps> = ({ userId }) => {
             return (
               <div
                 key={articleslist.id}
-                className="card-compact bg-[#F8F8F8] rounded-md px-4 "
-              >
+                className="card-compact bg-[#F8F8F8] rounded-md px-4 ">
                 <div className="card-body">
                   <div className="avatar items-center">
                     <div className="w-8 rounded-full">

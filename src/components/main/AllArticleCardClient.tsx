@@ -1,7 +1,6 @@
 "use client";
 import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
 import { getArticleTagsFromClient } from "@/libs/actions/tag/tag";
-import { ConvertUrlToSlug } from "@/libs/urlConvert";
 import { articleProps } from "@/types/article/article";
 import { tagProps } from "@/types/tag/tag";
 import { userProps } from "@/types/user/user";
@@ -32,7 +31,10 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
     };
     fetchTags();
   }, [article, user, articleId, userId]);
-  const slugUrl = ConvertUrlToSlug(article.article_title);
+  const userWithHyphen = user?.user_fullname.replace(/ /g, "-");
+  const articleTitleWithHypen = article.article_title.replace(/ /g, "-");
+  const firstArticleId = article.article_id.split("-")[0];
+  const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
   return (
     <div className="flex space-x-3 border-b mt-5 rounded-none items-center h-auto pb-5">
       <div className="flex flex-col mt-5 space-y-3 px-4 w-3/4 h-full">
@@ -50,7 +52,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
             <p className="ml-2">{user ? user.user_fullname : "undefind"}</p>
           </div>
           <Link
-            href={`/post/${ConvertUrlToSlug(slugUrl)}`}
+            href={`/${userWithHyphen}/${articleSlug}`}
             className="card-title text-2xl flex-1 mt-3">
             {article.article_title}
           </Link>
