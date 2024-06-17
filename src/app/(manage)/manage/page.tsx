@@ -6,7 +6,7 @@ import ArticleApproveCard from "../component/ArticleApproveCard";
 import { ArticleContext } from "@/context/ArticleContext";
 import { useSearchParams } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const { articles, npruArticle, isLoading } = useContext(ArticleContext);
   const searchParams = useSearchParams();
   const articleQry = searchParams.get("article");
@@ -62,4 +62,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

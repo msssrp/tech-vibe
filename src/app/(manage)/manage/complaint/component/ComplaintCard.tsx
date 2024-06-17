@@ -138,7 +138,7 @@ const ComplaintCard: React.FC<complaintCardProps> = ({ complaint }) => {
           <h1 className="uppercase text-xl font-semibold">complaint article</h1>
           <span className="text-base-content text-center">
             Report articles or content that you find inappropriate, offensive,
-            or in violation of the platform's policies. If upon review, you
+            or in violation of the platforms policies. If upon review, you
             disagree with the complaint against the article, you can dismiss the
             reported complaint
           </span>
