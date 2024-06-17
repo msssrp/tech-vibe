@@ -7,5 +7,5 @@ export type complaintProps = {
   created_at: string;
   updated_at?: string;
   user_id: string;
-  article: string;
+  article_id: string;
 };

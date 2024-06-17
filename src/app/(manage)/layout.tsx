@@ -8,6 +8,16 @@ import { FaFacebook, FaGithub } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import DashboardLink from "./component/DashboardLink";
 
+import { Metadata } from "next";
+import UserProfile from "./component/UserProfile";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Moderator Dashboard",
+    description: "moderator dashboard",
+  };
+}
+
 export default async function RootLayout({
   children,
 }: {
@@ -25,7 +35,6 @@ export default async function RootLayout({
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
-        {children}
         <label
           htmlFor="my-drawer-2"
           className="flex justify-start items-center drawer-button lg:hidden">
@@ -43,6 +52,8 @@ export default async function RootLayout({
             />
           </svg>
         </label>
+        <UserProfile />
+        {children}
       </div>
       <div className="drawer-side">
         <label

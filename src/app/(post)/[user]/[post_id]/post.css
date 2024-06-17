@@ -1,0 +1,146 @@
+/* Style สำหรับแท็ก Blockquote */
+blockquote {
+  margin-left: 0;
+  padding-left: 1.5rem;
+  border-left: 4px solid #e2e8f0;
+}
+
+/* Style สำหรับแท็ก Definition List */
+dl {
+  margin-bottom: 1rem;
+}
+
+/* Style สำหรับแท็ก Definition Description */
+dd {
+  margin-left: 0;
+}
+
+/* Style สำหรับแท็ก Heading 1 */
+h1 {
+  font-size: 2.25rem;
+  font-weight: 500;
+  line-height: 2.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Style สำหรับแท็ก Heading 2 */
+h2 {
+  font-size: 1.875rem;
+  font-weight: 400;
+  line-height: 2.25rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Style สำหรับแท็ก Heading 3 */
+h3 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Style สำหรับแท็ก Heading 4 */
+h4 {
+  font-size: 1.25rem;
+  font-weight: 200;
+  line-height: 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Style สำหรับแท็ก Heading 5 */
+h5 {
+  font-size: 1rem;
+  font-weight: 100;
+  line-height: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Style สำหรับแท็ก Heading 6 */
+h6 {
+  font-size: 0.875rem;
+  font-weight: 70;
+  line-height: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Style สำหรับแท็ก Horizontal Rule */
+hr {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  margin: 1rem 0;
+}
+
+/* Style สำหรับแท็ก Figure */
+figure {
+  margin: 0 0 1rem;
+}
+
+/* Style สำหรับแท็ก Paragraph */
+
+/* Style สำหรับแท็ก Unordered List */
+ul {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+/* Style สำหรับแท็ก Ordered List */
+ol {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+/* Style สำหรับแท็ก List Item */
+li {
+  margin-bottom: 0.25rem;
+}
+
+/* Style สำหรับแท็ก Code */
+code {
+  padding: 0.2rem 0.4rem;
+  font-size: 90%;
+  color: #c53030;
+  background-color: #f7f7f7;
+  border-radius: 0.25rem;
+}
+
+/* Style สำหรับแท็ก Preformatted Text */
+pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 1rem;
+  font-size: 0.875rem;
+  background-color: #f7f7f7;
+  border-radius: 0.25rem;
+  overflow-x: auto;
+}
+
+/* Style สำหรับแท็ก Ordered List Item */
+ol li {
+  margin-bottom: 0.25rem;
+}
+
+/* Style สำหรับแท็ก Ordered List Item ซึ่งเป็นตัวเลข */
+ol li {
+  list-style-type: decimal;
+}
+
+pw-post-body-paragraph {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+ul li::before {
+  content: "\2022"; /* ใช้ bullet character */
+  color: #333; /* สีของ bullet */
+  display: inline-block;
+  width: 1em; /* กำหนดขนาดของ bullet */
+  margin-left: -1em; /* ให้ bullet อยู่ในพื้นที่ของ padding และ margin ของ li */
+}

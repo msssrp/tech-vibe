@@ -1,17 +1,29 @@
 import { ethers } from "ethers";
 import { toBlob } from "html-to-image";
 
-import contractABI from "@/reviewAbi.json";
+import contractABI from "@/hardhat/artifacts/contracts/BlogReview.sol/BlogReview.json";
 import { notifications } from "@mantine/notifications";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getCertificateUri } from "@/libs/actions/web3/web3";
 const useCertificateGen = (articleName: string, userFullName: string) => {
-  const hostName = typeof window !== "undefined" && window.location.origin;
-
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+  const [loadingState, setLoadingState] = useState("Accept");
+  const [certificateUri, setCertificateUri] = useState("");
+  useEffect(() => {
+    const getCertificate = async () => {
+      const data = await getCertificateUri();
+      setCertificateUri(data);
+    };
+    getCertificate();
+  }, []);
+  const router = useRouter();
   const onButtonClick = async () => {
     const contentHtml = document.getElementById("content");
     if (contentHtml) {
       toBlob(contentHtml).then(async function (blob) {
         if (blob) {
+          setLoadingState("generate certificate...");
           const fileBuffer = await blob.arrayBuffer();
           const formData = new FormData();
           formData.append("file", new Blob([fileBuffer]));
@@ -25,9 +37,11 @@ const useCertificateGen = (articleName: string, userFullName: string) => {
               body: formData,
             }
           );
+          setLoadingState("upload certificate...");
           const uploadData = await uploadResponse.json();
 
           if (uploadData.IpfsHash) {
+            setLoadingState("working at smartcontract...");
             const ethereum = window.ethereum;
             const accounts = await ethereum.request({
               method: "eth_requestAccounts",
@@ -37,10 +51,10 @@ const useCertificateGen = (articleName: string, userFullName: string) => {
             const runner = await provider.getSigner(from);
             const contract = new ethers.Contract(
               contractAddress,
-              contractABI,
+              contractABI.abi,
               runner
             );
-
+            setLoadingState("almost done...");
             // Upload metadata to Pinata
             const metadata = {
               name: `Certificate's ${articleName}`,
@@ -61,11 +75,7 @@ const useCertificateGen = (articleName: string, userFullName: string) => {
               }
             );
             const metadataUploadData = await metadataUploadResponse.json();
-            console.log(
-              "Metadata uploaded to Pinata:",
-              metadataUploadData.IpfsHash
-            );
-
+            setLoadingState("mint certificate...");
             const tx = await contract.mintCertificate(
               from,
               userFullName,
@@ -76,11 +86,12 @@ const useCertificateGen = (articleName: string, userFullName: string) => {
             );
             await tx.wait();
             console.log("Transaction hash:", tx.hash);
-
+            setLoadingState("success!!");
             notifications.show({
               title: "Success!",
               message: "Your certificate has been accepted!",
             });
+            router.push("/certificate");
           }
         } else {
           console.log("no blob");
@@ -89,8 +100,9 @@ const useCertificateGen = (articleName: string, userFullName: string) => {
     }
   };
   return {
-    hostName,
+    certificateUri,
     onButtonClick,
+    loadingState,
   };
 };
 

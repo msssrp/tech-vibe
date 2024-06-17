@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 
-import contractABI from "@/reviewAbi.json";
+import contractABI from "@/hardhat/artifacts/contracts/BlogReview.sol/BlogReview.json";
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
 const useCertificate = () => {
   const [certificateData, setCertificateData] = useState<any[]>([]);
@@ -17,7 +17,7 @@ const useCertificate = () => {
         const runner = await provider.getSigner(from);
         const contract = new ethers.Contract(
           contractAddress,
-          contractABI,
+          contractABI.abi,
           runner
         );
         const result = await contract.getAllCertificates();

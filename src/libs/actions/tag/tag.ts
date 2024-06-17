@@ -14,6 +14,18 @@ export async function getArticleTags(article_id: string) {
   return data;
 }
 
+export async function getArticleTagsOnClient(article_id: string) {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("tag")
+    .select("tag_name")
+    .eq("article_id", article_id)
+    .limit(1)
+    .single();
+  if (error) console.log(error);
+  return data;
+}
+
 type getTag = {
   tag: tagProps | null;
 };

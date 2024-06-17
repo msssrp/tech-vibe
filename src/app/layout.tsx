@@ -8,6 +8,7 @@ import "@mantine/dropzone/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
 export const lora = Lora({ subsets: ["latin"] });
 import NextTopLoader from "nextjs-toploader";
+import { Notifications } from "@mantine/notifications";
 export const metadata: Metadata = {
   title: {
     default: "TechVibe",
@@ -42,6 +43,7 @@ export default async function RootLayout({
             speed={200}
             shadow="0 0 10px #2299DD,0 0 5px #2299DD"
           />
+          <Notifications />
           {children}
         </MantineProvider>
       </body>

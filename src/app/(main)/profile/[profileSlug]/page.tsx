@@ -27,7 +27,6 @@ const page = async ({ params }: { params: { profileSlug: string } }) => {
     <div className="container mx-auto px-44">
       <div className="flex divide-x h-auto relative">
         {/* left */}
-
         <ProfilTabs userId={userId} />
         {/* Right */}
         <Profile userId={userId} sessionUserId={data.user.id} />

@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 
-import contractABI from "@/reviewAbi.json";
+import contractABI from "@/hardhat/artifacts/contracts/BlogReview.sol/BlogReview.json";
 import { useClipboard } from "@mantine/hooks";
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
 const useCertificateSection = (certificateId: string) => {
@@ -22,7 +22,7 @@ const useCertificateSection = (certificateId: string) => {
         const runner = await provider.getSigner(from);
         const contract = new ethers.Contract(
           contractAddress,
-          contractABI,
+          contractABI.abi,
           runner
         );
         const result = await contract.getCertificate(certificateId);

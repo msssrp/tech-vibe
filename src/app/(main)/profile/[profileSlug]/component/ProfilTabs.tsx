@@ -1,20 +1,22 @@
 "use client";
 import { Tabs } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import StatisticChat from "./StatisticChat";
-import { articleProps } from "@/types/article/article";
 import AllArticleCardClient from "@/components/main/AllArticleCardClient";
-import { userProps } from "@/types/user/user";
-import { getUserFromClient } from "@/libs/actions/user/userClient";
-import { getArticleByUserId } from "@/libs/actions/article/article";
 import TabHomeLoading from "@/components/ui/TabHomeLoading";
 import Image from "next/image";
 import useProfileTabs from "@/hook/useProfileTabs";
+import { useRouter, useSearchParams } from "next/navigation";
+
 type profileTabsProps = {
   userId: string;
 };
 const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
   const { userData, homeLoading, articles } = useProfileTabs(userId);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const tabValue = searchParams.get("tab") ?? "Home"
+    
   return (
     <div className="w-2/3 py-10">
       <div className="flex justify-between items-center mb-2">
@@ -22,7 +24,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
       </div>
       <div className="flex items-center space-x-2 mx-2 sticky top-0 bg-base-100 z-10">
         <div className="w-full">
-          <Tabs defaultValue="Home" color="black">
+          <Tabs defaultValue={tabValue} color="black" onChange={(tab)=> {router.replace(`?tab=${tab}`)}}>
             <Tabs.List h={60}>
               <Tabs.Tab value="Home">Home</Tabs.Tab>
               <Tabs.Tab value="Articles">Articles</Tabs.Tab>
@@ -45,7 +47,6 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                 </label>
               </div>
             </Tabs.List>
-
             <Tabs.Panel value="Home">
               {homeLoading ? (
                 <div className="flex justify-center items-center w-full h-96">
@@ -63,6 +64,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                             userId={userId}
                             user={userData}
                             articleId={articleslist.article_id}
+                            interactBtn={true}
                           />
                         );
                       })}

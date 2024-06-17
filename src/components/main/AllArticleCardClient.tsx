@@ -1,5 +1,5 @@
 "use client";
-import InteractBtn from "@/app/(post)/post/[postName]/component/InteractBtn";
+import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
 import { getArticleTagsFromClient } from "@/libs/actions/tag/tag";
 import { ConvertUrlToSlug } from "@/libs/urlConvert";
 import { articleProps } from "@/types/article/article";
@@ -12,8 +12,9 @@ import React, { useEffect, useState } from "react";
 type allArticleCardClientProps = {
   user: userProps | undefined;
   article: articleProps;
-  userId: string;
+  userId?: string;
   articleId: string;
+  interactBtn?: boolean;
 };
 
 const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
@@ -21,6 +22,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
   article,
   userId,
   articleId,
+  interactBtn,
 }) => {
   const [tags, setTags] = useState<tagProps | null>();
   useEffect(() => {
@@ -77,11 +79,13 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
               <p className="text-sm">7 min read</p>
             </div>
             <div className="flex space-x-3 items-center justify-center">
-              <InteractBtn
-                user_id={userId}
-                article_id={article.article_id}
-                url_title={`${article.article_title}`}
-              />
+              {interactBtn && (
+                <InteractBtn
+                  user_id={userId}
+                  article_id={article.article_id}
+                  url_title={`${article.article_title}`}
+                />
+              )}
             </div>
           </div>
         </div>

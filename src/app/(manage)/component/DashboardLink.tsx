@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { GoReport } from "react-icons/go";
 import { IoIosLogOut } from "react-icons/io";
 import { MdOutlineManageAccounts } from "react-icons/md";
+import { GiFox } from "react-icons/gi";
 const links = [
   {
     link: "/manage",
@@ -16,12 +17,6 @@ const links = [
     link: "/manage/complaint",
     label: "Complaint",
     icon: <GoReport size={25} />,
-    textColor: "text-white",
-  },
-  {
-    link: "/manage/account",
-    label: "Manage account",
-    icon: <MdOutlineManageAccounts size={25} />,
     textColor: "text-white",
   },
   {
@@ -40,8 +35,7 @@ const DashboardLink = () => {
       className={`btn border-none flex items-center justify-start hover:bg-base-content ${
         item.textColor
       } ${item.label === isActive ? "bg-base-content" : "bg-transparent"}`}
-      onClick={(e) => {
-        e.preventDefault();
+      onClick={() => {
         setIsActive(item.label);
       }}>
       {item.icon}
