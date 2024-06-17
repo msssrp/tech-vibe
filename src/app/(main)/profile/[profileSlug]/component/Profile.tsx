@@ -14,9 +14,10 @@ type profileProps = {
   sessionUserId: string;
 };
 
-const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
+const Profile: React.FC<profileProps> = ({ userId }) => {
   const { isLoading, userData, userFollower, sliceArticleslist } =
     useProfile(userId);
+
   return (
     <div className="w-2/6 py-12 pl-11 pr-2 ">
       <div className="flex flex-col items-center">
@@ -47,22 +48,27 @@ const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
           ) : (
             <p className="text-[#606060]">{userFollower} Follower</p>
           )}
-
-          <div className="social flex justify-center items-center space-x-3">
-            <Link href="">
-              <FaGithub className="w-6 h-6" />
-            </Link>
-            <Link href="">
-              <FaFacebook className="w-6 h-6 text-[#1877F2]" />
-            </Link>
-            <Link href="">
-              <FaSquareXTwitter className="w-6 h-6" />
-            </Link>
+          <div className="social flex space-x-3 justify-center items-center">
+            <div className="flex items-center">
+              <Link href="" className="flex items-center">
+                <FaGithub className="w-8 h-8" />
+              </Link>
+            </div>
+            <div className="flex items-center">
+              <Link href="">
+                <FaFacebook className="w-8 h-8 text-[#1877F2]" />
+              </Link>
+            </div>
+            <div className="flex items-center">
+              <Link href="">
+                <FaSquareXTwitter className="w-8 h-8" />
+              </Link>
+            </div>
           </div>
-          {sessionUserId === userId && (
-            <button className="btn bg-black text-white rounded-full px-6 py-2">
+          {userId && (
+            <Link href="/profile/editprofile" className="btn bg-black text-white text-base rounded-full px-6 py-2">
               Edit
-            </button>
+            </Link>
           )}
         </div>
         {/* popularArticles */}
@@ -72,7 +78,8 @@ const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
             return (
               <div
                 key={articleslist.id}
-                className="card-compact bg-[#F8F8F8] rounded-md px-4 ">
+                className="card-compact bg-[#F8F8F8] rounded-md px-4 "
+              >
                 <div className="card-body">
                   <div className="avatar items-center">
                     <div className="w-8 rounded-full">

@@ -29,6 +29,7 @@ export type userSocialProps = {
     user_id: string;
   };
 };
+
 export type updatePromise = {
   error?: any;
 };
