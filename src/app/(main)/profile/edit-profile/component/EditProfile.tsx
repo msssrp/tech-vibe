@@ -45,10 +45,9 @@ const EditProfile: React.FC<editProfileProps> = ({
                   </Tabs.Tab>
                 </Tabs.List>
                 <Tabs.Panel value="Home">
-                  <div className="ml-11">
-                    <div className="py-10 border-b-2 border-[#F2F2F2]">
+                  <div className="pl-10 pr-7">
+                    <div className="py-8 border-b border-[#F2F2F2]">
                       <div className="flex justify-between items-center">
-                        {/* left */}
                         <div className="space-y-5">
                           <h2 className="text-xl">{user.user_fullname}</h2>
                           <p className="text-[#606060]">
@@ -92,23 +91,23 @@ const EditProfile: React.FC<editProfileProps> = ({
                             </div>
                           </div>
                         </div>
-                        {/* right */}
                         <div className="image-user-profile">
                           <div className="avatar">
-                            <div className="w-36 rounded-full">
+                            <div className="w-32 rounded-full">
                               <img src={user.user_profile} />
                             </div>
                           </div>
                         </div>
                       </div>
+
                       <div className="mt-6">
                         {/* email */}
-                        <div className="flex justify-between items-center h-12">
-                          <p className="font-medium">Eamil address</p>
+                        <div className="flex justify-between items-center py-2 border-b border-[#F2F2F2]">
+                          <p className="font-medium flex items-center h-12">Eamil address</p>
                           <p className="text-[#606060]">{user.user_email}</p>
                         </div>
                         {/* Name */}
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center py-2 border-b border-[#F2F2F2]">
                           <p className="font-medium">Name</p>
                           <div className="flex items-center ">
                             <p className="text-[#606060]">
@@ -121,7 +120,7 @@ const EditProfile: React.FC<editProfileProps> = ({
                           </div>
                         </div>
                         {/* social */}
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center pt-4">
                           <div className="flex items-center space-x-2">
                             <FaGithub className="w-7 h-7" />
                             <p className="font-medium">Github link</p>
@@ -142,7 +141,7 @@ const EditProfile: React.FC<editProfileProps> = ({
                             />
                           </div>
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center my-2">
                           <div className="flex items-center space-x-2">
                             <FaFacebook className="w-7 h-7 text-[#1877F2]" />
                             <p className="font-medium">Facebook link</p>
