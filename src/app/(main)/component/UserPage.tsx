@@ -1,5 +1,4 @@
 import React from "react";
-import { articleslist, tag } from "@/components/ui/Items";
 import RightSection from "@/components/main/RightSection";
 import getAllTags from "@/libs/actions/tag/tag";
 import DisplayArticle from "./child-component/DisplayArticle";
@@ -33,7 +32,7 @@ const UserPage: React.FC<userPageProps> = async ({
           </div>
         </div>
         {/* right */}
-        <RightSection articleslist={articleslist} tags={tags} />
+        <RightSection tags={tags} />
       </div>
     </div>
   );

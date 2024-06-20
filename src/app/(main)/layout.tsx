@@ -3,7 +3,6 @@ import Footer from "@/components/main/Footer";
 import getUserSession from "@/libs/actions/user/auth/getSession";
 import UserNavbar from "@/components/main/UserNavbar";
 import { getNotification } from "@/libs/actions/notification/notification";
-import { Metadata } from "next";
 
 export default async function RootLayout({
   children,
@@ -23,6 +22,7 @@ export default async function RootLayout({
   return (
     <div>
       <MainNavbar />
+      <div className="mt-16"></div>
       {children}
       <Footer />
     </div>

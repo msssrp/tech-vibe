@@ -64,6 +64,33 @@ export async function getNpruArticle(): Promise<articleProps[]> {
   return articles as articleProps[];
 }
 
+export async function getNpruArticleOnUserPage(): Promise<articleProps[]> {
+  const supabase = await createSupabaseServerClient();
+  const { data: userRoles, error: rolesError } = await supabase
+    .from("user_role")
+    .select("user_id")
+    .filter("user_role_name", "eq", "npru");
+
+  if (rolesError) {
+    console.error("Error fetching user roles:", rolesError.message);
+    return [];
+  }
+
+  const userIds = userRoles.map((role) => role.user_id);
+  const { data: articles, error: articlesError } = await supabase
+    .from("article")
+    .select("*")
+    .in("user_id", userIds)
+    .limit(4);
+
+  if (articlesError) {
+    console.error("Error fetching NPRU articles:", articlesError.message);
+    return [];
+  }
+
+  return articles as articleProps[];
+}
+
 export async function getNpruArticleOnClient(): Promise<articleProps[]> {
   const supabase = createSupabaseClient();
   const { data: userRoles, error: rolesError } = await supabase
@@ -108,7 +135,8 @@ export async function getArticleByUserId(userId: string) {
   const { data, error } = await supabase
     .from("article")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .eq("article_status", "public");
   if (error) console.log(error);
   return data as articleProps[];
 }
@@ -352,4 +380,15 @@ export async function getArticleByFollowingUserAndTag(
 
   const articles = await Promise.all(getArticleByTagPromise);
   return { data: articles };
+}
+
+export async function getPopularArticle(): Promise<articleProps[] | null> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("random_articles")
+    .select("*")
+    .eq("article_status", "public")
+    .limit(4);
+  if (error) console.log("error from get popularArticle ", error);
+  return data;
 }

@@ -182,22 +182,25 @@ const InteractBtn: React.FC<interactProps> = ({
           />
         </svg>
       </button>
-      <button onClick={handleOnReadListOpen}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="#FED556"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
-          />
-        </svg>
-      </button>
+      {user_id && (
+        <button onClick={handleOnReadListOpen}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="#FED556"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
+            />
+          </svg>
+        </button>
+      )}
+
       <Modal
         opened={opened}
         onClose={close}
@@ -351,7 +354,7 @@ const InteractBtn: React.FC<interactProps> = ({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="#616160"
-            className="w-6 h-6"
+            className="w-5 h-5"
           >
             <path
               strokeLinecap="round"
@@ -475,26 +478,29 @@ const InteractBtn: React.FC<interactProps> = ({
               </div>
             </form>
           </Modal>
-          <button
-            className="cursor-pointer flex space-x-2"
-            onClick={openReport}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1}
-              stroke="currentColor"
-              className="w-6 h-6"
+          {user_id && (
+            <button
+              className="cursor-pointer flex space-x-2"
+              onClick={openReport}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"
-              />
-            </svg>
-            <span>report this story</span>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"
+                />
+              </svg>
+              <span>report this story</span>
+            </button>
+          )}
+
           <button
             className="cursor-pointer flex space-x-2"
             onClick={handlerReviewPost}
