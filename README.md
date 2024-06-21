@@ -1,24 +1,14 @@
-## Tech Vibe
+<h3 align="center"><img src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/techvibe-logo.png" width="150" height="150"/></h3>
 
-#### Folder Structure
+<h3 align="left">What's TECHVIBE</h3>
 
-##### app
+TechVibe is the _online platform_ for writing **exceptional articles, particularly** about **technology**. We also offer a feature for reviewing articles for web3 users!
 
-    * ไว้สำหรับการจัดการ route ต่างๆของ nextjs อย่างเช่น app/SignIn/page.tsx = http://localhost:3000/SignIn
-        * ถ้า folder ไหนมี () ครอบอยู่อย่างเช่น (main) nextjs จะ ignore folder นั้นและจะไม่ route folder นั้นไปที่ url ช่วยในการจัดการไฟล์ของส่วนต่าง
+---
 
-##### componenets
-
-    * จัดการกับ components ต่างๆ แยกหมวดหมู่ด้วย
-
-##### libs [supabase](https://supabase.com/)
-
-    * ใช้สำหรับการจัดการ api ต่างๆและจัดเก็บ supabase api ไว้เรียกใช้ query api ต่างๆ
-
-##### store [Zustand](https://zustand-demo.pmnd.rs/)
-
-    * จะใช้ Zustand ในการจัดการ State Management สำรหับส่วนๆ่างๆ
-
-##### types
-
-    * ไว้เก็บ type Props ต่างๆของแต่ละ componets หรือแต่ละ function
+<div align="center">
+  <div style="display: flex;">
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGJ4b3psOHgxanNxdHd5em41eW03ejNhZG15eXBtM3k3bTFzamkyNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nFnYkVIAwLMpySItYG/giphy.gif" />
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3pvdDVjb2EyMnp6YndtbHIxY3lkcGQyeXc5bmwyMno3NGZscDJtdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/y5E6MU709dNGLRDnCy/giphy.gif" />
+  </div>
+</div>
