@@ -129,7 +129,6 @@ const InteractBtn: React.FC<interactProps> = ({
         ).toFixed(2)
       : "0.00";
 
-  console.log("interact btn", articleTitle, username, article_id);
   const usernameWithHyphen = username.replace(/ /g, "-");
   const articleTitleWithHypen = articleTitle.replace(/ /g, "-");
   const articleFirstId = article_id.split("-")[0];
@@ -142,7 +141,8 @@ const InteractBtn: React.FC<interactProps> = ({
         onClose={closeReview}
         title="Reviews from public"
         size={1200}
-        withCloseButton={false}>
+        withCloseButton={false}
+      >
         {reviewsData && reviewsData.length > 0 ? (
           <>
             <div className="flex items-center justify-start space-x-2">
@@ -173,7 +173,8 @@ const InteractBtn: React.FC<interactProps> = ({
           viewBox="0 0 24 24"
           strokeWidth={1}
           stroke="currentColor"
-          className="w-6 h-6">
+          className="w-6 h-6"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -181,28 +182,33 @@ const InteractBtn: React.FC<interactProps> = ({
           />
         </svg>
       </button>
-      <button onClick={handleOnReadListOpen}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="#FED556"
-          className="w-6 h-6">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
-          />
-        </svg>
-      </button>
+      {user_id && (
+        <button onClick={handleOnReadListOpen}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="#FED556"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
+            />
+          </svg>
+        </button>
+      )}
+
       <Modal
         opened={opened}
         onClose={close}
         title={`${user_id ? "save the article to" : "SignIn to save this!!"}`}
         centered
         radius={"md"}
-        size={230}>
+        size={230}
+      >
         {user_id ? (
           <>
             <div className="flex flex-col space-y-3 px-1.5">
@@ -210,7 +216,8 @@ const InteractBtn: React.FC<interactProps> = ({
                 readlists.map((readlist) => (
                   <div
                     key={readlist.readlists_id}
-                    className="flex space-x-3 items-center">
+                    className="flex space-x-3 items-center"
+                  >
                     <Checkbox
                       checked={savedInReadlists.includes(readlist.readlists_id)}
                       onChange={async (
@@ -269,21 +276,24 @@ const InteractBtn: React.FC<interactProps> = ({
                   </div>
                   <button
                     className="ml-auto mt-6"
-                    onClick={() => handleCreateReadlist(user_id)}>
+                    onClick={() => handleCreateReadlist(user_id)}
+                  >
                     create
                   </button>
                 </div>
               ) : (
                 <button
                   className="flex space-x-3"
-                  onClick={() => setCreateInputOpen(!createInputOpen)}>
+                  onClick={() => setCreateInputOpen(!createInputOpen)}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1}
                     stroke="currentColor"
-                    className="w-6 h-6">
+                    className="w-6 h-6"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -310,7 +320,8 @@ const InteractBtn: React.FC<interactProps> = ({
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="#699DF6"
-          className="w-6 h-6">
+          className="w-6 h-6"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -320,13 +331,16 @@ const InteractBtn: React.FC<interactProps> = ({
 
         <div
           tabIndex={0}
-          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-14 flex flex-col items-center justify-center space-y-3">
+          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-14 flex flex-col items-center justify-center space-y-3"
+        >
           <FacebookShareButton
-            url={`${currentPath}${usernameWithHyphen}/${articleTitleWithId}`}>
+            url={`${currentPath}${usernameWithHyphen}/${articleTitleWithId}`}
+          >
             <FacebookIcon size={32} round />
           </FacebookShareButton>
           <TwitterShareButton
-            url={`${currentPath}${usernameWithHyphen}/${articleTitleWithId}`}>
+            url={`${currentPath}${usernameWithHyphen}/${articleTitleWithId}`}
+          >
             <TwitterIcon size={32} round />
           </TwitterShareButton>
         </div>
@@ -340,7 +354,8 @@ const InteractBtn: React.FC<interactProps> = ({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="#616160"
-            className="w-6 h-6">
+            className="w-5 h-5"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -350,14 +365,16 @@ const InteractBtn: React.FC<interactProps> = ({
         </button>
         <div
           tabIndex={0}
-          className="p-2 shadow menu dropdown-content z-50 bg-base-100 rounded-lg w-40 flex flex-col space-y-3">
+          className="p-2 shadow menu dropdown-content z-50 bg-base-100 rounded-lg w-40 flex flex-col space-y-3"
+        >
           <button
             className="cursor-pointer flex space-x-2"
             onClick={() =>
               clipboard.copy(
                 `${currentHost}:3000/${usernameWithHyphen}/${articleTitleWithId}`
               )
-            }>
+            }
+          >
             {clipboard.copied ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -365,7 +382,8 @@ const InteractBtn: React.FC<interactProps> = ({
                 viewBox="0 0 24 24"
                 strokeWidth={1}
                 stroke="currentColor"
-                className="w-6 h-6">
+                className="w-6 h-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -379,7 +397,8 @@ const InteractBtn: React.FC<interactProps> = ({
                 viewBox="0 0 24 24"
                 strokeWidth={1}
                 stroke="currentColor"
-                className="w-6 h-6">
+                className="w-6 h-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -395,10 +414,12 @@ const InteractBtn: React.FC<interactProps> = ({
             onClose={closeReport}
             withCloseButton={false}
             size={500}
-            centered>
+            centered
+          >
             <form
               onSubmit={handleReportArticle}
-              className="flex flex-col items-center justify-center container mx-auto space-y-5 mt-5 mb-5">
+              className="flex flex-col items-center justify-center container mx-auto space-y-5 mt-5 mb-5"
+            >
               <h1 className="text-xl font-semibold">REPORT THIS STORY</h1>
               <span className="text-gray-500">{articleTitle}</span>
               <Combobox
@@ -407,7 +428,8 @@ const InteractBtn: React.FC<interactProps> = ({
                 onOptionSubmit={(val) => {
                   setValue(val);
                   combobox.closeDropdown();
-                }}>
+                }}
+              >
                 <Combobox.Target>
                   <InputBase
                     component="button"
@@ -416,7 +438,8 @@ const InteractBtn: React.FC<interactProps> = ({
                     className="w-[300px]"
                     rightSection={<Combobox.Chevron />}
                     rightSectionPointerEvents="none"
-                    onClick={() => combobox.toggleDropdown()}>
+                    onClick={() => combobox.toggleDropdown()}
+                  >
                     {value || <Input.Placeholder>Pick value</Input.Placeholder>}
                   </InputBase>
                 </Combobox.Target>
@@ -442,45 +465,54 @@ const InteractBtn: React.FC<interactProps> = ({
                 <button
                   type="button"
                   onClick={closeReport}
-                  className="btn px-6 py-1 bg-white hover:bg-white">
+                  className="btn px-6 py-1 bg-white hover:bg-white"
+                >
                   CANCEL
                 </button>
                 <button
                   className="btn px-6 py-1 bg-red text-white hover:bg-red"
-                  type="submit">
+                  type="submit"
+                >
                   CONFIRM
                 </button>
               </div>
             </form>
           </Modal>
+          {user_id && (
+            <button
+              className="cursor-pointer flex space-x-2"
+              onClick={openReport}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"
+                />
+              </svg>
+              <span>report this story</span>
+            </button>
+          )}
+
           <button
             className="cursor-pointer flex space-x-2"
-            onClick={openReport}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1}
-              stroke="currentColor"
-              className="w-6 h-6">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"
-              />
-            </svg>
-            <span>report this story</span>
-          </button>
-          <button
-            className="cursor-pointer flex space-x-2"
-            onClick={handlerReviewPost}>
+            onClick={handlerReviewPost}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6">
+              className="w-6 h-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -494,11 +526,13 @@ const InteractBtn: React.FC<interactProps> = ({
       <Drawer
         opened={openedDrawer}
         onClose={closeDrawer}
-        title="Review this blog">
-        {isWalletFound && ethereum ? (
+        title="Review this blog"
+      >
+        {ethereum ? (
           <form
             className="flex flex-col space-y-5 mt-6"
-            onSubmit={handleUpLoad}>
+            onSubmit={handleUpLoad}
+          >
             <div className="flex flex-col items-center justify-center space-y-4">
               <span>Rate this blog</span>
               <Rating value={reviewRate} onChange={setReviewRate} size={"xl"} />
@@ -517,7 +551,8 @@ const InteractBtn: React.FC<interactProps> = ({
                   <div
                     key={index}
                     className="relative cursor-pointer mt-4"
-                    onClick={() => handleRemove(index)}>
+                    onClick={() => handleRemove(index)}
+                  >
                     <Image
                       height={80}
                       width={80}
@@ -531,12 +566,14 @@ const InteractBtn: React.FC<interactProps> = ({
             <Dropzone
               onDrop={(files) => handleDrop(files)}
               onReject={(files) => console.log("rejected files", files)}
-              maxSize={5 * 1024 ** 2}>
+              maxSize={5 * 1024 ** 2}
+            >
               <Group
                 justify="center"
                 gap="md"
                 mih={200}
-                style={{ pointerEvents: "none" }}>
+                style={{ pointerEvents: "none" }}
+              >
                 <Dropzone.Accept>
                   <IconUpload
                     style={{
@@ -581,7 +618,8 @@ const InteractBtn: React.FC<interactProps> = ({
             </Dropzone>
             <button
               type="submit"
-              className="btn flex items-center justify-center bg-blue-500 hover:bg-blue-400 p-2 rounded-md text-white">
+              className="btn flex items-center justify-center bg-blue-500 hover:bg-blue-400 p-2 rounded-md text-white"
+            >
               {isSubmit ? (
                 <>
                   <span>Submitting...</span>

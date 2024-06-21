@@ -59,12 +59,18 @@ const articleslist = [
 
 const Carousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, duration: 3000, align: "end" },
-    [Autoplay({ delay: 2500 })]
+    { loop: true, duration: 3000, align: "end", watchDrag: false },
+    [Autoplay({ delay: 4500 })]
   );
   const [emblaRef_2, emblaApi_2] = useEmblaCarousel(
-    { direction: "rtl", loop: true, duration: 3000, align: "center" },
-    [Autoplay({ delay: 2500 })]
+    {
+      direction: "rtl",
+      loop: true,
+      duration: 3000,
+      align: "center",
+      watchDrag: false,
+    },
+    [Autoplay({ delay: 4500 })]
   );
 
   useEffect(() => {

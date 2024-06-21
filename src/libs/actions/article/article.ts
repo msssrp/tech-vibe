@@ -64,6 +64,33 @@ export async function getNpruArticle(): Promise<articleProps[]> {
   return articles as articleProps[];
 }
 
+export async function getNpruArticleOnUserPage(): Promise<articleProps[]> {
+  const supabase = await createSupabaseServerClient();
+  const { data: userRoles, error: rolesError } = await supabase
+    .from("user_role")
+    .select("user_id")
+    .filter("user_role_name", "eq", "npru");
+
+  if (rolesError) {
+    console.error("Error fetching user roles:", rolesError.message);
+    return [];
+  }
+
+  const userIds = userRoles.map((role) => role.user_id);
+  const { data: articles, error: articlesError } = await supabase
+    .from("article")
+    .select("*")
+    .in("user_id", userIds)
+    .limit(4);
+
+  if (articlesError) {
+    console.error("Error fetching NPRU articles:", articlesError.message);
+    return [];
+  }
+
+  return articles as articleProps[];
+}
+
 export async function getNpruArticleOnClient(): Promise<articleProps[]> {
   const supabase = createSupabaseClient();
   const { data: userRoles, error: rolesError } = await supabase
@@ -108,7 +135,8 @@ export async function getArticleByUserId(userId: string) {
   const { data, error } = await supabase
     .from("article")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .eq("article_status", "public");
   if (error) console.log(error);
   return data as articleProps[];
 }
@@ -223,4 +251,144 @@ export async function manageArticleStatus(articleId: string, status: string) {
     console.log(error);
     return error;
   }
+}
+
+export async function getFollowingArticle(userId: string) {
+  const supabase = await createSupabaseServerClient();
+  const { data: dataFollowing, error: errorFollowing } = await supabase
+    .from("user_following")
+    .select("user_follow_id")
+    .eq("user_id", userId);
+  if (errorFollowing) console.log("error from get following", errorFollowing);
+
+  if (!dataFollowing) return { error: "You didnt follow any people yet" };
+  const flatternedUserIds = dataFollowing
+    .flat()
+    .map((item) => item.user_follow_id);
+  const promises = flatternedUserIds.map(async (id) => {
+    const articles = await getArticleByUserId(id);
+    return articles;
+  });
+  const articles = await Promise.all(promises);
+  const flatternedArticles = articles.flat();
+
+  return { data: flatternedArticles };
+}
+
+export async function getArticleByTag(tag: string) {
+  const supabase = await createSupabaseServerClient();
+  const tagToArray = tag.split("-");
+  const promise = tagToArray.flatMap(async (tag) => {
+    const tagArray = [tag];
+    const { data: dataTag, error } = await supabase
+      .from("tag")
+      .select("article_id")
+      .contains("tag_name", tagArray);
+    if (error) console.log("error from tag", error);
+    return dataTag;
+  });
+  const articleIdFromTag = await Promise.all(promise);
+  const flatternedArticleIds = articleIdFromTag
+    .flat()
+    .map((item) => item?.article_id);
+  const uniqeArticleIds = new Set(flatternedArticleIds);
+  const articlePromises = Array.from(uniqeArticleIds).map(async (id) => {
+    const article = await getArticleById(id);
+    return article;
+  });
+  const articles = await Promise.all(articlePromises);
+  return articles;
+}
+
+export async function getArticleByFollowingUserAndTag(
+  userId: string,
+  tag: string
+) {
+  const supabase = await createSupabaseServerClient();
+  const { data: dataFollowing, error: errorFollowing } = await supabase
+    .from("user_following")
+    .select("user_follow_id")
+    .eq("user_id", userId);
+  if (errorFollowing) console.log("error from get following", errorFollowing);
+
+  if (!dataFollowing) return { error: "You didnt follow any people yet" };
+  const flatternedUserIds = dataFollowing
+    .flat()
+    .map((item) => item.user_follow_id);
+
+  const articleIdFromUserIdPromises = flatternedUserIds.map(async (id) => {
+    const { data: articleIdFromUserId, error: errorArticleId } = await supabase
+      .from("article")
+      .select("article_id")
+      .eq("user_id", id);
+    if (errorArticleId)
+      console.log("error from loop article id", errorArticleId);
+    return articleIdFromUserId;
+  });
+
+  const articleId = await Promise.all(articleIdFromUserIdPromises);
+  const flatternedArticleIdFromPromise = articleId
+    .flat()
+    .map((id) => id?.article_id);
+
+  const articleFromTagPromises = flatternedArticleIdFromPromise.map(
+    async (id) => {
+      const { data: articleId, error: errorArticleId } = await supabase
+        .from("tag")
+        .select("article_id")
+        .eq("article_id", id);
+      if (errorArticleId) console.log("error from loop tag", errorArticleId);
+      return articleId;
+    }
+  );
+
+  const articleIdFromTag = await Promise.all(articleFromTagPromises);
+
+  const flatternedArticleIdFromTag = articleIdFromTag
+    .flat()
+    .map((id) => id?.article_id);
+
+  const tagArray = tag.split("-");
+
+  const tagPromises = flatternedArticleIdFromTag.map(async (id) => {
+    const tagDataArray = await Promise.all(
+      tagArray.map(async (tag) => {
+        const tagArrayData = [tag];
+        const { data: tagData, error: tagError } = await supabase
+          .from("tag")
+          .select("article_id")
+          .eq("article_id", id)
+          .containedBy("tag_name", tagArrayData);
+        if (tagError) console.log("error from tagPromise ", tagError);
+        if (tagData && tagData.length > 0) {
+          return tagData.map((item) => item.article_id);
+        }
+        return [];
+      })
+    );
+    return tagDataArray.flat();
+  });
+
+  const promiseTag = (await Promise.all(tagPromises)).filter(
+    (item) => item.length > 0
+  );
+  const flatternedArticleTag = promiseTag.flat();
+  const getArticleByTagPromise = flatternedArticleTag.map(async (id) => {
+    const article = await getArticleById(id);
+    return article;
+  });
+
+  const articles = await Promise.all(getArticleByTagPromise);
+  return { data: articles };
+}
+
+export async function getPopularArticle(): Promise<articleProps[] | null> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("random_articles")
+    .select("*")
+    .eq("article_status", "public")
+    .limit(4);
+  if (error) console.log("error from get popularArticle ", error);
+  return data;
 }
