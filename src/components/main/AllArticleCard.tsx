@@ -6,6 +6,9 @@ import Link from "next/link";
 import { getArticleTags } from "@/libs/actions/tag/tag";
 import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
 import { calculateReadingTime } from "@/libs/getReadingTimeOnArticle";
+import { getUserRoleOnServer } from "@/libs/actions/user/user_role";
+import { FaCircleCheck } from "react-icons/fa6";
+import NpruVerify from "../ui/NpruVerify";
 type AllArticlesProps = {
   article: articleProps;
   user_id?: string;
@@ -17,6 +20,7 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
 }) => {
   const user = await getUser(article.user_id);
   const tags = await getArticleTags(article.article_id);
+  const userRole = await getUserRoleOnServer(user.user_id);
   const userWithHyphen = user.user_fullname.replace(/ /g, "-");
   const articleTitleWithHypen = article.article_title.replace(/ /g, "-");
   const firstArticleId = article.article_id.split("-")[0];
@@ -28,7 +32,7 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
         <div className="flex flex-col max-h-32 ">
           <Link
             href={`/profile/${user.user_id}`}
-            className="avatar items-center h-1/3"
+            className="avatar items-center h-1/3 space-x-1"
           >
             <div className="w-8 rounded-full">
               <Image
@@ -40,6 +44,10 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
               />
             </div>
             <p className="ml-2">{user.user_fullname}</p>
+            {userRole &&
+              userRole.some((user) => user.user_role_name === "npru") && (
+                <NpruVerify />
+              )}
           </Link>
           <Link
             href={`/${userWithHyphen}/${articleSlug}`}

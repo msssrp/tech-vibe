@@ -528,7 +528,7 @@ const InteractBtn: React.FC<interactProps> = ({
         onClose={closeDrawer}
         title="Review this blog"
       >
-        {isWalletFound && ethereum ? (
+        {ethereum ? (
           <form
             className="flex flex-col space-y-5 mt-6"
             onSubmit={handleUpLoad}

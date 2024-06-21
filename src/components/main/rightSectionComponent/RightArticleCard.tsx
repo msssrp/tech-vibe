@@ -1,3 +1,4 @@
+import NpruVerify from "@/components/ui/NpruVerify";
 import { getUser } from "@/libs/actions/user/user";
 import { getUserRoleOnServer } from "@/libs/actions/user/user_role";
 import { articleProps } from "@/types/article/article";
@@ -37,7 +38,7 @@ const RightArticleCard: React.FC<rightArticleCard> = async ({ article }) => {
 
           {userRole &&
             userRole.some((user) => user.user_role_name === "npru") && (
-              <FaCircleCheck color="#952124" size={9} />
+              <NpruVerify />
             )}
         </Link>
         <Link
