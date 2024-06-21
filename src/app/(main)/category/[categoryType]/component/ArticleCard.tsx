@@ -4,6 +4,7 @@ import { getUser } from "@/libs/actions/user/user";
 import { getUserRoleOnServer } from "@/libs/actions/user/user_role";
 import { articleProps } from "@/types/article/article";
 import { Avatar } from "@mantine/core";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaCircleCheck } from "react-icons/fa6";
@@ -35,7 +36,14 @@ const ArticleCard: React.FC<articleCardProps> = async ({ article, userId }) => {
         className="flex items-center space-x-2 px-2"
         href={`/profile/${user.user_id}`}
       >
-        <Avatar src={user.user_profile} alt="User" size={"xs"} />
+        <Image
+          loading="lazy"
+          width={20}
+          height={20}
+          alt={"User"}
+          src={user.user_profile}
+          className="w-5 h-5 rounded-full"
+        />
         <h3 className="text-xs">{user.user_fullname}</h3>
         {userRole &&
           userRole.some((user) => user.user_role_name === "npru") && (

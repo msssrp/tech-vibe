@@ -1,6 +1,7 @@
 "use client";
 import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
 import { getArticleTagsFromClient } from "@/libs/actions/tag/tag";
+import { getUserRole } from "@/libs/actions/user/user_role";
 import { calculateReadingTime } from "@/libs/getReadingTimeOnArticle";
 import { articleProps } from "@/types/article/article";
 import { tagProps } from "@/types/tag/tag";
@@ -8,6 +9,7 @@ import { userProps } from "@/types/user/user";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { FaCircleCheck } from "react-icons/fa6";
 
 type allArticleCardClientProps = {
   user: userProps | undefined;
@@ -15,6 +17,12 @@ type allArticleCardClientProps = {
   userId?: string;
   articleId: string;
   interactBtn?: boolean;
+  userRole:
+    | {
+        user_role_name: string;
+      }[]
+    | null
+    | undefined;
 };
 
 const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
@@ -23,14 +31,15 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
   userId,
   articleId,
   interactBtn,
+  userRole,
 }) => {
   const [tags, setTags] = useState<tagProps | null>();
   useEffect(() => {
-    const fetchTags = async () => {
+    const fetchTagsAndUserRole = async () => {
       const { tag } = await getArticleTagsFromClient(articleId);
       setTags(tag);
     };
-    fetchTags();
+    fetchTagsAndUserRole();
   }, [article, user, articleId, userId]);
   const userWithHyphen = user?.user_fullname.replace(/ /g, "-");
   const articleTitleWithHypen = article.article_title.replace(/ /g, "-");
@@ -41,7 +50,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
     <div className="flex space-x-3 border-b mt-5 rounded-none items-center h-auto pb-5">
       <div className="flex flex-col mt-5 space-y-3 px-4 w-3/4 h-full">
         <div className="flex flex-col max-h-32 ">
-          <div className="avatar items-center h-1/3">
+          <div className="avatar items-center h-1/3 space-x-1">
             <div className="w-8 rounded-full">
               <Image
                 loading="lazy"
@@ -52,6 +61,10 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
               />
             </div>
             <p className="ml-2">{user ? user.user_fullname : "undefind"}</p>
+            {userRole &&
+              userRole.some((user) => user.user_role_name === "npru") && (
+                <FaCircleCheck color="#952124" size={9} />
+              )}
           </div>
           <Link
             href={`/${userWithHyphen}/${articleSlug}`}

@@ -12,11 +12,11 @@ type profileTabsProps = {
   userId: string;
 };
 const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
-  const { userData, homeLoading, articles } = useProfileTabs(userId);
+  const { userData, homeLoading, articles, userRole } = useProfileTabs(userId);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const tabValue = searchParams.get("tab") ?? "Home"
-    
+  const tabValue = searchParams.get("tab") ?? "Home";
+
   return (
     <div className="w-2/3 py-10">
       <div className="flex justify-between items-center mb-2">
@@ -24,7 +24,13 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
       </div>
       <div className="flex items-center space-x-2 mx-2 sticky top-0 bg-base-100 z-10">
         <div className="w-full">
-          <Tabs defaultValue={tabValue} color="black" onChange={(tab)=> {router.replace(`?tab=${tab}`)}}>
+          <Tabs
+            defaultValue={tabValue}
+            color="black"
+            onChange={(tab) => {
+              router.replace(`?tab=${tab}`);
+            }}
+          >
             <Tabs.List h={60}>
               <Tabs.Tab value="Home">Home</Tabs.Tab>
               <Tabs.Tab value="Articles">Articles</Tabs.Tab>
@@ -37,7 +43,8 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
                     fill="#606060"
-                    className="w-4 h-4 opacity-70">
+                    className="w-4 h-4 opacity-70"
+                  >
                     <path
                       fillRule="evenodd"
                       d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
@@ -64,6 +71,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                             userId={userId}
                             user={userData}
                             articleId={articleslist.article_id}
+                            userRole={userRole}
                             interactBtn={true}
                           />
                         );
@@ -259,7 +267,8 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
                             stroke="currentColor"
-                            className="w-5 h-5">
+                            className="w-5 h-5"
+                          >
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
@@ -306,7 +315,8 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
                             stroke="currentColor"
-                            className="w-5 h-5">
+                            className="w-5 h-5"
+                          >
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
@@ -353,7 +363,8 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
                             stroke="currentColor"
-                            className="w-5 h-5">
+                            className="w-5 h-5"
+                          >
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
@@ -400,7 +411,8 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
                             stroke="currentColor"
-                            className="w-5 h-5">
+                            className="w-5 h-5"
+                          >
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
