@@ -4,6 +4,7 @@ import PendingArticles from "./component/PendingArticles";
 import PublishedArticles from "./component/PublishedArticles";
 import HiddenArticles from "./component/HiddenArticles";
 import DraftedArticles from "./component/DraftedArticles";
+import Library from "./component/Library";
 
 const page = async ({ params }: { params: { profileSlug: string[] } }) => {
   if (params.profileSlug.length === 1) {
@@ -18,6 +19,8 @@ const page = async ({ params }: { params: { profileSlug: string[] } }) => {
       return <HiddenArticles userId={params.profileSlug[0]} />;
     if (params.profileSlug[1] === "drafted-articles")
       return <DraftedArticles userId={params.profileSlug[0]} />;
+    if (params.profileSlug[1] === "library")
+      return <Library userId={params.profileSlug[0]} />;
   }
 };
 

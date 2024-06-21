@@ -237,7 +237,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
             </Tabs.Panel>
             <Tabs.Panel value="Library">
               <div className="px-6">
-                <div className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
+                <Link href={`/profile/${userId}/library`} className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
                   <div className="card-body px-4 space-y-4">
                     <div className="flex items-center space-x-4">
                       <h2 className="card-title text-2xl ">UX/UI</h2>
@@ -284,8 +284,8 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                       className="w-44"
                     />
                   </div>
-                </div>
-                <div className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
+                </Link>
+                <Link href={`/profile/${userId}/library`} className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
                   <div className="card-body px-4 space-y-4">
                     <div className="flex items-center space-x-4">
                       <h2 className="card-title text-2xl ">Development</h2>
@@ -332,8 +332,8 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                       className="w-44"
                     />
                   </div>
-                </div>
-                <div className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
+                </Link>
+                <Link href={`/profile/${userId}/library`} className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
                   <div className="card-body px-4 space-y-4">
                     <div className="flex items-center space-x-4">
                       <h2 className="card-title text-2xl ">Javascript</h2>
@@ -380,8 +380,8 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                       className="w-44"
                     />
                   </div>
-                </div>
-                <div className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
+                </Link>
+                <Link href={`/profile/${userId}/library`} className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
                   <div className="card-body px-4 space-y-4">
                     <div className="flex items-center space-x-4">
                       <h2 className="card-title text-2xl ">Tester</h2>
@@ -428,7 +428,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                       className="w-44"
                     />
                   </div>
-                </div>
+                </Link>
               </div>
             </Tabs.Panel>
             <Tabs.Panel value="Statistic">
