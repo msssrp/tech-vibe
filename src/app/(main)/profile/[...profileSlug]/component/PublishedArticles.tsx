@@ -1,18 +1,18 @@
 "use client";
 import { Tabs } from "@mantine/core";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import getUserSession from "@/libs/actions/user/auth/getSession";
 
-const DraftedArticles = async () => {
-  const { data } = await getUserSession();
-  const userId = data.user?.id;
+type publishedArticles = {
+  userId: string;
+};
+
+const PublishedArticles: React.FC<publishedArticles> = ({ userId }) => {
   return (
-    <>
+    <div className="w-2/3 py-10">
       <div className="flex items-center space-x-6 mb-2">
-        <h2 className="text-3xl font-medium">Drafted articles</h2>
-        <div className="badge bg-[#606060] text-white py-5 px-4">Draft</div>
+        <h2 className="text-3xl font-medium">Published articles</h2>
+        <div className="badge bg-[#4ECB71] text-white py-5 px-4">Publish</div>
       </div>
       <div className="flex items-center space-x-2 mx-2 sticky top-0 bg-base-100 z-10">
         <div className="w-full">
@@ -56,8 +56,8 @@ const DraftedArticles = async () => {
           </Tabs>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default DraftedArticles;
+export default PublishedArticles;

@@ -1,18 +1,18 @@
 "use client";
 import { Tabs } from "@mantine/core";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import getUserSession from "@/libs/actions/user/auth/getSession";
 
-const PendingArticles = async () => {
-  const { data } = await getUserSession();
-  const userId = data.user?.id;
+type hiddenArticles = {
+  userId: string;
+};
+
+const HiddenArticles: React.FC<hiddenArticles> = ({ userId }) => {
   return (
-    <>
+    <div className="w-2/3 py-10">
       <div className="flex items-center space-x-6 mb-2">
-        <h2 className="text-3xl font-medium">Pending articles</h2>
-        <div className="badge bg-[#FFD556] text-white py-5 px-4">Pending</div>
+        <h2 className="text-3xl font-medium">Hidden articles</h2>
+        <div className="badge bg-[#FF9A62] text-white py-5 px-4">Hidden</div>
       </div>
       <div className="flex items-center space-x-2 mx-2 sticky top-0 bg-base-100 z-10">
         <div className="w-full">
@@ -56,8 +56,8 @@ const PendingArticles = async () => {
           </Tabs>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default PendingArticles;
+export default HiddenArticles;
