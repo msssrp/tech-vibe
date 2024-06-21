@@ -20,7 +20,7 @@ const UserCard: React.FC<userCardProps> = ({ userRole, user }) => {
       <div className="flex flex-col space-y-2 items-start">
         <div className="flex items-center space-x-2">
           <h1 className="font-medium">{user.user_fullname}</h1>
-          {userRole === "npru" && <FaCircleCheck color="#952124" />}
+          {userRole === "npru" && <FaCircleCheck color="#952124" size={9} />}
         </div>
         <span className="text-base">{user.user_email}</span>
         <h1 className="text-xl font-medium">{userRole}</h1>
