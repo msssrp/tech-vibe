@@ -5,18 +5,21 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa6";
 import Link from "next/link";
 import Image from "next/image";
-import ProfileLoading from "@/components/ui/ProfileLoading";
-import NameLoading from "@/components/ui/NameLoading";
 import useProfile from "@/hook/useProfile";
+import { userProps } from "@/types/user/user";
 
 type profileProps = {
-  userId: string;
+  user: userProps;
   sessionUserId: string;
+  userFollower: number | null;
 };
 
-const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
-  const { isLoading, userData, userFollower, sliceArticleslist } =
-    useProfile(userId);
+const Profile: React.FC<profileProps> = ({
+  user,
+  sessionUserId,
+  userFollower,
+}) => {
+  const { sliceArticleslist } = useProfile();
 
   return (
     <div className="w-2/6 py-12 pl-11 pr-2 ">
@@ -24,26 +27,17 @@ const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
         <div className="profile text-center space-y-4 mb-12">
           <div className="avatar">
             <div className="w-28 rounded-full">
-              {isLoading ? (
-                <ProfileLoading />
-              ) : (
-                <Image
-                  width={120}
-                  height={120}
-                  src={userData ? userData.user_profile : ""}
-                  alt={"User"}
-                />
-              )}
+              <Image
+                width={120}
+                height={120}
+                src={user.user_profile}
+                alt={"User"}
+              />
             </div>
           </div>
-          {isLoading ? (
-            <NameLoading />
-          ) : (
-            <h2 className="px-20">{userData?.user_fullname}</h2>
-          )}
-          {isLoading ? (
-            <NameLoading />
-          ) : userFollower && userFollower > 1 ? (
+
+          <h2 className="px-20">{user.user_fullname}</h2>
+          {userFollower && userFollower > 1 ? (
             <p className="text-[#606060]">{userFollower} Followers</p>
           ) : (
             <p className="text-[#606060]">{userFollower} Follower</p>
@@ -65,10 +59,11 @@ const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
               </Link>
             </div>
           </div>
-          {userId === sessionUserId && (
+          {user.user_id === sessionUserId && (
             <Link
               href={`/profile/edit-profile`}
-              className="btn bg-black text-white text-base rounded-full px-6 py-2">
+              className="btn bg-black text-white text-base rounded-full px-6 py-2"
+            >
               Edit
             </Link>
           )}
@@ -80,7 +75,8 @@ const Profile: React.FC<profileProps> = ({ userId, sessionUserId }) => {
             return (
               <div
                 key={articleslist.id}
-                className="card-compact bg-[#F8F8F8] rounded-md px-4 ">
+                className="card-compact bg-[#F8F8F8] rounded-md px-4 "
+              >
                 <div className="card-body">
                   <div className="avatar items-center">
                     <div className="w-8 rounded-full">

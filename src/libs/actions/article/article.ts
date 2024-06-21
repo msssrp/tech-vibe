@@ -141,6 +141,17 @@ export async function getArticleByUserId(userId: string) {
   return data as articleProps[];
 }
 
+export async function getArticleByUserIdOnServer(userId: string) {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("user_id", userId)
+    .eq("article_status", "public");
+  if (error) console.log(error);
+  return data as articleProps[];
+}
+
 export async function getArticleByName(
   article_Title: string
 ): Promise<articleProps> {
