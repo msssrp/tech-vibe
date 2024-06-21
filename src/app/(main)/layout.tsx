@@ -22,7 +22,6 @@ export default async function RootLayout({
   return (
     <div>
       <MainNavbar />
-      <div className="mt-16"></div>
       {children}
       <Footer />
     </div>

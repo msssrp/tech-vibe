@@ -7,6 +7,7 @@ import TabHomeLoading from "@/components/ui/TabHomeLoading";
 import Image from "next/image";
 import useProfileTabs from "@/hook/useProfileTabs";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 type profileTabsProps = {
   userId: string;
@@ -16,7 +17,6 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const tabValue = searchParams.get("tab") ?? "Home";
-
   return (
     <div className="w-2/3 py-10">
       <div className="flex justify-between items-center mb-2">
@@ -62,7 +62,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
               ) : (
                 <div className="pr-11 h-auto overflow-y-scroll no-scrollbar">
                   <div className="space-y-2 ">
-                    {articles &&
+                  {articles &&
                       articles.map((articleslist) => {
                         return (
                           <AllArticleCardClient
@@ -82,8 +82,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
             </Tabs.Panel>
             <Tabs.Panel value="Articles">
               <div className="px-6">
-                {/* Publish */}
-                <div className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
+                <Link href={`/profile/${userId}/published-articles`} className="card card-side rounded-none items-center my-8 px-4 bg-base-200" >
                   <div className="card-body px-4 space-y-4">
                     <div className="flex items-center space-x-4">
                       <h2 className="card-title text-2xl ">
@@ -99,7 +98,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                           <Image
                             width={50}
                             height={50}
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt="user Profile"
                           />
                         </div>
@@ -121,9 +120,8 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                       className="w-44"
                     />
                   </div>
-                </div>
-                {/* Pending */}
-                <div className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
+                </Link>
+                <Link href={`/profile/${userId}/pending-articles`} className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
                   <div className="card-body px-4 space-y-4">
                     <div className="flex items-center space-x-4">
                       <h2 className="card-title text-2xl ">Pending articles</h2>
@@ -137,7 +135,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                           <Image
                             width={50}
                             height={50}
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt="user Profile"
                           />
                         </div>
@@ -159,9 +157,8 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                       className="w-44"
                     />
                   </div>
-                </div>
-                {/* Draft */}
-                <div className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
+                </Link>
+                <Link href={`/profile/${userId}/drafted-articles`} className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
                   <div className="card-body px-4 space-y-4">
                     <div className="flex items-center space-x-4">
                       <h2 className="card-title text-2xl ">Drafted articles</h2>
@@ -175,7 +172,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                           <Image
                             width={50}
                             height={50}
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt="user Profile"
                           />
                         </div>
@@ -197,14 +194,13 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                       className="w-44"
                     />
                   </div>
-                </div>
-                {/* hidden */}
-                <div className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
+                </Link>
+                <Link href={`/profile/${userId}/hidden-articles`} className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
                   <div className="card-body px-4 space-y-4">
                     <div className="flex items-center space-x-4">
                       <h2 className="card-title text-2xl ">Hidden articles</h2>
                       <div className="badge bg-[#FF9A62] text-white py-4 px-4">
-                        hidden
+                        Hidden
                       </div>
                     </div>
                     <div className="flex items-center space-x-9">
@@ -213,7 +209,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                           <Image
                             width={50}
                             height={50}
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt="user Profile"
                           />
                         </div>
@@ -236,7 +232,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                       className="w-44"
                     />
                   </div>
-                </div>
+                </Link>
               </div>
             </Tabs.Panel>
             <Tabs.Panel value="Library">
@@ -252,7 +248,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                           <Image
                             width={50}
                             height={50}
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt="user Profile"
                           />
                         </div>
@@ -300,7 +296,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                           <Image
                             width={50}
                             height={50}
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt="user Profile"
                           />
                         </div>
@@ -348,7 +344,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                           <Image
                             width={50}
                             height={50}
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt="user Profile"
                           />
                         </div>
@@ -396,7 +392,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({ userId }) => {
                           <Image
                             width={50}
                             height={50}
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt="user Profile"
                           />
                         </div>
