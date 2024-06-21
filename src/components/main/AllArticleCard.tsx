@@ -8,6 +8,7 @@ import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
 import { calculateReadingTime } from "@/libs/getReadingTimeOnArticle";
 import { getUserRoleOnServer } from "@/libs/actions/user/user_role";
 import { FaCircleCheck } from "react-icons/fa6";
+import NpruVerify from "../ui/NpruVerify";
 type AllArticlesProps = {
   article: articleProps;
   user_id?: string;
@@ -45,7 +46,7 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
             <p className="ml-2">{user.user_fullname}</p>
             {userRole &&
               userRole.some((user) => user.user_role_name === "npru") && (
-                <FaCircleCheck color="#952124" size={9} />
+                <NpruVerify />
               )}
           </Link>
           <Link

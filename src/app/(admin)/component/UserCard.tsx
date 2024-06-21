@@ -1,7 +1,7 @@
+import NpruVerify from "@/components/ui/NpruVerify";
 import { userProps } from "@/types/user/user";
 import Image from "next/image";
 import React from "react";
-import { FaCircleCheck } from "react-icons/fa6";
 type userCardProps = {
   userRole: string;
   user: userProps;
@@ -20,7 +20,7 @@ const UserCard: React.FC<userCardProps> = ({ userRole, user }) => {
       <div className="flex flex-col space-y-2 items-start">
         <div className="flex items-center space-x-2">
           <h1 className="font-medium">{user.user_fullname}</h1>
-          {userRole === "npru" && <FaCircleCheck color="#952124" size={9} />}
+          {userRole === "npru" && <NpruVerify />}
         </div>
         <span className="text-base">{user.user_email}</span>
         <h1 className="text-xl font-medium">{userRole}</h1>

@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaCircleCheck } from "react-icons/fa6";
+import NpruVerify from "../ui/NpruVerify";
 
 type allArticleCardClientProps = {
   user: userProps | undefined;
@@ -63,7 +64,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
             <p className="ml-2">{user ? user.user_fullname : "undefind"}</p>
             {userRole &&
               userRole.some((user) => user.user_role_name === "npru") && (
-                <FaCircleCheck color="#952124" size={9} />
+                <NpruVerify />
               )}
           </div>
           <Link
