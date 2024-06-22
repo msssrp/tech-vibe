@@ -14,6 +14,18 @@ export async function getReadlists(
   return data;
 }
 
+export async function getReadlistsOnServer(
+  user_id: string
+): Promise<readlistsProps[] | null> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("readlists")
+    .select("*")
+    .eq("user_id", user_id);
+  if (error) console.log(error);
+  return data;
+}
+
 export async function newReadlists(user_id: string, readlistsName: string) {
   const supabase = createSupabaseClient();
   const { error } = await supabase.from("readlists").insert({

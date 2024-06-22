@@ -1,26 +1,26 @@
-"use client";
 import React from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa6";
 import Link from "next/link";
 import Image from "next/image";
-import useProfile from "@/hook/useProfile";
 import { userProps } from "@/types/user/user";
+import { articleProps } from "@/types/article/article";
+import RightArticleCard from "@/components/main/rightSectionComponent/RightArticleCard";
 
 type profileProps = {
   user: userProps;
   sessionUserId: string;
   userFollower: number | null;
+  popularArticles: articleProps[] | null;
 };
 
 const Profile: React.FC<profileProps> = ({
   user,
   sessionUserId,
   userFollower,
+  popularArticles,
 }) => {
-  const { sliceArticleslist } = useProfile();
-
   return (
     <div className="w-2/6 py-12 pl-11 pr-2 ">
       <div className="flex flex-col items-center">
@@ -71,37 +71,22 @@ const Profile: React.FC<profileProps> = ({
         {/* popularArticles */}
         <div className="w-full space-y-3 mb-6 ">
           <h2 className="uppercase font-semibold text-lg">Popular articles</h2>
-          {sliceArticleslist().map((articleslist) => {
-            return (
-              <div
-                key={articleslist.id}
-                className="card-compact bg-[#F8F8F8] rounded-md px-4 "
-              >
-                <div className="card-body">
-                  <div className="avatar items-center">
-                    <div className="w-8 rounded-full">
-                      <Image
-                        src={articleslist.image}
-                        alt={articleslist.title}
-                        width={50}
-                        height={50}
-                      />
-                    </div>
-                    <p className="ml-2 text-[#606060]">{articleslist.author}</p>
-                  </div>
-                  <div className="card-title line-clamp-2">
-                    <p className="font-normal text-base">
-                      {articleslist.title}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {popularArticles &&
+            popularArticles.map((articleslist) => {
+              return (
+                <RightArticleCard
+                  article={articleslist}
+                  key={articleslist.article_id}
+                />
+              );
+            })}
           <div className="text-center pt-3">
-            <a href="#" className="underline cursor-pointer ">
+            <Link
+              href="/category/popular-articles"
+              className="underline cursor-pointer "
+            >
               show more
-            </a>
+            </Link>
           </div>
         </div>
       </div>

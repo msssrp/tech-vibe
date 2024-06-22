@@ -1,14 +1,20 @@
 "use client";
 import { Tabs } from "@mantine/core";
-import React from "react";
-import StatisticChat from "./StatisticChat";
+import React, { useEffect, useState } from "react";
 import AllArticleCardClient from "@/components/main/AllArticleCardClient";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { userProps } from "@/types/user/user";
 import { articleProps } from "@/types/article/article";
-
+import ArticleCard from "./childComponent/ArticleCard";
+import SavedArticleCard from "./childComponent/SavedArticleCard";
+import { readlistsProps } from "@/types/readlists/readlists";
+import StatisticChart from "./StatisticChart";
+import CountUp from "react-countup";
+import {
+  getAllArticlesViews,
+  getAllArticleUps,
+  getArticlesViewsWithDate,
+} from "@/libs/actions/article/articleStat";
 type profileTabsProps = {
   user: userProps;
   userRole:
@@ -18,16 +24,48 @@ type profileTabsProps = {
     | null;
   sessionUserId: string;
   articles: articleProps[];
+  userArticles?: articleProps[];
+  readlists?: readlistsProps[] | null;
 };
+
+type statsData = {
+  articleViewsWithDate:
+    | {
+        views: number;
+        ups: number;
+        date: string;
+      }[]
+    | null;
+};
+
 const ProfilTabs: React.FC<profileTabsProps> = ({
   user,
   sessionUserId,
   userRole,
   articles,
+  userArticles,
+  readlists,
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const tabValue = searchParams.get("tab") ?? "Home";
+  const [articleViews, setArticleViews] = useState<number | null>();
+  const [totalUps, setTotalUps] = useState<number | null>();
+  const [statsData, setStatsData] =
+    useState<statsData["articleViewsWithDate"]>();
+  useEffect(() => {
+    const getUserStats = async () => {
+      const articleViews = await getAllArticlesViews(sessionUserId);
+      setArticleViews(articleViews);
+      const totalUps = await getAllArticleUps(sessionUserId);
+      setTotalUps(totalUps);
+      const articleViewsWithDate = await getArticlesViewsWithDate(
+        sessionUserId
+      );
+      setStatsData(articleViewsWithDate);
+    };
+    getUserStats();
+  }, [readlists, userArticles]);
   return (
     <div className="w-2/3 py-10">
       <div className="flex justify-between items-center mb-2">
@@ -90,403 +128,74 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                 </div>
               </div>
             </Tabs.Panel>
-            {user.user_id === sessionUserId && (
+            {user.user_id === sessionUserId && userArticles && (
               <>
                 <Tabs.Panel value="Articles">
                   <div className="px-6">
-                    <Link
-                      href={`/profile/${user.user_id}/published-articles`}
-                      className="card card-side rounded-none items-center my-8 px-4 bg-base-200"
-                    >
-                      <div className="card-body px-4 space-y-4">
-                        <div className="flex items-center space-x-4">
-                          <h2 className="card-title text-2xl ">
-                            Published articles
-                          </h2>
-                          <div className="badge bg-[#4ECB71] text-white py-4 px-4">
-                            Publish
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-9">
-                          <div className="avatar items-center">
-                            <div className="w-8 rounded-full">
-                              <Image
-                                width={50}
-                                height={50}
-                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="user Profile"
-                              />
-                            </div>
-                            <p className="ml-2 ">
-                              Heather McLeod in Human Parts
-                            </p>
-                          </div>
-                          <div>
-                            <ul className="list-disc">
-                              <li>10 articles</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <Image
-                          height={200}
-                          width={200}
-                          src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          alt="Picture"
-                          className="w-44"
-                        />
-                      </div>
-                    </Link>
-                    <Link
-                      href={`/profile/${user.user_id}/pending-articles`}
-                      className="card card-side rounded-none items-center my-8 px-4 bg-base-200"
-                    >
-                      <div className="card-body px-4 space-y-4">
-                        <div className="flex items-center space-x-4">
-                          <h2 className="card-title text-2xl ">
-                            Pending articles
-                          </h2>
-                          <div className="badge bg-[#FFD556] text-white py-4 px-4">
-                            Pending
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-9">
-                          <div className="avatar items-center">
-                            <div className="w-8 rounded-full">
-                              <Image
-                                width={50}
-                                height={50}
-                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="user Profile"
-                              />
-                            </div>
-                            <p className="ml-2 ">
-                              Heather McLeod in Human Parts
-                            </p>
-                          </div>
-                          <div>
-                            <ul className="list-disc">
-                              <li>5 articles</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <Image
-                          height={200}
-                          width={200}
-                          src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          alt="Picture"
-                          className="w-44"
-                        />
-                      </div>
-                    </Link>
-                    <Link
-                      href={`/profile/${user.user_id}/drafted-articles`}
-                      className="card card-side rounded-none items-center my-8 px-4 bg-base-200"
-                    >
-                      <div className="card-body px-4 space-y-4">
-                        <div className="flex items-center space-x-4">
-                          <h2 className="card-title text-2xl ">
-                            Drafted articles
-                          </h2>
-                          <div className="badge bg-[#606060] opacity-50 text-white py-4 px-4">
-                            Draft
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-9">
-                          <div className="avatar items-center">
-                            <div className="w-8 rounded-full">
-                              <Image
-                                width={50}
-                                height={50}
-                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="user Profile"
-                              />
-                            </div>
-                            <p className="ml-2 ">
-                              Heather McLeod in Human Parts
-                            </p>
-                          </div>
-                          <div>
-                            <ul className="list-disc">
-                              <li>10 articles</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <Image
-                          height={200}
-                          width={200}
-                          src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          alt="Picture"
-                          className="w-44"
-                        />
-                      </div>
-                    </Link>
-                    <Link
-                      href={`/profile/${user.user_id}/hidden-articles`}
-                      className="card card-side rounded-none items-center my-8 px-4 bg-base-200"
-                    >
-                      <div className="card-body px-4 space-y-4">
-                        <div className="flex items-center space-x-4">
-                          <h2 className="card-title text-2xl ">
-                            Hidden articles
-                          </h2>
-                          <div className="badge bg-[#FF9A62] text-white py-4 px-4">
-                            Hidden
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-9">
-                          <div className="avatar items-center">
-                            <div className="w-8 rounded-full">
-                              <Image
-                                width={50}
-                                height={50}
-                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="user Profile"
-                              />
-                            </div>
-
-                            <p className="ml-2 ">
-                              Heather McLeod in Human Parts
-                            </p>
-                          </div>
-                          <div>
-                            <ul className="list-disc">
-                              <li>2 articles</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <Image
-                          height={200}
-                          width={200}
-                          src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          alt="Picture"
-                          className="w-44"
-                        />
-                      </div>
-                    </Link>
+                    <ArticleCard
+                      user={user}
+                      cardTitle="Published"
+                      articleStatus="Publish"
+                      articleTotal={
+                        userArticles.filter(
+                          (article) => article.article_status === "public"
+                        ).length
+                      }
+                      articleCover={userArticles.map(
+                        (item) => item.article_cover
+                      )}
+                    />
+                    <ArticleCard
+                      user={user}
+                      cardTitle="Pending"
+                      articleStatus="Pending"
+                      articleTotal={
+                        userArticles.filter(
+                          (article) => article.article_status === "pending"
+                        ).length
+                      }
+                      articleCover={userArticles.map(
+                        (item) => item.article_cover
+                      )}
+                    />
+                    <ArticleCard
+                      user={user}
+                      cardTitle="Drafted"
+                      articleStatus="Draft"
+                      articleTotal={
+                        userArticles.filter(
+                          (article) => article.article_status === "draft"
+                        ).length
+                      }
+                      articleCover={userArticles.map(
+                        (item) => item.article_cover
+                      )}
+                    />
+                    <ArticleCard
+                      user={user}
+                      cardTitle="Hidden"
+                      articleStatus="Hidden"
+                      articleTotal={
+                        userArticles.filter(
+                          (article) => article.article_status === "hidden"
+                        ).length
+                      }
+                      articleCover={userArticles.map(
+                        (item) => item.article_cover
+                      )}
+                    />
                   </div>
                 </Tabs.Panel>
                 <Tabs.Panel value="Library">
                   <div className="px-6">
-                    <Link
-                      href={`/profile/${user.user_id}/library`}
-                      className="card card-side rounded-none items-center my-8 px-4 bg-base-200"
-                    >
-                      <div className="card-body px-4 space-y-4">
-                        <div className="flex items-center space-x-4">
-                          <h2 className="card-title text-2xl ">UX/UI</h2>
-                        </div>
-                        <div className="flex items-center space-x-9">
-                          <div className="avatar items-center">
-                            <div className="w-8 rounded-full">
-                              <Image
-                                width={50}
-                                height={50}
-                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="user Profile"
-                              />
-                            </div>
-                            <p className="ml-2 ">
-                              Heather McLeod in Human Parts
-                            </p>
-                          </div>
-                          <div>
-                            <ul className="list-disc flex space-x-1">
-                              <li>10 lists</li>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-5 h-5"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-                                />
-                              </svg>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <Image
-                          height={200}
-                          width={200}
-                          src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          alt="Picture"
-                          className="w-44"
+                    {readlists &&
+                      readlists.map((readlist) => (
+                        <SavedArticleCard
+                          key={readlist.readlists_id}
+                          user={user}
+                          readlist={readlist}
                         />
-                      </div>
-                    </Link>
-                    <Link
-                      href={`/profile/${user.user_id}/library`}
-                      className="card card-side rounded-none items-center my-8 px-4 bg-base-200"
-                    >
-                      <div className="card-body px-4 space-y-4">
-                        <div className="flex items-center space-x-4">
-                          <h2 className="card-title text-2xl ">Development</h2>
-                        </div>
-                        <div className="flex items-center space-x-9">
-                          <div className="avatar items-center">
-                            <div className="w-8 rounded-full">
-                              <Image
-                                width={50}
-                                height={50}
-                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="user Profile"
-                              />
-                            </div>
-                            <p className="ml-2 ">
-                              Heather McLeod in Human Parts
-                            </p>
-                          </div>
-                          <div>
-                            <ul className="list-disc flex space-x-1">
-                              <li>5 lists</li>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-5 h-5"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-                                />
-                              </svg>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <Image
-                          height={200}
-                          width={200}
-                          src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          alt="Picture"
-                          className="w-44"
-                        />
-                      </div>
-                    </Link>
-                    <Link
-                      href={`/profile/${user.user_id}/library`}
-                      className="card card-side rounded-none items-center my-8 px-4 bg-base-200"
-                    >
-                      <div className="card-body px-4 space-y-4">
-                        <div className="flex items-center space-x-4">
-                          <h2 className="card-title text-2xl ">Javascript</h2>
-                        </div>
-                        <div className="flex items-center space-x-9">
-                          <div className="avatar items-center">
-                            <div className="w-8 rounded-full">
-                              <Image
-                                width={50}
-                                height={50}
-                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="user Profile"
-                              />
-                            </div>
-                            <p className="ml-2 ">
-                              Heather McLeod in Human Parts
-                            </p>
-                          </div>
-                          <div>
-                            <ul className="list-disc flex space-x-1">
-                              <li>10 lists</li>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-5 h-5"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-                                />
-                              </svg>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <Image
-                          height={200}
-                          width={200}
-                          src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          alt="Picture"
-                          className="w-44"
-                        />
-                      </div>
-                    </Link>
-                    <Link
-                      href={`/profile/${user.user_id}/library`}
-                      className="card card-side rounded-none items-center my-8 px-4 bg-base-200"
-                    >
-                      <div className="card-body px-4 space-y-4">
-                        <div className="flex items-center space-x-4">
-                          <h2 className="card-title text-2xl ">Tester</h2>
-                        </div>
-                        <div className="flex items-center space-x-9">
-                          <div className="avatar items-center">
-                            <div className="w-8 rounded-full">
-                              <Image
-                                width={50}
-                                height={50}
-                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="user Profile"
-                              />
-                            </div>
-                            <p className="ml-2 ">
-                              Heather McLeod in Human Parts
-                            </p>
-                          </div>
-                          <div>
-                            <ul className="list-disc flex space-x-1">
-                              <li>2 lists</li>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-5 h-5"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-                                />
-                              </svg>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <Image
-                          height={200}
-                          width={200}
-                          src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          alt="Picture"
-                          className="w-44"
-                        />
-                      </div>
-                    </Link>
+                      ))}
                   </div>
                 </Tabs.Panel>
                 <Tabs.Panel value="Statistic">
@@ -499,23 +208,28 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                     <div className="my-10 flex justify-between items-center ">
                       <div className="flex items-center space-x-24">
                         <div className="Views">
-                          <p className="text-center font-medium text-3xl">0</p>
+                          <p className="text-center font-medium text-3xl">
+                            <CountUp
+                              end={articleViews ? articleViews : 0}
+                              duration={4}
+                            />
+                          </p>
                           <span className="text-center">Views</span>
                         </div>
                         <div className="Ups">
-                          <p className="text-center font-medium text-3xl">0</p>
+                          <p className="text-center font-medium text-3xl">
+                            <CountUp
+                              end={totalUps ? totalUps : 0}
+                              duration={4}
+                            />
+                          </p>
                           <span className="text-center">Ups</span>
                         </div>
                       </div>
-                      <select className="select select-bordered">
-                        <option disabled defaultValue={"Mar 2024"}>
-                          Mar 2024
-                        </option>
-                        <option>Feb 2024</option>
-                        <option>Jan 2024</option>
-                      </select>
                     </div>
-                    <StatisticChat />
+                    {statsData && (
+                      <StatisticChart articleViewsWithDate={statsData} />
+                    )}
                   </div>
                 </Tabs.Panel>
               </>

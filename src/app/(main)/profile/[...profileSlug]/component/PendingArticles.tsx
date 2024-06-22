@@ -1,13 +1,29 @@
 "use client";
+import AllArticleCardClient from "@/components/main/AllArticleCardClient";
+import { articleProps } from "@/types/article/article";
+import { userProps } from "@/types/user/user";
 import { Tabs } from "@mantine/core";
 import Link from "next/link";
 import React from "react";
 
 type pendingArticles = {
   userId: string;
+  articles: articleProps[];
+  user: userProps;
+  userRole:
+    | {
+        user_role_name: string;
+      }[]
+    | null
+    | undefined;
 };
 
-const PendingArticles: React.FC<pendingArticles> = ({ userId }) => {
+const PendingArticles: React.FC<pendingArticles> = ({
+  userId,
+  articles,
+  user,
+  userRole,
+}) => {
   return (
     <div className="w-2/3 py-10">
       <div className="flex items-center space-x-6 mb-2">
@@ -50,7 +66,20 @@ const PendingArticles: React.FC<pendingArticles> = ({ userId }) => {
             </Tabs.List>
             <Tabs.Panel value="Articles">
               <div className="pr-11 h-auto overflow-y-scroll no-scrollbar">
-                <div className="space-y-2 "></div>
+                <div className="space-y-2 ">
+                  {articles &&
+                    articles.map((article) => (
+                      <AllArticleCardClient
+                        key={article.article_id}
+                        article={article}
+                        userId={userId}
+                        user={user}
+                        articleId={article.article_id}
+                        userRole={userRole}
+                        interactBtn={true}
+                      />
+                    ))}
+                </div>
               </div>
             </Tabs.Panel>
           </Tabs>

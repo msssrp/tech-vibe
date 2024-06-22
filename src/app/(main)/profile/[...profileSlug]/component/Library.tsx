@@ -1,20 +1,30 @@
 "use client";
+import AllArticleCardClient from "@/components/main/AllArticleCardClient";
+import { articleProps } from "@/types/article/article";
+import { userProps } from "@/types/user/user";
 import { Tabs } from "@mantine/core";
 import Link from "next/link";
 import React from "react";
-import useProfile from "@/hook/useProfile";
 
 type library = {
   userId: string;
+  user: userProps;
+  result: {
+    user: userProps;
+    userRole:
+      | {
+          user_role_name: string;
+        }[]
+      | null;
+    article: articleProps;
+  }[];
 };
 
-const Library: React.FC<library> = ({ userId }) => {
-  const { userData } = useProfile(userId);
-
+const Library: React.FC<library> = ({ user, userId, result }) => {
   return (
     <div className="w-2/3 py-10">
       <div className="flex items-center space-x-6 mb-2">
-        <h2 className="text-3xl font-medium">{userData?.user_fullname}</h2>
+        <h2 className="text-3xl font-medium">{user.user_fullname}</h2>
       </div>
       <div className="flex items-center space-x-2 mx-2 sticky top-0 bg-base-100 z-10">
         <div className="w-full">
@@ -52,7 +62,18 @@ const Library: React.FC<library> = ({ userId }) => {
             </Tabs.List>
             <Tabs.Panel value="Library">
               <div className="pr-11 h-auto overflow-y-scroll no-scrollbar">
-                <div className="space-y-2 "></div>
+                <div className="space-y-2 ">
+                  {result.map((item) => (
+                    <AllArticleCardClient
+                      user={item.user}
+                      article={item.article}
+                      userRole={item.userRole}
+                      articleId={item.article.article_id}
+                      userId={user.user_id}
+                      interactBtn={true}
+                    />
+                  ))}
+                </div>
               </div>
             </Tabs.Panel>
           </Tabs>

@@ -5,7 +5,6 @@ import { articleProps } from "@/types/article/article";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FaCircleCheck } from "react-icons/fa6";
 
 type rightArticleCard = {
   article: articleProps;

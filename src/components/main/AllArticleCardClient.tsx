@@ -1,7 +1,6 @@
 "use client";
 import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
 import { getArticleTagsFromClient } from "@/libs/actions/tag/tag";
-import { getUserRole } from "@/libs/actions/user/user_role";
 import { calculateReadingTime } from "@/libs/getReadingTimeOnArticle";
 import { articleProps } from "@/types/article/article";
 import { tagProps } from "@/types/tag/tag";
@@ -9,7 +8,6 @@ import { userProps } from "@/types/user/user";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { FaCircleCheck } from "react-icons/fa6";
 import NpruVerify from "../ui/NpruVerify";
 
 type allArticleCardClientProps = {
