@@ -31,6 +31,46 @@ export async function getAllArticle(): Promise<articleProps[]> {
   return data as articleProps[];
 }
 
+export async function getAllArticleByUserId(
+  userId: string
+): Promise<articleProps[]> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("user_id", userId);
+  if (error) throw new Error(error.message);
+  return data as articleProps[];
+}
+
+export async function getArticleByStatusOnUserId(
+  userId: string,
+  status: string
+): Promise<articleProps[]> {
+  const supabase = await createSupabaseServerClient();
+
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("article_status", status)
+    .eq("user_id", userId);
+  if (error) console.log("error from getArticleByStatusOnUserId", error);
+
+  return data as articleProps[];
+}
+
+export async function getArticleCoverByArticleId(articleId: string) {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("article_cover")
+    .eq("article_id", articleId)
+    .single();
+
+  if (error) console.log("error from getArticleCoverByArticleId", error);
+  return data?.article_cover;
+}
+
 export async function getAllArticleOnClient(): Promise<articleProps[]> {
   const supabase = createSupabaseClient();
   const { data, error } = await supabase.from("article").select("*");
@@ -132,6 +172,17 @@ export async function getArticleById(
 
 export async function getArticleByUserId(userId: string) {
   const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("user_id", userId)
+    .eq("article_status", "public");
+  if (error) console.log(error);
+  return data as articleProps[];
+}
+
+export async function getArticleByUserIdOnServer(userId: string) {
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("article")
     .select("*")

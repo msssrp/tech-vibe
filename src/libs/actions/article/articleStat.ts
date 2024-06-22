@@ -141,3 +141,111 @@ export async function getUserDowns(
   if (error) console.log(error);
   return data;
 }
+
+export async function getAllArticlesViews(userId: string) {
+  const supabase = createSupabaseClient();
+  const { data: articleIds, error } = await supabase
+    .from("article")
+    .select("article_id")
+    .eq("user_id", userId);
+  if (error) console.log("error from get article ids", error);
+  if (!articleIds) return null;
+  const articleViewsPromise = articleIds.map(async (article) => {
+    const { data: articleViews, error } = await supabase
+      .from("article_statistics")
+      .select("articleStat_views")
+      .eq("article_id", article.article_id);
+    if (error) {
+      console.log("error from articleViewsPromise", error);
+      return null;
+    }
+    return articleViews;
+  });
+  const articleViews = await Promise.all(articleViewsPromise);
+  const totalViews = articleViews.reduce((sum, articleViewArray) => {
+    if (articleViewArray) {
+      return (
+        sum +
+        articleViewArray.reduce(
+          (innerSum, articleView) => innerSum + articleView.articleStat_views,
+          0
+        )
+      );
+    }
+    return sum;
+  }, 0);
+
+  return totalViews;
+}
+
+export async function getAllArticleUps(userId: string) {
+  const supabase = createSupabaseClient();
+  const { data: articleIds, error } = await supabase
+    .from("article")
+    .select("article_id")
+    .eq("user_id", userId);
+  if (error) console.log("error from get article ids", error);
+  if (!articleIds) return null;
+  const articleUpsPromise = articleIds.map(async (article) => {
+    const { data: articleUps, error } = await supabase
+      .from("article_statistics")
+      .select("articleStat_ups")
+      .eq("article_id", article.article_id);
+    if (error) {
+      console.log("error from articleUpsPromise", error);
+      return null;
+    }
+    return articleUps;
+  });
+  const articleUps = await Promise.all(articleUpsPromise);
+  const totalViews = articleUps.reduce((sum, articleUpsArray) => {
+    if (articleUpsArray) {
+      return (
+        sum +
+        articleUpsArray.reduce(
+          (innerSum, articleView) => innerSum + articleView.articleStat_ups,
+          0
+        )
+      );
+    }
+    return sum;
+  }, 0);
+
+  return totalViews;
+}
+
+export async function getArticlesViewsWithDate(userId: string) {
+  const supabase = createSupabaseClient();
+  const { data: articleIds, error } = await supabase
+    .from("article")
+    .select("article_id")
+    .eq("user_id", userId);
+  if (error) console.log("error from get article ids", error);
+  if (!articleIds) return null;
+  const articleViewsPromise = articleIds.map(async (article) => {
+    const { data: articleViews, error } = await supabase
+      .from("article_statistics")
+      .select("articleStat_views,articleStat_ups,articleStat_createdAt")
+      .eq("article_id", article.article_id);
+    if (error) {
+      console.log("error from articleViewsPromise", error);
+      return null;
+    }
+    return articleViews;
+  });
+  const articleViewsWithDate = await Promise.all(articleViewsPromise);
+  const flattenedViews = articleViewsWithDate.flat().map((view) => {
+    const date = new Date(view?.articleStat_createdAt);
+    const formattedDate = date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "2-digit",
+    });
+    return {
+      views: view?.articleStat_views,
+      ups: view?.articleStat_ups,
+      date: formattedDate,
+    };
+  });
+
+  return flattenedViews;
+}

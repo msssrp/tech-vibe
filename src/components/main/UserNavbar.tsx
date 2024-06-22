@@ -66,7 +66,6 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
             prevData.findIndex(
               (item) => item.notification_id === payload.new.notification_id
             );
-          //-1 in array is not found
           if (index === -1) {
             return [...prevData, payload.new];
           } else {
@@ -110,14 +109,16 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
         <Link
           href={`/write/[uid]/[user_id]`}
           as={`/write/${uid}/${user_id}`}
-          className="mr-4 flex items-center space-x-2.5">
+          className="mr-4 flex items-center space-x-2.5"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="#C9C9C8"
-            className="w-6 h-6">
+            className="w-6 h-6"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -134,7 +135,8 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="#9A9A9B"
-              className="w-6 h-6">
+              className="w-6 h-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -153,7 +155,8 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
             <div
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-72 lg:w-80 overflow-auto relative h-screen"
               tabIndex={0}
-              style={{ maxHeight: "calc(100vh - 4rem)" }}>
+              style={{ maxHeight: "calc(100vh - 4rem)" }}
+            >
               <ScrollArea type="auto" scrollbarSize={8} offsetScrollbars>
                 <div className="p-2">
                   <span className="text-lg">Notifications</span>
@@ -167,7 +170,8 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-ghost btn-circle avatar">
+            className="btn btn-ghost btn-circle avatar"
+          >
             <div className="w-9 rounded-full">
               {isLoading ? (
                 <ProfileLoading />
@@ -184,7 +188,8 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
           </div>
           <ul
             tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-64">
+            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-64"
+          >
             <div className="border-b flex justify-stretch items-center">
               <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className=" w-9 rounded-full">
@@ -214,7 +219,8 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="#952124"
-                  className="w-6 h-6">
+                  className="w-6 h-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

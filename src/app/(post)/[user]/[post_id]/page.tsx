@@ -23,7 +23,6 @@ export async function generateMetadata({
   const articleNameAndId = params.post_id;
   const splitArticle = articleNameAndId.split("-");
   const articleTitleArray = splitArticle.slice(0, -1);
-
   const articleTitle = articleTitleArray.join("-");
   const articleId = splitArticle[splitArticle.length - 1];
   const article = await getArticleByUsernamandPostId(
@@ -51,7 +50,6 @@ const Page = async ({
   const articleTitleArray = splitArticle.slice(0, -1);
   const articleTitle = articleTitleArray.join("-");
   const articleId = splitArticle[splitArticle.length - 1];
-
   const openCommend = searchParams.commend;
   const {
     article,
@@ -76,6 +74,12 @@ const Page = async ({
       userSession.data.user.id
     );
   }
+
+  if (
+    article.pgrst_scalar.article_status !== "public" &&
+    article.pgrst_scalar.user_id !== userSession.data.user?.id
+  )
+    redirect("/");
 
   return (
     <div>
@@ -162,7 +166,8 @@ const Page = async ({
                 size="lg"
                 autoContrast
                 color="rgba(242,242,242)"
-                className="text-black">
+                className="text-black"
+              >
                 {tag}
               </Badge>
             ))}
