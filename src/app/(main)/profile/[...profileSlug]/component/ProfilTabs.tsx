@@ -65,7 +65,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
       setStatsData(articleViewsWithDate);
     };
     getUserStats();
-  }, [readlists, userArticles]);
+  }, [readlists, userArticles, sessionUserId]);
   return (
     <div className="w-2/3 py-10">
       <div className="flex justify-between items-center mb-2">
@@ -141,9 +141,14 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                           (article) => article.article_status === "public"
                         ).length
                       }
-                      articleCover={userArticles.map(
-                        (item) => item.article_cover
-                      )}
+                      articleCover={userArticles
+                        .map((item) => {
+                          if (item.article_status === "public") {
+                            return item.article_cover;
+                          }
+                          return undefined;
+                        })
+                        .filter((cover) => cover !== undefined)}
                     />
                     <ArticleCard
                       user={user}
@@ -154,9 +159,14 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                           (article) => article.article_status === "pending"
                         ).length
                       }
-                      articleCover={userArticles.map(
-                        (item) => item.article_cover
-                      )}
+                      articleCover={userArticles
+                        .map((item) => {
+                          if (item.article_status === "pending") {
+                            return item.article_cover;
+                          }
+                          return undefined;
+                        })
+                        .filter((cover) => cover !== undefined)}
                     />
                     <ArticleCard
                       user={user}
@@ -167,9 +177,14 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                           (article) => article.article_status === "draft"
                         ).length
                       }
-                      articleCover={userArticles.map(
-                        (item) => item.article_cover
-                      )}
+                      articleCover={userArticles
+                        .map((item) => {
+                          if (item.article_status === "draft") {
+                            return item.article_cover;
+                          }
+                          return undefined;
+                        })
+                        .filter((cover) => cover !== undefined)}
                     />
                     <ArticleCard
                       user={user}
@@ -180,9 +195,14 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                           (article) => article.article_status === "hidden"
                         ).length
                       }
-                      articleCover={userArticles.map(
-                        (item) => item.article_cover
-                      )}
+                      articleCover={userArticles
+                        .map((item) => {
+                          if (item.article_status === "hidden") {
+                            return item.article_cover;
+                          }
+                          return undefined;
+                        })
+                        .filter((cover) => cover !== undefined)}
                     />
                   </div>
                 </Tabs.Panel>

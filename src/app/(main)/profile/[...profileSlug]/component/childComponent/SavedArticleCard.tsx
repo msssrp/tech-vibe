@@ -1,4 +1,5 @@
 "use client";
+import LibraryDropdown from "@/components/ui/LibraryDropdown";
 import { getArticleCoverByArticleId } from "@/libs/actions/article/article";
 import { getSavedArticleByReadlistId } from "@/libs/actions/savedArticle/savedArticle";
 import { readlistsProps } from "@/types/readlists/readlists";
@@ -39,14 +40,18 @@ const SavedArticleCard: React.FC<savedArticleCardProps> = ({
   }, [readlist.readlists_id]);
 
   return (
-    <Link
-      href={`/profile/${user.user_id}/library/${readlist.readlists_id}`}
-      className="card card-side rounded-none items-center my-8 px-4 bg-base-200"
-    >
+    <div className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
       <div className="card-body px-4 space-y-4">
-        <div className="flex items-center space-x-4">
-          <h2 className="card-title text-2xl ">{readlist.readlists_name}</h2>
+        <div className="flex items-center justify-between">
+          <Link
+            href={`/profile/${user.user_id}/library/${readlist.readlists_id}`}
+            className="flex items-center space-x-4"
+          >
+            <h2 className="card-title text-2xl ">{readlist.readlists_name}</h2>
+          </Link>
+          <LibraryDropdown readlistName={readlist.readlists_name} readlistId={readlist.readlists_id}/>
         </div>
+
         <div className="flex items-center space-x-9">
           <div className="avatar items-center">
             <div className="w-8 rounded-full">
@@ -95,7 +100,7 @@ const SavedArticleCard: React.FC<savedArticleCardProps> = ({
           </span>
         )}
       </div>
-    </Link>
+    </div>
   );
 };
 

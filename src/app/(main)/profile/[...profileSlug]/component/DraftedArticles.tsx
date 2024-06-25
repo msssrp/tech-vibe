@@ -77,6 +77,7 @@ const DraftedArticles: React.FC<draftedArticles> = ({
                         articleId={article.article_id}
                         userRole={userRole}
                         interactBtn={true}
+                        isDraft={true}
                       />
                     ))}
                 </div>

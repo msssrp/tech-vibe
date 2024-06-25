@@ -24,7 +24,7 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = ({ article }) => {
       setTags(tags);
     };
     fetchData();
-  }, []);
+  }, [article.article_id, article.user_id]);
   const slugUrl = ConvertUrlToSlug(article.article_title);
   if (!user) return;
   return (
@@ -34,7 +34,8 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = ({ article }) => {
           <div className="flex flex-col max-h-32 ">
             <Link
               href={`/profile/${user.user_id}`}
-              className="avatar items-center h-1/3">
+              className="avatar items-center h-1/3"
+            >
               <div className="w-8 rounded-full">
                 <Image
                   loading="lazy"
@@ -48,7 +49,8 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = ({ article }) => {
             </Link>
             <Link
               href={`/post/${ConvertUrlToSlug(slugUrl)}`}
-              className="card-title text-xl flex-1 mt-3">
+              className="card-title text-xl flex-1 mt-3"
+            >
               {article.article_title}
             </Link>
           </div>
@@ -64,7 +66,8 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = ({ article }) => {
                   return (
                     <button
                       key={index}
-                      className={`btn btn-sm badge bg-[#F2F2F2] rounded-full `}>
+                      className={`btn btn-sm badge bg-[#F2F2F2] rounded-full `}
+                    >
                       <p className="font-thin">{tag}</p>
                     </button>
                   );

@@ -6,12 +6,14 @@ type tinyProps = {
   editorRef: any;
   handlerEditorChange: any;
   handlerImageUpload: any;
+  initData?: string;
 };
 
 const TinyEditor: React.FC<tinyProps> = ({
   editorRef,
   handlerEditorChange,
   handlerImageUpload,
+  initData,
 }) => {
   return (
     <>
@@ -21,6 +23,7 @@ const TinyEditor: React.FC<tinyProps> = ({
         onEditorChange={(newContent: any, editor: any) => {
           handlerEditorChange(newContent, editor);
         }}
+        initialValue={initData && initData}
         init={{
           height: 500,
           toolbar: false,

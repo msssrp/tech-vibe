@@ -167,6 +167,8 @@ export async function getArticleById(
     .eq("article_id", article_id)
     .limit(1)
     .single();
+  if (error) console.log("error from getarticleById", error);
+
   return data;
 }
 
@@ -371,7 +373,8 @@ export async function getArticleByFollowingUserAndTag(
     const { data: articleIdFromUserId, error: errorArticleId } = await supabase
       .from("article")
       .select("article_id")
-      .eq("user_id", id);
+      .eq("user_id", id)
+      .eq("article_status", "public");
     if (errorArticleId)
       console.log("error from loop article id", errorArticleId);
     return articleIdFromUserId;

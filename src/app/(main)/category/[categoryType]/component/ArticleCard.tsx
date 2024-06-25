@@ -26,10 +26,12 @@ const ArticleCard: React.FC<articleCardProps> = async ({ article, userId }) => {
   return (
     <div className="w-80 h-[22rem] flex flex-col space-y-1 mr-12 mt-8">
       <div className="h-40 w-full mb-3">
-        <img
+        <Image
           src={article.article_cover}
           alt="test"
           className="w-full h-full  rounded-t-xl"
+          height={160}
+          width={320}
         />
       </div>
       <Link

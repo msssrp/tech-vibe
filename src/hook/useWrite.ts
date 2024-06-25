@@ -15,7 +15,11 @@ import { userProps } from "@/types/user/user";
 import DOMPurify from "dompurify";
 import React, { useEffect, useRef, useState } from "react";
 
-const useWrite = (writeId: string, user: userProps) => {
+const useWrite = (
+  writeId: string,
+  user: userProps,
+  articleData?: articleProps
+) => {
   const [article, setArticle] = useState<articleProps>({
     article_id: writeId,
     article_content: "",
@@ -59,6 +63,10 @@ const useWrite = (writeId: string, user: userProps) => {
     const cleanHtml = DOMPurify.sanitize(newContent);
     setArticle((prev: any) => ({ ...prev, article_content: cleanHtml }));
   };
+
+  useEffect(() => {
+    if (articleData) return setArticle(articleData);
+  }, [articleData]);
 
   useEffect(() => {
     let saveTimeOut: NodeJS.Timeout;
@@ -120,7 +128,7 @@ const useWrite = (writeId: string, user: userProps) => {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [user.user_id]);
 
   const notificationRef = useRef(false);
   useEffect(() => {
