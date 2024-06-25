@@ -120,7 +120,7 @@ const useWrite = (writeId: string, user: userProps) => {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [user.user_id]);
 
   const notificationRef = useRef(false);
   useEffect(() => {

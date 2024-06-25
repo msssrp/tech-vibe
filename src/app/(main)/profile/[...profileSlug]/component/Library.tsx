@@ -65,6 +65,7 @@ const Library: React.FC<library> = ({ user, userId, result }) => {
                 <div className="space-y-2 ">
                   {result.map((item) => (
                     <AllArticleCardClient
+                      key={item.article.article_id}
                       user={item.user}
                       article={item.article}
                       userRole={item.userRole}

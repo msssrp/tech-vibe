@@ -12,6 +12,7 @@ import ModalTwitter from "./Modals/ModalTwitter";
 import ModalDelete from "./Modals/ModalDelete";
 import { userProps, userSocialProps } from "@/types/user/user";
 import { getUserSocial } from "@/libs/actions/user/user_social";
+import Image from "next/image";
 
 type editProfileProps = {
   user: userProps;
@@ -29,7 +30,7 @@ const EditProfile: React.FC<editProfileProps> = ({
       setUserSocials(userSocials);
     };
     getUserSocials();
-  }, []);
+  }, [user.user_id]);
 
   return (
     <div>
@@ -64,7 +65,8 @@ const EditProfile: React.FC<editProfileProps> = ({
                                     ? `${userSocials.user_social.user_social_github}`
                                     : "/#"
                                 }
-                                className="flex items-center">
+                                className="flex items-center"
+                              >
                                 <FaGithub className="w-7 h-7" />
                               </Link>
                             </div>
@@ -75,7 +77,8 @@ const EditProfile: React.FC<editProfileProps> = ({
                                     ? `${userSocials.user_social.user_social_facebook}`
                                     : "/#"
                                 }
-                                passHref={true}>
+                                passHref={true}
+                              >
                                 <FaFacebook className="w-7 h-7 text-[#1877F2]" />
                               </Link>
                             </div>
@@ -85,7 +88,8 @@ const EditProfile: React.FC<editProfileProps> = ({
                                   userSocials?.user_social.user_social_twitter
                                     ? `${userSocials.user_social.user_social_twitter}`
                                     : "/#"
-                                }>
+                                }
+                              >
                                 <FaSquareXTwitter className="w-7 h-7" />
                               </Link>
                             </div>
@@ -94,7 +98,10 @@ const EditProfile: React.FC<editProfileProps> = ({
                         <div className="image-user-profile">
                           <div className="avatar">
                             <div className="w-32 rounded-full">
-                              <img src={user.user_profile} />
+                              <Image
+                                src={user.user_profile}
+                                alt="TechVibe user"
+                              />
                             </div>
                           </div>
                         </div>
@@ -103,7 +110,9 @@ const EditProfile: React.FC<editProfileProps> = ({
                       <div className="mt-6">
                         {/* email */}
                         <div className="flex justify-between items-center py-2 border-b border-[#F2F2F2]">
-                          <p className="font-medium flex items-center h-12">Eamil address</p>
+                          <p className="font-medium flex items-center h-12">
+                            Eamil address
+                          </p>
                           <p className="text-[#606060]">{user.user_email}</p>
                         </div>
                         {/* Name */}

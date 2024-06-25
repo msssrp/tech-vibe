@@ -32,14 +32,14 @@ const FilterDisplayArticle: React.FC<filterDisplayArticleProps> = ({
         setInitTag((prevTag) => prevTag.filter((t) => t.tag_name !== tag));
       });
     }
-  }, []);
+  }, [tagOnParams]);
 
   useEffect(() => {
     if (selectTag?.length === 0) {
       params.delete("tag");
       router.push(pathname + "?" + params.toString());
     }
-  }, [selectTag, setSelectTag]);
+  }, [selectTag, setSelectTag, pathname, router]);
 
   const handleSelectTag = useCallback(
     (tag: string) => {
@@ -58,7 +58,7 @@ const FilterDisplayArticle: React.FC<filterDisplayArticleProps> = ({
       );
       return params.toString();
     },
-    [searchParams]
+    [tagOnParams]
   );
 
   const handleRemoveTag = useCallback(
@@ -73,13 +73,13 @@ const FilterDisplayArticle: React.FC<filterDisplayArticleProps> = ({
         return params.toString();
       }
     },
-    [searchParams]
+    [tagOnParams]
   );
 
   const handleClickFollowing = useCallback(() => {
     params.set("article", "following");
     return params.toString();
-  }, [searchParams]);
+  }, []);
 
   const handleClickAllArticle = () => {
     params.delete("article");

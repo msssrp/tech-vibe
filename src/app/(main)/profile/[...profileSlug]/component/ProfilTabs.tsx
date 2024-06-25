@@ -65,7 +65,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
       setStatsData(articleViewsWithDate);
     };
     getUserStats();
-  }, [readlists, userArticles]);
+  }, [readlists, userArticles, sessionUserId]);
   return (
     <div className="w-2/3 py-10">
       <div className="flex justify-between items-center mb-2">
