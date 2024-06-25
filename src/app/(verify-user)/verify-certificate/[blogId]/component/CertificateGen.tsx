@@ -3,15 +3,18 @@ import React from "react";
 import { Notifications } from "@mantine/notifications";
 import Image from "next/image";
 import useCertificateGen from "@/hook/useCertificateGen";
+
 type certiProps = {
   userFullName: string;
   articleName: string;
+  certificateImageUrl: string;
 };
 const CertificateGen: React.FC<certiProps> = ({
   userFullName,
   articleName,
+  certificateImageUrl,
 }) => {
-  const { certificateUri, onButtonClick, loadingState } = useCertificateGen(
+  const { onButtonClick, loadingState } = useCertificateGen(
     articleName,
     userFullName
   );
@@ -34,7 +37,7 @@ const CertificateGen: React.FC<certiProps> = ({
           <Image
             width={560}
             height={400}
-            src={`https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/${certificateUri}`}
+            src={certificateImageUrl}
             alt="TechVibe-Certificate-Themeplate"
             className="w-full h-full"
           />

@@ -18,9 +18,13 @@ import { getUserRole } from "@/libs/actions/user/user_role";
 
 type userNavbarProps = {
   notification: notificationProps[];
+  webLogoUrl: string;
 };
 
-const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
+const UserNavbar: React.FC<userNavbarProps> = ({
+  notification,
+  webLogoUrl,
+}) => {
   const [uid, setUid] = useState("");
   const {
     updateUserState,
@@ -89,7 +93,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({ notification }) => {
         <Link href={"/"}>
           <button>
             <Image
-              src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
+              src={webLogoUrl}
               width={40}
               alt="TechVibe"
               height={35}

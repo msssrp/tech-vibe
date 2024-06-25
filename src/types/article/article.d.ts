@@ -28,6 +28,7 @@ export type WriteProps = {
   isEdit?: boolean;
   articleData?: articleProps;
   articleTag?: tagProps;
+  webLogoUrl: string;
 };
 
 export type DrawerCommentProps = {

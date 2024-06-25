@@ -1,14 +1,13 @@
-import {
-  getArticleById,
-  getAuthorIdByArticleId,
-} from "@/libs/actions/article/article";
+import { getArticleById } from "@/libs/actions/article/article";
 import { getArticleUps } from "@/libs/actions/article/articleStat";
 import { getUser } from "@/libs/actions/user/user";
 import { redirect } from "next/navigation";
 import React from "react";
 import CertificateGen from "./component/CertificateGen";
 import getUserSession from "@/libs/actions/user/auth/getSession";
-import { getUpvotes } from "@/libs/actions/web3/web3";
+import { getCertificateUri, getUpvotes } from "@/libs/actions/web3/web3";
+
+const imagesPath = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
 
 const page = async ({ params }: { params: { blogId: string } }) => {
   const { data } = await getUserSession();
@@ -27,11 +26,13 @@ const page = async ({ params }: { params: { blogId: string } }) => {
     return redirect("/");
   }
   const user = await getUser(articleData.user_id);
-
+  const certPath = await getCertificateUri();
+  const certUrl = imagesPath + certPath;
   return (
     <CertificateGen
       userFullName={user.user_fullname}
       articleName={articleData.article_title}
+      certificateImageUrl={certUrl}
     />
   );
 };

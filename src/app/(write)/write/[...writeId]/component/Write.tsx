@@ -12,6 +12,7 @@ const Write: React.FC<WriteProps> = ({
   isEdit,
   articleData,
   articleTag,
+  webLogoUrl,
 }) => {
   const {
     isDesktop,
@@ -33,6 +34,7 @@ const Write: React.FC<WriteProps> = ({
           article={article}
           tagValue={tagValue}
           userRole={userRole}
+          webLogoUrl={webLogoUrl}
         />
         <div className="container mx-auto px-32 py-10">
           <div className="flex items-center justify-center mt-10 divide-x">
@@ -117,7 +119,7 @@ const Write: React.FC<WriteProps> = ({
         <Image
           width={60}
           height={60}
-          src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
+          src={webLogoUrl}
           alt="Tech-Vibe"
           quality={100}
           className="w-full h-auto bg-cover"

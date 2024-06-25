@@ -19,6 +19,7 @@ import ProfileItems from "../ui/ProfileItems";
 type WriteProps = {
   article: articleProps;
   userRole: { user_role_name: string }[] | null | undefined;
+  webLogoUrl: string;
 };
 
 const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
@@ -27,6 +28,7 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
   article,
   tagValue,
   userRole,
+  webLogoUrl,
 }) => {
   const router = useRouter();
 
@@ -60,7 +62,7 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
           <Link href={"/"}>
             <button type="button">
               <Image
-                src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
+                src={webLogoUrl}
                 width={40}
                 height={35}
                 alt="TechVibe"
@@ -72,7 +74,8 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
         <div className="flex-none space-x-5">
           <button
             onClick={handlerOnClick}
-            className=" bg-green-600 py-1.5 px-4 rounded-full text-white text-xs">
+            className=" bg-green-600 py-1.5 px-4 rounded-full text-white text-xs"
+          >
             Publish
           </button>
           <div className="dropdown dropdown-end">
@@ -83,7 +86,8 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="#9A9A9B"
-                className="w-6 h-6">
+                className="w-6 h-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -93,7 +97,8 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
               <div
                 className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-72 lg:w-80 overflow-auto relative h-screen"
                 tabIndex={0}
-                style={{ maxHeight: "calc(100vh - 4rem)" }}>
+                style={{ maxHeight: "calc(100vh - 4rem)" }}
+              >
                 <ScrollArea type="auto" scrollbarSize={8} offsetScrollbars>
                   <div className="p-2">
                     <span className="text-lg">Notifications</span>
@@ -107,7 +112,8 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost btn-circle avatar">
+              className="btn btn-ghost btn-circle avatar"
+            >
               <div className="w-9 rounded-full">
                 <Image
                   width={52}
@@ -123,7 +129,8 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
             </div>
             <ul
               tabIndex={0}
-              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+            >
               <div className="border-b flex justify-stretch items-center">
                 <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
                   <div className=" w-9 rounded-full">
@@ -155,7 +162,8 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="#952124"
-                    className="w-6 h-6">
+                    className="w-6 h-6"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"

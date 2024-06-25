@@ -10,6 +10,7 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 import { Metadata } from "next";
 import AdminLink from "./component/AdminLink";
 import AdminProfile from "./component/AdminProfile";
+import { getWebLogoUrl } from "@/libs/actions/setting/webSetting";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -17,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: "admin dashboard",
   };
 }
-
+const imagesPath = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
 export default async function RootLayout({
   children,
 }: {
@@ -31,6 +32,7 @@ export default async function RootLayout({
   if (userRole.every((user) => user.user_role_name !== "admin"))
     return redirect("/");
   const totalUser = await getTotalUser();
+  const webLogoUrl = await getWebLogoUrl();
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -68,7 +70,7 @@ export default async function RootLayout({
             <Link href={"/"}>
               <button>
                 <Image
-                  src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/techvibe-logo.png"
+                  src={imagesPath + webLogoUrl}
                   width={40}
                   alt="TechVibe"
                   height={35}
