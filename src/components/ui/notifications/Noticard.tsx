@@ -8,22 +8,9 @@ const Noticard: React.FC<NoticardProps> = ({
   content,
   type,
   status,
-  userId,
-  articleTitle,
 }) => {
-  const [link, setLink] = useState("/");
-  useEffect(() => {
-    if (articleTitle !== undefined && type === "comment") {
-      setLink(`post/${encodeURIComponent(articleTitle)}?commend=true`);
-    }
-    if (articleTitle !== undefined) {
-      setLink(`post/${encodeURIComponent(articleTitle)}`);
-    }
-    return () => setLink("/");
-  }, [articleTitle, type]);
-
   return (
-    <Link href={link} className="flex border-b justify-around p-2">
+    <div className="flex border-b justify-around p-2">
       <div className="mr-3">
         {type === "comment" ? (
           <svg
@@ -108,7 +95,7 @@ const Noticard: React.FC<NoticardProps> = ({
         <span className="font-bold">{title}</span>
         <span>{content}</span>
       </div>
-    </Link>
+    </div>
   );
 };
 
