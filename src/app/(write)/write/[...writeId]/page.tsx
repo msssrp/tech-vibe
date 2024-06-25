@@ -29,7 +29,6 @@ export default async function writepage({
 
   return (
     <div>
-      <Notifications />
       <Write user={data} writeId={writeId} />
     </div>
   );

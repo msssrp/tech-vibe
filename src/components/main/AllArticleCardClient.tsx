@@ -22,6 +22,7 @@ type allArticleCardClientProps = {
       }[]
     | null
     | undefined;
+  isDraft?: boolean;
 };
 
 const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
@@ -31,6 +32,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
   articleId,
   interactBtn,
   userRole,
+  isDraft,
 }) => {
   const [tags, setTags] = useState<tagProps | null>();
   useEffect(() => {
@@ -65,12 +67,21 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
                 <NpruVerify />
               )}
           </div>
-          <Link
-            href={`/${userWithHyphen}/${articleSlug}`}
-            className="card-title text-2xl flex-1 mt-3"
-          >
-            {article.article_title}
-          </Link>
+          {isDraft ? (
+            <Link
+              href={`/edit/${article.article_id}`}
+              className="card-title text-2xl flex-1 mt-3"
+            >
+              {article.article_title}
+            </Link>
+          ) : (
+            <Link
+              href={`/${userWithHyphen}/${articleSlug}`}
+              className="card-title text-2xl flex-1 mt-3"
+            >
+              {article.article_title}
+            </Link>
+          )}
         </div>
 
         <p className="line-clamp-2 text-[#616160]">
@@ -94,21 +105,23 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
                 );
               })}
           </div>
-          <div className="flex justify-between items-center w-2/3">
-            <div>
-              <p className="text-sm">{timeToRead} min read</p>
+          {!isDraft && (
+            <div className="flex justify-between items-center w-2/3">
+              <div>
+                <p className="text-sm">{timeToRead} min read</p>
+              </div>
+              <div className="flex space-x-3 items-center justify-center">
+                {interactBtn && user && article.article_status === "public" && (
+                  <InteractBtn
+                    user_id={userId}
+                    article_id={article.article_id}
+                    articleTitle={article.article_title}
+                    username={user.user_fullname}
+                  />
+                )}
+              </div>
             </div>
-            <div className="flex space-x-3 items-center justify-center">
-              {interactBtn && user && (
-                <InteractBtn
-                  user_id={userId}
-                  article_id={article.article_id}
-                  articleTitle={article.article_title}
-                  username={user.user_fullname}
-                />
-              )}
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <div className="flex-1 h-1/2">

@@ -16,7 +16,6 @@ import { getUser } from "@/libs/actions/user/user";
 import { getUserRoleOnServer } from "@/libs/actions/user/user_role";
 import { getReadlistsOnServer } from "@/libs/actions/readlists/readlists";
 import { getSavedArticleByReadlistIdOnServer } from "@/libs/actions/savedArticle/savedArticle";
-import { getArticleViews } from "@/libs/actions/article/articleStat";
 
 const page = async ({ params }: { params: { profileSlug: string[] } }) => {
   const currentUser = await getUserSession();

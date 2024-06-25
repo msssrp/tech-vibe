@@ -19,7 +19,7 @@ export async function getArticleTags(article_id: string) {
     .eq("article_id", article_id)
     .limit(1)
     .single();
-  if (error) console.log(error);
+  if (error) console.log("error from getArticleTags", error);
   return data;
 }
 

@@ -167,6 +167,8 @@ export async function getArticleById(
     .eq("article_id", article_id)
     .limit(1)
     .single();
+  if (error) console.log("error from getarticleById", error);
+
   return data;
 }
 

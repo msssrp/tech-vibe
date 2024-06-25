@@ -30,6 +30,8 @@ const ArticleCard: React.FC<articleCardProps> = async ({ article, userId }) => {
           src={article.article_cover}
           alt="test"
           className="w-full h-full  rounded-t-xl"
+          height={160}
+          width={320}
         />
       </div>
       <Link

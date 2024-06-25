@@ -7,6 +7,8 @@ import Image from "next/image";
 import { userProps } from "@/types/user/user";
 import { articleProps } from "@/types/article/article";
 import RightArticleCard from "@/components/main/rightSectionComponent/RightArticleCard";
+import FollowBtn from "@/app/(post)/[user]/[post_id]/component/FollowBtn";
+import { getUserThatFollowing } from "@/libs/actions/user/user_following";
 
 type profileProps = {
   user: userProps;
@@ -15,16 +17,20 @@ type profileProps = {
   popularArticles: articleProps[] | null;
 };
 
-const Profile: React.FC<profileProps> = ({
+const Profile: React.FC<profileProps> = async ({
   user,
   sessionUserId,
   userFollower,
   popularArticles,
 }) => {
+  const { count: userFollow } = await getUserThatFollowing(
+    user.user_id,
+    sessionUserId
+  );
   return (
     <div className="w-2/6 py-12 pl-11 pr-2 ">
       <div className="flex flex-col items-center">
-        <div className="profile text-center space-y-4 mb-12">
+        <div className="profile text-center space-y-4 mb-5">
           <div className="avatar">
             <div className="w-28 rounded-full">
               <Image
@@ -59,13 +65,19 @@ const Profile: React.FC<profileProps> = ({
               </Link>
             </div>
           </div>
-          {user.user_id === sessionUserId && (
+          {user.user_id === sessionUserId ? (
             <Link
               href={`/profile/edit-profile`}
               className="btn bg-black text-white text-base rounded-full px-6 py-2"
             >
               Edit
             </Link>
+          ) : (
+            <FollowBtn
+              isFollowing={userFollow}
+              ourUserId={sessionUserId}
+              userIdToFollow={user.user_id}
+            />
           )}
         </div>
         {/* popularArticles */}

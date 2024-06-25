@@ -101,6 +101,8 @@ const EditProfile: React.FC<editProfileProps> = ({
                               <Image
                                 src={user.user_profile}
                                 alt="TechVibe user"
+                                width={128}
+                                height={128}
                               />
                             </div>
                           </div>
