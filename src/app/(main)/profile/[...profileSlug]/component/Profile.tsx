@@ -14,7 +14,7 @@ type profileProps = {
   user: userProps;
   sessionUserId: string;
   userFollower: number | null;
-  popularArticles: articleProps[] | null;
+  popularArticles: articleProps[] | undefined;
 };
 
 const Profile: React.FC<profileProps> = async ({

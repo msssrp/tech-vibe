@@ -1,7 +1,7 @@
 import {
-  getAllArticle,
   getArticleByTag,
   getNpruArticle,
+  getPopularArticles,
 } from "@/libs/actions/article/article";
 import ArticleCard from "./component/ArticleCard";
 import getUserSession from "@/libs/actions/user/auth/getSession";
@@ -35,7 +35,7 @@ export default async function page({
     );
   }
   if (params.categoryType === "popular-articles") {
-    const articles = await getAllArticle();
+    const articles = await getPopularArticles();
     return (
       <div className="container mx-auto h-auto w-screen p-10">
         <div className="flex flex-col justify-center items-center">
@@ -44,13 +44,14 @@ export default async function page({
             <span className="text-red">Popular articles</span>
           </div>
           <div className="flex flex-wrap items-center justify-center w-full h-full">
-            {articles.map((article) => (
-              <ArticleCard
-                key={article.article_id}
-                article={article}
-                userId={data ? data.user?.id : undefined}
-              />
-            ))}
+            {articles &&
+              articles.map((article) => (
+                <ArticleCard
+                  key={article.article_id}
+                  article={article}
+                  userId={data ? data.user?.id : undefined}
+                />
+              ))}
           </div>
         </div>
       </div>
@@ -67,13 +68,17 @@ export default async function page({
           <span className="text-red">{tagNameWithoutHypen}</span>
         </div>
         <div className="flex flex-wrap items-center justify-center w-full h-full">
-          {articles.map((article) => (
-            <ArticleCard
-              key={article.article_id}
-              article={article}
-              userId={data ? data.user?.id : undefined}
-            />
-          ))}
+          {articles && articles.length > 0 ? (
+            articles.map((article) => (
+              <ArticleCard
+                key={article.article_id}
+                article={article}
+                userId={data ? data.user?.id : undefined}
+              />
+            ))
+          ) : (
+            <p className="mt-10">No article found on this tag</p>
+          )}
         </div>
       </div>
     </div>

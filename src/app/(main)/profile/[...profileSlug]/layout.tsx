@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { getUser } from "@/libs/actions/user/user";
 import { getUserFollower } from "@/libs/actions/user/user_following";
-import { getPopularArticle } from "@/libs/actions/article/article";
+import { getPopularArticles } from "@/libs/actions/article/article";
 
 export async function generateMetadata({
   params,
@@ -29,7 +29,7 @@ export default async function RootLayout({
   if (!data.user) redirect("/");
   const user = await getUser(params.profileSlug[0]);
   const userFollowNumber = await getUserFollower(user.user_id);
-  const popularArticles = await getPopularArticle();
+  const popularArticles = await getPopularArticles(4);
   return (
     <div className="container mx-auto px-44">
       <div className="flex divide-x h-auto relative">
