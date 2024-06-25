@@ -9,6 +9,7 @@ import { articleProps } from "@/types/article/article";
 import RightArticleCard from "@/components/main/rightSectionComponent/RightArticleCard";
 import FollowBtn from "@/app/(post)/[user]/[post_id]/component/FollowBtn";
 import { getUserThatFollowing } from "@/libs/actions/user/user_following";
+import { getUserSocial } from "@/libs/actions/user/user_social";
 
 type profileProps = {
   user: userProps;
@@ -27,6 +28,7 @@ const Profile: React.FC<profileProps> = async ({
     user.user_id,
     sessionUserId
   );
+  const { user_social } = await getUserSocial(user.user_id);
   return (
     <div className="w-2/6 py-12 pl-11 pr-2 ">
       <div className="flex flex-col items-center">
@@ -50,17 +52,36 @@ const Profile: React.FC<profileProps> = async ({
           )}
           <div className="social flex space-x-3 justify-center items-center">
             <div className="flex items-center">
-              <Link href="" className="flex items-center">
+              <Link
+                href={
+                  user_social.user_social_github
+                    ? user_social.user_social_github
+                    : "/#"
+                }
+                className="flex items-center"
+              >
                 <FaGithub className="w-8 h-8" />
               </Link>
             </div>
             <div className="flex items-center">
-              <Link href="">
+              <Link
+                href={
+                  user_social.user_social_facebook
+                    ? user_social.user_social_facebook
+                    : "/#"
+                }
+              >
                 <FaFacebook className="w-8 h-8 text-[#1877F2]" />
               </Link>
             </div>
             <div className="flex items-center">
-              <Link href="">
+              <Link
+                href={
+                  user_social.user_social_twitter
+                    ? user_social.user_social_twitter
+                    : "/#"
+                }
+              >
                 <FaSquareXTwitter className="w-8 h-8" />
               </Link>
             </div>

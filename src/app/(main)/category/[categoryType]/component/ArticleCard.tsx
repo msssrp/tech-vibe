@@ -21,7 +21,6 @@ const ArticleCard: React.FC<articleCardProps> = async ({ article, userId }) => {
   const articleTitleWithHypen = article.article_title.replace(/ /g, "-");
   const firstArticleId = article.article_id.split("-")[0];
   const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
-
   const userRole = await getUserRoleOnServer(user.user_id);
   return (
     <div className="w-80 h-[22rem] flex flex-col space-y-1 mr-12 mt-8">

@@ -15,7 +15,7 @@ export default async function page({
   if (params.categoryType === "npru-articles") {
     const articles = await getNpruArticle();
     return (
-      <div className="container mx-auto h-auto w-screen p-10">
+      <div className="container mx-auto min-h-screen w-screen p-10">
         <div className="flex flex-col justify-center items-center">
           <div className="text-lg text-base-content uppercase font-semibold flex items-center space-x-2">
             <h1 className="text-[#606060]">TECHNOLOGY ARTICLES BY </h1>
@@ -37,7 +37,7 @@ export default async function page({
   if (params.categoryType === "popular-articles") {
     const articles = await getPopularArticles();
     return (
-      <div className="container mx-auto h-auto w-screen p-10">
+      <div className="container mx-auto min-h-screen w-screen p-10">
         <div className="flex flex-col justify-center items-center">
           <div className="text-lg text-base-content uppercase font-semibold flex items-center space-x-2">
             <h1 className="text-[#606060]">TECHNOLOGY ARTICLES BY </h1>
@@ -61,7 +61,7 @@ export default async function page({
   const articles = await getArticleByTag(params.categoryType);
   const tagNameWithoutHypen = params.categoryType.replace(/-/g, " ");
   return (
-    <div className="container mx-auto h-auto w-screen p-10">
+    <div className="container mx-auto min-h-screen w-screen p-10">
       <div className="flex flex-col justify-center items-center">
         <div className="text-lg text-base-content uppercase font-semibold flex items-center space-x-2">
           <h1 className="text-[#606060]">TECHNOLOGY ARTICLES BY TAG </h1>
