@@ -4,22 +4,26 @@ import {
   updateWebLogoUrl,
   uploadNewLogo,
 } from "@/libs/actions/setting/webSetting";
+import { carouselProps } from "@/types/setting/setting";
 import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { PiNotePencilDuotone } from "react-icons/pi";
+import CarouselSettingCard from "./child-component/CarouselSettingCard";
 type settingsProps = {
   webLogoUrl: string;
+  carousels: carouselProps[] | null;
 };
 
 const imagesPath = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
 
-const Settings: React.FC<settingsProps> = ({ webLogoUrl }) => {
+const Settings: React.FC<settingsProps> = ({ webLogoUrl, carousels }) => {
   const [logoOpened, { open: logoOpen, close: logoClose }] =
     useDisclosure(false);
-
+  const [carouselOpened, { open: carouselOpen, close: carouselClose }] =
+    useDisclosure(false);
   const [selectedImage, setSelectedImage] = useState<
     string | ArrayBuffer | null
   >(null);
@@ -62,6 +66,40 @@ const Settings: React.FC<settingsProps> = ({ webLogoUrl }) => {
   };
   return (
     <>
+      <Modal
+        opened={carouselOpened}
+        onClose={carouselClose}
+        withCloseButton={false}
+        centered
+        size={1600}
+      >
+        <div className="flex flex-col items-center justify-center space-y-5">
+          <div className="uppercase font-semibold text-xl">
+            <h1>change carousel</h1>
+          </div>
+          <div className="text-sm text-[#606060]">
+            <span>Do you want to change the Carousel image?</span>
+          </div>
+          <div className="flex flex-wrap items-center justify-center">
+            {carousels &&
+              carousels.map((carousel) => (
+                <CarouselSettingCard
+                  carouselUrl={carousel.carousel_url}
+                  carouselId={carousel.id}
+                  key={carousel.id}
+                />
+              ))}
+          </div>
+          <div className="flex items-center justify-center uppercase space-x-4">
+            <button
+              className="btn w-36 bg-white text-gray-500"
+              onClick={carouselClose}
+            >
+              close
+            </button>
+          </div>
+        </div>
+      </Modal>
       <Modal
         opened={logoOpened}
         onClose={logoClose}
@@ -133,7 +171,10 @@ const Settings: React.FC<settingsProps> = ({ webLogoUrl }) => {
           onClick={logoOpen}
         />
       </div>
-      <div className="basis-2/3 bg-white h-52 flex flex-col items-center justify-center rounded-lg">
+      <div
+        className="basis-2/3 bg-white h-52 flex flex-col items-center justify-center rounded-lg cursor-pointer"
+        onClick={carouselOpen}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
