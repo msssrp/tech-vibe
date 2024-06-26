@@ -9,16 +9,23 @@ import { MantineProvider, createTheme } from "@mantine/core";
 //export const lora = Lora({ subsets: ["latin"] });
 import NextTopLoader from "nextjs-toploader";
 import { Notifications } from "@mantine/notifications";
-export const metadata: Metadata = {
-  title: {
-    default: "TechVibe",
-    template: "%s - TechVibe",
-  },
-  description: "Come and read Our Blog",
-  icons: {
-    icon: "https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/techvibe-logo.png",
-  },
-};
+import { getWebLogoUrl } from "@/libs/actions/setting/webSetting";
+const imagesPath = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const webLogoUrl = await getWebLogoUrl();
+  const logoUrl = imagesPath + webLogoUrl;
+  return {
+    title: {
+      default: "TechVibe",
+      template: "%s - TechVibe",
+    },
+    description: "Come and read Our Blog",
+    icons: {
+      icon: logoUrl,
+    },
+  };
+}
 
 const theme = createTheme({
   cursorType: "pointer",
