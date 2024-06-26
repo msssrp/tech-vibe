@@ -30,9 +30,11 @@ export const AdminUserProvider = ({
       const userRoleCount = await getUsersCount();
       const userModRoleCount = await getModeratorCount();
       const userAdminRoleCount = await getAdminCount();
-      if (userRoleCount !== undefined) setUserCount(userRoleCount);
-      if (userModRoleCount !== undefined) setModeratorCount(userModRoleCount);
-      if (userAdminRoleCount !== undefined) setAdminCount(userAdminRoleCount);
+      if (userRoleCount !== undefined) setUserCount(userRoleCount ?? 0);
+      if (userModRoleCount !== undefined)
+        setModeratorCount(userModRoleCount ?? 0);
+      if (userAdminRoleCount !== undefined)
+        setAdminCount(userAdminRoleCount ?? 0);
     };
     fetCounts();
   }, []);
@@ -42,7 +44,8 @@ export const AdminUserProvider = ({
         userCount: userCount,
         moderatorCount: moderatorCount,
         adminCount: adminCount,
-      }}>
+      }}
+    >
       {children}
     </AdminUserContext.Provider>
   );

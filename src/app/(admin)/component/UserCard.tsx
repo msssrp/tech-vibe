@@ -11,8 +11,16 @@ const UserCard: React.FC<userCardProps> = ({ userRole, user }) => {
   return (
     <div className="w-96 p-4 mr-5 mb-5 flex space-x-6 items-center bg-white">
       <Image
-        src={user.user_profile}
-        alt={user.user_fullname}
+        src={
+          user.user_profile
+            ? user.user_profile
+            : "https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/default-user-profile.png"
+        }
+        alt={
+          user.user_fullname
+            ? user.user_fullname
+            : "https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/default-user-profile.png"
+        }
         height={70}
         width={70}
         className="rounded-full"
