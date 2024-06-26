@@ -2,7 +2,12 @@ import Link from "next/link";
 import React from "react";
 import { navItem } from "../ui/Items";
 import Image from "next/image";
-const Navbar = () => {
+
+type navbarProps = {
+  webLogoUrl: string;
+};
+
+const Navbar: React.FC<navbarProps> = ({ webLogoUrl }) => {
   return (
     <nav className="fixed top-0 w-screen z-50 bg-white border">
       <div className="flex justify-between items-center w-full uppercase h-20">
@@ -34,7 +39,7 @@ const Navbar = () => {
           <Link href={"/"}>
             <button type="button">
               <Image
-                src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
+                src={webLogoUrl}
                 alt="TechVibe"
                 width={50}
                 height={50}

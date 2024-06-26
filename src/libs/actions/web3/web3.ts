@@ -44,7 +44,7 @@ export async function getUpvotes() {
 }
 
 export async function getCertificateUri() {
-  const supabase = createSupabaseClient();
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("web3")
     .select("web3_certificate")

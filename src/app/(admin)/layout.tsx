@@ -10,14 +10,15 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 import { Metadata } from "next";
 import AdminLink from "./component/AdminLink";
 import AdminProfile from "./component/AdminProfile";
+import { getWebLogoUrl } from "@/libs/actions/setting/webSetting";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Moderator Dashboard",
-    description: "moderator dashboard",
+    title: "Admin Dashboard",
+    description: "admin dashboard",
   };
 }
-
+const imagesPath = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
 export default async function RootLayout({
   children,
 }: {
@@ -31,20 +32,23 @@ export default async function RootLayout({
   if (userRole.every((user) => user.user_role_name !== "admin"))
     return redirect("/");
   const totalUser = await getTotalUser();
+  const webLogoUrl = await getWebLogoUrl();
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         <label
           htmlFor="my-drawer-2"
-          className="flex justify-start items-center drawer-button lg:hidden">
+          className="flex justify-start items-center drawer-button lg:hidden"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6">
+            className="w-6 h-6"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -59,13 +63,14 @@ export default async function RootLayout({
         <label
           htmlFor="my-drawer-2"
           aria-label="close sidebar"
-          className="drawer-overlay"></label>
+          className="drawer-overlay"
+        ></label>
         <div className="flex flex-col space-y-9 menu p-4 w-80 min-h-full bg-[#101629] text-base-content">
           <div className="flex justify-between items-center">
             <Link href={"/"}>
               <button>
                 <Image
-                  src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/techvibe-logo.png"
+                  src={imagesPath + webLogoUrl}
                   width={40}
                   alt="TechVibe"
                   height={35}
@@ -81,7 +86,8 @@ export default async function RootLayout({
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="white"
-                  className="w-6 h-6">
+                  className="w-6 h-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -96,7 +102,8 @@ export default async function RootLayout({
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="white"
-                  className="w-6 h-6">
+                  className="w-6 h-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
