@@ -141,14 +141,18 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                           (article) => article.article_status === "public"
                         ).length
                       }
-                      articleCover={userArticles
-                        .map((item) => {
-                          if (item.article_status === "public") {
-                            return item.article_cover;
+                      articleCover={userArticles.reduce<string[]>(
+                        (acc, item) => {
+                          if (
+                            item.article_status === "public" &&
+                            item.article_cover !== undefined
+                          ) {
+                            acc.push(item.article_cover);
                           }
-                          return undefined;
-                        })
-                        .filter((cover) => cover !== undefined)}
+                          return acc;
+                        },
+                        []
+                      )}
                     />
                     <ArticleCard
                       user={user}
@@ -159,14 +163,18 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                           (article) => article.article_status === "pending"
                         ).length
                       }
-                      articleCover={userArticles
-                        .map((item) => {
-                          if (item.article_status === "pending") {
-                            return item.article_cover;
+                      articleCover={userArticles.reduce<string[]>(
+                        (acc, item) => {
+                          if (
+                            item.article_status === "pending" &&
+                            item.article_cover !== undefined
+                          ) {
+                            acc.push(item.article_cover);
                           }
-                          return undefined;
-                        })
-                        .filter((cover) => cover !== undefined)}
+                          return acc;
+                        },
+                        []
+                      )}
                     />
                     <ArticleCard
                       user={user}
@@ -177,14 +185,18 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                           (article) => article.article_status === "draft"
                         ).length
                       }
-                      articleCover={userArticles
-                        .map((item) => {
-                          if (item.article_status === "draft") {
-                            return item.article_cover;
+                      articleCover={userArticles.reduce<string[]>(
+                        (acc, item) => {
+                          if (
+                            item.article_status === "draft" &&
+                            item.article_cover !== undefined
+                          ) {
+                            acc.push(item.article_cover);
                           }
-                          return undefined;
-                        })
-                        .filter((cover) => cover !== undefined)}
+                          return acc;
+                        },
+                        []
+                      )}
                     />
                     <ArticleCard
                       user={user}
@@ -195,14 +207,18 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                           (article) => article.article_status === "hidden"
                         ).length
                       }
-                      articleCover={userArticles
-                        .map((item) => {
-                          if (item.article_status === "hidden") {
-                            return item.article_cover;
+                      articleCover={userArticles.reduce<string[]>(
+                        (acc, item) => {
+                          if (
+                            item.article_status === "hidden" &&
+                            item.article_cover !== undefined
+                          ) {
+                            acc.push(item.article_cover);
                           }
-                          return undefined;
-                        })
-                        .filter((cover) => cover !== undefined)}
+                          return acc;
+                        },
+                        []
+                      )}
                     />
                   </div>
                 </Tabs.Panel>

@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import ComplaintTabs from "../../component/ComplaintTabs";
 import ComplaintStat from "../../component/ComplaintStat";
-import { ComplaintContext } from "@/context/ComplaintContext";
 import ComplaintCard from "./component/ComplaintCard";
-import { useSearchParams } from "next/navigation";
 import { getComplaints } from "@/libs/actions/complaint/complaint";
 
 const page = async ({

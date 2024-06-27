@@ -2,7 +2,7 @@ import createSupabaseClient from "@/libs/supabase/client";
 import createSupabaseServerClient from "@/libs/supabase/server";
 
 export async function getUsersCount() {
-  const supabase = createSupabaseClient();
+  const supabase = await createSupabaseServerClient();
   const { count, error } = await supabase
     .from("user_role")
     .select("*", { count: "exact", head: true })
@@ -12,7 +12,7 @@ export async function getUsersCount() {
 }
 
 export async function getModeratorCount() {
-  const supabase = createSupabaseClient();
+  const supabase = await createSupabaseServerClient();
   const { count, error } = await supabase
     .from("user_role")
     .select("*", { count: "exact", head: true })
@@ -22,7 +22,7 @@ export async function getModeratorCount() {
 }
 
 export async function getAdminCount() {
-  const supabase = createSupabaseClient();
+  const supabase = await createSupabaseServerClient();
   const { count, error } = await supabase
     .from("user_role")
     .select("*", { count: "exact", head: true })
