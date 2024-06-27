@@ -29,11 +29,12 @@ export async function newComplaint(
   if (error) return console.log(error);
 }
 
-export async function getComplaints() {
-  const supabase = createSupabaseClient();
+export async function getComplaints(): Promise<complaintProps[] | undefined> {
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.from("complaint").select("*");
-  if (error) return { error };
-  return { data };
+  if (error) console.log("error from get complaints", error);
+
+  if (data) return data;
 }
 
 export async function getComplaintByStatus(status: string) {}

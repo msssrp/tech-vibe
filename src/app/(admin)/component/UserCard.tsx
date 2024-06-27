@@ -1,3 +1,4 @@
+"use client";
 import NpruVerify from "@/components/ui/NpruVerify";
 import {
   deleteAdminRole,

@@ -1,38 +1,37 @@
-"use client";
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
+import { getAdminOrNpru } from "@/libs/actions/user/userClient";
+import {
+  getAdminCount,
+  getModeratorCount,
+  getUsersCount,
+} from "@/libs/actions/user/user_role";
 import UserTabs from "../../component/UserTabs";
 import UserStat from "../../component/UserStat";
 import UserCard from "../../component/UserCard";
-import { AdminUserContext } from "@/context/AdminUserContext";
-import { useSearchParams } from "next/navigation";
-import { getAdminOrNpru } from "@/libs/actions/user/userClient";
 
-const Page = () => {
-  const { userCount, adminCount, moderatorCount } =
-    useContext(AdminUserContext);
-  const [user, setUser] = useState<any>();
-  const searchParams = useSearchParams();
-  const userSearch = searchParams.get("user");
-  useEffect(() => {
-    const getUser = async () => {
-      const data = await getAdminOrNpru();
-      if (data) return setUser(data);
-    };
-    getUser();
-  }, []);
-  const generalUser = user?.filter(
-    (user: any) =>
-      user.user_role_name !== "npru" && user.user_role_name === "admin"
-  ).length;
-  const npruUser = user?.filter(
-    (user: any) => user.user_role_name === "npru"
-  ).length;
+const page = async ({ searchParams }: { searchParams: { user: string } }) => {
+  const user = await getAdminOrNpru();
+  const userCount = await getUsersCount();
+  const moderatorCount = await getModeratorCount();
+  const adminCount = await getAdminCount();
 
-  const filterUser = user?.filter((user: any) =>
-    userSearch
-      ? user.user_role_name === userSearch
-      : user.user_role_name === "admin"
-  );
+  const generalUser =
+    user &&
+    user.filter(
+      (user) =>
+        user.user_role_name !== "npru" && user.user_role_name === "admin"
+    ).length;
+  const npruUser =
+    user && user.filter((user) => user.user_role_name === "npru").length;
+
+  const filterUser =
+    user &&
+    user.filter((user) => {
+      if (searchParams && searchParams.user) {
+        return user.user_role_name === searchParams.user;
+      }
+      return user.user_role_name === "admin";
+    });
   return (
     <div className="flex flex-col space-y-4">
       {/*Tabs*/}
@@ -51,13 +50,18 @@ const Page = () => {
             adminTab={true}
           />
           <div className="flex flex-col lg:flex-row flex-wrap justify-center items-center mt-5 w-full">
-            {filterUser?.map((user: any) => (
-              <UserCard
-                key={user.user.user_id}
-                userRole={user.user_role_name}
-                user={user.user}
-              />
-            ))}
+            {filterUser &&
+              filterUser.map((user: any) => {
+                if (user.user && user.user_role_name && user.user_id) {
+                  return (
+                    <UserCard
+                      key={user.user.user_id}
+                      userRole={user.user_role_name}
+                      user={user.user}
+                    />
+                  );
+                }
+              })}
           </div>
         </div>
       </div>
@@ -65,4 +69,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default page;

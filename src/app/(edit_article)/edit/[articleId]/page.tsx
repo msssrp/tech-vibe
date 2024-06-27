@@ -5,12 +5,14 @@ import Write from "@/app/(write)/write/[...writeId]/component/Write";
 import { getUser } from "@/libs/actions/user/user";
 import { getArticleById } from "@/libs/actions/article/article";
 import { getArticleTags } from "@/libs/actions/tag/tag";
+import { getWebLogoUrl } from "@/libs/actions/setting/webSetting";
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Write",
     description: "Write an article",
   };
 }
+const imagesPath = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
 export default async function writepage({
   params,
 }: {
@@ -25,7 +27,7 @@ export default async function writepage({
 
   if (article.user_id !== userSession.data.user.id) return redirect("/");
   const articleTag = await getArticleTags(article.article_id);
-
+  const webLogo = await getWebLogoUrl();
   return (
     <div>
       <Write
@@ -34,6 +36,7 @@ export default async function writepage({
         isEdit={true}
         articleData={article}
         articleTag={articleTag?.tag_name}
+        webLogoUrl={imagesPath + webLogo}
       />
     </div>
   );
