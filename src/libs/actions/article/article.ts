@@ -73,8 +73,8 @@ export async function getArticleCoverByArticleId(articleId: string) {
   return data?.article_cover;
 }
 
-export async function getAllArticleOnClient(): Promise<articleProps[]> {
-  const supabase = createSupabaseClient();
+export async function getAllArticles(): Promise<articleProps[]> {
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.from("article").select("*");
   if (error) throw new Error(error.message);
   return data as articleProps[];
@@ -161,6 +161,21 @@ export async function getNpruArticleOnClient(): Promise<articleProps[]> {
 }
 
 export async function getArticleById(
+  article_id: string
+): Promise<articleProps> {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("article_id", article_id)
+    .limit(1)
+    .single();
+  if (error) console.log("error from getarticleById", error);
+
+  return data;
+}
+
+export async function getArticleByIdOnServer(
   article_id: string
 ): Promise<articleProps> {
   const supabase = createSupabaseClient();

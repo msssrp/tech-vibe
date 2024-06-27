@@ -1,32 +1,26 @@
-"use client";
-import { getArticleTagsOnClient } from "@/libs/actions/tag/tag";
+import { getArticleTags, getArticleTagsOnClient } from "@/libs/actions/tag/tag";
 import { ConvertUrlToSlug } from "@/libs/urlConvert";
 import { articleProps } from "@/types/article/article";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ApproveBtn from "./ApproveBtn";
-import { userProps } from "@/types/user/user";
-import { getUserFromClient } from "@/libs/actions/user/userClient";
+import { getUser } from "@/libs/actions/user/user";
 
 type ArticleApproveCardProps = {
   article: articleProps;
 };
 
-const ArticleApproveCard: React.FC<ArticleApproveCardProps> = ({ article }) => {
-  const [user, setUser] = useState<userProps>();
-  const [tags, setTags] = useState<any>();
-  useEffect(() => {
-    const fetchData = async () => {
-      const user = await getUserFromClient(article.user_id);
-      const tags = await getArticleTagsOnClient(article.article_id);
-      setUser(user);
-      setTags(tags);
-    };
-    fetchData();
-  }, [article.article_id, article.user_id]);
-  const slugUrl = ConvertUrlToSlug(article.article_title);
+const ArticleApproveCard: React.FC<ArticleApproveCardProps> = async ({
+  article,
+}) => {
+  const user = await getUser(article.user_id);
   if (!user) return;
+  const tags = await getArticleTags(article.article_id);
+  const usernameWithHyphen = user.user_fullname.replace(/ /g, "-");
+  const articleTitleWithHypen = article.article_title.replace(/ /g, "-");
+  const articleFirstId = article.article_id.split("-")[0];
+  const articleTitleWithId = articleTitleWithHypen + "-" + articleFirstId;
   return (
     <div className="w-full lg:w-2/6 mr-7 bg-white mt-6 rounded-lg flex flex-col">
       <div className="flex space-x-3 rounded-none items-center h-auto pb-2 p-4">
@@ -48,7 +42,7 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = ({ article }) => {
               <p className="ml-2">{user.user_fullname}</p>
             </Link>
             <Link
-              href={`/post/${ConvertUrlToSlug(slugUrl)}`}
+              href={`/${usernameWithHyphen}/${articleTitleWithId}`}
               className="card-title text-xl flex-1 mt-3"
             >
               {article.article_title}
