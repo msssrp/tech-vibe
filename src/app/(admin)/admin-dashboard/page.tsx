@@ -52,10 +52,10 @@ const Page = () => {
           <div className="flex flex-col lg:flex-row flex-wrap justify-center items-center mt-5 w-full">
             {filterUser &&
               filterUser.map((user: any) => {
-                if (user.user && user.user_id && user.user_role_name) {
+                if (user.user && user.user_role_name && user.user_id) {
                   return (
                     <UserCard
-                      key={user.user_id}
+                      key={user.user.user_id}
                       userRole={user.user_role_name}
                       user={user.user}
                     />
