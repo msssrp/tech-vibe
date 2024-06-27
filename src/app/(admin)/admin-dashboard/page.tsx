@@ -50,13 +50,18 @@ const Page = () => {
             npruUser={npruUser}
           />
           <div className="flex flex-col lg:flex-row flex-wrap justify-center items-center mt-5 w-full">
-            {filterUser?.map((user: any) => (
-              <UserCard
-                key={user.user.user_id}
-                userRole={user.user_role_name}
-                user={user.user}
-              />
-            ))}
+            {filterUser &&
+              filterUser.map((user: any) => {
+                if (user.user && user.user_role_name && user.user_id) {
+                  return (
+                    <UserCard
+                      key={user.user.user_id}
+                      userRole={user.user_role_name}
+                      user={user.user}
+                    />
+                  );
+                }
+              })}
           </div>
         </div>
       </div>
