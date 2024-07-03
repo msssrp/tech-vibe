@@ -1,3 +1,4 @@
+import { newArticle } from "@/libs/actions/article/article";
 import Image from "next/image";
 import React from "react";
 
@@ -40,7 +41,8 @@ const articleslist = [
   },
 ];
 
-const NewArticles = () => {
+const NewArticles = async() => {
+  // const newArticles = await newArticle();
   return (
     <div className="container mx-auto">
       <div className="py-10">
