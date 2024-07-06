@@ -1,5 +1,6 @@
 import getAllTags from "@/libs/actions/tag/tag";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 
@@ -18,9 +19,9 @@ const PopularTags = async () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-6 md:px-20 lg:px-44 xl:px-60">
             {sliceTags.map((tag) => {
               return (
-                <div
+                <Link href="/SignIn"
                   key={tag.tag_name}
-                  className="card bg-base-100 h-40 sm:h-48 drop-shadow-sm border rounded-md flex justify-center items-center">
+                  className="card bg-base-100 h-40 sm:h-48 drop-shadow-sm border rounded-md flex justify-center items-center cursor-pointer">
                   {/* <figure className="w-14 h-14">
                     <Image
                       height={56}
@@ -34,7 +35,7 @@ const PopularTags = async () => {
                       {tag.tag_name}
                     </p>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

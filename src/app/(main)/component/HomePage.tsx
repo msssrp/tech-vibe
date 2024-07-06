@@ -23,7 +23,7 @@ const HomePage = async () => {
       <Carousel WebCarousels={carousels} />
       <PopularArticles popularArticles={popularArticles} />
       <NpruAarticles npruAarticles={npruAarticles}/>
-      <NewArticles />
+      <NewArticles articles={articles}/>
       <PopularTags />
     </div>
   );
