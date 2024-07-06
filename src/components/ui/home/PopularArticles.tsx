@@ -1,20 +1,31 @@
-import { getPopularArticles } from "@/libs/actions/article/article";
+'use client'
+import { articleProps } from "@/types/article/article";
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
+type popularArticlesProps = {
+  popularArticles: articleProps[] | undefined;
+};
 
-const PopularArticles:React.FC = async ({}) => {
-  const popularArticles = await getPopularArticles(4);
-  // const [itemsPerPage, setItemsPerPage] = useState(4);
-  // const [currentPage, setCurrentPage] = useState(1);
+const PopularArticles: React.FC<popularArticlesProps> = ({
+  popularArticles,
+}) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [articles, setArticles] = useState<articleProps[]>([]);
+  const itemsPerPage = 4;
+  const totalPages = Math.ceil((popularArticles?.length || 0) / itemsPerPage);
 
-  // const totalPages = Math.ceil(articles.length / itemsPerPage);
+  useEffect(()=>{
+    if (popularArticles) {
+      setArticles(popularArticles);
+    }
+  },[popularArticles]);
 
-  // const sliceArticles = () => {
-  //   const startIndex = (currentPage - 1) * itemsPerPage;
-  //   const endIndex = Math.min(startIndex + itemsPerPage, articles.length);
-  //   return articles.slice(startIndex, endIndex);
-  // };
+  const sliceArticles = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, articles.length);
+    return articles.slice(startIndex, endIndex);
+  };
 
   return (
     <div className="container mx-auto">
@@ -25,8 +36,7 @@ const PopularArticles:React.FC = async ({}) => {
           </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-6 sm:px-12 lg:px-40 xl:px-72 drop-shadow-md">
-          {popularArticles &&
-            popularArticles.map((articleslist) => {
+          {sliceArticles().map((articleslist) => {
               return (
                 <div
                   key={articleslist.article_id}
@@ -48,8 +58,12 @@ const PopularArticles:React.FC = async ({}) => {
                           className={`badge bg-[#F2F2F2] text-[15px] py-3`}
                         ></div>
                       </span>
-                      <h2 className="card-title">{articleslist.article_title}</h2>
-                      <p className="line-clamp-2">{articleslist.article_description}</p>
+                      <h2 className="card-title">
+                        {articleslist.article_title}
+                      </h2>
+                      <p className="line-clamp-2">
+                        {articleslist.article_description}
+                      </p>
                       <div className="flex justify-between items-center mt-2">
                         <div className="avatar items-center">
                           <div className="w-8 rounded-full">
@@ -82,14 +96,15 @@ const PopularArticles:React.FC = async ({}) => {
         </div>
 
         <div className="text-center mt-8">
-          {/* {Array.from({ length: totalPages }, (_, index) => (
+          {Array.from({ length: totalPages }, (_, index) => (
             <button
               key={index + 1}
               className={`mr-2 w-12 h-[5px] rounded-full ${
                 index + 1 === currentPage ? "bg-red" : "bg-[#C8C2C2]"
               }`}
-              onClick={() => setCurrentPage(index + 1)}></button>
-          ))} */}
+              onClick={() => setCurrentPage(index + 1)}
+            ></button>
+          ))}
         </div>
       </div>
     </div>

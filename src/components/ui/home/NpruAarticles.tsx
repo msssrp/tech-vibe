@@ -1,11 +1,33 @@
-import { getNpruArticle } from "@/libs/actions/article/article";
+"use client";
+import { articleProps } from "@/types/article/article";
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const NpruAarticles = async() => {
-  
-  const npruAarticles = await getNpruArticle();
-  const sliceArticles = npruAarticles.slice(0, 3);
+type NpruAarticlesProps = {
+  npruAarticles: articleProps[] | undefined;
+};
+
+const NpruAarticles: React.FC<NpruAarticlesProps> = ({
+  npruAarticles
+}) => {
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [articles, setArticles] = useState<articleProps[]>([]);
+  const itemsPerPage = 3;
+  const totalPages = Math.ceil((npruAarticles?.length || 0) / itemsPerPage);
+
+  useEffect(()=>{
+    if (npruAarticles) {
+      setArticles(npruAarticles);
+    }
+  },[npruAarticles]);
+
+  const sliceArticles = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, articles.length);
+    return articles.slice(startIndex, endIndex);
+  };
+
 
   return (
     <div className="bg-red text-center py-10 sm:py-14">
@@ -20,11 +42,12 @@ const NpruAarticles = async() => {
       </div>
       <div className="flex justify-center mt-6 sm:mt-8 relative px-16">
         <div className="grid grid-cols-1 sm:grid-cols-3 sm:mx-5 gap-2 space-y-5 sm:space-y-0 ">
-        {sliceArticles.map((articleslist) => {
-              return (
+          {sliceArticles().map((articleslist) => {
+            return (
               <div
                 key={articleslist.article_id}
-                className="flex justify-center items-center mx-2 cursor-pointer ">
+                className="flex justify-center items-center mx-2 cursor-pointer "
+              >
                 <div className="card card-compact w-64 bg-base-100 shadow-xl">
                   <figure className="w-full h-36">
                     <Image
@@ -40,20 +63,22 @@ const NpruAarticles = async() => {
                     <h2 className="text-lg font-semibold line-clamp-2">
                       {articleslist.article_title}
                     </h2>
-                    <p className="line-clamp-2 ">{articleslist.article_description}</p>
+                    <p className="line-clamp-2 ">
+                      {articleslist.article_description}
+                    </p>
                   </div>
                 </div>
               </div>
             );
           })}
         </div>
-        {/* <div className="absolute inset-y-0 items-center hidden lg:flex justify-center container mx-auto">
+        <div className="absolute inset-y-0 items-center hidden lg:flex justify-center container mx-auto">
           <div className="absolute -right-10 lg:right-0 xl:right-28 2xl:right-56">
             <button
               onClick={() => setCurrentPage(currentPage + 1)}
               className="px-1 sm:px-2 rounded-full text-white"
               disabled={
-                currentPage === Math.ceil(articleslist.length / itemsPerPage)
+                currentPage === Math.ceil((npruAarticles?.length || 0) / itemsPerPage)
               }>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -78,10 +103,10 @@ const NpruAarticles = async() => {
               </svg>
             </button>
           </div>
-        </div> */}
+        </div>
       </div>
       <div className="flex justify-center mt-8 space-x-2">
-        {/* {Array.from({ length: totalPages }, (_, index) => (
+        {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index + 1}
             className={`w-12 h-[5px] rounded-full duration-100 ${
@@ -90,7 +115,7 @@ const NpruAarticles = async() => {
                 : "bg-[#C8C2C2] opacity-60"
             }`}
             onClick={() => setCurrentPage(index + 1)}></button>
-        ))} */}
+        ))}
       </div>
     </div>
   );

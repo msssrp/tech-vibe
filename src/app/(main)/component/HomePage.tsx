@@ -5,18 +5,24 @@ import NpruAarticles from "@/components/ui/home/NpruAarticles";
 import PopularTags from "@/components/ui/home/PopularTags";
 import React from "react";
 import HomepageTitle from "@/components/ui/home/HomepageTitle";
-import { getArticles } from "@/libs/actions/article/article";
+import {
+  getArticles,
+  getPopularArticles,
+  getNpruArticle,
+} from "@/libs/actions/article/article";
 import { getCarousel } from "@/libs/actions/setting/webSetting";
 
 const HomePage = async () => {
   const articles = await getArticles();
   const carousels = await getCarousel();
+  const popularArticles = await getPopularArticles();
+  const npruAarticles = await getNpruArticle();
   return (
     <div>
       <HomepageTitle />
       <Carousel WebCarousels={carousels} />
-      <PopularArticles />
-      <NpruAarticles />
+      <PopularArticles popularArticles={popularArticles} />
+      <NpruAarticles npruAarticles={npruAarticles}/>
       <NewArticles />
       <PopularTags />
     </div>
