@@ -15,6 +15,10 @@ const CardPopular: React.FC<popularArticlesProps> = async ({
 }) => {
   const user = await getUser(popularArticles.user_id);
   const tags = await getArticleTags(popularArticles.article_id);
+  const userWithHyphen = user.user_fullname.replace(/ /g, "-");
+  const articleTitleWithHypen = popularArticles.article_title.replace(/ /g, "-");
+  const firstArticleId = popularArticles.article_id.split("-")[0];
+  const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
 
   return (
     <div className="flex justify-center cursor-pointer">
@@ -32,16 +36,16 @@ const CardPopular: React.FC<popularArticlesProps> = async ({
           <span className="space-x-1 line-clamp-1">
             {tags?.tag_name.map((tag: any, index: number) => {
               return (
-                <Link href="/SignIn"
+                <div
                   key={index}
                   className={`btn btn-sm badge bg-[#F2F2F2] rounded-full `}
                 >
                   <p className="font-thin">{tag}</p>
-                </Link>
+                </div>
               );
             })}
           </span>
-          <h2 className="card-title">{popularArticles.article_title}</h2>
+          <Link href={`/${userWithHyphen}/${articleSlug}`} className="card-title">{popularArticles.article_title}</Link>
           <p className="line-clamp-2">{popularArticles.article_description}</p>
           <div className="flex justify-between items-center mt-2">
             <div className="avatar items-center">
