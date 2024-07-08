@@ -60,7 +60,7 @@ const NpruAarticles: React.FC<NpruAarticlesProps> = ({ npruAarticles }) => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 sm:mx-5 gap-2 space-y-5 sm:space-y-0">
           {npruAarticles &&
-            npruAarticles.slice(0, 3).map((articleslist) => {
+            npruAarticles.slice(0,3).map((articleslist) => {
               return (
                 <CardNpru
                   npruAarticles={articleslist}

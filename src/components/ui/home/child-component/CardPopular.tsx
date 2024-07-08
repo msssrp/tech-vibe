@@ -21,9 +21,9 @@ const CardPopular: React.FC<popularArticlesProps> = async ({
   const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
 
   return (
-    <div className="flex justify-center cursor-pointer">
+    <div className="flex justify-center ">
       <div className="card card-compact w-80 sm:w-[30rem] h-96 bg-base-100 drop-shadow-sm rounded-t-[50px] rounded-md border">
-        <figure className="w-full">
+        <figure className="w-full m-0">
           <Image
             width={520}
             height={520}
@@ -45,7 +45,7 @@ const CardPopular: React.FC<popularArticlesProps> = async ({
               );
             })}
           </span>
-          <Link href={`/${userWithHyphen}/${articleSlug}`} className="card-title">{popularArticles.article_title}</Link>
+          <Link href={`/${userWithHyphen}/${articleSlug}`} className="card-title cursor-pointer">{popularArticles.article_title}</Link>
           <p className="line-clamp-2">{popularArticles.article_description}</p>
           <div className="flex justify-between items-center mt-2">
             <div className="avatar items-center">

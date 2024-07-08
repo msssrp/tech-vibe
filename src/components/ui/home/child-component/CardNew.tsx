@@ -15,12 +15,12 @@ const CardNew: React.FC<newArticlesProps> = async ({ newArticles }) => {
   const firstArticleId = newArticles.article_id.split("-")[0];
   const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
   return (
-    <Link href={`/${userWithHyphen}/${articleSlug}`}>
-      <h2 className="card-title font-normal line-clamp-1 pr-6 mb-2 sm:md-6">
+    <div>
+      <Link href={`/${userWithHyphen}/${articleSlug}`} className="card-title font-normal line-clamp-1 pr-6 mb-2 sm:md-6">
         {newArticles.article_title}
-      </h2>
+      </Link>
       <div className="card card-side bg-base-100 drop-shadow-sm border rounded-md">
-        <figure className="h-44 sm:h-40 md:h-56 w-96 ">
+        <figure className="h-44 sm:h-40 md:h-44 w-96 m-0">
           <Image
             src={newArticles.article_cover}
             alt={newArticles.article_title}
@@ -36,7 +36,7 @@ const CardNew: React.FC<newArticlesProps> = async ({ newArticles }) => {
           </p>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

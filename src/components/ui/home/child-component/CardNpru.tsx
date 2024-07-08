@@ -15,12 +15,9 @@ const CardNpru: React.FC<NpruAarticlesProps> = async ({ npruAarticles }) => {
   const firstArticleId = npruAarticles.article_id.split("-")[0];
   const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
   return (
-    <Link
-      href={`/${userWithHyphen}/${articleSlug}`}
-      className="flex justify-center items-center mx-2 cursor-pointer"
-    >
+    <div className="flex justify-center items-center mx-2 ">
       <div className="card card-compact w-64 bg-base-100 shadow-xl">
-        <figure className="w-full h-36">
+        <figure className="w-full h-36 m-0">
           <Image
             width={520}
             height={520}
@@ -31,13 +28,16 @@ const CardNpru: React.FC<NpruAarticlesProps> = async ({ npruAarticles }) => {
           />
         </figure>
         <div className="card-body">
-          <h2 className="text-lg font-semibold line-clamp-2">
+          <Link
+            href={`/${userWithHyphen}/${articleSlug}`}
+            className="text-lg font-semibold line-clamp-2 cursor-pointer"
+          >
             {npruAarticles.article_title}
-          </h2>
+          </Link>
           <p className="line-clamp-2 ">{npruAarticles.article_description}</p>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
