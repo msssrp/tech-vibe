@@ -107,13 +107,13 @@ const LibraryDropdown: React.FC<libraryDropDownProps> = ({
         </div>
         <ul
           tabIndex={0}
-          className="dropdown-content menu bg-base-100 rounded-box z-[1] w-32 p-2 shadow flex items-center justify-center"
+          className="dropdown-content menu bg-base-100 rounded-md z-[1] w-32 p-2 shadow flex items-center justify-center"
         >
           <li>
-            <button onClick={editOpen}>Edit list</button>
+            <button className="w-28 flex justify-center" onClick={editOpen}>Edit list</button>
           </li>
           <li>
-            <button className="text-red" onClick={removeListOpen}>
+            <button className="w-28 text-red flex justify-center" onClick={removeListOpen}>
               Remove list
             </button>
           </li>

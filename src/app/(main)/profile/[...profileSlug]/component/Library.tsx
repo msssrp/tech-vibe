@@ -62,9 +62,9 @@ const Library: React.FC<library> = ({ user, userId, result }) => {
             </Tabs.List>
             <Tabs.Panel value="Library">
               <div className="pr-11 h-auto overflow-y-scroll no-scrollbar">
-                <div className="space-y-2 ">
+                <div className="space-y-2 Library">
                   {result.map((item) => (
-                    <AllArticleCardClient
+                    <AllArticleCardClient 
                       key={item.article.article_id}
                       user={item.user}
                       article={item.article}
