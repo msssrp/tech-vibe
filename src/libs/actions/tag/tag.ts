@@ -55,11 +55,27 @@ export async function getArticleTagsFromClient(
 
 export async function newTag(article_id: string, tagData: tagProps) {
   const supabase = createSupabaseClient();
-  const { error } = await supabase.from("tag").insert({
-    tag_name: tagData.tag_name,
-    article_id: article_id,
-  });
-  if (error) console.log(error);
+  const { data, error: checkExistsTagError } = await supabase
+    .from("tag")
+    .select("tag_id")
+    .eq("article_id", article_id)
+    .single();
+  if (checkExistsTagError && checkExistsTagError.code === "PGRST116") {
+    const { error } = await supabase.from("tag").insert({
+      tag_name: tagData.tag_name,
+      article_id: article_id,
+    });
+    if (error) console.log(error);
+  }
+
+  if (data && data.tag_id) {
+    const { error: errorFromUpdateTag } = await supabase
+      .from("tag")
+      .update({ tag_name: tagData.tag_name })
+      .eq("tag_id", data.tag_id);
+    if (errorFromUpdateTag)
+      return console.log("error from update tag", errorFromUpdateTag);
+  }
 }
 
 export async function deleteTag(article_id: string) {}

@@ -125,14 +125,30 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
         </div>
       </div>
       <div className="flex-1 h-1/2">
-        <Image
-          width={450}
-          height={450}
-          src={article.article_cover}
-          alt={article.article_title}
-          loading="lazy"
-          className="w-full h-full"
-        />
+        {isDraft ? (
+          <Link
+            href={`/edit/${article.article_id}`}
+            className="card-title text-2xl flex-1 mt-3"
+          >
+            <Image
+              width={450}
+              height={450}
+              src={article.article_cover}
+              alt={article.article_title}
+              loading="lazy"
+              className="w-full h-full"
+            />
+          </Link>
+        ) : (
+          <Image
+            width={450}
+            height={450}
+            src={article.article_cover}
+            alt={article.article_title}
+            loading="lazy"
+            className="w-full h-full"
+          />
+        )}
       </div>
     </div>
   );

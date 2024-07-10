@@ -45,8 +45,8 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
     }
     const updateArticle = { ...article, article_status: "pending" };
     await updateArticleById(writeId, updateArticle);
-    articleNotification("Article Status", "publish", { router: router });
     await newTag(article.article_id, { tag_name: tagValue });
+    articleNotification("Article Status", "publish", { router: router });
     await createNewNotification(
       `You're article ${article.article_title} is now pending`,
       "pending",

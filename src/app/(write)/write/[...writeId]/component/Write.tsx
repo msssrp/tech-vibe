@@ -1,7 +1,7 @@
 "use client";
 import TinyEditor from "./TinyEditor";
 import WriteNavbar from "@/components/main/WriteNavbar";
-import { WriteProps, articleProps } from "@/types/article/article";
+import { WriteProps } from "@/types/article/article";
 import { TagsInput } from "@mantine/core";
 import Link from "next/link";
 import Image from "next/image";
@@ -24,7 +24,8 @@ const Write: React.FC<WriteProps> = ({
     handlerImageUpload,
     setTagValue,
     userRole,
-  } = useWrite(writeId, user, articleData && articleData);
+  } = useWrite(writeId, user, articleData && articleData, articleTag);
+
   if (isDesktop) {
     return (
       <div>
@@ -101,11 +102,7 @@ const Write: React.FC<WriteProps> = ({
               label="Press Enter to submit a tag"
               clearable
               placeholder="enter tag"
-              value={
-                isEdit && article && articleTag?.tag_name
-                  ? articleTag.tag_name
-                  : tagValue
-              }
+              value={tagValue.length > 0 ? tagValue : []}
               onChange={setTagValue}
             />
           </div>

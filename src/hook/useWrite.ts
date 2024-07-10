@@ -18,7 +18,8 @@ import React, { useEffect, useRef, useState } from "react";
 const useWrite = (
   writeId: string,
   user: userProps,
-  articleData?: articleProps
+  articleData?: articleProps,
+  articleTag?: any
 ) => {
   const [article, setArticle] = useState<articleProps>({
     article_id: writeId,
@@ -65,7 +66,9 @@ const useWrite = (
   };
 
   useEffect(() => {
-    if (articleData) return setArticle(articleData);
+    if (articleData) setArticle(articleData);
+    if (articleTag && articleTag.length > 0) return setTagValue(articleTag);
+    console.log(tagValue);
   }, [articleData]);
 
   useEffect(() => {
