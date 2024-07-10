@@ -27,7 +27,7 @@ export type WriteProps = {
   writeId: string;
   isEdit?: boolean;
   articleData?: articleProps;
-  articleTag?: tagProps;
+  articleTag?: any;
   webLogoUrl: string;
 };
 
