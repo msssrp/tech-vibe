@@ -48,7 +48,7 @@ export function rejectPublish(title: string) {
 export function tipsNotification(title: string) {
   return notifications.show({
     title: title,
-    autoClose: false,
+    autoClose: true,
     withBorder: true,
     color: "yellow",
     message:
@@ -59,7 +59,7 @@ export function tipsNotification(title: string) {
 export function howtouseNotification(title: string) {
   return notifications.show({
     title: title,
-    autoClose: false,
+    autoClose: true,
     withBorder: true,
     color: "yellow",
     message:

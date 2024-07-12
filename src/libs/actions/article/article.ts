@@ -3,12 +3,14 @@ import { v4 as uuid } from "uuid";
 import createSupabaseServerClient from "@/libs/supabase/server";
 import createSupabaseClient from "@/libs/supabase/client";
 import { adminClient } from "@/libs/supabase/client";
+
 export async function getArticles(): Promise<articleProps[]> {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("article")
     .select("*")
-    .eq("article_status", "public");
+    .eq("article_status", "public")
+    .order("created_at", { ascending: false });
   if (error) console.log(error);
 
   return data as articleProps[];
@@ -31,8 +33,48 @@ export async function getAllArticle(): Promise<articleProps[]> {
   return data as articleProps[];
 }
 
-export async function getAllArticleOnClient(): Promise<articleProps[]> {
+export async function getAllArticleByUserId(
+  userId: string
+): Promise<articleProps[]> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("user_id", userId);
+  if (error) throw new Error(error.message);
+  return data as articleProps[];
+}
+
+export async function getArticleByStatusOnUserId(
+  userId: string,
+  status: string
+): Promise<articleProps[]> {
+  const supabase = await createSupabaseServerClient();
+
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("article_status", status)
+    .eq("user_id", userId);
+  if (error) console.log("error from getArticleByStatusOnUserId", error);
+
+  return data as articleProps[];
+}
+
+export async function getArticleCoverByArticleId(articleId: string) {
   const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("article_cover")
+    .eq("article_id", articleId)
+    .single();
+
+  if (error) console.log("error from getArticleCoverByArticleId", error);
+  return data?.article_cover;
+}
+
+export async function getAllArticles(): Promise<articleProps[]> {
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.from("article").select("*");
   if (error) throw new Error(error.message);
   return data as articleProps[];
@@ -54,7 +96,8 @@ export async function getNpruArticle(): Promise<articleProps[]> {
   const { data: articles, error: articlesError } = await supabase
     .from("article")
     .select("*")
-    .in("user_id", userIds);
+    .in("user_id", userIds)
+    .eq("article_status", "public");
 
   if (articlesError) {
     console.error("Error fetching NPRU articles:", articlesError.message);
@@ -127,11 +170,54 @@ export async function getArticleById(
     .eq("article_id", article_id)
     .limit(1)
     .single();
+  if (error) console.log("error from getarticleById", error);
+
+  return data;
+}
+
+export async function getArticleByIdOnServer(
+  article_id: string
+): Promise<articleProps> {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("article_id", article_id)
+    .limit(1)
+    .single();
+  if (error) console.log("error from getarticleById", error);
+
+  return data;
+}
+
+export async function getArticleByIdWithPublicStatus(
+  article_id: string
+): Promise<articleProps> {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("article_id", article_id)
+    .eq("article_status", "public")
+    .limit(1)
+    .single();
+
   return data;
 }
 
 export async function getArticleByUserId(userId: string) {
   const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("user_id", userId)
+    .eq("article_status", "public");
+  if (error) console.log(error);
+  return data as articleProps[];
+}
+
+export async function getArticleByUserIdOnServer(userId: string) {
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("article")
     .select("*")
@@ -293,10 +379,13 @@ export async function getArticleByTag(tag: string) {
     .map((item) => item?.article_id);
   const uniqeArticleIds = new Set(flatternedArticleIds);
   const articlePromises = Array.from(uniqeArticleIds).map(async (id) => {
-    const article = await getArticleById(id);
+    const article = await getArticleByIdWithPublicStatus(id);
     return article;
   });
-  const articles = await Promise.all(articlePromises);
+  let articles = await Promise.all(articlePromises);
+  articles = articles.filter((article) => article !== null);
+
+  console.log(articles);
   return articles;
 }
 
@@ -320,7 +409,8 @@ export async function getArticleByFollowingUserAndTag(
     const { data: articleIdFromUserId, error: errorArticleId } = await supabase
       .from("article")
       .select("article_id")
-      .eq("user_id", id);
+      .eq("user_id", id)
+      .eq("article_status", "public");
     if (errorArticleId)
       console.log("error from loop article id", errorArticleId);
     return articleIdFromUserId;
@@ -382,13 +472,50 @@ export async function getArticleByFollowingUserAndTag(
   return { data: articles };
 }
 
-export async function getPopularArticle(): Promise<articleProps[] | null> {
+export async function getRandomArticles(): Promise<articleProps[] | null> {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("random_articles")
     .select("*")
-    .eq("article_status", "public")
-    .limit(4);
+    .eq("article_status", "public");
   if (error) console.log("error from get popularArticle ", error);
   return data;
+}
+
+export async function getPopularArticles(
+  limit?: number
+): Promise<articleProps[] | undefined> {
+  const supabase = await createSupabaseServerClient();
+  const { data: articleIds, error } = await supabase
+    .from("article_statistics")
+    .select("article_id")
+    .order("articleStat_views", { ascending: false });
+  if (error) console.log(error);
+  const viewCounts =
+    articleIds &&
+    articleIds.reduce<Record<string, number>>((acc, log) => {
+      acc[log.article_id] = (acc[log.article_id] || 0) + 1;
+      return acc;
+    }, {});
+  const articlesIds = viewCounts && Object.entries(viewCounts);
+  articlesIds?.sort((a, b) => b[1] - a[1]);
+  const sortedArticlesIds = articlesIds?.map((article) => article[0]);
+
+  const popularArticlesPromises =
+    sortedArticlesIds &&
+    sortedArticlesIds.map(async (articleId) => {
+      const articles = await getArticleByIdWithPublicStatus(articleId);
+      return articles;
+    });
+
+  const articles =
+    popularArticlesPromises && (await Promise.all(popularArticlesPromises));
+
+  const popularArticles =
+    articles && articles.filter((article) => article !== null);
+  if (limit) {
+    const limitArticles = popularArticles && popularArticles.slice(0, limit);
+    return limitArticles;
+  }
+  return popularArticles;
 }

@@ -9,14 +9,6 @@ import { getCertificateUri } from "@/libs/actions/web3/web3";
 const useCertificateGen = (articleName: string, userFullName: string) => {
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
   const [loadingState, setLoadingState] = useState("Accept");
-  const [certificateUri, setCertificateUri] = useState("");
-  useEffect(() => {
-    const getCertificate = async () => {
-      const data = await getCertificateUri();
-      setCertificateUri(data);
-    };
-    getCertificate();
-  }, []);
   const router = useRouter();
   const onButtonClick = async () => {
     const contentHtml = document.getElementById("content");
@@ -100,7 +92,6 @@ const useCertificateGen = (articleName: string, userFullName: string) => {
     }
   };
   return {
-    certificateUri,
     onButtonClick,
     loadingState,
   };

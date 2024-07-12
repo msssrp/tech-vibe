@@ -1,6 +1,5 @@
 import React from "react";
 import { AreaChart, getFilteredChartTooltipPayload } from "@mantine/charts";
-import { data } from "./data";
 import { Paper, Text } from "@mantine/core";
 
 interface ChartTooltipProps {
@@ -21,7 +20,8 @@ function ChartTooltip({ label, payload }: ChartTooltipProps) {
           key={item.name}
           c={item.color}
           fz="sm"
-          className="flex justify-between">
+          className="flex justify-between"
+        >
           {item.name} <p>{item.value}</p>
         </Text>
       ))}
@@ -29,17 +29,27 @@ function ChartTooltip({ label, payload }: ChartTooltipProps) {
   );
 }
 
-const StatisticChat = () => {
+type statisticProps = {
+  articleViewsWithDate:
+    | {
+        views: number;
+        ups: number;
+        date: string;
+      }[]
+    | null;
+};
+
+const StatisticChart: React.FC<statisticProps> = ({ articleViewsWithDate }) => {
+  if (!articleViewsWithDate) return;
   return (
     <AreaChart
       h={300}
-      data={data}
+      data={articleViewsWithDate}
       dataKey="date"
       strokeDasharray="2 2"
       tickLine="xy"
       curveType="linear"
       connectNulls
-      yAxisProps={{ domain: [0, 100] }}
       tooltipAnimationDuration={300}
       tooltipProps={{
         content: ({ label, payload }) => (
@@ -47,11 +57,11 @@ const StatisticChat = () => {
         ),
       }}
       series={[
-        { name: "View", color: "red" },
-        { name: "Ups", color: "blue" },
+        { name: "views", color: "red" },
+        { name: "ups", color: "blue" },
       ]}
     />
   );
 };
 
-export default StatisticChat;
+export default StatisticChart;

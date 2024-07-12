@@ -1,12 +1,19 @@
 "use client";
 import TinyEditor from "./TinyEditor";
 import WriteNavbar from "@/components/main/WriteNavbar";
-import { WriteProps, articleProps } from "@/types/article/article";
+import { WriteProps } from "@/types/article/article";
 import { TagsInput } from "@mantine/core";
 import Link from "next/link";
 import Image from "next/image";
 import useWrite from "@/hook/useWrite";
-const Write: React.FC<WriteProps> = ({ user, writeId }) => {
+const Write: React.FC<WriteProps> = ({
+  user,
+  writeId,
+  isEdit,
+  articleData,
+  articleTag,
+  webLogoUrl,
+}) => {
   const {
     isDesktop,
     article,
@@ -17,7 +24,7 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
     handlerImageUpload,
     setTagValue,
     userRole,
-  } = useWrite(writeId, user);
+  } = useWrite(writeId, user, articleData && articleData, articleTag);
 
   if (isDesktop) {
     return (
@@ -28,6 +35,7 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
           article={article}
           tagValue={tagValue}
           userRole={userRole}
+          webLogoUrl={webLogoUrl}
         />
         <div className="container mx-auto px-32 py-10">
           <div className="flex items-center justify-center mt-10 divide-x">
@@ -39,7 +47,12 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
                     article_title: e.target.value,
                   }))
                 }
-                placeholder="Title"
+                value={article.article_title && article.article_title}
+                placeholder={
+                  isEdit && articleData && articleData.article_title
+                    ? article.article_title
+                    : "Title"
+                }
                 className="textarea p-9 input-lg w-full h-auto  focus:outline-none focus:border-none overflow-hidden px-0 text-3xl font-semibold capitalize resize-none"
               />
               <textarea
@@ -49,7 +62,14 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
                     article_description: e.target.value,
                   }))
                 }
-                placeholder="description"
+                value={
+                  article.article_description && article.article_description
+                }
+                placeholder={
+                  isEdit && articleData && articleData.article_description
+                    ? article.article_description
+                    : "description"
+                }
                 className="textarea input-sm w-full h-auto  focus:outline-none focus:border-none overflow-hidden px-0 text-xl font-light capitalize resize-none pt-5"
               />
             </div>
@@ -57,19 +77,32 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
         </div>
         <div className="mt-5">
           <div className="container mx-auto px-32 border-none outline-none overflow-auto min-h-96">
-            <TinyEditor
-              editorRef={editorRef}
-              handlerEditorChange={handlerEditorChange}
-              handlerImageUpload={handlerImageUpload}
-            />{" "}
+            {isEdit && articleData ? (
+              <TinyEditor
+                editorRef={editorRef}
+                handlerEditorChange={handlerEditorChange}
+                handlerImageUpload={handlerImageUpload}
+                initData={
+                  articleData &&
+                  articleData.article_content &&
+                  article.article_content
+                }
+              />
+            ) : (
+              <TinyEditor
+                editorRef={editorRef}
+                handlerEditorChange={handlerEditorChange}
+                handlerImageUpload={handlerImageUpload}
+              />
+            )}{" "}
           </div>
           <div className="container mx-auto px-32 border-none outline-none overflow-auto min-h-96">
             <TagsInput
               className="w-1/3 "
               label="Press Enter to submit a tag"
               clearable
-              placeholder="Enter tag"
-              value={tagValue}
+              placeholder="enter tag"
+              value={tagValue.length > 0 ? tagValue : []}
               onChange={setTagValue}
             />
           </div>
@@ -83,7 +116,7 @@ const Write: React.FC<WriteProps> = ({ user, writeId }) => {
         <Image
           width={60}
           height={60}
-          src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/Screenshot%20from%202024-02-13%2016-07-12.png"
+          src={webLogoUrl}
           alt="Tech-Vibe"
           quality={100}
           className="w-full h-auto bg-cover"

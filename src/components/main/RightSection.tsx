@@ -1,6 +1,6 @@
 import {
   getNpruArticleOnUserPage,
-  getPopularArticle,
+  getPopularArticles,
 } from "@/libs/actions/article/article";
 import Link from "next/link";
 import RightArticleCard from "./rightSectionComponent/RightArticleCard";
@@ -12,15 +12,15 @@ type RightSectionProps = {
 };
 
 const RightSection: React.FC<RightSectionProps> = async ({ tags }) => {
-  const popularArticle = await getPopularArticle();
+  const popularArticles = await getPopularArticles(4);
   const npruArticles = await getNpruArticleOnUserPage();
   return (
     <div className="w-2/6 py-12 pl-11 pr-2 flex flex-col items-center relative">
       {/* popularArticles */}
       <div className="w-full space-y-3 mb-6 ">
         <h2 className="uppercase font-semibold text-lg">Popular articles</h2>
-        {popularArticle &&
-          popularArticle.map((articleslist) => {
+        {popularArticles &&
+          popularArticles.map((articleslist) => {
             return (
               <RightArticleCard
                 key={articleslist.article_id}

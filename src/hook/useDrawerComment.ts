@@ -44,7 +44,7 @@ const useDrawerComment = (article_id: string, openCommend?: string) => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [supabase, router, article_id]);
+  }, [supabase, router, article_id, open, openCommend]);
 
   const handleOnKeyDown = async (
     e: React.KeyboardEvent<HTMLInputElement>,

@@ -16,7 +16,8 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="#C6C6C6"
-          className="w-5 h-5">
+          className="w-5 h-5"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -25,14 +26,18 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
         </svg>
         <span>Profile</span>
       </Link>
-      <Link href={""} className="flex space-x-2">
+      <Link
+        href={`/profile/${user_id}?tab=Articles`}
+        className="flex space-x-2"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="#C6C6C6"
-          className="w-5 h-5">
+          className="w-5 h-5"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -41,14 +46,15 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
         </svg>
         <span>Articles</span>
       </Link>
-      <Link href={""} className="flex space-x-2">
+      <Link href={`/profile/${user_id}?tab=Library`} className="flex space-x-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="#C6C6C6"
-          className="w-5 h-5">
+          className="w-5 h-5"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -57,14 +63,18 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
         </svg>
         <span>Library</span>
       </Link>
-      <Link href={""} className="flex mb-3 space-x-2">
+      <Link
+        href={`/profile/${user_id}?tab=Statistic`}
+        className="flex mb-3 space-x-2"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="#C6C6C6"
-          className="w-5 h-5">
+          className="w-5 h-5"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -84,7 +94,8 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="#CECBCA"
-              className="w-6 h-6">
+              className="w-6 h-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -103,7 +114,8 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="#CECBCA"
-              className="w-6 h-6">
+              className="w-6 h-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

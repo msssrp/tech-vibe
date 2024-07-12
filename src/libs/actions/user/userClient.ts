@@ -1,10 +1,9 @@
-"use client";
-
 import createSupabaseClient from "@/libs/supabase/client";
+import createSupabaseServerClient from "@/libs/supabase/server";
 import { updatePromise, userProps } from "@/types/user/user";
 
 export async function getAdminOrNpru() {
-  const supabase = createSupabaseClient();
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("user_role")
     .select(`user_id,user_role_name,user (*)`)
@@ -14,7 +13,7 @@ export async function getAdminOrNpru() {
 }
 
 export async function getModeratorOrNpru() {
-  const supabase = createSupabaseClient();
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("user_role")
     .select(`user_id,user_role_name,user (*)`)
@@ -24,7 +23,7 @@ export async function getModeratorOrNpru() {
 }
 
 export async function getUserOrNpru() {
-  const supabase = createSupabaseClient();
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("user_role")
     .select(`user_id,user_role_name,user (*)`)

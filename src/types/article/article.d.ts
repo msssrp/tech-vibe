@@ -1,4 +1,5 @@
 import { commentProps } from "../comment/comment";
+import { tagProps } from "../tag/tag";
 import { userProps } from "./../user/user.d";
 export type articleProps = {
   article_id: string;
@@ -24,6 +25,10 @@ export type uploadProps = {
 export type WriteProps = {
   user: userProps;
   writeId: string;
+  isEdit?: boolean;
+  articleData?: articleProps;
+  articleTag?: any;
+  webLogoUrl: string;
 };
 
 export type DrawerCommentProps = {

@@ -1,4 +1,4 @@
-<h3 align="center"><img src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/techvibe-logo.png" width="150" height="150"/></h3>
+<h3 align="center"><img src="https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/Logo/fdadd4bb-9f53-4881-ab3d-e06c87fb8809" width="150" height="150"/></h3>
 
 <h3 align="left">What's TECHVIBE</h3>
 

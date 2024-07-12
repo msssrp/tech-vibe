@@ -1,7 +1,6 @@
 "use client";
 import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
 import { getArticleTagsFromClient } from "@/libs/actions/tag/tag";
-import { getUserRole } from "@/libs/actions/user/user_role";
 import { calculateReadingTime } from "@/libs/getReadingTimeOnArticle";
 import { articleProps } from "@/types/article/article";
 import { tagProps } from "@/types/tag/tag";
@@ -9,7 +8,6 @@ import { userProps } from "@/types/user/user";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { FaCircleCheck } from "react-icons/fa6";
 import NpruVerify from "../ui/NpruVerify";
 
 type allArticleCardClientProps = {
@@ -24,6 +22,7 @@ type allArticleCardClientProps = {
       }[]
     | null
     | undefined;
+  isDraft?: boolean;
 };
 
 const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
@@ -33,6 +32,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
   articleId,
   interactBtn,
   userRole,
+  isDraft,
 }) => {
   const [tags, setTags] = useState<tagProps | null>();
   useEffect(() => {
@@ -67,12 +67,21 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
                 <NpruVerify />
               )}
           </div>
-          <Link
-            href={`/${userWithHyphen}/${articleSlug}`}
-            className="card-title text-2xl flex-1 mt-3"
-          >
-            {article.article_title}
-          </Link>
+          {isDraft ? (
+            <Link
+              href={`/edit/${article.article_id}`}
+              className="card-title text-2xl flex-1 mt-3"
+            >
+              {article.article_title}
+            </Link>
+          ) : (
+            <Link
+              href={`/${userWithHyphen}/${articleSlug}`}
+              className="card-title text-2xl flex-1 mt-3"
+            >
+              {article.article_title}
+            </Link>
+          )}
         </div>
 
         <p className="line-clamp-2 text-[#616160]">
@@ -96,32 +105,50 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
                 );
               })}
           </div>
-          <div className="flex justify-between items-center w-2/3">
-            <div>
-              <p className="text-sm">{timeToRead} min read</p>
+          {!isDraft && (
+            <div className="flex justify-between items-center w-2/3">
+              <div>
+                <p className="text-sm">{timeToRead} min read</p>
+              </div>
+              <div className="flex space-x-3 items-center justify-center">
+                {interactBtn && user && article.article_status === "public" && (
+                  <InteractBtn
+                    user_id={userId}
+                    article_id={article.article_id}
+                    articleTitle={article.article_title}
+                    username={user.user_fullname}
+                  />
+                )}
+              </div>
             </div>
-            <div className="flex space-x-3 items-center justify-center">
-              {interactBtn && user && (
-                <InteractBtn
-                  user_id={userId}
-                  article_id={article.article_id}
-                  articleTitle={article.article_title}
-                  username={user.user_fullname}
-                />
-              )}
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <div className="flex-1 h-1/2">
-        <Image
-          width={450}
-          height={450}
-          src={article.article_cover}
-          alt={article.article_title}
-          loading="lazy"
-          className="w-full h-full"
-        />
+        {isDraft ? (
+          <Link
+            href={`/edit/${article.article_id}`}
+            className="card-title text-2xl flex-1 mt-3"
+          >
+            <Image
+              width={450}
+              height={450}
+              src={article.article_cover}
+              alt={article.article_title}
+              loading="lazy"
+              className="w-full h-full"
+            />
+          </Link>
+        ) : (
+          <Image
+            width={450}
+            height={450}
+            src={article.article_cover}
+            alt={article.article_title}
+            loading="lazy"
+            className="w-full h-full"
+          />
+        )}
       </div>
     </div>
   );

@@ -3,7 +3,10 @@ import { redirect } from "next/navigation";
 import { validate as uuidValidate } from "uuid";
 import { getUser } from "@/libs/actions/user/user";
 import Write from "./component/Write";
-import { Notifications } from "@mantine/notifications";
+import { getWebLogoUrl } from "@/libs/actions/setting/webSetting";
+
+const imagesPath = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Write",
@@ -26,11 +29,11 @@ export default async function writepage({
   ) {
     redirect("/");
   }
-
+  const logoUrl = await getWebLogoUrl();
+  const webLogoUrl = imagesPath + logoUrl;
   return (
     <div>
-      <Notifications />
-      <Write user={data} writeId={writeId} />
+      <Write user={data} writeId={writeId} webLogoUrl={webLogoUrl} />
     </div>
   );
 }
