@@ -11,7 +11,7 @@ import NextTopLoader from "nextjs-toploader";
 import { Notifications } from "@mantine/notifications";
 import { getWebLogoUrl } from "@/libs/actions/setting/webSetting";
 const imagesPath = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
-//work
+//jenkins-work
 export async function generateMetadata(): Promise<Metadata> {
   const webLogoUrl = await getWebLogoUrl();
   const logoUrl = imagesPath + webLogoUrl;
