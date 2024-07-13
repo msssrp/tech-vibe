@@ -32,8 +32,22 @@ export async function generateMetadata({
     articleId
   );
   return {
+    applicationName: "TechVibe",
+    publisher: `${userName}`,
     title: article.pgrst_scalar.article_title,
     description: article.pgrst_scalar.article_description,
+    openGraph: {
+      images: `${article.pgrst_scalar.article_cover}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${article.pgrst_scalar.article_title}`,
+      description: `${article.pgrst_scalar.article_description}`,
+      siteId: `${article.pgrst_scalar.article_id}`,
+      creator: `${userName}`,
+      creatorId: `${userName}`,
+      images: `${article.pgrst_scalar.article_cover}`,
+    },
   };
 }
 
@@ -152,8 +166,7 @@ const Page = async ({
                     viewBox="0 0 24 24"
                     strokeWidth={1}
                     stroke="currentColor"
-                    className="size-5"
-                  >
+                    className="size-5">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -185,8 +198,7 @@ const Page = async ({
                 size="lg"
                 autoContrast
                 color="rgba(242,242,242)"
-                className="text-black"
-              >
+                className="text-black">
                 {tag}
               </Badge>
             ))}

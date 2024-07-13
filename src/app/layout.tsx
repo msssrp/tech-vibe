@@ -11,7 +11,7 @@ import NextTopLoader from "nextjs-toploader";
 import { Notifications } from "@mantine/notifications";
 import { getWebLogoUrl } from "@/libs/actions/setting/webSetting";
 const imagesPath = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
-
+//jenkins-work
 export async function generateMetadata(): Promise<Metadata> {
   const webLogoUrl = await getWebLogoUrl();
   const logoUrl = imagesPath + webLogoUrl;
@@ -20,9 +20,24 @@ export async function generateMetadata(): Promise<Metadata> {
       default: "TechVibe",
       template: "%s - TechVibe",
     },
-    description: "Come and read Our Blog",
+    description: "an Online weblog application",
     icons: {
       icon: logoUrl,
+    },
+    openGraph: {
+      title: "TechVibe",
+      description: "an Online weblog application",
+      url: "https://techvibe.app",
+      siteName: "TechVibe",
+      images: [
+        {
+          url: logoUrl,
+          width: 800,
+          height: 600,
+        },
+      ],
+      locale: "th_TH",
+      type: "website",
     },
   };
 }
