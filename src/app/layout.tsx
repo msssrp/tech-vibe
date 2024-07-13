@@ -20,9 +20,24 @@ export async function generateMetadata(): Promise<Metadata> {
       default: "TechVibe",
       template: "%s - TechVibe",
     },
-    description: "Come and read Our Blog",
+    description: "an Online weblog application",
     icons: {
       icon: logoUrl,
+    },
+    openGraph: {
+      title: "TechVibe",
+      description: "an Online weblog application",
+      url: "https://techvibe.app",
+      siteName: "TechVibe",
+      images: [
+        {
+          url: logoUrl,
+          width: 800,
+          height: 600,
+        },
+      ],
+      locale: "th_TH",
+      type: "website",
     },
   };
 }
