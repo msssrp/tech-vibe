@@ -13,6 +13,12 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "techvibe",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "emerald-deliberate-finch-836.mypinata.cloud",
         port: "",
         pathname: "/ipfs/**",

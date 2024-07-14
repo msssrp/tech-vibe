@@ -336,12 +336,16 @@ const InteractBtn: React.FC<interactProps> = ({
           className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-14 flex flex-col items-center justify-center space-y-3"
         >
           <FacebookShareButton
-            url={`${currentPath}${usernameWithHyphen}/${articleTitleWithId}`}
+            url={`${
+              currentHost === "localhost" ? "localhost:3000/" : `${BASE_URL}/`
+            }${usernameWithHyphen}/${articleTitleWithId}`}
           >
             <FacebookIcon size={32} round />
           </FacebookShareButton>
           <TwitterShareButton
-            url={`${currentPath}${usernameWithHyphen}/${articleTitleWithId}`}
+            url={`${
+              currentHost === "localhost" ? "localhost:3000/" : `${BASE_URL}/`
+            }${usernameWithHyphen}/${articleTitleWithId}`}
           >
             <TwitterIcon size={32} round />
           </TwitterShareButton>
