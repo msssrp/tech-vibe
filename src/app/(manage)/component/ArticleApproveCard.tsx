@@ -1,9 +1,8 @@
-import { getArticleTags, getArticleTagsOnClient } from "@/libs/actions/tag/tag";
-import { ConvertUrlToSlug } from "@/libs/urlConvert";
+import { getArticleTags } from "@/libs/actions/tag/tag";
 import { articleProps } from "@/types/article/article";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ApproveBtn from "./ApproveBtn";
 import { getUser } from "@/libs/actions/user/user";
 
