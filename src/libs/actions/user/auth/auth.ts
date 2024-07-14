@@ -1,10 +1,16 @@
 import createSupabaseClient from "@/libs/supabase/client";
 const supabase = createSupabaseClient();
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export async function handlerGoogle() {
+  console.log(window.location.hostname);
   await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `http://localhost:3000/auth/callback`,
+      redirectTo: `${
+        window.location.hostname === "localhost"
+          ? "http://localhost:3000"
+          : BASE_URL
+      }/auth/callback`,
     },
   });
 }
@@ -13,7 +19,11 @@ export async function handlerGithub() {
   await supabase.auth.signInWithOAuth({
     provider: "github",
     options: {
-      redirectTo: `http://localhost:3000/auth/callback`,
+      redirectTo: `${
+        window.location.hostname === "localhost"
+          ? "http://localhost:3000"
+          : BASE_URL
+      }/auth/callback`,
     },
   });
 }
