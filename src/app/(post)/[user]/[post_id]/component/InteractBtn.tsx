@@ -33,6 +33,7 @@ import ReviewsCard from "./ReviewsCard";
 import Image from "next/image";
 import useInteractBtn from "@/hook/useInteractBtn";
 import { newComplaint } from "@/libs/actions/complaint/complaint";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 type interactProps = {
   user_id: string | undefined;
   article_id: string;
@@ -100,6 +101,7 @@ const InteractBtn: React.FC<interactProps> = ({
     </Combobox.Option>
   ));
   const [errorText, setErrorText] = useState("");
+
   const handleReportArticle = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -371,7 +373,11 @@ const InteractBtn: React.FC<interactProps> = ({
             className="cursor-pointer flex space-x-2"
             onClick={() =>
               clipboard.copy(
-                `${currentHost}:3000/${usernameWithHyphen}/${articleTitleWithId}`
+                `${
+                  currentHost === "localhost"
+                    ? "localhost:3000/"
+                    : `${BASE_URL}/`
+                }${usernameWithHyphen}/${articleTitleWithId}`
               )
             }
           >
