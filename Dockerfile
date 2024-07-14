@@ -1,23 +1,25 @@
-# Stage 1: install dependencies
-FROM node:22-alpine AS deps
+# Base image
+FROM node:22-alpine AS base
 WORKDIR /app
-COPY package*.json .
+
+# Stage 1: install dependencies
+FROM base AS deps
+COPY package*.json ./
 RUN npm install
 
 # Stage 2: build
-FROM node:22-alpine AS builder
+FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY src ./src
 COPY public ./public
 ARG ENV_FILE
-RUN echo "${ENV_FILE}" > .env
-COPY .env ./
+RUN echo ${ENV_FILE} > ./.env
 COPY *.json *.d.ts next.config.mjs postcss.config.cjs postcss.config.js tailwind.config.ts ./
 RUN npm run build
 
 # Stage 3: run
-FROM node:22-alpine
+FROM base AS runtime
 WORKDIR /app
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
