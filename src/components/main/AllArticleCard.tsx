@@ -97,7 +97,7 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
           </div>
         </div>
       </div>
-      <div className="flex-1 h-2 w-full mt-3 md:mt-0 md:flex-none md:w-36 md:h-20">
+      <div className="flex-1 h-1/2 w-full mt-3 md:mt-0 md:flex-none md:w-36 md:h-20">
         <Image
           width={450}
           height={450}

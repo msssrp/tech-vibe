@@ -88,7 +88,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({
     )
     .subscribe();
   return (
-    <div className="navbar max-w-screen h-2 bg-base-100 border-b">
+    <div className="navbar max-w-screen h-2 bg-base-100 border-b z-[9999]">
       <div className="flex-1">
         <Link href={"/"}>
           <button>
@@ -131,7 +131,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({
           </svg>
           <span className="uppercase text-[#616160] text-xs">write</span>
         </Link>
-        <div className="dropdown dropdown-end">
+        <div className="dropdown dropdown-end z-[30]">
           <div className="mr-4 relative" tabIndex={0} role="button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +170,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({
             </div>
           </div>
         </div>
-        <div className="dropdown dropdown-end">
+        <div className="dropdown dropdown-end z-30">
           <div
             tabIndex={0}
             role="button"
@@ -192,7 +192,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({
           </div>
           <ul
             tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-64"
+            className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-64"
           >
             <div className="border-b flex justify-stretch items-center">
               <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
