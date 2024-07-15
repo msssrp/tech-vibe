@@ -15,7 +15,7 @@ const RightSection: React.FC<RightSectionProps> = async ({ tags }) => {
   const popularArticles = await getPopularArticles(4);
   const npruArticles = await getNpruArticleOnUserPage();
   return (
-    <div className="w-2/6 py-12 pl-11 pr-2 flex flex-col items-center relative">
+    <div className="w-full border-l border-white lg:border-neutral-200 lg:w-2/6 lg:py-12 lg:pl-11 pr-2 flex flex-col items-center relative">
       {/* popularArticles */}
       <div className="w-full space-y-3 mb-6 ">
         <h2 className="uppercase font-semibold text-md">Popular articles</h2>
