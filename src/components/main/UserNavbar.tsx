@@ -88,7 +88,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({
     )
     .subscribe();
   return (
-    <div className="navbar h-2 bg-base-100 border-b">
+    <div className="navbar max-w-screen h-2 bg-base-100 border-b">
       <div className="flex-1">
         <Link href={"/"}>
           <button>
@@ -105,7 +105,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({
           <input
             type="text"
             placeholder="Search"
-            className="input h-10 rounded-xl input-bordered w-20 md:w-56 bg-[#F5F4F5] border-none"
+            className="input h-10 rounded-xl input-bordered w-32 md:w-56 bg-[#F5F4F5] border-none"
           />
         </div>
       </div>

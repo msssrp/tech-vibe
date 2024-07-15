@@ -39,7 +39,7 @@ const UpDownsButton: React.FC<UpDownsButtonProps> = ({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="white"
-              className="w-6 h-6"
+              className="w-5 h-5"
             >
               <path
                 fillRule="evenodd"
@@ -60,7 +60,7 @@ const UpDownsButton: React.FC<UpDownsButtonProps> = ({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="#616160"
-              className="w-6 h-6"
+              className="w-5 h-5"
             >
               <path
                 strokeLinecap="round"
@@ -86,7 +86,7 @@ const UpDownsButton: React.FC<UpDownsButtonProps> = ({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="white"
-            className="w-6 h-6"
+            className="w-5 h-5"
           >
             <path
               fillRule="evenodd"
@@ -107,7 +107,7 @@ const UpDownsButton: React.FC<UpDownsButtonProps> = ({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="#616160"
-            className="w-6 h-6"
+            className="w-5 h-5"
           >
             <path
               strokeLinecap="round"

@@ -34,7 +34,8 @@ const DrawerComment: React.FC<DrawerCommentProps> = ({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="#616160"
-            className="w-6 h-6">
+            className="w-5 h-5"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -59,7 +60,8 @@ const DrawerComment: React.FC<DrawerCommentProps> = ({
                 .map((parentComment) => (
                   <div
                     key={parentComment.comment_id}
-                    className="border-b pt-5 pb-5">
+                    className="border-b pt-5 pb-5"
+                  >
                     <div className="flex items-center space-x-3">
                       <CommentUser
                         user_id={parentComment.user_id}
@@ -75,7 +77,8 @@ const DrawerComment: React.FC<DrawerCommentProps> = ({
                               onClick={() =>
                                 handleReply(parentComment.comment_id)
                               }
-                              className="underline text-blue-300">
+                              className="underline text-blue-300"
+                            >
                               reply
                             </button>
                           )}
@@ -110,7 +113,8 @@ const DrawerComment: React.FC<DrawerCommentProps> = ({
                       .map((childComment) => (
                         <div
                           key={childComment.comment_id}
-                          className="pl-6 pt-3 ml-2 mt-2 border-l-2">
+                          className="pl-6 pt-3 ml-2 mt-2 border-l-2"
+                        >
                           {" "}
                           <div className="flex items-center space-x-3">
                             <CommentUser

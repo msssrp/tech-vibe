@@ -175,7 +175,7 @@ const InteractBtn: React.FC<interactProps> = ({
           viewBox="0 0 24 24"
           strokeWidth={1}
           stroke="currentColor"
-          className="w-6 h-6"
+          className="w-5 h-5"
         >
           <path
             strokeLinecap="round"
@@ -192,7 +192,7 @@ const InteractBtn: React.FC<interactProps> = ({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="#FED556"
-            className="w-6 h-6"
+            className="w-5 h-5"
           >
             <path
               strokeLinecap="round"
@@ -322,7 +322,7 @@ const InteractBtn: React.FC<interactProps> = ({
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="#699DF6"
-          className="w-6 h-6"
+          className="w-5 h-5"
         >
           <path
             strokeLinecap="round"
