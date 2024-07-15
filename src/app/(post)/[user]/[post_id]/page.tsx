@@ -13,6 +13,7 @@ import usePostPage from "@/hook/usePost";
 import { increaseArticleViews } from "@/libs/actions/article/articleStat";
 import { getArticleByUsernamandPostId } from "@/libs/actions/article/article";
 import Link from "next/link";
+import ArticleContent from "./component/ArticleContent";
 
 export async function generateMetadata({
   params,
@@ -97,28 +98,28 @@ const Page = async ({
     redirect("/");
 
   return (
-    <div>
-      <div className="flex flex-col space-y-2 h-auto container px-64 mx-auto mt-9">
+    <>
+      <div className="flex flex-col space-y-2 h-auto container px-5 lg:px-80 mx-auto mt-9">
         <div className="flex flex-col space-y-4">
-          <div className="font-semibold text-3xl">
+          <div className="font-semibold text-2xl">
             <span>{article.pgrst_scalar.article_title}</span>
           </div>
-          <div className="text-[#616160]">
+          <div className="text-[#616160] text-sm">
             <span>{article.pgrst_scalar.article_description}</span>
           </div>
           <div className="flex space-x-5 items-center">
-            <div className="w-11 h-11">
+            <div className="">
               <Image
                 height={50}
                 width={50}
                 src={user.user_profile ? user.user_profile : ""}
-                className="rounded-full h-full w-full"
+                className="rounded-full h-10 w-10"
                 alt={article.pgrst_scalar.article_title}
               />
             </div>
-            <div className="flex flex-col space-y-1">
+            <div className="h-16 flex flex-col -space-y-3">
               <div className="flex space-x-4">
-                <span className="">{user.user_fullname}</span>
+                <span className="text-md">{user.user_fullname}</span>
                 {article.pgrst_scalar.user_id === userSession.data.user?.id ? (
                   <></>
                 ) : (
@@ -166,7 +167,8 @@ const Page = async ({
                     viewBox="0 0 24 24"
                     strokeWidth={1}
                     stroke="currentColor"
-                    className="size-5">
+                    className="size-5"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -184,30 +186,26 @@ const Page = async ({
             </div>
           </div>
         </div>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: article.pgrst_scalar.article_content,
-          }}
-          className="pt-7"
-        />
+        <ArticleContent article={article.pgrst_scalar.article_content} />
         <div className="flex space-x-3 pt-8 pb-10">
           {Tagdata &&
             Tagdata.tag_name.map((tag: any, index: any) => (
               <Badge
                 key={index}
-                size="lg"
+                size="md"
                 autoContrast
                 color="rgba(242,242,242)"
-                className="text-black">
+                className="text-black"
+              >
                 {tag}
               </Badge>
             ))}
         </div>
       </div>
       <footer className="bg-[#F5F5F5] mt-5">
-        <div className="container mx-auto px-64 flex items-center justify-between py-10 pb-14">
+        <div className="container mx-auto px-4 lg:px-64 flex items-center justify-between py-10 pb-14">
           <div className="flex flex-col space-y-3">
-            <div className="w-16 h-16">
+            <div className="w-10 h-10 lg:w-16 lg:h-16">
               <Image
                 width={70}
                 height={70}
@@ -216,11 +214,11 @@ const Page = async ({
                 className="rounded-full h-full w-full"
               />
             </div>
-            <span className="text-lg">{user.user_fullname}</span>
+            <span className="text-md lg:text-lg">{user.user_fullname}</span>
             {UserFollowers && UserFollowers > 1 ? (
-              <p>{UserFollowers} Followers</p>
+              <p className="text-sm lg:text-md">{UserFollowers} Followers</p>
             ) : (
-              <p>{UserFollowers} Follower</p>
+              <p className="text-sm lg:text-md">{UserFollowers} Follower</p>
             )}
           </div>
           <div>
@@ -238,7 +236,7 @@ const Page = async ({
           </div>
         </div>
       </footer>
-    </div>
+    </>
   );
 };
 
