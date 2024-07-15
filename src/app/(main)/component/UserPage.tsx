@@ -17,13 +17,13 @@ const UserPage: React.FC<userPageProps> = async ({
 }) => {
   const tags = await getAllTags();
   return (
-    <div className="container mx-auto px-44">
+    <div className="container mx-auto px-60">
       <div className="flex divide-x h-auto relative">
         {/* left */}
         <div className="w-2/3 py-10">
           <FilterDisplayArticle tags={tags} />
           {/* allArticles */}
-          <div className="pr-11 h-auto overflow-y-scroll no-scrollbar">
+          <div className="pr-9 h-auto overflow-y-scroll no-scrollbar">
             <DisplayArticle
               userId={user_id}
               articleType={articleType}

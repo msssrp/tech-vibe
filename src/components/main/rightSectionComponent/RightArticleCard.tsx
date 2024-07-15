@@ -33,7 +33,7 @@ const RightArticleCard: React.FC<rightArticleCard> = async ({ article }) => {
               className="w-full rounded-full"
             />
           </div>
-          <p className="text-[#606060]">{user.user_fullname}</p>
+          <p className="text-sm text-[#606060]">{user.user_fullname}</p>
 
           {userRole &&
             userRole.some((user) => user.user_role_name === "npru") && (
@@ -44,7 +44,7 @@ const RightArticleCard: React.FC<rightArticleCard> = async ({ article }) => {
           className="card-title line-clamp-2"
           href={`/${userWithHyphen}/${articleSlug}`}
         >
-          <p className="font-semibold text-base">{article.article_title}</p>
+          <p className="font-semibold text-sm">{article.article_title}</p>
         </Link>
       </div>
     </div>
