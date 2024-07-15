@@ -27,8 +27,8 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
   const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
   const timeToRead = calculateReadingTime(article.article_content);
   return (
-    <div className="flex space-x-3 border-b mt-5 rounded-none items-center h-auto pb-5">
-      <div className="flex flex-col mt-5 space-y-3 px-4 w-3/4 h-full">
+    <div className="flex flex-col md:flex-row space-x-0 md:space-x-3 border-b mt-5 rounded-none items-center h-auto pb-5">
+      <div className="flex flex-col mt-5 space-y-2 px-4 md:w-3/4 w-full h-full">
         <div className="flex flex-col max-h-32 ">
           <Link
             href={`/profile/${user.user_id}`}
@@ -49,20 +49,21 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
                 <NpruVerify />
               )}
           </Link>
+        </div>
+        <div className="flex flex-col">
           <Link
             href={`/${userWithHyphen}/${articleSlug}`}
-            className="card-title text-2xl flex-1 mt-3"
+            className="card-title text-xl flex-1"
           >
             {article.article_title}
           </Link>
+          <p className="line-clamp-2 text-sm text-[#616160]">
+            {article.article_description}
+          </p>
         </div>
 
-        <p className="line-clamp-2 text-[#616160]">
-          {article.article_description}
-        </p>
-
         <div className="flex justify-between items-center mt-3">
-          <div className="space-x-1 h-8 overflow-hidden w-full">
+          <div className="space-x-1 w-1/3 h-8 overflow-hidden md:w-full">
             {tags &&
               tags.tag_name.map((tag: string, index: number) => {
                 const tagWithHypen = tag.replace(/ /g, "-");
@@ -79,7 +80,9 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
           </div>
           <div className="flex justify-between items-center w-2/3">
             <div>
-              <p className="text-sm">{timeToRead} min read</p>
+              <p className="text-xs">
+                {timeToRead} {timeToRead <= 1 ? "min " : "mins "}read
+              </p>
             </div>
             {user_id && (
               <div className="flex space-x-3 items-center justify-center">
@@ -94,14 +97,14 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
           </div>
         </div>
       </div>
-      <div className="flex-1 h-1/2">
+      <div className="flex-1 h-2 w-full mt-3 md:mt-0 md:flex-none md:w-36 md:h-20">
         <Image
           width={450}
           height={450}
           src={article.article_cover}
           alt={article.article_title}
           loading="lazy"
-          className="w-full h-full"
+          className="w-full h-full object-cover"
         />
       </div>
     </div>
