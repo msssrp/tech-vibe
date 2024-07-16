@@ -8,7 +8,7 @@ type articleCardProps = {
   cardTitle: string;
   articleStatus: string;
   articleTotal: number;
-  articleCover: string[];
+  articleCover: string | undefined;
 };
 
 const ArticleCard: React.FC<articleCardProps> = ({
@@ -18,13 +18,6 @@ const ArticleCard: React.FC<articleCardProps> = ({
   articleTotal,
   articleCover,
 }) => {
-  const shufflePicture = (articleCover: string[]) => {
-    for (let i = articleCover.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [articleCover[i], articleCover[j]] = [articleCover[j], articleCover[i]];
-    }
-    return articleCover[0];
-  };
   return (
     <Link
       href={`/profile/${user.user_id}/${
@@ -81,7 +74,11 @@ const ArticleCard: React.FC<articleCardProps> = ({
           <Image
             height={200}
             width={200}
-            src={shufflePicture(articleCover)}
+            src={
+              articleCover
+                ? articleCover
+                : "/public/images/home/tags/coding.png"
+            }
             alt="Picture"
             className="w-44"
           />

@@ -21,7 +21,7 @@ export default async function page({
             <h1 className="text-[#606060]">TECHNOLOGY ARTICLES BY </h1>
             <span className="text-red">Npru</span>
           </div>
-          <div className="flex flex-wrap items-center justify-center w-full h-full">
+          <div className="flex flex-col -space-y-5 md:space-y-4 md:flex-wrap md:flex-row items-center justify-center w-full h-full md:space-x-6">
             {articles.map((article) => (
               <ArticleCard
                 key={article.article_id}
@@ -43,7 +43,7 @@ export default async function page({
             <h1 className="text-[#606060]">TECHNOLOGY ARTICLES BY </h1>
             <span className="text-red">Popular articles</span>
           </div>
-          <div className="flex flex-wrap items-center justify-center w-full h-full">
+          <div className="flex flex-col -space-y-5 md:space-y-4 md:flex-wrap md:flex-row items-center justify-center w-full h-full md:space-x-6">
             {articles &&
               articles.map((article) => (
                 <ArticleCard
@@ -67,7 +67,7 @@ export default async function page({
           <h1 className="text-[#606060]">TECHNOLOGY ARTICLES BY TAG </h1>
           <span className="text-red">{tagNameWithoutHypen}</span>
         </div>
-        <div className="flex flex-wrap items-center justify-center w-full h-full">
+        <div className="flex flex-col -space-y-5 md:space-y-4 md:flex-wrap md:flex-row items-center justify-center w-full h-full md:space-x-6">
           {articles && articles.length > 0 ? (
             articles.map((article) => (
               <ArticleCard

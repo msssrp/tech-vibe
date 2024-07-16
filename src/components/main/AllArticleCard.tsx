@@ -63,7 +63,7 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
         </div>
 
         <div className="flex justify-between items-center mt-3">
-          <div className="space-x-1 w-1/3 h-8 overflow-hidden md:w-full">
+          <div className="space-x-1 w-2/5 h-8 overflow-hidden md:w-full">
             {tags &&
               tags.tag_name.map((tag: string, index: number) => {
                 const tagWithHypen = tag.replace(/ /g, "-");

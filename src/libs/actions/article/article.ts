@@ -327,7 +327,7 @@ export async function uploadImage(
 }
 
 export async function manageArticleStatus(articleId: string, status: string) {
-  const supabase = adminClient();
+  const supabase = createSupabaseClient();
   const { data, error } = await supabase
     .from("article")
     .update({ article_status: status })
