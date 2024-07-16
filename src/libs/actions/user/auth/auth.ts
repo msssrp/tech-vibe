@@ -6,11 +6,11 @@ export async function handlerGoogle() {
   await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${
-        window.location.hostname === "localhost"
-          ? "http://localhost:3000"
-          : BASE_URL
-      }/auth/callback`,
+      redirectTo: `https://techvibe.app/auth/callback`,
+      queryParams: {
+        access_type: "offline",
+        prompt: "consent",
+      },
     },
   });
 }
@@ -19,11 +19,11 @@ export async function handlerGithub() {
   await supabase.auth.signInWithOAuth({
     provider: "github",
     options: {
-      redirectTo: `${
-        window.location.hostname === "localhost"
-          ? "http://localhost:3000"
-          : BASE_URL
-      }/auth/callback`,
+      redirectTo: `https://techvibe.app/auth/callback`,
+      queryParams: {
+        access_type: "offline",
+        prompt: "consent",
+      },
     },
   });
 }
@@ -33,11 +33,11 @@ export async function handlerFacebook() {
   await supabase.auth.signInWithOAuth({
     provider: "facebook",
     options: {
-      redirectTo: `${
-        window.location.hostname === "localhost"
-          ? "http://localhost:3000"
-          : BASE_URL
-      }/auth/callback`,
+      redirectTo: `https://techvibe.app/auth/callback`,
+      queryParams: {
+        access_type: "offline",
+        prompt: "consent",
+      },
     },
   });
 }
