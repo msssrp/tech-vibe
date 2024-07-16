@@ -1,5 +1,9 @@
 "use client";
-import { handlerGithub, handlerGoogle } from "@/libs/actions/user/auth/auth";
+import {
+  handlerFacebook,
+  handlerGithub,
+  handlerGoogle,
+} from "@/libs/actions/user/auth/auth";
 import React, { useState } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -20,6 +24,9 @@ const OauthButton = () => {
   };
   const handlerGithubSignUp = async () => {
     await handlerGithub();
+  };
+  const handleFacebookSignUp = async () => {
+    await handlerFacebook();
   };
   const handlerWeb3 = async () => {
     open();
@@ -137,8 +144,8 @@ const OauthButton = () => {
       </button>
 
       <button
-        className="w-3/4 h-14 border flex justify-center items-center bg-[#F1F1F1] rounded-lg mb-3 cursor-not-allowed"
-        disabled
+        className="w-3/4 h-14 border flex justify-center items-center bg-[#F1F1F1] rounded-lg mb-3"
+        onClick={handleFacebookSignUp}
       >
         <div className="w-1/3 flex items-center justify-center">
           <FaFacebook className="w-8 h-8" />
