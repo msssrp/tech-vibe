@@ -12,7 +12,8 @@
 # next.js
 /.next/
 /out/
-
+/src/libs/actions/user/auth/auth.ts
+/src/app/auth/callback/route.ts
 # production
 /build
 
