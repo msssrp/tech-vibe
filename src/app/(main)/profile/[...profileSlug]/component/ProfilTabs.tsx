@@ -141,17 +141,18 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                           (article) => article.article_status === "public"
                         ).length
                       }
-                      articleCover={userArticles.reduce<string[]>(
+                      articleCover={userArticles.reduce<string | undefined>(
                         (acc, item) => {
                           if (
+                            !acc &&
                             item.article_status === "public" &&
                             item.article_cover !== undefined
                           ) {
-                            acc.push(item.article_cover);
+                            return item.article_cover;
                           }
                           return acc;
                         },
-                        []
+                        undefined
                       )}
                     />
                     <ArticleCard
@@ -163,17 +164,18 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                           (article) => article.article_status === "pending"
                         ).length
                       }
-                      articleCover={userArticles.reduce<string[]>(
+                      articleCover={userArticles.reduce<string | undefined>(
                         (acc, item) => {
                           if (
+                            !acc &&
                             item.article_status === "pending" &&
                             item.article_cover !== undefined
                           ) {
-                            acc.push(item.article_cover);
+                            return item.article_cover;
                           }
                           return acc;
                         },
-                        []
+                        undefined
                       )}
                     />
                     <ArticleCard
@@ -185,17 +187,18 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                           (article) => article.article_status === "draft"
                         ).length
                       }
-                      articleCover={userArticles.reduce<string[]>(
+                      articleCover={userArticles.reduce<string | undefined>(
                         (acc, item) => {
                           if (
+                            !acc &&
                             item.article_status === "draft" &&
                             item.article_cover !== undefined
                           ) {
-                            acc.push(item.article_cover);
+                            return item.article_cover;
                           }
                           return acc;
                         },
-                        []
+                        undefined
                       )}
                     />
                     <ArticleCard
@@ -207,17 +210,18 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                           (article) => article.article_status === "hidden"
                         ).length
                       }
-                      articleCover={userArticles.reduce<string[]>(
+                      articleCover={userArticles.reduce<string | undefined>(
                         (acc, item) => {
                           if (
+                            !acc &&
                             item.article_status === "hidden" &&
                             item.article_cover !== undefined
                           ) {
-                            acc.push(item.article_cover);
+                            return item.article_cover;
                           }
                           return acc;
                         },
-                        []
+                        undefined
                       )}
                     />
                   </div>

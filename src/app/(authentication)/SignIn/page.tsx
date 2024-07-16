@@ -16,7 +16,7 @@ const page = async () => {
     redirect("/");
   }
   return (
-    <div className="min-h-screen w-full flex items-center justify-center -mt-24">
+    <div className="min-h-screen w-full flex items-center justify-center -mt-2">
       <div className="flex flex-col justify-center items-center p-6 lg:w-1/2 xl:w-1/3">
         <h1 className="text-3xl mb-8">Welcome back</h1>
         <div className="flex flex-col justify-center items-center w-full">

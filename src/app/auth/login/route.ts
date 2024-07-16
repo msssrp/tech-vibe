@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import createSupabaseServerClient from "@/libs/supabase/server";
-const jwtSecret = process.env.NEXT_PUBLIC_SUPABASE_JWT;
 export async function POST(req: NextRequest) {
   const supabase = await createSupabaseServerClient();
   const { walletAddr, nonce, email } = await req.json();
-  if (!jwtSecret)
-    return NextResponse.json({ error: "No jwt secret found" }, { status: 500 });
   const { data: walletData, error } = await supabase
     .from("web3_user")
     .select("*")
@@ -17,8 +14,8 @@ export async function POST(req: NextRequest) {
       email: email,
       password: walletAddr,
     });
-    console.log(error);
-
+    if (error)
+      return NextResponse.json({ error: "Login failed" }, { status: 500 });
     if (user.user && user.user.id) {
       await supabase
         .from("web3_user")
@@ -33,8 +30,15 @@ export async function POST(req: NextRequest) {
       email: email,
       password: walletAddr,
     });
-    console.log(error);
-
-    return NextResponse.json({ success: "Login" }, { status: 200 });
+    if (error) {
+      return NextResponse.json(
+        { error: "Login failed. Email is not correct." },
+        { status: 500 }
+      );
+    }
+    return NextResponse.json(
+      { success: "Login Successfully" },
+      { status: 200 }
+    );
   }
 }

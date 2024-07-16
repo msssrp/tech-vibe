@@ -2,7 +2,7 @@
 import TinyEditor from "./TinyEditor";
 import WriteNavbar from "@/components/main/WriteNavbar";
 import { WriteProps } from "@/types/article/article";
-import { TagsInput } from "@mantine/core";
+import { TagsInput, Textarea } from "@mantine/core";
 import Link from "next/link";
 import Image from "next/image";
 import useWrite from "@/hook/useWrite";
@@ -37,25 +37,29 @@ const Write: React.FC<WriteProps> = ({
           userRole={userRole}
           webLogoUrl={webLogoUrl}
         />
-        <div className="container mx-auto px-32 py-10">
+        <div className="container mx-auto px-32 pt-10">
           <div className="flex items-center justify-center mt-10 divide-x">
             <div className="w-full pl-4 border-b">
-              <textarea
+              <Textarea
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                   setArticle((prev: any) => ({
                     ...prev,
                     article_title: e.target.value,
                   }))
                 }
-                value={article.article_title && article.article_title}
+                value={article.article_title}
                 placeholder={
                   isEdit && articleData && articleData.article_title
                     ? article.article_title
                     : "Title"
                 }
-                className="textarea p-9 input-lg w-full h-auto  focus:outline-none focus:border-none overflow-hidden px-0 text-3xl font-semibold capitalize resize-none"
+                className="w-full h-auto focus:outline-none focus:border-none px-0 text-xl font-semibold capitalize"
+                autosize
+                minRows={1}
+                variant="unstyled"
+                size="xl"
               />
-              <textarea
+              <Textarea
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                   setArticle((prev: any) => ({
                     ...prev,
@@ -70,7 +74,10 @@ const Write: React.FC<WriteProps> = ({
                     ? article.article_description
                     : "description"
                 }
-                className="textarea input-sm w-full h-auto  focus:outline-none focus:border-none overflow-hidden px-0 text-xl font-light capitalize resize-none pt-5"
+                className="w-full focus:outline-none focus:border-none px-0 text-md font-light capitalize"
+                minRows={1}
+                variant="unstyled"
+                size="md"
               />
             </div>
           </div>

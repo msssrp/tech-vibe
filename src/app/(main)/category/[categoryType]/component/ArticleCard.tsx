@@ -23,7 +23,7 @@ const ArticleCard: React.FC<articleCardProps> = async ({ article, userId }) => {
   const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
   const userRole = await getUserRoleOnServer(user.user_id);
   return (
-    <div className="w-80 h-[22rem] flex flex-col space-y-1 mr-12 mt-8">
+    <div className="w-80 h-[22rem] flex flex-col space-y-1 mt-4">
       <div className="h-40 w-full mb-3">
         <Image
           src={article.article_cover}
@@ -51,7 +51,7 @@ const ArticleCard: React.FC<articleCardProps> = async ({ article, userId }) => {
             <FaCircleCheck color="#952124" size={9} />
           )}
       </Link>
-      <div className="px-2 w-full h-16">
+      <div className="px-2 w-full h-auto">
         <Link
           className="text-xl font-semibold line-clamp-2"
           href={`/${userWithHyphen}/${articleSlug}`}
