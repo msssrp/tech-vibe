@@ -98,13 +98,24 @@ const OauthButton = () => {
     const resp = await handleLoginWeb3(nonceValue, walletAddrValue, email);
     setShowEmailInput(false);
     console.log(resp);
-    setLoginState("Login successfully");
+    if (resp.error) {
+      setLoginState(resp.error);
+      return setTimeout(() => {
+        close();
+        setEmail("");
+      }, 3000);
+    }
+    setLoginState(resp.success);
+    return setTimeout(() => {
+      document.location.reload();
+    }, 2000);
   };
   return (
     <>
       <button
         onClick={handleGoogleSignUp}
-        className="w-3/4 h-14 border flex justify-center items-center bg-[#F1F1F1] rounded-lg mb-3">
+        className="w-3/4 h-14 border flex justify-center items-center bg-[#F1F1F1] rounded-lg mb-3"
+      >
         <div className="w-1/3 flex items-center justify-center">
           <FcGoogle className="w-8 h-8" />
         </div>
@@ -115,7 +126,8 @@ const OauthButton = () => {
 
       <button
         onClick={handlerGithubSignUp}
-        className="w-3/4 h-14 border flex justify-center items-center bg-[#F1F1F1] rounded-lg mb-3">
+        className="w-3/4 h-14 border flex justify-center items-center bg-[#F1F1F1] rounded-lg mb-3"
+      >
         <div className="w-1/3 flex items-center justify-center">
           <ImGithub className="w-8 h-8" />
         </div>
@@ -126,7 +138,8 @@ const OauthButton = () => {
 
       <button
         className="w-3/4 h-14 border flex justify-center items-center bg-[#F1F1F1] rounded-lg mb-3 cursor-not-allowed"
-        disabled>
+        disabled
+      >
         <div className="w-1/3 flex items-center justify-center">
           <FaFacebook className="w-8 h-8" />
         </div>
@@ -139,7 +152,8 @@ const OauthButton = () => {
       </div>
       <button
         onClick={handlerWeb3}
-        className="w-3/4 h-14 border flex justify-center items-center bg-[#F1F1F1] rounded-lg mb-3 cursor-pointer">
+        className="w-3/4 h-14 border flex justify-center items-center bg-[#F1F1F1] rounded-lg mb-3 cursor-pointer"
+      >
         <div className="w-1/3 flex items-center justify-center">
           <GiFox className="w-8 h-8" />
         </div>
@@ -151,20 +165,27 @@ const OauthButton = () => {
         opened={opened}
         onClose={close}
         title={loginState}
-        withCloseButton={false}>
+        withCloseButton={false}
+      >
         {showEmailInput ? (
-          <div className="flex items-center justify-center space-y-4 flex-col">
+          <div className="flex items-center justify-center flex-col space-y-3">
+            <p className="text-sm">
+              If this is the first time login with this wallet please insert an
+              email for login next time.
+            </p>
             <TextInput
               label="Email"
               placeholder="please insert an email for sign in"
               type="email"
-              size="md"
+              size="sm"
               onChange={(e) => setEmail(e.target.value)}
+              className="w-3/4"
             />
             <button
               className="px-2.5 py-1.5 bg-green-500 hover:bg-green-400 text-white rounded-xl"
-              onClick={handleSubmit}>
-              Submit
+              onClick={handleSubmit}
+            >
+              Confirm
             </button>
           </div>
         ) : (
