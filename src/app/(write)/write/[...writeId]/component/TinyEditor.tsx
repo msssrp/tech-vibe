@@ -47,8 +47,6 @@ const TinyEditor: React.FC<tinyProps> = ({
               if (e.element.nodeName === "IMG") {
                 e.element.style.display = "block";
                 e.element.style.margin = "0 auto";
-                e.element.style.width = "60%";
-                e.element.style.height = "400px";
               }
             });
           },
