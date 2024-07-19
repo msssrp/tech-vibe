@@ -119,7 +119,7 @@ const OauthButton = () => {
   };
   return (
     <>
-      <button
+      <button id="signin-google"
         onClick={handleGoogleSignUp}
         className="w-3/4 h-14 border flex justify-center items-center bg-[#F1F1F1] rounded-lg mb-3"
       >

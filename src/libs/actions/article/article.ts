@@ -293,7 +293,8 @@ export async function newArticle(articleData: articleProps) {
 
 export async function updateArticleById(
   article_id: string,
-  articleData: articleProps
+  articleData: articleProps,
+  articleStatus?:string
 ) {
   const supabase = createSupabaseClient();
   const currentTime = new Date();
@@ -304,7 +305,7 @@ export async function updateArticleById(
       article_title: articleData.article_title,
       article_description: articleData.article_description,
       article_content: articleData.article_content,
-      article_status: articleData.article_status,
+      article_status: articleStatus ? articleStatus : articleData.article_status,
       article_cover: articleData.article_cover,
       updated_at: timeStamp,
     })

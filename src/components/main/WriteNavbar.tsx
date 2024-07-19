@@ -72,7 +72,7 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
           </Link>
         </div>
         <div className="flex-none space-x-5">
-          <button
+          <button id="btn-publish"
             onClick={handlerOnClick}
             className=" bg-green-600 py-1.5 px-4 rounded-full text-white text-xs"
           >

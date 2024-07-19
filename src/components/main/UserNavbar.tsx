@@ -114,6 +114,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({
           href={`/write/[uid]/[user_id]`}
           as={`/write/${uid}/${user_id}`}
           className="mr-4 flex items-center space-x-2.5"
+          id="write-article"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

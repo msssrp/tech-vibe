@@ -40,7 +40,7 @@ const Write: React.FC<WriteProps> = ({
         <div className="container mx-auto px-32 pt-10">
           <div className="flex items-center justify-center mt-10 divide-x">
             <div className="w-full pl-4 border-b">
-              <Textarea
+              <Textarea id="input-title"
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                   setArticle((prev: any) => ({
                     ...prev,
@@ -59,7 +59,7 @@ const Write: React.FC<WriteProps> = ({
                 variant="unstyled"
                 size="xl"
               />
-              <Textarea
+              <Textarea id="input-description"
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                   setArticle((prev: any) => ({
                     ...prev,
@@ -104,7 +104,7 @@ const Write: React.FC<WriteProps> = ({
             )}{" "}
           </div>
           <div className="container mx-auto px-32 border-none outline-none overflow-auto min-h-96">
-            <TagsInput
+            <TagsInput id="input-tag"
               className="w-1/3 "
               label="Press Enter to submit a tag"
               clearable
