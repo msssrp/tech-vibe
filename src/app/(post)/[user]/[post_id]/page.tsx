@@ -160,7 +160,7 @@ const Page = async ({
             </div>
             <div className="flex space-x-3 items-center">
               {userSession.data.user?.id === article.pgrst_scalar.user_id && (
-                <Link href={`/edit/${article.pgrst_scalar.article_id}`}>
+                <Link id="edit-article" href={`/edit/${article.pgrst_scalar.article_id}`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

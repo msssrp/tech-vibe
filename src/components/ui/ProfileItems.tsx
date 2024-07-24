@@ -9,7 +9,7 @@ type profileProps = {
 const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
   return (
     <div className="text-[#606060] mt-2 flex flex-col space-y-4 px-1">
-      <Link href={`/profile/${user_id}`} className="flex mt-3 space-x-2">
+      <Link id="profile" href={`/profile/${user_id}`} className="flex mt-3 space-x-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

@@ -22,8 +22,8 @@ const CardPopular: React.FC<popularArticlesProps> = async ({
 
   return (
     <div className="flex justify-center ">
-      <div className="card card-compact w-80 sm:w-[30rem] h-96 bg-base-100 drop-shadow-sm rounded-t-[50px] rounded-md border">
-        <figure className="w-full m-0">
+      <div className="card card-compact w-80 sm:w-[30rem] bg-base-100 drop-shadow-sm rounded-t-[50px] rounded-md border">
+        <figure className="w-full h-44 m-0">
           <Image
             width={520}
             height={520}
@@ -40,13 +40,13 @@ const CardPopular: React.FC<popularArticlesProps> = async ({
                   key={index}
                   className={`btn btn-sm badge bg-[#F2F2F2] rounded-full `}
                 >
-                  <p className="font-thin">{tag}</p>
+                  <p className="font-thin m-0">{tag}</p>
                 </div>
               );
             })}
           </span>
           <Link href={`/${userWithHyphen}/${articleSlug}`} className="card-title cursor-pointer">{popularArticles.article_title}</Link>
-          <p className="line-clamp-2">{popularArticles.article_description}</p>
+          <p className="line-clamp-2 m-0">{popularArticles.article_description}</p>
           <div className="flex justify-between items-center mt-2">
             <div className="avatar items-center">
               <div className="w-8 rounded-full">
@@ -57,7 +57,7 @@ const CardPopular: React.FC<popularArticlesProps> = async ({
                   alt={user.user_fullname}
                 />
               </div>
-              <p className="ml-2">{user.user_fullname}</p>
+              <p className="ml-2 my-0">{user.user_fullname}</p>
             </div>
             <a className="cursor-pointer">
               <svg
