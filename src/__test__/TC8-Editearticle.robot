@@ -17,8 +17,8 @@ ${BLOG_CONTENT}    Figma คืออะไร? Figma เป็นเครื�
 ${BLOG_TAGS}    ux/ui
 
 ${ALERT_TIPS_1}    Article tips 
-${ALERT_TIPS_2}    Article tips Every 5 second When you stop typing the article will automatically saved whether on draft or saved status
-${BALERT_STATUS}    Article Status Your article 8 เทคนิค ใช้ Figma ทำ UI Design ให้ง่ายขึ้น has been saved as draft 
+${ALERT_TIPS_2}    Article tips 
+${BALERT_STATUS}    Article Status 
 ${ALERT_PUBLISH}    Your article is published
 ${ALERT_PERROR}    Error Title , Description , Image cover , Content , Tags are required please make sure you dont forget any of these
 
@@ -29,14 +29,9 @@ Write and Publish Blog Post
     [Documentation]    Test case for writing and publishing a blog post and verifying it in article pending
     Open WebSite
     Login to Blog Site
-    Write Blog Post
+    Go To Blog Post
 
-    
-# *** Test Cases ***
-#  Search Google and Verify Results
-#     [Documentation]    Test case for SignIn Github
-#     Open WebSite
-#     Verify SignIn Github
+
 
 
 *** Keywords ***
@@ -44,7 +39,7 @@ Open WebSite
     Open Browser    ${URL}    ${BROWSER}
 
 Login to Blog Site
-    Click Element    id=btn_login
+    Click Element    id=btn-login
     Wait Until Page Contains Element    xpath=/html/body/div[2]/div/div/h1
     Click Element    xpath=/html/body/div[2]/div/div/div/button[1]
     Wait Until Page Contains Element    xpath=//*[@id="identifierId"]
@@ -56,25 +51,31 @@ Login to Blog Site
     Wait Until Page Contains Element    xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button
     Click Button    xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button
     Wait Until Page Contains Element    xpath=/html/body/div[1]/div[2]/div/div[1]/div[1]/div[2]/div[1]/button
-    Sleep    5
-    Click Element    id=write-article
+    Sleep    5    
+
+Go To Blog Post
     
+    Click Element    id=icon-user-profile
+    Wait Until Page Contains Element    id=profile
+    Click Element    id=profile
+    Wait Until Page Contains Element    id=title-article
+    Click Element    id=title-article
+    Wait Until Page Contains Element    id=edit-article
+    Click Element    id=edit-article
+    Sleep    10
 
-Write Blog Post
-    [Documentation]    Fill in the blog post form with provided data
-    Wait Until Page Contains    ${ALERT_TIPS_1}
-    # Wait Until Page Contains    ${ALERT_TIPS_2}
-    Sleep    5
-    Wait Until Page Contains Element    id=
-    # Input Text    id=input-title    ${BLOG_TITLE}
-    # Input Text    xpath=//textarea[@name='description']    ${BLOG_DESCRIPTION}
-    # Choose File    xpath=//input[@name='image']    ${BLOG_IMAGE_PATH}
-    # Input Text    xpath=//textarea[@name='content']    ${BLOG_CONTENT}
-    # Input Text    xpath=//input[@name='tags']    ${BLOG_TAGS}
+Edit Blog Post Content
+    Click Element    xpath=//*[@id="edit-button"]
+    Wait Until Page Contains Element    xpath=//*[@id="title"]
+    Input Text    xpath=//*[@id="title"]    ${BLOG_TITLE}
+    Input Text    xpath=//*[@id="description"]    ${BLOG_DESCRIPTION}
+    Input Text    xpath=//*[@id="content"]    ${BLOG_CONTENT}
+    Input Text    xpath=//*[@id="tags"]    ${BLOG_TAGS}
+    Click Element    xpath=//*[@id="save-button"]
+    Wait Until Page Contains Element    xpath=//*[@id="alert-success"]
 
-Publish Blog Post
-    [Documentation]    Click the publish button to publish the blog post
-    Click Button    xpath=//button[@type='submit' and text()='Publish']
-    Wait Until Page Contains    ${ALERT_PUBLISH}
-    Wait Until Page Contains    ${BLOG_TITLE}
-    Wait Until Page Contains    Pending articles    
+Verify Blog Post Edited
+    Page Should Contain    ${BLOG_TITLE}
+    Page Should Contain    ${BLOG_DESCRIPTION}
+    Page Should Contain    ${BLOG_CONTENT}
+    Page Should Contain    ${BLOG_TAGS}

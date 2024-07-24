@@ -172,7 +172,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({
           </div>
         </div>
         <div className="dropdown dropdown-end z-30">
-          <div
+          <div id="icon-user-profile"
             tabIndex={0}
             role="button"
             className="btn btn-ghost btn-circle avatar"
