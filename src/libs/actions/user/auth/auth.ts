@@ -6,7 +6,7 @@ export async function handlerGoogle() {
   await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `https://techvibe.app/auth/callback`,
+      redirectTo: `http://localhost:3000/auth/callback`,
       queryParams: {
         access_type: "offline",
         prompt: "consent",

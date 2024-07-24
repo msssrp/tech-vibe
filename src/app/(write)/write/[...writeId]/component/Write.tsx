@@ -15,7 +15,7 @@ const Write: React.FC<WriteProps> = ({
   webLogoUrl,
 }) => {
   const {
-    isDesktop,
+    //isDesktop,
     article,
     tagValue,
     setArticle,
@@ -26,7 +26,7 @@ const Write: React.FC<WriteProps> = ({
     userRole,
   } = useWrite(writeId, user, articleData && articleData, articleTag);
 
-  if (isDesktop) {
+  //if (isDesktop) {
     return (
       <div>
         <WriteNavbar
@@ -40,7 +40,7 @@ const Write: React.FC<WriteProps> = ({
         <div className="container mx-auto px-32 pt-10">
           <div className="flex items-center justify-center mt-10 divide-x">
             <div className="w-full pl-4 border-b">
-              <Textarea id="input-title"
+              <Textarea  id="input-title"
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                   setArticle((prev: any) => ({
                     ...prev,
@@ -116,8 +116,8 @@ const Write: React.FC<WriteProps> = ({
         </div>
       </div>
     );
-  }
-  return (
+ // }
+  /*return (
     <div className="h-screen flex flex-col justify-center items-center space-y-8">
       <Link href={"/"} className="w-16 h-16">
         <Image
@@ -133,7 +133,7 @@ const Write: React.FC<WriteProps> = ({
         This page available only in desktop mode please switch to desktop mode
       </span>
     </div>
-  );
+  );*/
 };
 
 export default Write;
