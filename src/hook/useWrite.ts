@@ -77,8 +77,8 @@ const useWrite = (
     const saveArticle = async () => {
       const articleData = await getArticleById(writeId);
 
-      if (articleData && articleData.article_status !== "pending") {
-        await updateArticleById(writeId, article);
+      if (articleData) {
+        await updateArticleById(writeId, article, "draft");
         articleNotification("Article Status", "draft", {
           articleName: article.article_title,
         });
