@@ -76,9 +76,8 @@ const useWrite = (
 
     const saveArticle = async () => {
       const articleData = await getArticleById(writeId);
-      if(articleData) setArticle(articleData)
-      if (articleData && articleData.article_status !== "public") {
-        await updateArticleById(writeId, article , "draft");
+      if (articleData) {
+        await updateArticleById(writeId, article, "draft");
         articleNotification("Article Status", "draft", {
           articleName: article.article_title,
         });
