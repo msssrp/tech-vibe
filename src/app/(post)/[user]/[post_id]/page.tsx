@@ -25,7 +25,10 @@ export async function generateMetadata({
   const articleNameAndId = params.post_id;
   const splitArticle = articleNameAndId.split("-");
   const articleTitleArray = splitArticle.slice(0, -1);
-  const articleTitle = articleTitleArray.join("-");
+  const articleTitle = articleTitleArray
+    .join("-")
+    .replace(/\&/g, "/")
+    .replace(/\%26/g, "/");
   const articleId = splitArticle[splitArticle.length - 1];
   const article = await getArticleByUsernamandPostId(
     userName,
@@ -64,7 +67,10 @@ const Page = async ({
   const articleNameAndId = params.post_id;
   const splitArticle = articleNameAndId.split("-");
   const articleTitleArray = splitArticle.slice(0, -1);
-  const articleTitle = articleTitleArray.join("-");
+  const articleTitle = articleTitleArray
+    .join("-")
+    .replace(/\&/g, "/")
+    .replace(/\%26/g, "/");
   const articleId = splitArticle[splitArticle.length - 1];
   const openCommend = searchParams.commend;
   const {
