@@ -21,8 +21,12 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
   const user = await getUser(article.user_id);
   const tags = await getArticleTags(article.article_id);
   const userRole = await getUserRoleOnServer(user.user_id);
-  const userWithHyphen = user.user_fullname.replace(/ /g, "-");
-  const articleTitleWithHypen = article.article_title.replace(/ /g, "-");
+  const userWithHyphen = user.user_fullname
+    .replace(/ /g, "-")
+    .replace(/-$/, "");
+  const articleTitleWithHypen = article.article_title
+    .replace(/ /g, "-")
+    .replace(/\//, "&");
   const firstArticleId = article.article_id.split("-")[0];
   const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
   const timeToRead = calculateReadingTime(article.article_content);

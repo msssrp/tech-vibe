@@ -250,6 +250,9 @@ export async function getArticleByUsernamandPostId(
   const usernameReplace = userName.replace(/-/g, " ");
   const articleTitleReplace = article_Title.replace(/-/g, " ");
   const decodedArticleTitle = decodeURIComponent(articleTitleReplace);
+  console.log(usernameReplace);
+
+  console.log(decodedArticleTitle);
 
   const { data, error } = await supabase
     .rpc("fetch_articles_by_partial_uuid", {
@@ -259,6 +262,7 @@ export async function getArticleByUsernamandPostId(
     })
     .single();
   if (error) console.log("error from getArticleByUsernamePostId", error);
+  console.log(data);
 
   return data;
 }
