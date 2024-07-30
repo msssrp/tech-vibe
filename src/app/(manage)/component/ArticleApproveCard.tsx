@@ -18,7 +18,10 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = async ({
   if (!user) return;
 
   const usernameWithHyphen = user.user_fullname.replace(/ /g, "-");
-  const articleTitleWithHypen = article.article_title.replace(/ /g, "-");
+  const articleTitleWithHypen = article.article_title
+    .replace(/ /g, "-")
+    .replace(/\&/g, "/")
+    .replace(/\%26/g, "/");
   const articleFirstId = article.article_id.split("-")[0];
   const articleTitleWithId = articleTitleWithHypen + "-" + articleFirstId;
 
@@ -38,13 +41,18 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = async ({
   };
 
   const getStatusClassAndText = (status: string) => {
-    if (status === "pending") return { className: "text-[#F8C04A]", text: "In progress" };
-    if (status === "public") return { className: "text-[#5AAB56]", text: "Approve" };
-    if (status === "reject") return { className: "text-[#E0524C] ", text: "Disapprove" };
+    if (status === "pending")
+      return { className: "text-[#F8C04A]", text: "In progress" };
+    if (status === "public")
+      return { className: "text-[#5AAB56]", text: "Approve" };
+    if (status === "reject")
+      return { className: "text-[#E0524C] ", text: "Disapprove" };
     return { className: "", text: status };
   };
 
-  const { className, text } = getStatusClassAndText(article.article_status ?? "");
+  const { className, text } = getStatusClassAndText(
+    article.article_status ?? ""
+  );
 
   return (
     <tr>
@@ -68,9 +76,7 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = async ({
         <Link href={`/profile/${user.user_id}`}>{user.user_fullname}</Link>
       </td>
       <td>{article.created_at ? formatDate(article.created_at) : "N/A"}</td>
-      <td className={`capitalize font-semibold ${className}`}>
-        {text}
-      </td>
+      <td className={`capitalize font-semibold ${className}`}>{text}</td>
     </tr>
   );
 };
