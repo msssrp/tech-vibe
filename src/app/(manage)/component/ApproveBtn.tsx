@@ -21,7 +21,7 @@ const ApproveBtn: React.FC<approveBtnProps> = ({
   const [openedDisApprove, { open: openDisApprove, close: closeDisApprove }] =
     useDisclosure(false);
   return (
-    <div className="flex items-center space-x-3 mr-2 justify-end py-2">
+    <div className="flex items-center space-x-3 justify-center py-2">
       <button className="btn" onClick={openDisApprove}>
         DISAPPROVE
       </button>
