@@ -20,8 +20,7 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = async ({
   const usernameWithHyphen = user.user_fullname.replace(/ /g, "-");
   const articleTitleWithHypen = article.article_title
     .replace(/ /g, "-")
-    .replace(/\&/g, "/")
-    .replace(/\%26/g, "/");
+    .replace(/\//g, "&");
   const articleFirstId = article.article_id.split("-")[0];
   const articleTitleWithId = articleTitleWithHypen + "-" + articleFirstId;
 
