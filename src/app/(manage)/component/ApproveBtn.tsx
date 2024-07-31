@@ -22,12 +22,14 @@ const ApproveBtn: React.FC<approveBtnProps> = ({
     useDisclosure(false);
   return (
     <div className="flex items-center space-x-3 justify-center py-2">
-      <button className="btn" onClick={openDisApprove}>
+      <button id="btn-disapprove" className="btn" onClick={openDisApprove}>
         DISAPPROVE
       </button>
       <button
+        id="btn-approve"
         className="btn bg-green-500 text-white hover:bg-green-400"
-        onClick={openApprove}>
+        onClick={openApprove}
+      >
         APPROVE
       </button>
       <DrawerApproveBtn

@@ -26,6 +26,7 @@ const ArticleStat: React.FC<articleStatProps> = ({
         <span className="text-sm lg:text-lg">All articles</span>
       </div>
       <Link
+        id="in-progress"
         href={`/manage${
           npruTab === true ? "/npru-article" : ""
         }?article=pending`}
@@ -38,6 +39,7 @@ const ArticleStat: React.FC<articleStatProps> = ({
         <span className="text-sm lg:text-lg">In progress</span>
       </Link>
       <Link
+        id="approve"
         href={`/manage${
           npruTab === true ? "/npru-article" : ""
         }?article=public`}
@@ -50,6 +52,7 @@ const ArticleStat: React.FC<articleStatProps> = ({
         <span className="text-sm lg:text-lg">Approve</span>
       </Link>
       <Link
+        id="disapprove"
         href={`/manage${
           npruTab === true ? "/npru-article" : ""
         }?article=reject`}

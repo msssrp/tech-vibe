@@ -64,6 +64,7 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = async ({
             </div>
           </div>
           <Link
+            id="title-manage-article"
             href={`/${usernameWithHyphen}/${articleTitleWithId}`}
             className="font-medium line-clamp-2"
           >
@@ -75,7 +76,21 @@ const ArticleApproveCard: React.FC<ArticleApproveCardProps> = async ({
         <Link href={`/profile/${user.user_id}`}>{user.user_fullname}</Link>
       </td>
       <td>{article.created_at ? formatDate(article.created_at) : "N/A"}</td>
-      <td className={`capitalize font-semibold ${className}`}>{text}</td>
+      {/* <td
+        id="status-article"
+        className={`capitalize font-semibold ${className}`}
+      >
+        {text}
+      </td> */}
+      <td>
+        {article && article.article_status !== "public" && (
+          <ApproveBtn
+            articleId={article.article_id}
+            articleTitle={article.article_title}
+            userId={user.user_id}
+          />
+        )}
+      </td>
     </tr>
   );
 };

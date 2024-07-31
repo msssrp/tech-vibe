@@ -57,7 +57,7 @@ const page = async ({
                     <th>Articles</th>
                     <th>Name</th>
                     <th>CreateAT</th>
-                    <th>Status</th>
+                    {/* <th>Status</th> */}
                   </tr>
                 </thead>
                 <tbody className="text-center">
