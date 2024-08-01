@@ -64,7 +64,7 @@ pipeline {
                     container(name: 'kaniko', shell: '/busybox/sh') {
                         sh '''
                         #!/busybox/sh
-                        /kaniko/executor --compressed-caching=false --skip-unused-stages --cache-run-layers=false --single-snapshot --build-arg=ENV_FILE="$(cat $TechVibe_env)" --dockerfile `pwd`/Dockerfile --context `pwd` --destination siripoom/techvibe:pre{$BuildNumber}
+                        /kaniko/executor --compressed-caching=false --skip-unused-stages --cache-run-layers=false --single-snapshot --build-arg=ENV_FILE="$(cat $TechVibe_env)" --dockerfile `pwd`/Dockerfile --context `pwd` --destination siripoom/techvibe:pre$BuildNumber
                         '''
                     }
                 }
