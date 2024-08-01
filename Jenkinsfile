@@ -2,6 +2,9 @@ pipeline {
     agent none
     stages {
         stage('Check out') {
+            when {
+                branch "main"
+            }
             agent any
             steps {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/msssrp/tech-vibe']])
@@ -9,6 +12,9 @@ pipeline {
             }
         }
         stage('Check Eslint'){
+            when {
+                branch "main"
+            }
             agent { label "node-agent"}
             steps{
                 unstash 'source'
@@ -18,6 +24,9 @@ pipeline {
             }
         }
         stage('Build image & Push to dockerhub') {
+            when {
+                branch "main"
+            }
             agent {
                 kubernetes {
                     yaml """
@@ -62,6 +71,9 @@ pipeline {
             }
         }
         stage('Update TechVibe deployment manifest'){
+            when {
+                branch "main"
+            }
             agent any
             environment {
                 GIT_REPO_NAME = "techvibe-k8s-manifests"
