@@ -76,9 +76,8 @@ const useWrite = (
 
     const saveArticle = async () => {
       const articleData = await getArticleById(writeId);
-
-      if (articleData && articleData.article_status !== "pending") {
-        await updateArticleById(writeId, article);
+      if (articleData) {
+        await updateArticleById(writeId, article, "draft");
         articleNotification("Article Status", "draft", {
           articleName: article.article_title,
         });
@@ -118,24 +117,24 @@ const useWrite = (
     article,
     writeId,
   ]);
-  const [isDesktop, setIsDesktop] = useState(false);
+  //const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
     const getUserRoleClient = async () => {
       const userRole = await getUserRole(user.user_id);
       setUserRole(userRole);
     };
-    const handleResize = async () => {
+    getUserRoleClient();
+    /*const handleResize = async () => {
       setIsDesktop(window.innerWidth > 1300);
     };
-    getUserRoleClient();
     handleResize();
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);*/
   }, [user.user_id]);
 
   const notificationRef = useRef(false);
   useEffect(() => {
-    if (isDesktop) {
+    //if (isDesktop) {
       if (notificationRef.current === false) {
         tipsNotification("Article tips");
         howtouseNotification("Article tips");
@@ -143,10 +142,10 @@ const useWrite = (
           notificationRef.current = true;
         };
       }
-    }
-  }, [isDesktop]);
+    //}
+  }, []);
   return {
-    isDesktop,
+    //isDesktop,
     article,
     tagValue,
     setArticle,

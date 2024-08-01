@@ -55,7 +55,7 @@ const Navbar: React.FC<navbarProps> = ({ webLogoUrl }) => {
         </div>
         <div className="flex justify-center items-center h-full">
           <button className="h-full flex justify-center items-center mr-7">
-            <Link
+            <Link id="btn-login"
               href={"/SignIn"}
               className="bg-white text-[13px] lg:text-lg h-full w-full flex justify-center items-center"
             >

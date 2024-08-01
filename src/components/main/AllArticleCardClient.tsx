@@ -76,7 +76,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
                 {article.article_title}
               </Link>
             ) : (
-              <Link
+              <Link id="title-article"
                 href={`/${userWithHyphen}/${articleSlug}`}
                 className="card-title text-xl flex-1"
               >

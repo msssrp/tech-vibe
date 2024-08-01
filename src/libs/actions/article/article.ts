@@ -250,6 +250,9 @@ export async function getArticleByUsernamandPostId(
   const usernameReplace = userName.replace(/-/g, " ");
   const articleTitleReplace = article_Title.replace(/-/g, " ");
   const decodedArticleTitle = decodeURIComponent(articleTitleReplace);
+  console.log(usernameReplace);
+
+  console.log(decodedArticleTitle);
 
   const { data, error } = await supabase
     .rpc("fetch_articles_by_partial_uuid", {
@@ -259,6 +262,7 @@ export async function getArticleByUsernamandPostId(
     })
     .single();
   if (error) console.log("error from getArticleByUsernamePostId", error);
+  console.log(data);
 
   return data;
 }
@@ -293,7 +297,8 @@ export async function newArticle(articleData: articleProps) {
 
 export async function updateArticleById(
   article_id: string,
-  articleData: articleProps
+  articleData: articleProps,
+  status?: string
 ) {
   const supabase = createSupabaseClient();
   const currentTime = new Date();
@@ -304,7 +309,7 @@ export async function updateArticleById(
       article_title: articleData.article_title,
       article_description: articleData.article_description,
       article_content: articleData.article_content,
-      article_status: articleData.article_status,
+      article_status: status ? status : articleData.article_status,
       article_cover: articleData.article_cover,
       updated_at: timeStamp,
     })

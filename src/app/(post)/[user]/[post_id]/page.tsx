@@ -25,7 +25,10 @@ export async function generateMetadata({
   const articleNameAndId = params.post_id;
   const splitArticle = articleNameAndId.split("-");
   const articleTitleArray = splitArticle.slice(0, -1);
-  const articleTitle = articleTitleArray.join("-");
+  const articleTitle = articleTitleArray
+    .join("-")
+    .replace(/\&/g, "/")
+    .replace(/\%26/g, "/");
   const articleId = splitArticle[splitArticle.length - 1];
   const article = await getArticleByUsernamandPostId(
     userName,
@@ -64,7 +67,10 @@ const Page = async ({
   const articleNameAndId = params.post_id;
   const splitArticle = articleNameAndId.split("-");
   const articleTitleArray = splitArticle.slice(0, -1);
-  const articleTitle = articleTitleArray.join("-");
+  const articleTitle = articleTitleArray
+    .join("-")
+    .replace(/\&/g, "/")
+    .replace(/\%26/g, "/");
   const articleId = splitArticle[splitArticle.length - 1];
   const openCommend = searchParams.commend;
   const {
@@ -160,7 +166,7 @@ const Page = async ({
             </div>
             <div className="flex space-x-3 items-center">
               {userSession.data.user?.id === article.pgrst_scalar.user_id && (
-                <Link href={`/edit/${article.pgrst_scalar.article_id}`}>
+                <Link id="edit-article" href={`/edit/${article.pgrst_scalar.article_id}`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

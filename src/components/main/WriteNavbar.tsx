@@ -15,6 +15,7 @@ import { newTag } from "@/libs/actions/tag/tag";
 import Image from "next/image";
 import { createNewNotification } from "@/libs/actions/notification/notification";
 import ProfileItems from "../ui/ProfileItems";
+import { useEffect, useState } from "react";
 
 type WriteProps = {
   article: articleProps;
@@ -54,6 +55,12 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
       user.user_id
     );
   };
+  const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsBtnDisabled(false);
+    }, 7000);
+  });
 
   return (
     <nav className="border-b">
@@ -72,9 +79,14 @@ const WriteNavbar: React.FC<userWriteProps & WriteProps> = ({
           </Link>
         </div>
         <div className="flex-none space-x-5">
-          <button
+          <button id="btn-publish"
             onClick={handlerOnClick}
-            className=" bg-green-600 py-1.5 px-4 rounded-full text-white text-xs"
+            disabled={isBtnDisabled}
+            className={`${
+              isBtnDisabled ? "bg-green-800" : "bg-green-600"
+            } py-1.5 px-4 rounded-full text-white text-xs ${
+              isBtnDisabled ? "cursor-not-allowed" : "cursor-pointer"
+            }`}
           >
             Publish
           </button>
