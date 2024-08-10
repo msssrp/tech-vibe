@@ -1,3 +1,4 @@
+import { articleProps } from "./article.d";
 import { commentProps } from "../comment/comment";
 import { tagProps } from "../tag/tag";
 import { userProps } from "./../user/user.d";
@@ -55,4 +56,32 @@ type Inputs = {
   github: string;
   facebook: string;
   twitter: string;
+};
+
+export type articlePropsWithUser = {
+  article_id: string;
+  article_title: string;
+  article_description: string;
+  article_cover: string;
+  article_content: string;
+  article_status?: string;
+  created_at: string;
+  updated_at?: string;
+  user_id: string;
+  user: userProps;
+};
+
+export type FilterProps = {
+  setColumFilters: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: string;
+        value: string;
+      }[]
+    >
+  >;
+  columnFilters: {
+    id: string;
+    value: string;
+  }[];
 };

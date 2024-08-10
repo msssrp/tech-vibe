@@ -2,7 +2,7 @@ import createSupabaseClient from "@/libs/supabase/client";
 import createSupabaseServerClient from "@/libs/supabase/server";
 import { carouselProps } from "@/types/setting/setting";
 import { v4 as uuidv4 } from "uuid";
-const settingId = "30261813-1ecf-4050-9f14-eaf332e4a23f";
+const settingId = "a1d61ca8-cac4-437c-8f1a-d38d5b5007bf";
 
 export async function getWebLogoUrl() {
   const supabase = await createSupabaseServerClient();

@@ -2,13 +2,9 @@ import React from "react";
 import { getComplaints } from "@/libs/actions/complaint/complaint";
 import ComplaintTabs from "@/app/(manage)/component/ComplaintTabs";
 import ComplaintStat from "@/app/(manage)/component/ComplaintStat";
-import ComplaintCard from "../component/ComplaintCard";
+import DataTable from "@/components/main/complaintTable/DataTable";
 
-const page = async ({
-  searchParams,
-}: {
-  searchParams: { complaint: string };
-}) => {
+const page = async () => {
   const complaints = await getComplaints();
   const harassment =
     complaints &&
@@ -32,14 +28,6 @@ const page = async ({
   const spamDeleteTotal =
     spam && spam.filter((complaint) => complaint.complaint_status === "delete");
 
-  const filterBySearchParams =
-    spam &&
-    spam.filter((complaint) => {
-      if (searchParams && searchParams.complaint) {
-        return complaint.complaint_status === searchParams.complaint;
-      }
-      return complaint.complaint_status === "pending";
-    });
   return (
     <div className="flex flex-col space-y-4">
       {/*Tabs*/}
@@ -52,21 +40,16 @@ const page = async ({
         />
         <div className="min-h-screen bg-[#F4F2FB]">
           <ComplaintStat
-            allArticle={harassment ? harassment.length : 0}
+            allArticle={spam ? spam.length : 0}
             inProgress={spamPendingTotal ? spamPendingTotal.length : 0}
             complaint={spamComplaintTotal ? spamComplaintTotal.length : 0}
             deleteTotal={spamDeleteTotal ? spamDeleteTotal.length : 0}
           />
           <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-10">
-            {filterBySearchParams && filterBySearchParams.length > 0 ? (
-              filterBySearchParams.map((complaint) => (
-                <ComplaintCard
-                  key={complaint.complaint_id}
-                  complaint={complaint}
-                />
-              ))
+            {spam ? (
+              <DataTable complaintWithArticelAndUser={spam} />
             ) : (
-              <div>no complaint on this status yet</div>
+              <span>No complaint found</span>
             )}
           </div>
         </div>

@@ -1,8 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import ArticleTabs from "../component/ArticleTabs";
 import ArticleStat from "../component/ArticleStat";
-import ArticleApproveCard from "../component/ArticleApproveCard";
-import { getAllArticles, getNpruArticle } from "@/libs/actions/article/article";
+import {
+  getAllArticlesWithUser,
+  getNpruArticle,
+} from "@/libs/actions/article/article";
+import DataTable from "@/components/main/table/DataTable";
 
 const page = async ({
   searchParams,
@@ -11,7 +14,7 @@ const page = async ({
 }) => {
   console.log(searchParams.article);
 
-  const allArticles = await getAllArticles();
+  const allArticles = await getAllArticlesWithUser();
   const npruArticles = await getNpruArticle();
   const inprogressArticles = allArticles.filter(
     (article) => article.article_status === "pending"
@@ -22,13 +25,6 @@ const page = async ({
   const disapproveArticles = allArticles.filter(
     (article) => article.article_status === "reject"
   );
-
-  const filterBySearchParams = allArticles.filter((article) => {
-    if (searchParams && searchParams.article) {
-      return article.article_status === searchParams.article;
-    }
-    return article.article_status === "pending";
-  });
 
   return (
     <div className="flex flex-col space-y-4">
@@ -45,12 +41,9 @@ const page = async ({
             inProgress={inprogressArticles.length}
             approve={approveArticles.length}
             disapprove={disapproveArticles.length}
-            npruTab={false}
           />
           <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-5">
-            {filterBySearchParams.map((article) => (
-              <ArticleApproveCard key={article.article_id} article={article} />
-            ))}
+            <DataTable articlesWithUser={allArticles} />
           </div>
         </div>
       </div>
