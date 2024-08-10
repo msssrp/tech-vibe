@@ -1,10 +1,10 @@
 import React from "react";
-import ArticleTabs from "../component/ArticleTabs";
-import ArticleStat from "../component/ArticleStat";
 import {
   getAllArticlesWithUser,
-  getNpruArticle,
+  getNpruArticleWithUser,
 } from "@/libs/actions/article/article";
+import ArticleTabs from "../../component/ArticleTabs";
+import ArticleStat from "../../component/ArticleStat";
 import DataTable from "@/components/main/table/DataTable";
 
 const page = async ({
@@ -15,14 +15,14 @@ const page = async ({
   console.log(searchParams.article);
 
   const allArticles = await getAllArticlesWithUser();
-  const npruArticles = await getNpruArticle();
-  const inprogressArticles = allArticles.filter(
+  const npruArticles = await getNpruArticleWithUser();
+  const inprogressArticles = npruArticles.filter(
     (article) => article.article_status === "pending"
   );
-  const approveArticles = allArticles.filter(
+  const approveArticles = npruArticles.filter(
     (article) => article.article_status === "public"
   );
-  const disapproveArticles = allArticles.filter(
+  const disapproveArticles = npruArticles.filter(
     (article) => article.article_status === "reject"
   );
 
@@ -33,17 +33,17 @@ const page = async ({
         <ArticleTabs
           generalArticleNumber={allArticles.length}
           npruArticleNumber={npruArticles.length}
-          isActiveAt="Gerneral articles"
+          isActiveAt="Article from npru"
         />
         <div className="min-h-screen bg-[#F4F2FB]">
           <ArticleStat
-            allArticle={allArticles.length}
+            allArticle={npruArticles.length}
             inProgress={inprogressArticles.length}
             approve={approveArticles.length}
             disapprove={disapproveArticles.length}
           />
           <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-5">
-            <DataTable articlesWithUser={allArticles} />
+            <DataTable articlesWithUser={npruArticles} />
           </div>
         </div>
       </div>

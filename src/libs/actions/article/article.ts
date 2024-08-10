@@ -92,9 +92,41 @@ export async function getAllArticlesWithUser(): Promise<
     *,
     user (*)`);
   if (error) throw new Error(error.message);
-  console.log(data);
 
   return data;
+}
+
+export async function getNpruArticleWithUser(): Promise<
+  articlePropsWithUser[]
+> {
+  const supabase = await createSupabaseServerClient();
+  const { data: userRoles, error: rolesError } = await supabase
+    .from("user_role")
+    .select("user_id")
+    .filter("user_role_name", "eq", "npru");
+
+  if (rolesError) {
+    console.error("Error fetching user roles:", rolesError.message);
+    return [];
+  }
+
+  const userIds = userRoles.map((role) => role.user_id);
+  const { data: articles, error: articlesError } = await supabase
+    .from("article")
+    .select(
+      `
+      *,
+      user (*)`
+    )
+    .in("user_id", userIds)
+    .eq("article_status", "public");
+
+  if (articlesError) {
+    console.error("Error fetching NPRU articles:", articlesError.message);
+    return [];
+  }
+
+  return articles;
 }
 
 export async function getNpruArticle(): Promise<articleProps[]> {

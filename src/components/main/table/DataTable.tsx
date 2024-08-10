@@ -65,7 +65,7 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
   },
 ];
 
-const TaskTable: React.FC<taskTableProps> = ({ articlesWithUser }) => {
+const DataTable: React.FC<taskTableProps> = ({ articlesWithUser }) => {
   const [data, setData] = useState<articlePropsWithUser[]>(
     articlesWithUser ? articlesWithUser : []
   );
@@ -75,22 +75,21 @@ const TaskTable: React.FC<taskTableProps> = ({ articlesWithUser }) => {
       value: string;
     }[]
   >([]);
-
+  const [activePage, setPage] = useState(1);
   const table = useReactTable({
     data,
     columns,
     state: {
       columnFilters,
+      pagination: {
+        pageIndex: activePage - 1,
+        pageSize: 5,
+      },
     },
     getFilteredRowModel: getFilteredRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    initialState: {
-      pagination: {
-        pageSize: 5,
-      },
-    },
   });
 
   return (
@@ -154,12 +153,13 @@ const TaskTable: React.FC<taskTableProps> = ({ articlesWithUser }) => {
         total={table.getPageCount()}
         color="cyan"
         size={"sm"}
+        value={activePage}
+        onChange={setPage}
         onNextPage={() => table.nextPage()}
         onPreviousPage={() => table.previousPage()}
       />
-      ;
     </div>
   );
 };
 
-export default TaskTable;
+export default DataTable;
