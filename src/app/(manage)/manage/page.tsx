@@ -28,13 +28,6 @@ const page = async ({
     (article) => article.article_status === "reject"
   );
 
-  const filterBySearchParams = allArticles.filter((article) => {
-    if (searchParams && searchParams.article) {
-      return article.article_status === searchParams.article;
-    }
-    return article.article_status === "pending";
-  });
-
   return (
     <div className="flex flex-col space-y-4">
       {/*Tabs*/}
@@ -50,7 +43,6 @@ const page = async ({
             inProgress={inprogressArticles.length}
             approve={approveArticles.length}
             disapprove={disapproveArticles.length}
-            npruTab={false}
           />
           <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-5">
             <TaskTable articlesWithUser={allArticles} />

@@ -140,6 +140,7 @@ export async function getNpruArticleOnUserPage(): Promise<articleProps[]> {
   const { data: articles, error: articlesError } = await supabase
     .from("article")
     .select("*")
+    .eq("article_status", "public")
     .in("user_id", userIds)
     .limit(4);
 
@@ -539,7 +540,7 @@ export async function getPopularArticles(
 }
 
 export const ArticleStatuses = [
-  { id: 1, name: "In progress", color: "orange" },
-  { id: 2, name: "Approved", color: "green" },
-  { id: 3, name: "Disapproved", color: "red" },
+  { id: 1, status: "pending", name: "In progress", color: "orange" },
+  { id: 2, status: "public", name: "Approved", color: "green" },
+  { id: 3, status: "reject", name: "Disapproved", color: "red" },
 ];

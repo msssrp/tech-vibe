@@ -6,14 +6,15 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { articlePropsWithUser } from "@/types/article/article";
-import { Table } from "@mantine/core";
+import { Pagination, Table } from "@mantine/core";
 import Image from "next/image";
 import Filter from "./Filter";
 import FilterStatus from "./FilterStatus";
-
+import { TbArrowsSort } from "react-icons/tb";
 type taskTableProps = {
   articlesWithUser: articlePropsWithUser[];
 };
@@ -83,7 +84,13 @@ const TaskTable: React.FC<taskTableProps> = ({ articlesWithUser }) => {
     },
     getFilteredRowModel: getFilteredRowModel(),
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: 5,
+      },
+    },
   });
 
   return (
@@ -104,12 +111,21 @@ const TaskTable: React.FC<taskTableProps> = ({ articlesWithUser }) => {
             <Table.Tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <Table.Th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
+                  <div className="flex items-center">
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                    {header.column.columnDef.header &&
+                      header.column.getCanSort() && (
+                        <TbArrowsSort
+                          className="ml-1 cursor-pointer"
+                          onClick={header.column.getToggleSortingHandler()}
+                        />
                       )}
+                  </div>
                 </Table.Th>
               ))}
             </Table.Tr>
@@ -133,8 +149,15 @@ const TaskTable: React.FC<taskTableProps> = ({ articlesWithUser }) => {
           )}
         </Table.Tbody>
       </Table>
-      <button onClick={() => table.previousPage()}>back</button>
-      <button onClick={() => table.nextPage()}>next</button>
+      <Pagination
+        mt={15}
+        total={table.getPageCount()}
+        color="cyan"
+        size={"sm"}
+        onNextPage={() => table.nextPage()}
+        onPreviousPage={() => table.previousPage()}
+      />
+      ;
     </div>
   );
 };

@@ -5,8 +5,7 @@ import React from "react";
 import { FaFilter } from "react-icons/fa";
 
 type statusBtnProps = {
-  isActive: boolean;
-  id: number;
+  status: string;
   name: string;
   color: string;
   setColumFilters: React.Dispatch<
@@ -20,36 +19,30 @@ type statusBtnProps = {
 };
 
 const StatusBtn: React.FC<statusBtnProps> = ({
-  id,
+  status,
   name,
   color,
   setColumFilters,
-  isActive,
 }) => (
   <Button
     color={color}
     onClick={() =>
       setColumFilters((prev) => {
-        const statuses =
-          prev.find((filter) => filter.id === "article_status")?.value || [];
-
-        if (statuses.length === 0) {
-          return prev.concat({ id: "article_status", value: [id.toString()] });
-        }
-
-        return prev.map((filter) =>
-          filter.id === "article_status"
-            ? {
-                ...filter,
-                value: isActive
-                  ? statuses.filter((s) => s !== id.toString())
-                  : statuses.concat(id.toString()),
-              }
-            : filter
+        const existingFilter = prev.find(
+          (filter) => filter.id === "article_status"
         );
+
+        if (existingFilter?.value === status) {
+          // If the status is already selected, remove the filter
+          return prev.filter((filter) => filter.id !== "article_status");
+        } else {
+          // Otherwise, add the selected status filter
+          return prev
+            .filter((filter) => filter.id !== "article_status")
+            .concat({ id: "article_status", value: status });
+        }
       })
-    }
-  >
+    }>
     {name}
   </Button>
 );
@@ -74,8 +67,7 @@ const FilterStatus: React.FC<FilterProps> = ({
             <p className=" text-slate-800 text-base">status</p>
             {ArticleStatuses.map((status) => (
               <StatusBtn
-                isActive={filterStatuses.includes(status.id)}
-                id={status.id}
+                status={status.status}
                 setColumFilters={setColumFilters}
                 key={status.id}
                 name={status.name}
