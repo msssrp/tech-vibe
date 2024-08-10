@@ -250,10 +250,6 @@ export async function getArticleByUsernamandPostId(
   const usernameReplace = userName.replace(/-/g, " ");
   const articleTitleReplace = article_Title.replace(/-/g, " ");
   const decodedArticleTitle = decodeURIComponent(articleTitleReplace);
-  console.log(usernameReplace);
-
-  console.log(decodedArticleTitle);
-
   const { data, error } = await supabase
     .rpc("fetch_articles_by_partial_uuid", {
       partial_uuid: articleIdWithWildCard,
