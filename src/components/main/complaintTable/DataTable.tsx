@@ -9,24 +9,25 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { articlePropsWithUser } from "@/types/article/article";
 import { Pagination, Table } from "@mantine/core";
 import Image from "next/image";
 import Filter from "./Filter";
 import FilterStatus from "./FilterStatus";
 import { TbArrowsSort } from "react-icons/tb";
+import { compalintPropsWithArticleAndUser } from "@/types/complaint/complaint";
+
 type taskTableProps = {
-  articlesWithUser: articlePropsWithUser[];
+  complaintWithArticelAndUser: compalintPropsWithArticleAndUser[];
 };
 
-const columns: ColumnDef<articlePropsWithUser>[] = [
+const columns: ColumnDef<compalintPropsWithArticleAndUser>[] = [
   {
     accessorKey: "article_cover",
     header: "",
     cell: ({ row }) => (
       <Image
-        src={row.original.article_cover}
-        alt={row.original.article_title}
+        src={row.original.article.article_cover}
+        alt={row.original.article.article_title}
         width={150}
         height={150}
         className="rounded-lg"
@@ -34,12 +35,16 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
     ),
   },
   {
-    accessorKey: "article_title",
+    accessorKey: "article.article_title",
     header: "Articles",
   },
   {
     accessorKey: "user.user_fullname",
-    header: "Name",
+    header: "Reporter Name",
+  },
+  {
+    accessorKey: "complaint_description",
+    header: "Complaint",
   },
   {
     accessorKey: "created_at",
@@ -51,31 +56,39 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
     },
   },
   {
-    accessorKey: "article_status",
+    accessorKey: "complaint_status",
     header: "Status",
     cell: ({ row }) => {
-      if (row.original.article_status === "pending") {
+      if (row.original.complaint_status === "pending") {
         return (
-          <span className="bg-yellow-500 btn btn-sm text-white">
+          <button className="bg-yellow-500 btn btn-sm text-white">
             In progress
-          </span>
+          </button>
         );
-      } else if (row.original.article_status === "public") {
+      } else if (row.original.complaint_status === "complaint") {
         return (
-          <span className="bg-green-500 btn btn-sm text-white">Approved</span>
+          <span className="bg-green-500 btn btn-sm text-white">Complaint</span>
         );
       } else {
-        return (
-          <span className="bg-red btn btn-sm text-white">Disapproved</span>
-        );
+        return <span className="bg-red btn btn-sm text-white">Deleted</span>;
       }
+    },
+  },
+  {
+    accessorKey: "complaint_mod_comment",
+    header: "Moderator comment",
+    cell: ({ row }) => {
+      if (!row.original.complaint_mod_comment) return "-";
+      return row.original.complaint_mod_comment;
     },
   },
 ];
 
-const DataTable: React.FC<taskTableProps> = ({ articlesWithUser }) => {
-  const [data, setData] = useState<articlePropsWithUser[]>(
-    articlesWithUser ? articlesWithUser : []
+const DataTable: React.FC<taskTableProps> = ({
+  complaintWithArticelAndUser,
+}) => {
+  const [data, setData] = useState<compalintPropsWithArticleAndUser[]>(
+    complaintWithArticelAndUser ? complaintWithArticelAndUser : []
   );
   const [columnFilters, setColumFilters] = useState<
     {
@@ -112,7 +125,7 @@ const DataTable: React.FC<taskTableProps> = ({ articlesWithUser }) => {
           columnFilters={columnFilters}
         />
       </div>
-      <Table w={1000} striped withTableBorder>
+      <Table striped withTableBorder>
         <Table.Thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <Table.Tr key={headerGroup.id}>
