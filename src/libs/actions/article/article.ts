@@ -1,4 +1,8 @@
-import { articleProps, uploadProps } from "@/types/article/article";
+import {
+  articleProps,
+  articlePropsWithUser,
+  uploadProps,
+} from "@/types/article/article";
 import { v4 as uuid } from "uuid";
 import createSupabaseServerClient from "@/libs/supabase/server";
 import createSupabaseClient from "@/libs/supabase/client";
@@ -78,6 +82,19 @@ export async function getAllArticles(): Promise<articleProps[]> {
   const { data, error } = await supabase.from("article").select("*");
   if (error) throw new Error(error.message);
   return data as articleProps[];
+}
+
+export async function getAllArticlesWithUser(): Promise<
+  articlePropsWithUser[]
+> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase.from("article").select(`
+    *,
+    user (*)`);
+  if (error) throw new Error(error.message);
+  console.log(data);
+
+  return data;
 }
 
 export async function getNpruArticle(): Promise<articleProps[]> {
@@ -520,3 +537,9 @@ export async function getPopularArticles(
   }
   return popularArticles;
 }
+
+export const ArticleStatuses = [
+  { id: 1, name: "In progress", color: "orange" },
+  { id: 2, name: "Approved", color: "green" },
+  { id: 3, name: "Disapproved", color: "red" },
+];

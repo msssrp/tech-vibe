@@ -2,7 +2,12 @@ import React, { useContext } from "react";
 import ArticleTabs from "../component/ArticleTabs";
 import ArticleStat from "../component/ArticleStat";
 import ArticleApproveCard from "../component/ArticleApproveCard";
-import { getAllArticles, getNpruArticle } from "@/libs/actions/article/article";
+import {
+  getAllArticles,
+  getAllArticlesWithUser,
+  getNpruArticle,
+} from "@/libs/actions/article/article";
+import TaskTable from "@/components/main/table/TaskTable";
 
 const page = async ({
   searchParams,
@@ -11,7 +16,7 @@ const page = async ({
 }) => {
   console.log(searchParams.article);
 
-  const allArticles = await getAllArticles();
+  const allArticles = await getAllArticlesWithUser();
   const npruArticles = await getNpruArticle();
   const inprogressArticles = allArticles.filter(
     (article) => article.article_status === "pending"
@@ -48,9 +53,7 @@ const page = async ({
             npruTab={false}
           />
           <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-5">
-            {filterBySearchParams.map((article) => (
-              <ArticleApproveCard key={article.article_id} article={article} />
-            ))}
+            <TaskTable articlesWithUser={allArticles} />
           </div>
         </div>
       </div>
