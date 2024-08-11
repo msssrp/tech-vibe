@@ -4,8 +4,6 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { GoReport } from "react-icons/go";
 import { IoIosLogOut } from "react-icons/io";
-import { MdOutlineManageAccounts } from "react-icons/md";
-import { GiFox } from "react-icons/gi";
 const links = [
   {
     link: "/manage",
@@ -37,7 +35,8 @@ const DashboardLink = () => {
       } ${item.label === isActive ? "bg-base-content" : "bg-transparent"}`}
       onClick={() => {
         setIsActive(item.label);
-      }}>
+      }}
+    >
       {item.icon}
       {item.label}
     </Link>

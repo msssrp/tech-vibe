@@ -1,6 +1,6 @@
 import createSupabaseClient from "@/libs/supabase/client";
 import createSupabaseServerClient from "@/libs/supabase/server";
-import { updatePromise, userProps } from "@/types/user/user";
+import { updatePromise, userProps, userWithRoleProps } from "@/types/user/user";
 
 export async function getAdminOrNpru() {
   const supabase = await createSupabaseServerClient();
@@ -29,6 +29,14 @@ export async function getUserOrNpru() {
     .select(`user_id,user_role_name,user (*)`)
     .or("user_role_name.eq.user,user_role_name.eq.npru");
   if (error) console.log(error);
+  return data;
+}
+
+export async function getUserWithRole(): Promise<userWithRoleProps[] | null> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase.from("user").select(`*,user_role(*)`);
+  if (error) console.log(error);
+
   return data;
 }
 
@@ -63,3 +71,10 @@ export async function updateFullname(
     .eq("user_id", userId);
   return { error: error };
 }
+
+export const UserProviders = [
+  { id: 1, status: "google", name: "google", color: "gray" },
+  { id: 2, status: "facebook", name: "facebook", color: "blue" },
+  { id: 3, status: "github", name: "github", color: "black" },
+  { id: 4, status: "email", name: "email", color: "orange" },
+];

@@ -1,7 +1,7 @@
 import createSupabaseClient from "@/libs/supabase/client";
 import createSupabaseServerClient from "@/libs/supabase/server";
 
-const web3Id = "9456d205-097c-41cf-8e17-8a89f34f0d96";
+const web3Id = "0930fd21-a370-41fe-9195-6369edda0b76";
 
 export async function updateUpvotes(upvotes: number) {
   const supabase = createSupabaseClient();
@@ -44,7 +44,7 @@ export async function getUpvotes() {
 }
 
 export async function getCertificateUri() {
-  const supabase = await createSupabaseServerClient();
+  const supabase = createSupabaseClient();
   const { data, error } = await supabase
     .from("web3")
     .select("web3_certificate")

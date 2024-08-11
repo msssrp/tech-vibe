@@ -15,6 +15,7 @@ import Filter from "./Filter";
 import FilterStatus from "./FilterStatus";
 import { TbArrowsSort } from "react-icons/tb";
 import { compalintPropsWithArticleAndUser } from "@/types/complaint/complaint";
+import ComplaintInteract from "@/app/(manage)/manage/complaint/component/ComplaintInteract";
 
 type taskTableProps = {
   complaintWithArticelAndUser: compalintPropsWithArticleAndUser[];
@@ -61,16 +62,37 @@ const columns: ColumnDef<compalintPropsWithArticleAndUser>[] = [
     cell: ({ row }) => {
       if (row.original.complaint_status === "pending") {
         return (
-          <button className="bg-yellow-500 btn btn-sm text-white">
-            In progress
-          </button>
+          <ComplaintInteract
+            complaintId={row.original.complaint_id}
+            complaintStatus={row.original.complaint_status}
+            articleId={row.original.article_id}
+            articleTitle={row.original.article.article_title}
+            userId={row.original.article.user_id}
+            complaintBtnName="In Progress"
+          />
         );
       } else if (row.original.complaint_status === "complaint") {
         return (
-          <span className="bg-green-500 btn btn-sm text-white">Complaint</span>
+          <ComplaintInteract
+            complaintId={row.original.complaint_id}
+            complaintStatus={row.original.complaint_status}
+            articleId={row.original.article_id}
+            articleTitle={row.original.article.article_title}
+            userId={row.original.article.user_id}
+            complaintBtnName="Complaint"
+          />
         );
       } else {
-        return <span className="bg-red btn btn-sm text-white">Deleted</span>;
+        return (
+          <ComplaintInteract
+            complaintId={row.original.complaint_id}
+            complaintStatus={row.original.complaint_status}
+            articleId={row.original.article_id}
+            articleTitle={row.original.article.article_title}
+            userId={row.original.article.user_id}
+            complaintBtnName="Deleted"
+          />
+        );
       }
     },
   },

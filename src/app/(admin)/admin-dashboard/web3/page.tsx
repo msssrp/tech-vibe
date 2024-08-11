@@ -11,10 +11,13 @@ import { notifications } from "@mantine/notifications";
 import Image from "next/image";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+const IMAGE_PATH = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
 const Page = () => {
   const [certificateUri, setCertificateUri] = useState("");
   const [upvotes, setUpvotes] = useState<number>();
   const [newUpvotes, setNewUpvotes] = useState("");
+  console.log(IMAGE_PATH, certificateUri);
+
   useEffect(() => {
     const getData = async () => {
       const certificate = await getCertificateUri();
@@ -78,7 +81,8 @@ const Page = () => {
       <div className="flex items-center justify-center">
         <form
           className="w-1/2 flex flex-col justify-start space-y-4"
-          onSubmit={handleFormUpdate}>
+          onSubmit={handleFormUpdate}
+        >
           <div className="flex flex-col  space-y-1.5">
             <h1>Edit Certificate article on upvotes</h1>
             <Input
@@ -96,20 +100,19 @@ const Page = () => {
           </div>
           <button
             type="submit"
-            className="btn w-24 h-10 bg-green-500 text-white">
+            className="btn w-24 h-10 bg-green-500 text-white"
+          >
             update
           </button>
         </form>
         <div
           className="flex flex-col space-y-4 cursor-pointer"
-          onClick={handleImageClick}>
+          onClick={handleImageClick}
+        >
           <h1>Certificate template</h1>
           <Indicator inline label="Edit" size={25} position="bottom-start">
             <Image
-              src={
-                selectedImage ||
-                `https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/${certificateUri}`
-              }
+              src={selectedImage || `${IMAGE_PATH}${certificateUri}`}
               alt=""
               height={200}
               width={400}

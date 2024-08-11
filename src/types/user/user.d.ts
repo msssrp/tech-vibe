@@ -33,3 +33,19 @@ export type userSocialProps = {
 export type updatePromise = {
   error?: any;
 };
+
+export type userWithRoleProps = {
+  user_id: string;
+  user_email: string;
+  user_fullname: string;
+  user_profile: string;
+  user_provider: string;
+  created_at: string;
+  updated_at: string;
+  user_verify: boolean;
+  user_role: {
+    user_role_id: string;
+    user_role_name: string;
+    user_id: string;
+  }[];
+};
