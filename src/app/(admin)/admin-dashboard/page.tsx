@@ -1,46 +1,36 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import UserTabs from "../component/UserTabs";
-import { getUserOrNpru } from "@/libs/actions/user/userClient";
+import { getUserWithRole } from "@/libs/actions/user/userClient";
 import UserStat from "../component/UserStat";
-import UserCard from "../component/UserCard";
-import {
-  getAdminCount,
-  getModeratorCount,
-  getUsersCount,
-} from "@/libs/actions/user/user_role";
+import { getUsersCount } from "@/libs/actions/user/user_role";
+import getUserSession from "@/libs/actions/user/auth/getSession";
+import DataTable from "@/components/main/userTable/DataTable";
+import { redirect } from "next/navigation";
 
-const page = async ({ searchParams }: { searchParams: { user: string } }) => {
-  const user = await getUserOrNpru();
+const page = async () => {
+  const user = await getUserWithRole();
   const userCount = await getUsersCount();
-  const moderatorCount = await getModeratorCount();
-  const adminCount = await getAdminCount();
-
+  const userSession = await getUserSession();
+  if (!userSession) return redirect("/SignIn");
   const generalUser =
     user &&
-    user.filter(
-      (user) => user.user_role_name !== "npru" && user.user_role_name === "user"
+    user.filter((user) =>
+      user.user_role.some(
+        (user) =>
+          user.user_role_name !== "npru" && user.user_role_name === "user"
+      )
     ).length;
   const npruUser =
-    user && user.filter((user) => user.user_role_name === "npru").length;
-
-  const filterUser =
     user &&
-    user.filter((user) => {
-      if (searchParams && searchParams.user) {
-        return user.user_role_name === searchParams.user;
-      }
-      return user.user_role_name === "user";
-    });
+    user.filter((user) =>
+      user.user_role.some((user) => user.user_role_name === "npru")
+    ).length;
+
   return (
     <div className="flex flex-col space-y-4">
       {/*Tabs*/}
       <div className="flex flex-col">
-        <UserTabs
-          userTotal={userCount}
-          moderatorTotal={moderatorCount}
-          adminTotal={adminCount}
-          isActiveAt="Users"
-        />
+        <UserTabs />
         <div className="min-h-screen bg-[#F4F2FB]">
           <UserStat
             allUsers={userCount}
@@ -48,18 +38,9 @@ const page = async ({ searchParams }: { searchParams: { user: string } }) => {
             npruUser={npruUser}
           />
           <div className="flex flex-col lg:flex-row flex-wrap justify-center items-center mt-5 w-full">
-            {filterUser &&
-              filterUser.map((user: any) => {
-                if (user.user && user.user_role_name && user.user_id) {
-                  return (
-                    <UserCard
-                      key={user.user.user_id}
-                      userRole={user.user_role_name}
-                      user={user.user}
-                    />
-                  );
-                }
-              })}
+            {userSession.data && userSession.data.user && user && (
+              <DataTable user={user} userSessionId={userSession.data.user.id} />
+            )}
           </div>
         </div>
       </div>

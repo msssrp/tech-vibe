@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { Badge } from "@mantine/core";
 import DrawerComment from "./component/DrawerComment";
 import { Metadata } from "next";
-import "./post.css";
 import UpDownsButton from "./component/UpDownsButton";
 import InteractBtn from "./component/InteractBtn";
 import FollowText from "./component/FollowText";

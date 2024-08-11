@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Lora } from "next/font/google";
 import "@/styles/globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
@@ -11,7 +10,6 @@ import NextTopLoader from "nextjs-toploader";
 import { Notifications } from "@mantine/notifications";
 import { getWebLogoUrl } from "@/libs/actions/setting/webSetting";
 const imagesPath = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
-//jenkins-work
 export async function generateMetadata(): Promise<Metadata> {
   const webLogoUrl = await getWebLogoUrl();
   const logoUrl = imagesPath + webLogoUrl;

@@ -36,7 +36,8 @@ const AdminProfile: React.FC<adminProps> = async ({ totalUser }) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-4 h-4 hidden lg:block">
+            className="w-4 h-4 hidden lg:block"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
