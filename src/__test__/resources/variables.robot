@@ -1,7 +1,3 @@
-*** Settings ***
-Library     SeleniumLibrary
-Library    XML
-
 *** Variables ***
 ${BROWSER}          Chrome
 ${URL}              http://localhost:3000
@@ -17,65 +13,11 @@ ${BLOG_CONTENT}    Figma คืออะไร? Figma เป็นเครื�
 ${BLOG_TAGS}    ux/ui
 
 ${ALERT_TIPS_1}    Article tips 
+${ALERT_TIPS_3}    The article cover will automatically choose when you're upload the first image (The image url will not be choose as article cover)
 ${ALERT_TIPS_2}    Article tips 
-${BALERT_STATUS}    Article Status 
-${ALERT_PUBLISH}    Your article is published
+${ALERT_TIPS_4}    Every 5 second When you stop typing the article will automatically saved whether on draft or saved status
+${BALERT_STATUS}    Article Status Your article has been saved Ready to write
+${ALERT_PUBLISH}    Article Status Your article has been publish wait for the moderator to confirm. You will be redirect to home page in 10 second
 ${ALERT_PERROR}    Error Title , Description , Image cover , Content , Tags are required please make sure you dont forget any of these
 
 
-
-*** Test Cases ***
-Write and Publish Blog Post
-    [Documentation]    Test case for writing and publishing a blog post and verifying it in article pending
-    Open WebSite
-    Login to Blog Site
-    Go To Blog Post
-
-
-
-
-*** Keywords ***
-Open WebSite
-    Open Browser    ${URL}    ${BROWSER}
-
-Login to Blog Site
-    Click Element    id=btn-login
-    Wait Until Page Contains Element    xpath=/html/body/div[2]/div/div/h1
-    Click Element    xpath=/html/body/div[2]/div/div/div/button[1]
-    Wait Until Page Contains Element    xpath=//*[@id="identifierId"]
-    Input Text    xpath=//*[@id="identifierId"]    ${GOOGLE_USERNAME}    
-    Click Element    xpath=//*[@id="identifierNext"]/div/button
-    Wait Until Element Is Visible    xpath=//*[@id="password"]/div[1]/div/div[1]/input    
-    Input Text    xpath=//*[@id="password"]/div[1]/div/div[1]/input    ${GOOGLE_PASSWORD}    
-    Click Element    xpath=//*[@id="passwordNext"]/div/button
-    Wait Until Page Contains Element    xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button
-    Click Button    xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button
-    Wait Until Page Contains Element    xpath=/html/body/div[1]/div[2]/div/div[1]/div[1]/div[2]/div[1]/button
-    Sleep    5    
-
-Go To Blog Post
-    
-    Click Element    id=icon-user-profile
-    Wait Until Page Contains Element    id=profile
-    Click Element    id=profile
-    Wait Until Page Contains Element    id=title-article
-    Click Element    id=title-article
-    Wait Until Page Contains Element    id=edit-article
-    Click Element    id=edit-article
-    Sleep    10
-
-Edit Blog Post Content
-    Click Element    xpath=//*[@id="edit-button"]
-    Wait Until Page Contains Element    xpath=//*[@id="title"]
-    Input Text    xpath=//*[@id="title"]    ${BLOG_TITLE}
-    Input Text    xpath=//*[@id="description"]    ${BLOG_DESCRIPTION}
-    Input Text    xpath=//*[@id="content"]    ${BLOG_CONTENT}
-    Input Text    xpath=//*[@id="tags"]    ${BLOG_TAGS}
-    Click Element    xpath=//*[@id="save-button"]
-    Wait Until Page Contains Element    xpath=//*[@id="alert-success"]
-
-Verify Blog Post Edited
-    Page Should Contain    ${BLOG_TITLE}
-    Page Should Contain    ${BLOG_DESCRIPTION}
-    Page Should Contain    ${BLOG_CONTENT}
-    Page Should Contain    ${BLOG_TAGS}
