@@ -1,182 +1,166 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0.1 (Python 3.12.4 on win32)" generated="2024-08-13T01:28:59.175377" rpa="false" schemaversion="5">
-<suite id="s1" name="TC8-Writarticle" source="D:\tech-vibe\src\__test__\tests\TC8-Writarticle.robot">
-<test id="s1-t1" name="Write and Publish Blog Post" line="13">
+<robot generator="Robot 7.0.1 (Python 3.12.4 on win32)" generated="2024-08-19T14:46:02.239674" rpa="false" schemaversion="5">
+<suite id="s1" name="TC8-Editearticle" source="D:\tech-vibe\src\__test__\tests\TC8-Editearticle.robot">
+<test id="s1-t1" name="TC8008 Edit article success" line="11">
 <kw name="Open WebSite" owner="keywords">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-08-13T01:28:59.500870" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:3000'.</msg>
+<msg time="2024-08-19T14:46:02.418925" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:3000'.</msg>
 <arg>${URL}</arg>
 <arg>${BROWSER}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-08-13T01:28:59.500870" elapsed="8.428523"/>
+<status status="PASS" start="2024-08-19T14:46:02.418925" elapsed="7.770112"/>
 </kw>
 <kw name="Maximize Browser Window" owner="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2024-08-13T01:29:07.930486" elapsed="0.064863"/>
+<status status="PASS" start="2024-08-19T14:46:10.189037" elapsed="0.076203"/>
 </kw>
-<status status="PASS" start="2024-08-13T01:28:59.499872" elapsed="8.496519"/>
+<doc>Open the specified website and maximize the browser window.</doc>
+<status status="PASS" start="2024-08-19T14:46:02.417213" elapsed="7.848027"/>
 </kw>
 <kw name="Login to Blog Site" owner="keywords">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-08-13T01:29:07.997403" level="INFO">Clicking element 'id=btn-login'.</msg>
+<msg time="2024-08-19T14:46:10.266247" level="INFO">Clicking element 'id=btn-login'.</msg>
 <arg>id=btn-login</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-08-13T01:29:07.997403" elapsed="0.196560"/>
+<status status="PASS" start="2024-08-19T14:46:10.266247" elapsed="0.062431"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>xpath=/html/body/div[2]/div/div/h1</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2024-08-13T01:29:08.193963" elapsed="2.394779"/>
+<status status="PASS" start="2024-08-19T14:46:10.328678" elapsed="1.758609"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-08-13T01:29:10.589964" level="INFO">Clicking element 'xpath=/html/body/div[2]/div/div/div/button[1]'.</msg>
+<msg time="2024-08-19T14:46:12.087287" level="INFO">Clicking element 'xpath=/html/body/div[2]/div/div/div/button[1]'.</msg>
 <arg>xpath=/html/body/div[2]/div/div/div/button[1]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-08-13T01:29:10.589964" elapsed="1.683386"/>
+<status status="PASS" start="2024-08-19T14:46:12.087287" elapsed="1.961064"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>xpath=//*[@id="identifierId"]</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2024-08-13T01:29:12.273350" elapsed="0.017871"/>
+<status status="PASS" start="2024-08-19T14:46:14.048351" elapsed="0.013901"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-08-13T01:29:12.292310" level="INFO">Typing text '644259044@webmail.npru.ac.th' into text field 'xpath=//*[@id="identifierId"]'.</msg>
+<msg time="2024-08-19T14:46:14.063252" level="INFO">Typing text '644259044@webmail.npru.ac.th' into text field 'xpath=//*[@id="identifierId"]'.</msg>
 <arg>xpath=//*[@id="identifierId"]</arg>
 <arg>${GOOGLE_USERNAME}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-08-13T01:29:12.292310" elapsed="0.295082"/>
+<status status="PASS" start="2024-08-19T14:46:14.062252" elapsed="0.241447"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-08-13T01:29:12.588535" level="INFO">Clicking element 'xpath=//*[@id="identifierNext"]/div/button'.</msg>
+<msg time="2024-08-19T14:46:14.304699" level="INFO">Clicking element 'xpath=//*[@id="identifierNext"]/div/button'.</msg>
 <arg>xpath=//*[@id="identifierNext"]/div/button</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-08-13T01:29:12.587392" elapsed="0.227326"/>
+<status status="PASS" start="2024-08-19T14:46:14.303699" elapsed="0.159401"/>
 </kw>
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>xpath=//*[@id="password"]/div[1]/div/div[1]/input</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2024-08-13T01:29:12.814718" elapsed="1.715551"/>
+<status status="PASS" start="2024-08-19T14:46:14.464307" elapsed="2.304550"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-08-13T01:29:14.530269" level="INFO">Typing text '1739902024001' into text field 'xpath=//*[@id="password"]/div[1]/div/div[1]/input'.</msg>
+<msg time="2024-08-19T14:46:16.770002" level="INFO">Typing text '1739902024001' into text field 'xpath=//*[@id="password"]/div[1]/div/div[1]/input'.</msg>
 <arg>xpath=//*[@id="password"]/div[1]/div/div[1]/input</arg>
 <arg>${GOOGLE_PASSWORD}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-08-13T01:29:14.530269" elapsed="0.158642"/>
+<status status="PASS" start="2024-08-19T14:46:16.770002" elapsed="0.111545"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-08-13T01:29:14.690382" level="INFO">Clicking element 'xpath=//*[@id="passwordNext"]/div/button'.</msg>
+<msg time="2024-08-19T14:46:16.881547" level="INFO">Clicking element 'xpath=//*[@id="passwordNext"]/div/button'.</msg>
 <arg>xpath=//*[@id="passwordNext"]/div/button</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-08-13T01:29:14.688911" elapsed="0.280737"/>
+<status status="PASS" start="2024-08-19T14:46:16.881547" elapsed="0.129853"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2024-08-13T01:29:14.969648" elapsed="4.399162"/>
+<status status="PASS" start="2024-08-19T14:46:17.011400" elapsed="3.778098"/>
 </kw>
 <kw name="Click Button" owner="SeleniumLibrary">
-<msg time="2024-08-13T01:29:19.368810" level="INFO">Clicking button 'xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button'.</msg>
+<msg time="2024-08-19T14:46:20.789498" level="INFO">Clicking button 'xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button'.</msg>
 <arg>xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button</arg>
 <doc>Clicks the button identified by ``locator``.</doc>
-<status status="PASS" start="2024-08-13T01:29:19.368810" elapsed="8.169448"/>
+<status status="PASS" start="2024-08-19T14:46:20.789498" elapsed="8.321706"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>xpath=/html/body/div[1]/div[2]/div/div[1]/div[1]/div[2]/div[1]/button</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2024-08-13T01:29:27.538258" elapsed="0.067956"/>
+<status status="PASS" start="2024-08-19T14:46:29.111204" elapsed="0.054586"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-08-13T01:29:32.607039" level="INFO">Slept 5 seconds.</msg>
+<msg time="2024-08-19T14:46:34.165906" level="INFO">Slept 5 seconds.</msg>
 <arg>5</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-08-13T01:29:27.606214" elapsed="5.000825"/>
+<status status="PASS" start="2024-08-19T14:46:29.165790" elapsed="5.000116"/>
 </kw>
-<status status="PASS" start="2024-08-13T01:29:07.996391" elapsed="24.610648"/>
+<doc>Log in to the blog site using Google credentials.</doc>
+<status status="PASS" start="2024-08-19T14:46:10.266247" elapsed="23.899659"/>
 </kw>
-<kw name="Write Blog Post" owner="keywords">
+<kw name="Go To Proflie" owner="keywords">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-08-13T01:29:32.609015" level="INFO">Clicking element 'id=write-article'.</msg>
-<arg>id=write-article</arg>
+<msg time="2024-08-19T14:46:34.166414" level="INFO">Clicking element 'id=icon-user-profile'.</msg>
+<arg>id=icon-user-profile</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-08-13T01:29:32.609015" elapsed="0.087352"/>
-</kw>
-<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
-<arg>${ALERT_TIPS_1}</arg>
-<doc>Waits until ``text`` appears on the current page.</doc>
-<status status="PASS" start="2024-08-13T01:29:32.696367" elapsed="2.026132"/>
-</kw>
-<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
-<arg>${ALERT_TIPS_2}</arg>
-<doc>Waits until ``text`` appears on the current page.</doc>
-<status status="PASS" start="2024-08-13T01:29:34.722499" elapsed="0.012165"/>
-</kw>
-<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
-<arg>${ALERT_TIPS_3}</arg>
-<doc>Waits until ``text`` appears on the current page.</doc>
-<status status="PASS" start="2024-08-13T01:29:34.734664" elapsed="0.014044"/>
-</kw>
-<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
-<arg>${ALERT_TIPS_4}</arg>
-<doc>Waits until ``text`` appears on the current page.</doc>
-<status status="PASS" start="2024-08-13T01:29:34.748708" elapsed="0.059250"/>
+<status status="PASS" start="2024-08-19T14:46:34.166414" elapsed="0.043662"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
-<arg>id=input-title</arg>
+<arg>id=profile</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2024-08-13T01:29:34.809125" elapsed="0.016274"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-08-13T01:29:34.826639" level="INFO">Typing text 'การใช้ Figma ในการออกแบบ UX/UI' into text field 'id=input-title'.</msg>
-<arg>id=input-title</arg>
-<arg>${BLOG_TITLE}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-08-13T01:29:34.825399" elapsed="0.632986"/>
-</kw>
-<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
-<arg>id=input-description</arg>
-<doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2024-08-13T01:29:35.458385" elapsed="0.022005"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-08-13T01:29:35.481385" level="INFO">Typing text 'ในโลกของการออกแบบดิจิทัลที่เติบโตอย่างรวดเร็วในปัจจุบัน การมีเครื่องมือที่สามารถช่วยให้นักออกแบบทำงานได้อย่างมีประสิทธิภาพและรวดเร็วนั้นเป็นสิ่งที่สำคัญ Figma เป็นหนึ่งในเครื่องมือเหล่านั้นที่ได้รับความนิยมอย่างมาก โดยเฉพาะในการออกแบบ UX/UI' into text field 'id=input-description'.</msg>
-<arg>id=input-description</arg>
-<arg>${BLOG_DESCRIPTION}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-08-13T01:29:35.481385" elapsed="2.806778"/>
+<status status="PASS" start="2024-08-19T14:46:34.210076" elapsed="0.012834"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-08-13T01:29:38.289471" level="INFO">Clicking element 'xpath=//*[@id="tinymce"]'.</msg>
-<msg time="2024-08-13T01:29:38.542865" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-08-13T01:29:38.542865" level="FAIL">Element with locator 'xpath=//*[@id="tinymce"]' not found.</msg>
-<arg>xpath=//*[@id="tinymce"]</arg>
+<msg time="2024-08-19T14:46:34.222910" level="INFO">Clicking element 'id=profile'.</msg>
+<arg>id=profile</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="FAIL" start="2024-08-13T01:29:38.289471" elapsed="0.260897">Element with locator 'xpath=//*[@id="tinymce"]' not found.</status>
+<status status="PASS" start="2024-08-19T14:46:34.222910" elapsed="0.065096"/>
 </kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-08-19T14:46:36.288366" level="INFO">Slept 2 seconds.</msg>
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-08-19T14:46:34.288006" elapsed="2.000360"/>
+</kw>
+<doc>Navigate to the user profile page.</doc>
+<status status="PASS" start="2024-08-19T14:46:34.166414" elapsed="2.121952"/>
+</kw>
+<kw name="Go To Blog Post" owner="keywords">
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="tinymce"]</arg>
+<msg time="2024-08-19T14:46:41.657854" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-08-19T14:46:41.657854" level="FAIL">Element 'id=title-article' did not appear in 5 seconds.</msg>
+<arg>id=title-article</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-08-13T01:29:38.550368" elapsed="0.000000"/>
+<status status="FAIL" start="2024-08-19T14:46:36.289371" elapsed="5.369483">Element 'id=title-article' did not appear in 5 seconds.</status>
 </kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="tinymce"]</arg>
-<arg>${BLOG_CONTENT}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-08-13T01:29:38.550368" elapsed="0.000000"/>
+<kw name="Sleep" owner="BuiltIn">
+<arg>10</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-08-19T14:46:41.658854" elapsed="0.000000"/>
 </kw>
-<kw name="Choose File" owner="SeleniumLibrary">
-<arg>xpath=//input[@name='image']</arg>
-<arg>${BLOG_IMAGE_PATH}</arg>
-<doc>Inputs the ``file_path`` into the file input field ``locator``.</doc>
-<status status="NOT RUN" start="2024-08-13T01:29:38.550368" elapsed="0.000000"/>
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>id=title-article</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-08-19T14:46:41.658854" elapsed="0.000000"/>
 </kw>
-<doc>Fill in the blog post form with provided data</doc>
-<status status="FAIL" start="2024-08-13T01:29:32.608042" elapsed="5.942326">Element with locator 'xpath=//*[@id="tinymce"]' not found.</status>
+<kw name="Sleep" owner="BuiltIn">
+<arg>10</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-08-19T14:46:41.658854" elapsed="0.000000"/>
 </kw>
-<doc>Test case for writing and publishing a blog post and verifying it in article pending</doc>
-<status status="FAIL" start="2024-08-13T01:28:59.498872" elapsed="39.052667">Element with locator 'xpath=//*[@id="tinymce"]' not found.</status>
+<doc>Navigate to the specific blog post by title.</doc>
+<status status="FAIL" start="2024-08-19T14:46:36.288366" elapsed="5.370488">Element 'id=title-article' did not appear in 5 seconds.</status>
+</kw>
+<kw name="Edit Blog Post" owner="keywords">
+<doc>Edit the existing blog post and republish it.</doc>
+<status status="NOT RUN" start="2024-08-19T14:46:41.659940" elapsed="0.000000"/>
+</kw>
+<kw name="Publish Blog Post" owner="keywords">
+<doc>Click the publish button to publish the blog post</doc>
+<status status="NOT RUN" start="2024-08-19T14:46:41.659940" elapsed="0.000000"/>
+</kw>
+<doc>Edit article success</doc>
+<status status="FAIL" start="2024-08-19T14:46:02.417213" elapsed="39.242727">Element 'id=title-article' did not appear in 5 seconds.</status>
 </test>
-<status status="FAIL" start="2024-08-13T01:28:59.177378" elapsed="39.376828"/>
+<status status="FAIL" start="2024-08-19T14:46:02.239674" elapsed="39.421274"/>
 </suite>
 <statistics>
 <total>
@@ -185,7 +169,7 @@
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="1" skip="0" id="s1" name="TC8-Writarticle">TC8-Writarticle</stat>
+<stat pass="0" fail="1" skip="0" id="s1" name="TC8-Editearticle">TC8-Editearticle</stat>
 </suite>
 </statistics>
 <errors>
