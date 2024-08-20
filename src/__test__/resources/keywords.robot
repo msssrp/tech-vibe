@@ -21,7 +21,7 @@ Login to Blog Site
     Input Text    xpath=//*[@id="identifierId"]    ${GOOGLE_USERNAME}    
     Click Element    xpath=//*[@id="identifierNext"]/div/button
     Wait Until Element Is Visible    xpath=//*[@id="password"]/div[1]/div/div[1]/input    
-    Input Text    xpath=//*[@id="password"]/div[1]/div/div[1]/input    ${GOOGLE_PASSWORD}    
+    Input Text    xpath=//*[@id="password"]/div[1]/div/div[1]/input    ${GOOGLE_PASSWORD}
     Click Element    xpath=//*[@id="passwordNext"]/div/button
     Wait Until Page Contains Element    xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button
     Click Button    xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button
