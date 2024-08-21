@@ -87,7 +87,7 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
         userRoles.some(
           (userRole) => userRole.user_role_name === "moderator"
         ) && (
-          <Link href={"/manage"} className="flex mb-3 space-x-2">
+          <Link id="manage-article" href={"/manage"} className="flex mb-3 space-x-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -102,12 +102,12 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
                 d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
               />
             </svg>
-            <span>manage article</span>
+            <span>Manage article</span>
           </Link>
         )}
       {userRoles &&
         userRoles.some((userRole) => userRole.user_role_name === "admin") && (
-          <Link href={"/admin-dashboard"} className="flex mb-3 space-x-2">
+          <Link id="admin-dashboard" href={"/admin-dashboard"} className="flex mb-3 space-x-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -122,7 +122,7 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
                 d="M6 13.5V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 9.75V10.5"
               />
             </svg>
-            <span>admin dashboard</span>
+            <span>Admin dashboard</span>
           </Link>
         )}
     </div>

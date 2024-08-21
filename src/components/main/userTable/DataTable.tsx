@@ -9,75 +9,63 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Badge, Pagination, Table } from "@mantine/core";
+import { articlePropsWithUser } from "@/types/article/article";
+import { Pagination, Table } from "@mantine/core";
 import Image from "next/image";
 import Filter from "./Filter";
 import FilterStatus from "./FilterStatus";
 import { TbArrowsSort } from "react-icons/tb";
-import { userWithRoleProps } from "@/types/user/user";
-import UserInteract from "@/app/(admin)/component/UserInteract";
+import ApproveBtn from "@/app/(manage)/component/ApproveBtn";
+import Link from "next/link";
 type taskTableProps = {
-  user: userWithRoleProps[];
-  userSessionId: string;
+  articlesWithUser: articlePropsWithUser[];
 };
 
-const columns: ColumnDef<userWithRoleProps>[] = [
+const columns: ColumnDef<articlePropsWithUser>[] = [
   {
-    accessorKey: "user_profile",
+    accessorKey: "article_cover",
     header: "",
     cell: ({ row }) => (
       <Image
-        src={row.original.user_profile}
-        alt={"Techvibe user"}
-        width={40}
-        height={40}
-        className="rounded-full"
+        src={row.original.article_cover}
+        alt={row.original.article_title}
+        width={150}
+        height={150}
+        className="rounded-lg"
       />
     ),
   },
   {
-    accessorKey: "user_fullname",
-    header: "Full Name",
-  },
-  {
-    accessorKey: "user_provider",
-    header: "User Provider",
-  },
-  {
-    accessorKey: "user_email",
-    header: "Email",
-  },
-  {
-    accessorKey: "user_verify",
-    header: "Verify",
-  },
-  {
-    accessorKey: "user_role",
-    header: "Roles",
+    accessorKey: "article_title",
+    header: "Articles",
     cell: ({ row }) => {
+      const userWithHyphen = row.original.user.user_fullname
+        .replace(/ /g, "-")
+        .replace(/-$/, "");
+      const articleTitleWithHypen = row.original.article_title
+        .replace(/ /g, "-")
+        .replace(/\//, "&");
+      const firstArticleId = row.original.article_id.split("-")[0];
+      const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
       return (
-        <div className="grid grid-cols-2 gap-2">
-          {row.original.user_role.map((role) => (
-            <Badge
-              key={role.user_role_id}
-              color={`${
-                role.user_role_name === "admin"
-                  ? "orange"
-                  : role.user_role_name === "moderator"
-                  ? "violet"
-                  : role.user_role_name === "npru"
-                  ? "rgba(255, 41, 41, 1)"
-                  : "gray"
-              }`}
-            >
-              {role.user_role_name}
-            </Badge>
-          ))}
-        </div>
+        <>
+          {row.original.article_status === "public" ? (
+            <Link id="title-article" href={`/${userWithHyphen}/${articleSlug}`}>
+              <span className="font-semibold">
+                {row.original.article_title}
+              </span>
+            </Link>
+          ) : (
+            <span className="font-semibold">{row.original.article_title}</span>
+          )}
+        </>
       );
     },
   },
-
+  {
+    accessorKey: "user.user_fullname",
+    header: "Name",
+  },
   {
     accessorKey: "created_at",
     header: "Created At",
@@ -88,26 +76,47 @@ const columns: ColumnDef<userWithRoleProps>[] = [
     },
   },
   {
-    header: "Action",
+    accessorKey: "article_status",
+    header: "Status",
     cell: ({ row }) => {
-      return (
-        <UserInteract
-          userEmail={row.original.user_email}
-          userFullname={row.original.user_fullname}
-          userId={row.original.user_id}
-          userProfile={row.original.user_profile}
-          userRoles={row.original.user_role}
-        />
-      );
+      if (row.original.article_status === "pending") {
+        return (
+          <span className="bg-yellow-500 btn btn-sm text-white">
+            In progress
+          </span>
+        );
+      } else if (row.original.article_status === "public") {
+        return (
+          <span className="bg-green-500 btn btn-sm text-white">Approved</span>
+        );
+      } else {
+        return (
+          <span className="bg-red btn btn-sm text-white">Disapproved</span>
+        );
+      }
+    },
+  },
+  {
+    accessorKey: "article_status",
+    header: "Actions",
+    cell: ({ row }) => {
+      if (row.original.article_status === "pending") {
+        return (
+          <ApproveBtn
+            articleId={row.original.article_id}
+            articleTitle={row.original.article_title}
+            userId={row.original.user_id}
+          />
+        );
+      }
+      return <span>-</span>;
     },
   },
 ];
 
-const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
-  console.log(user);
-
-  const [data, setData] = useState<userWithRoleProps[]>(
-    user.filter((user) => user.user_id !== userSessionId)
+const DataTable: React.FC<taskTableProps> = ({ articlesWithUser }) => {
+  const [data, setData] = useState<articlePropsWithUser[]>(
+    articlesWithUser ? articlesWithUser : []
   );
   const [columnFilters, setColumFilters] = useState<
     {

@@ -126,10 +126,8 @@ export default async function RootLayout({
                 />
               </div>
             </div>
-
             <h2 className="text-xl text-white">{userData?.user_fullname}</h2>
-
-            <h1 className="text-white">{userData.user_email}</h1>
+            <p className="text-white">{userData.user_email}</p>
             <div className="social flex justify-center items-center space-x-3">
               <Link href="">
                 <FaGithub className="w-6 h-6" color="white" />

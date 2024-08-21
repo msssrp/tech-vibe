@@ -12,7 +12,7 @@ const ArticleTabs: React.FC<articleTabProps> = ({
 }) => {
   return (
     <div className="flex items-center lg:px-9 text-sm lg:text-base">
-      <Link
+      <Link id="gerneral-articles"
         href={"/manage"}
         className={`py-3 px-5 lg:px-9 bth hover:bg-[#F2F4FB] border-none rounded-tl-2xl rounded-tr-2xl ${
           isActiveAt === "Gerneral articles" ? "bg-[#F2F4FB]" : "bg-transparent"
@@ -20,7 +20,7 @@ const ArticleTabs: React.FC<articleTabProps> = ({
       >
         Gerneral articles ({generalArticleNumber})
       </Link>
-      <Link
+      <Link id="npru-articles"
         href={"/manage/npru-article"}
         className={`py-3 px-5 lg:px-9 bth hover:bg-[#F2F4FB] border-none rounded-tl-2xl rounded-tr-2xl ${
           isActiveAt === "Article from npru" ? "bg-[#F2F4FB]" : "bg-transparent"
