@@ -52,6 +52,7 @@ const DrawerDisapproveBtn: React.FC<drawerProps> = ({
           Please provide a reason for not approving the article.
         </span>
         <Textarea
+        id="textarea-disapprove"
           size="sm"
           w={500}
           autosize
@@ -61,10 +62,11 @@ const DrawerDisapproveBtn: React.FC<drawerProps> = ({
           onChange={(e) => setRejectReason(e.currentTarget.value)}
         />
         <div className="flex items-center space-x-3 justify-center">
-          <button className="btn" onClick={close}>
+          <button id="btn-cancel-disapprove" className="btn" onClick={close}>
             CANCEL
           </button>
           <button
+          id="btn-confirm-disapprove"
             type="submit"
             className={`btn ${
               isDisApprove ? "bg-red" : "bg-red"
