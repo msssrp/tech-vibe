@@ -25,7 +25,7 @@ const PublishedArticles: React.FC<publishedArticles> = ({
   userRole,
 }) => {
   return (
-    <div className="w-2/3 py-10">
+    <div className="lg:w-2/3 py-10">
       <div className="flex items-center space-x-6 mb-2">
         <h2 className="text-3xl font-medium">Published articles</h2>
         <div className="badge bg-[#4ECB71] text-white py-5 px-4">Publish</div>

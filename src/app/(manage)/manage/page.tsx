@@ -26,6 +26,9 @@ const page = async ({
     (article) => article.article_status === "reject"
   );
 
+  const complaintArticles = allArticles.filter(
+    (article) => article.article_status === "complaint"
+  );
   return (
     <div className="flex flex-col space-y-4">
       {/*Tabs*/}
@@ -41,6 +44,7 @@ const page = async ({
             inProgress={inprogressArticles.length}
             approve={approveArticles.length}
             disapprove={disapproveArticles.length}
+            complanint={complaintArticles.length}
           />
           <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-5">
             <DataTable articlesWithUser={allArticles} />

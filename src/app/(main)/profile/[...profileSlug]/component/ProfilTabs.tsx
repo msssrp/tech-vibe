@@ -67,11 +67,13 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
     getUserStats();
   }, [readlists, userArticles, sessionUserId]);
   return (
-    <div className="w-2/3 py-10">
+    <div className="lg:w-2/3 py-10">
       <div className="flex justify-between items-center mb-2">
-        <h2 className="text-3xl font-medium">{user.user_fullname}</h2>
+        <h2 className="text-2xl md:text-3xl font-medium">
+          {user.user_fullname}
+        </h2>
       </div>
-      <div className="flex items-center space-x-2 mx-2 sticky top-0 bg-base-100 z-10">
+      <div className="flex items-center space-x-2 md:mx-2 sticky top-0 bg-base-100 z-10">
         <div className="w-full">
           <Tabs
             defaultValue={tabValue}
@@ -90,9 +92,9 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                 </>
               )}
 
-              <div className="ml-auto flex items-center">
+              <div className="sm:ml-auto sm:flex items-center hidden">
                 <label className="rounded-none border-b flex items-center">
-                  <input type="text" className="grow focus:outline-none " />
+                  <input type="text" className="grow focus:outline-none" />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
@@ -109,7 +111,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
               </div>
             </Tabs.List>
             <Tabs.Panel value="Home">
-              <div className="pr-11 h-auto overflow-y-scroll no-scrollbar">
+              <div className="lg:pr-11 h-auto overflow-y-scroll no-scrollbar">
                 <div className="space-y-2 ">
                   {articles &&
                     articles.map((articleslist) => {
@@ -131,7 +133,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
             {user.user_id === sessionUserId && userArticles && (
               <>
                 <Tabs.Panel value="Articles">
-                  <div className="px-6">
+                  <div className="px-2 sm:px-4 xl:px-6">
                     <ArticleCard
                       user={user}
                       cardTitle="Published"
@@ -227,7 +229,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                   </div>
                 </Tabs.Panel>
                 <Tabs.Panel value="Library">
-                  <div className="px-6">
+                  <div className="px-2 sm:px-4 xl:px-6">
                     {readlists &&
                       readlists.map((readlist) => (
                         <SavedArticleCard
@@ -239,7 +241,7 @@ const ProfilTabs: React.FC<profileTabsProps> = ({
                   </div>
                 </Tabs.Panel>
                 <Tabs.Panel value="Statistic">
-                  <div className="px-6">
+                  <div className="px-2 sm:px-4 xl:px-6">
                     <div className="flex justify-between items-center my-10">
                       <h2 className="text-3xl font-medium text-[#606060]">
                         Your Article stats

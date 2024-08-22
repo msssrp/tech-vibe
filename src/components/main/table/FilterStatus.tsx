@@ -42,7 +42,8 @@ const StatusBtn: React.FC<statusBtnProps> = ({
             .concat({ id: "article_status", value: status });
         }
       })
-    }>
+    }
+  >
     {name}
   </Button>
 );
@@ -51,8 +52,6 @@ const FilterStatus: React.FC<FilterProps> = ({
   setColumFilters,
   columnFilters,
 }) => {
-  const filterStatuses =
-    columnFilters.find((f) => f.id === "article_status")?.value || [];
   return (
     <Popover position="right-start" withArrow shadow="md">
       <Popover.Target>

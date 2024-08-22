@@ -29,11 +29,13 @@ const ArticleCard: React.FC<articleCardProps> = ({
           ? "drafted-articles"
           : "hidden-articles"
       }`}
-      className="card card-side rounded-none items-center my-8 px-4 bg-base-200"
+      className="card card-side rounded-none items-center my-8 px-3 sm:px-4 bg-base-200"
     >
-      <div className="card-body px-4 space-y-4">
-        <div className="flex items-center space-x-4">
-          <h2 className="card-title text-2xl ">{cardTitle} articles</h2>
+      <div className="card-body px-2 sm:px-4 sm:space-y-4">
+        <div className="flex flex-row items-center sm:space-x-4">
+          <h2 className="card-title md:text-xl 2xl:text-2xl">
+            {cardTitle} articles
+          </h2>
           <div
             className={`badge ${
               articleStatus === "Publish"
@@ -48,7 +50,7 @@ const ArticleCard: React.FC<articleCardProps> = ({
             {articleStatus}
           </div>
         </div>
-        <div className="flex items-center space-x-9">
+        <div className="flex items-center">
           <div className="avatar items-center">
             <div className="w-8 rounded-full">
               <Image
@@ -58,11 +60,11 @@ const ArticleCard: React.FC<articleCardProps> = ({
                 alt="user Profile"
               />
             </div>
-            <p className="ml-2 ">{user.user_fullname}</p>
+            <p className="ml-2 line-clamp-1">{user.user_fullname}</p>
           </div>
-          <div>
+          <div className="sm:ml-11">
             <ul className="list-disc">
-              <li>
+              <li className="text-sm">
                 {articleTotal} {articleTotal > 1 ? "articles" : "article"}
               </li>
             </ul>
@@ -80,10 +82,10 @@ const ArticleCard: React.FC<articleCardProps> = ({
                 : "/public/images/home/tags/coding.png"
             }
             alt="Picture"
-            className="w-44"
+            className="w-40"
           />
         ) : (
-          <span className="text-sm italic">
+          <span className="text-sm italic line-clamp-2">
             You dont have any article on this status.
           </span>
         )}
