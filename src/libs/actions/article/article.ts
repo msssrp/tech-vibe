@@ -572,7 +572,8 @@ export async function getPopularArticles(
 }
 
 export const ArticleStatuses = [
-  { id: 1, status: "pending", name: "In progress", color: "orange" },
+  { id: 1, status: "pending", name: "In progress", color: "yellow" },
   { id: 2, status: "public", name: "Approved", color: "green" },
   { id: 3, status: "reject", name: "Disapproved", color: "red" },
+  { id: 4, status: "complaint", name: "Complainted", color: "orange" },
 ];
