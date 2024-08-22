@@ -13,11 +13,14 @@ export async function getUser(userId: string): Promise<userProps> {
   return data;
 }
 
-export async function getTotalUser() {
+export async function getTotalUser(
+  currentUserId: string
+): Promise<number | null> {
   const supabase = await createSupabaseServerClient();
   const { count, error } = await supabase
     .from("user")
-    .select("*", { count: "exact", head: true });
+    .select("*", { count: "exact", head: true })
+    .not("user_id", "eq", currentUserId);
   if (error) console.log(error);
 
   return count;

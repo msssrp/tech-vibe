@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   ColumnDef,
   flexRender,
@@ -21,91 +21,7 @@ type taskTableProps = {
   userSessionId: string;
 };
 
-const columns: ColumnDef<userWithRoleProps>[] = [
-  {
-    accessorKey: "user_profile",
-    header: "",
-    cell: ({ row }) => (
-      <Image
-        src={row.original.user_profile}
-        alt={"Techvibe user"}
-        width={40}
-        height={40}
-        className="rounded-full"
-      />
-    ),
-  },
-  {
-    accessorKey: "user_fullname",
-    header: "Full Name",
-  },
-  {
-    accessorKey: "user_provider",
-    header: "User Provider",
-  },
-  {
-    accessorKey: "user_email",
-    header: "Email",
-  },
-  {
-    accessorKey: "user_verify",
-    header: "Verify",
-  },
-  {
-    accessorKey: "user_role",
-    header: "Roles",
-    cell: ({ row }) => {
-      return (
-        <div className="grid grid-cols-2 gap-2">
-          {row.original.user_role.map((role) => (
-            <Badge
-              key={role.user_role_id}
-              color={`${
-                role.user_role_name === "admin"
-                  ? "orange"
-                  : role.user_role_name === "moderator"
-                  ? "violet"
-                  : role.user_role_name === "npru"
-                  ? "rgba(255, 41, 41, 1)"
-                  : "gray"
-              }`}
-            >
-              {role.user_role_name}
-            </Badge>
-          ))}
-        </div>
-      );
-    },
-  },
-
-  {
-    accessorKey: "created_at",
-    header: "Created At",
-    cell: ({ row }) => {
-      const date = new Date(row.original.created_at);
-      const formattedDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-      return formattedDate;
-    },
-  },
-  {
-    header: "Action",
-    cell: ({ row }) => {
-      return (
-        <UserInteract
-          userEmail={row.original.user_email}
-          userFullname={row.original.user_fullname}
-          userId={row.original.user_id}
-          userProfile={row.original.user_profile}
-          userRoles={row.original.user_role}
-        />
-      );
-    },
-  },
-];
-
 const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
-  console.log(user);
-
   const [data, setData] = useState<userWithRoleProps[]>(
     user.filter((user) => user.user_id !== userSessionId)
   );
@@ -116,6 +32,131 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
     }[]
   >([]);
   const [activePage, setPage] = useState(1);
+  const [roleSortOrder, setRoleSortOrder] = useState<
+    "user" | "npru" | "moderator" | "admin"
+  >("user");
+  const handleSort = () => {
+    console.log(roleSortOrder);
+    setRoleSortOrder((prevOrder) => {
+      switch (prevOrder) {
+        case "user":
+          return "npru";
+        case "npru":
+          return "moderator";
+        case "moderator":
+          return "admin";
+        case "admin":
+          return "user";
+        default:
+          return "user";
+      }
+    });
+  };
+
+  const sortRoles = (roles: any) => {
+    if (roleSortOrder === "moderator") {
+      return roles.sort((a: any, b: any) =>
+        a.user_role_name === "moderator" ? -1 : 1
+      );
+    } else if (roleSortOrder === "npru") {
+      return roles.sort((a: any, b: any) =>
+        a.user_role_name === "npru" ? -1 : 1
+      );
+    } else if (roleSortOrder === "admin") {
+      return roles.sort((a: any, b: any) =>
+        a.user_role_name === "admin" ? -1 : 1
+      );
+    }
+    return roles.sort((a: any, b: any) =>
+      a.user_role_name === "user" ? -1 : 1
+    );
+  };
+
+  const columns: ColumnDef<userWithRoleProps>[] = [
+    {
+      accessorKey: "user_profile",
+      header: "",
+      cell: ({ row }) => (
+        <Image
+          src={row.original.user_profile}
+          alt={"Techvibe user"}
+          width={40}
+          height={40}
+          className="rounded-full"
+        />
+      ),
+    },
+    {
+      accessorKey: "user_fullname",
+      header: "Full Name",
+    },
+    {
+      accessorKey: "user_provider",
+      header: "User Provider",
+    },
+    {
+      accessorKey: "user_email",
+      header: "Email",
+    },
+    {
+      accessorKey: "user_verify",
+      header: "Verify",
+    },
+    {
+      accessorKey: "user_role",
+      header: () => (
+        <div onClick={handleSort} style={{ cursor: "pointer" }}>
+          Roles
+        </div>
+      ),
+      cell: ({ row }) => {
+        const sortedRoles = sortRoles(row.original.user_role);
+        return (
+          <div className="grid grid-cols-2 gap-2">
+            {sortedRoles.map((role: any) => (
+              <Badge
+                key={role.user_role_id}
+                color={`${
+                  role.user_role_name === "admin"
+                    ? "orange"
+                    : role.user_role_name === "moderator"
+                    ? "violet"
+                    : role.user_role_name === "npru"
+                    ? "rgba(255, 41, 41, 1)"
+                    : "gray"
+                }`}
+              >
+                {role.user_role_name}
+              </Badge>
+            ))}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "created_at",
+      header: "Created At",
+      cell: ({ row }) => {
+        const date = new Date(row.original.created_at);
+        const formattedDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+        return formattedDate;
+      },
+    },
+    {
+      header: "Action",
+      cell: ({ row }) => {
+        return (
+          <UserInteract
+            userEmail={row.original.user_email}
+            userFullname={row.original.user_fullname}
+            userId={row.original.user_id}
+            userProfile={row.original.user_profile}
+            userRoles={row.original.user_role}
+          />
+        );
+      },
+    },
+  ];
   const table = useReactTable({
     data,
     columns,

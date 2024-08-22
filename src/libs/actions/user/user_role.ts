@@ -1,16 +1,6 @@
 import createSupabaseClient from "@/libs/supabase/client";
 import createSupabaseServerClient from "@/libs/supabase/server";
 
-export async function getUsersCount() {
-  const supabase = await createSupabaseServerClient();
-  const { count, error } = await supabase
-    .from("user_role")
-    .select("*", { count: "exact", head: true })
-    .eq("user_role_name", "user");
-  if (error) console.log(error);
-  return count;
-}
-
 export async function getModeratorCount() {
   const supabase = await createSupabaseServerClient();
   const { count, error } = await supabase

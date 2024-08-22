@@ -60,39 +60,43 @@ const columns: ColumnDef<compalintPropsWithArticleAndUser>[] = [
     accessorKey: "complaint_status",
     header: "Status",
     cell: ({ row }) => {
-      if (row.original.complaint_status === "pending") {
-        return (
-          <ComplaintInteract
-            complaintId={row.original.complaint_id}
-            complaintStatus={row.original.complaint_status}
-            articleId={row.original.article_id}
-            articleTitle={row.original.article.article_title}
-            userId={row.original.article.user_id}
-            complaintBtnName="In Progress"
-          />
-        );
-      } else if (row.original.complaint_status === "complaint") {
-        return (
-          <ComplaintInteract
-            complaintId={row.original.complaint_id}
-            complaintStatus={row.original.complaint_status}
-            articleId={row.original.article_id}
-            articleTitle={row.original.article.article_title}
-            userId={row.original.article.user_id}
-            complaintBtnName="Complaint"
-          />
-        );
-      } else {
-        return (
-          <ComplaintInteract
-            complaintId={row.original.complaint_id}
-            complaintStatus={row.original.complaint_status}
-            articleId={row.original.article_id}
-            articleTitle={row.original.article.article_title}
-            userId={row.original.article.user_id}
-            complaintBtnName="Deleted"
-          />
-        );
+      const {
+        complaint_status,
+        complaint_id,
+        article_id,
+        article,
+        article: { article_title, user_id },
+      } = row.original;
+
+      switch (complaint_status) {
+        case "pending":
+          return (
+            <ComplaintInteract
+              complaintId={complaint_id}
+              complaintStatus={complaint_status}
+              articleId={article_id}
+              articleTitle={article_title}
+              userId={user_id}
+              complaintBtnName="In Progress"
+            />
+          );
+        case "complaint":
+          return (
+            <button className="btn btn-sm bg-green-500 text-white">
+              {complaint_status}
+            </button>
+          );
+        default:
+          return (
+            <ComplaintInteract
+              complaintId={complaint_id}
+              complaintStatus={complaint_status}
+              articleId={article_id}
+              articleTitle={article_title}
+              userId={user_id}
+              complaintBtnName="Deleted"
+            />
+          );
       }
     },
   },
