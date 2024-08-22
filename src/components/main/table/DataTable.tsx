@@ -26,13 +26,15 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
     accessorKey: "article_cover",
     header: "",
     cell: ({ row }) => (
-      <Image
-        src={row.original.article_cover}
-        alt={row.original.article_title}
-        width={150}
-        height={150}
-        className="rounded-lg"
-      />
+      <div className="h-24 w-40 relative">
+        <Image
+          src={row.original.article_cover}
+          alt={row.original.article_title}
+          layout="fill"
+          objectFit="cover"
+          className="rounded-lg"
+        />
+      </div>
     ),
   },
   {
@@ -51,6 +53,12 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
         <>
           {row.original.article_status === "public" ? (
             <Link href={`/${userWithHyphen}/${articleSlug}`}>
+              <span className="font-semibold">
+                {row.original.article_title}
+              </span>
+            </Link>
+          ) : row.original.article_status === "pending" ? (
+            <Link href={`preview/${userWithHyphen}/${articleSlug}`}>
               <span className="font-semibold">
                 {row.original.article_title}
               </span>
@@ -79,37 +87,30 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
     accessorKey: "article_status",
     header: "Status",
     cell: ({ row }) => {
-      if (row.original.article_status === "pending") {
-        return (
-          <span className="bg-yellow-500 btn btn-sm text-white">
-            In progress
-          </span>
-        );
-      } else if (row.original.article_status === "public") {
-        return (
-          <span className="bg-green-500 btn btn-sm text-white">Approved</span>
-        );
-      } else {
-        return (
-          <span className="bg-red btn btn-sm text-white">Disapproved</span>
-        );
+      const { article_status } = row.original;
+      switch (article_status) {
+        case "pending":
+          return (
+            <span className="bg-yellow-500 btn btn-sm text-white">
+              In progress
+            </span>
+          );
+        case "public":
+          return (
+            <span className="bg-green-500 btn btn-sm text-white">Approved</span>
+          );
+        case "complaint":
+          return (
+            <span className="bg-orange-500 btn btn-sm text-white">
+              Complainted
+            </span>
+          );
+
+        default:
+          return (
+            <span className="bg-red btn btn-sm text-white">Disapproved</span>
+          );
       }
-    },
-  },
-  {
-    accessorKey: "article_status",
-    header: "Actions",
-    cell: ({ row }) => {
-      if (row.original.article_status === "pending") {
-        return (
-          <ApproveBtn
-            articleId={row.original.article_id}
-            articleTitle={row.original.article_title}
-            userId={row.original.user_id}
-          />
-        );
-      }
-      return <span>-</span>;
     },
   },
 ];

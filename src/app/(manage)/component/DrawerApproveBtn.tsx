@@ -1,6 +1,8 @@
 import { manageArticleStatus } from "@/libs/actions/article/article";
 import { createNewNotification } from "@/libs/actions/notification/notification";
 import { Modal } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 type drawerProps = {
@@ -19,6 +21,7 @@ const DrawerApproveBtn: React.FC<drawerProps> = ({
   userId,
 }) => {
   const [isApprove, setIsApprove] = useState(false);
+  const router = useRouter();
   const handleOnApprove = async () => {
     try {
       setIsApprove(true);
@@ -30,7 +33,12 @@ const DrawerApproveBtn: React.FC<drawerProps> = ({
         userId,
         articleTitle
       );
-      window.location.reload();
+      notifications.show({
+        title: "Article Approved",
+        message: `Article ${articleTitle} has been approved`,
+        color: "green",
+        onClose: () => router.push("/"),
+      });
       setIsApprove(false);
       close();
     } catch (error) {
