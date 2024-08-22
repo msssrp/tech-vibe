@@ -57,6 +57,12 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
                 {row.original.article_title}
               </span>
             </Link>
+          ) : row.original.article_status === "pending" ? (
+            <Link href={`preview/${userWithHyphen}/${articleSlug}`}>
+              <span className="font-semibold">
+                {row.original.article_title}
+              </span>
+            </Link>
           ) : (
             <span className="font-semibold">{row.original.article_title}</span>
           )}
@@ -105,22 +111,6 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
             <span className="bg-red btn btn-sm text-white">Disapproved</span>
           );
       }
-    },
-  },
-  {
-    accessorKey: "article_status",
-    header: "Actions",
-    cell: ({ row }) => {
-      if (row.original.article_status === "pending") {
-        return (
-          <ApproveBtn
-            articleId={row.original.article_id}
-            articleTitle={row.original.article_title}
-            userId={row.original.user_id}
-          />
-        );
-      }
-      return <span>-</span>;
     },
   },
 ];

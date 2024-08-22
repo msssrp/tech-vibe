@@ -308,7 +308,6 @@ export async function getArticleByUsernamandPostId(
     })
     .single();
   if (error) console.log("error from getArticleByUsernamePostId", error);
-  console.log(data);
 
   return data;
 }
