@@ -66,7 +66,7 @@ const SavedArticleCard: React.FC<savedArticleCardProps> = ({
           </div>
           <div>
             <ul className="list-disc flex space-x-1 ">
-              <li>{savedArticles.length}lists</li>
+              <li>{savedArticles.length} lists</li>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -85,7 +85,7 @@ const SavedArticleCard: React.FC<savedArticleCardProps> = ({
           </div>
         </div>
       </div>
-      <div>
+      <div className="hidden sm:flex">
         {articleCover ? (
           <Image
             height={200}

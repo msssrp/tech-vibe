@@ -34,9 +34,11 @@ const EditProfile: React.FC<editProfileProps> = ({
 
   return (
     <div>
-      <div className="container mx-auto px-44 py-12">
-        <h1 className="font-semibold text-3xl">{user.user_fullname}</h1>
-        <div className="mt-6">
+      <div className="container mx-auto px-4 sm:px-14 md:px-18 lg:px-24 xl:px-44 py-12">
+        <h1 className="font-semibold text-2xl sm:text-3xl">
+          {user.user_fullname}
+        </h1>
+        <div className="mt-3 sm:mt-6">
           <div className="flex items-center space-x-2 mx-2 sticky top-0 bg-base-100 z-10">
             <div className="w-full">
               <Tabs defaultValue="Home" color="black">
@@ -46,10 +48,10 @@ const EditProfile: React.FC<editProfileProps> = ({
                   </Tabs.Tab>
                 </Tabs.List>
                 <Tabs.Panel value="Home">
-                  <div className="pl-10 pr-7">
+                  <div className="pl-3 md:pl-10 pr-2 md:pr-7">
                     <div className="py-8 border-b border-[#F2F2F2]">
                       <div className="flex justify-between items-center">
-                        <div className="space-y-5">
+                        <div className="space-y-3 sm:space-y-5">
                           <h2 className="text-xl">{user.user_fullname}</h2>
                           <p className="text-[#606060]">
                             {userFollowerCount}{" "}
@@ -97,7 +99,7 @@ const EditProfile: React.FC<editProfileProps> = ({
                         </div>
                         <div className="image-user-profile">
                           <div className="avatar">
-                            <div className="w-32 rounded-full">
+                            <div className="w-24 sm:w-32 rounded-full">
                               <Image
                                 src={user.user_profile}
                                 alt="TechVibe user"
@@ -111,14 +113,16 @@ const EditProfile: React.FC<editProfileProps> = ({
 
                       <div className="mt-6">
                         {/* email */}
-                        <div className="flex justify-between items-center py-2 border-b border-[#F2F2F2]">
-                          <p className="font-medium flex items-center h-12">
-                            Eamil address
+                        <div className="flex justify-between items-center py-2 border-b border-[#F2F2F2] ">
+                          <div className="font-medium flex items-center h-12">
+                            <p className="line-clamp-1">Eamil address</p>
+                          </div>
+                          <p className="text-[#606060]">
+                            {user.user_email}
                           </p>
-                          <p className="text-[#606060]">{user.user_email}</p>
                         </div>
                         {/* Name */}
-                        <div className="flex justify-between items-center py-2 border-b border-[#F2F2F2]">
+                        <div className="flex flex-row justify-between items-center py-2 border-b border-[#F2F2F2]">
                           <p className="font-medium">Name</p>
                           <div className="flex items-center ">
                             <p className="text-[#606060]">
@@ -131,13 +135,15 @@ const EditProfile: React.FC<editProfileProps> = ({
                           </div>
                         </div>
                         {/* social */}
-                        <div className="flex justify-between items-center pt-4">
-                          <div className="flex items-center space-x-2">
-                            <FaGithub className="w-7 h-7" />
-                            <p className="font-medium">Github link</p>
+                        <div className="flex justify-between items-center pt-4 space-x-4 sm:space-x-0">
+                          <div className="flex items-center sm:space-x-2">
+                            <FaGithub className="w-7 h-7 hidden sm:flex" />
+                            <p className="font-medium line-clamp-1">
+                              Github link
+                            </p>
                           </div>
                           <div className="flex items-center">
-                            <p className="text-[#606060] italic">
+                            <p className="text-[#606060] italic line-clamp-1">
                               {userSocials?.user_social.user_social_github
                                 ? userSocials.user_social.user_social_github
                                 : "you dont have a github link yet."}
@@ -152,13 +158,15 @@ const EditProfile: React.FC<editProfileProps> = ({
                             />
                           </div>
                         </div>
-                        <div className="flex justify-between items-center my-2">
-                          <div className="flex items-center space-x-2">
-                            <FaFacebook className="w-7 h-7 text-[#1877F2]" />
-                            <p className="font-medium">Facebook link</p>
+                        <div className="flex justify-between items-center my-2 space-x-4 sm:space-x-0">
+                          <div className="flex items-center sm:space-x-2">
+                            <FaFacebook className="w-7 h-7 text-[#1877F2] hidden sm:flex" />
+                            <p className="font-medium line-clamp-1">
+                              Facebook link
+                            </p>
                           </div>
                           <div className="flex items-center">
-                            <p className="text-[#606060] italic">
+                            <p className="text-[#606060] italic line-clamp-1">
                               {userSocials?.user_social.user_social_facebook
                                 ? userSocials.user_social.user_social_facebook
                                 : "you dont have a facebook link yet."}
@@ -173,13 +181,15 @@ const EditProfile: React.FC<editProfileProps> = ({
                             />
                           </div>
                         </div>
-                        <div className="flex justify-between items-center">
-                          <div className="flex items-center space-x-2">
-                            <FaSquareXTwitter className="w-7 h-7" />
-                            <p className="font-medium">Twitter link</p>
+                        <div className="flex justify-between items-center space-x-4 sm:space-x-0">
+                          <div className="flex items-center sm:space-x-2">
+                            <FaSquareXTwitter className="w-7 h-7 hidden sm:flex" />
+                            <p className="font-medium line-clamp-1">
+                              Twitter link
+                            </p>
                           </div>
                           <div className="flex items-center">
-                            <p className="text-[#606060] italic">
+                            <p className="text-[#606060] italic line-clamp-1">
                               {userSocials?.user_social.user_social_twitter
                                 ? userSocials.user_social.user_social_twitter
                                 : "you dont have a twitter link yet."}

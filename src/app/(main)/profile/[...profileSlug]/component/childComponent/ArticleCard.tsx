@@ -31,9 +31,9 @@ const ArticleCard: React.FC<articleCardProps> = ({
       }`}
       className="card card-side rounded-none items-center my-8 px-3 sm:px-4 bg-base-200"
     >
-      <div className="card-body px-2 sm:px-4 sm:space-y-4">
-        <div className="flex flex-row items-center sm:space-x-4">
-          <h2 className="card-title md:text-xl 2xl:text-2xl">
+      <div className="card-body px-2 sm:px-4 space-y-2 sm:space-y-4">
+        <div className="flex flex-row items-center space-x-2 sm:space-x-4">
+          <h2 className="card-title line-clamp-1 md:text-xl 2xl:text-2xl">
             {cardTitle} articles
           </h2>
           <div
@@ -62,7 +62,7 @@ const ArticleCard: React.FC<articleCardProps> = ({
             </div>
             <p className="ml-2 line-clamp-1">{user.user_fullname}</p>
           </div>
-          <div className="sm:ml-11">
+          <div className="sm:ml-11 hidden sm:flex">
             <ul className="list-disc">
               <li className="text-sm">
                 {articleTotal} {articleTotal > 1 ? "articles" : "article"}
