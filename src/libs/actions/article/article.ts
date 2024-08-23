@@ -1,4 +1,8 @@
-import { articleProps, uploadProps } from "@/types/article/article";
+import {
+  articleProps,
+  articlePropsWithUser,
+  uploadProps,
+} from "@/types/article/article";
 import { v4 as uuid } from "uuid";
 import createSupabaseServerClient from "@/libs/supabase/server";
 import createSupabaseClient from "@/libs/supabase/client";
@@ -80,6 +84,51 @@ export async function getAllArticles(): Promise<articleProps[]> {
   return data as articleProps[];
 }
 
+export async function getAllArticlesWithUser(): Promise<
+  articlePropsWithUser[]
+> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase.from("article").select(`
+    *,
+    user (*)`);
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function getNpruArticleWithUser(): Promise<
+  articlePropsWithUser[]
+> {
+  const supabase = await createSupabaseServerClient();
+  const { data: userRoles, error: rolesError } = await supabase
+    .from("user_role")
+    .select("user_id")
+    .filter("user_role_name", "eq", "npru");
+
+  if (rolesError) {
+    console.error("Error fetching user roles:", rolesError.message);
+    return [];
+  }
+
+  const userIds = userRoles.map((role) => role.user_id);
+  const { data: articles, error: articlesError } = await supabase
+    .from("article")
+    .select(
+      `
+      *,
+      user (*)`
+    )
+    .in("user_id", userIds)
+    .eq("article_status", "public");
+
+  if (articlesError) {
+    console.error("Error fetching NPRU articles:", articlesError.message);
+    return [];
+  }
+
+  return articles;
+}
+
 export async function getNpruArticle(): Promise<articleProps[]> {
   const supabase = await createSupabaseServerClient();
   const { data: userRoles, error: rolesError } = await supabase
@@ -123,6 +172,7 @@ export async function getNpruArticleOnUserPage(): Promise<articleProps[]> {
   const { data: articles, error: articlesError } = await supabase
     .from("article")
     .select("*")
+    .eq("article_status", "public")
     .in("user_id", userIds)
     .limit(4);
 
@@ -250,10 +300,6 @@ export async function getArticleByUsernamandPostId(
   const usernameReplace = userName.replace(/-/g, " ");
   const articleTitleReplace = article_Title.replace(/-/g, " ");
   const decodedArticleTitle = decodeURIComponent(articleTitleReplace);
-  console.log(usernameReplace);
-
-  console.log(decodedArticleTitle);
-
   const { data, error } = await supabase
     .rpc("fetch_articles_by_partial_uuid", {
       partial_uuid: articleIdWithWildCard,
@@ -262,7 +308,6 @@ export async function getArticleByUsernamandPostId(
     })
     .single();
   if (error) console.log("error from getArticleByUsernamePostId", error);
-  console.log(data);
 
   return data;
 }
@@ -524,3 +569,10 @@ export async function getPopularArticles(
   }
   return popularArticles;
 }
+
+export const ArticleStatuses = [
+  { id: 1, status: "pending", name: "In progress", color: "yellow" },
+  { id: 2, status: "public", name: "Approved", color: "green" },
+  { id: 3, status: "reject", name: "Disapproved", color: "red" },
+  { id: 4, status: "complaint", name: "Complainted", color: "orange" },
+];

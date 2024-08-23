@@ -1,6 +1,8 @@
 import { manageArticleStatus } from "@/libs/actions/article/article";
 import { createNewNotification } from "@/libs/actions/notification/notification";
 import { Modal } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 type drawerProps = {
@@ -19,6 +21,7 @@ const DrawerApproveBtn: React.FC<drawerProps> = ({
   userId,
 }) => {
   const [isApprove, setIsApprove] = useState(false);
+  const router = useRouter();
   const handleOnApprove = async () => {
     try {
       setIsApprove(true);
@@ -30,7 +33,12 @@ const DrawerApproveBtn: React.FC<drawerProps> = ({
         userId,
         articleTitle
       );
-      window.location.reload();
+      notifications.show({
+        title: "Article Approved",
+        message: `Article ${articleTitle} has been approved`,
+        color: "green",
+        onClose: () => router.push("/"),
+      });
       setIsApprove(false);
       close();
     } catch (error) {
@@ -44,7 +52,8 @@ const DrawerApproveBtn: React.FC<drawerProps> = ({
       onClose={close}
       centered
       withCloseButton={false}
-      size={600}>
+      size={600}
+    >
       <div className="flex flex-col space-y-5 justify-center items-center p-5  text-center">
         <h1 className="text-2xl font-semibold uppercase">approve article</h1>
         <span className="text-base-content">
@@ -61,7 +70,8 @@ const DrawerApproveBtn: React.FC<drawerProps> = ({
             className={`btn ${
               isApprove ? "bg-green-400" : "bg-green-500"
             } text-white hover:bg-green-400`}
-            onClick={handleOnApprove}>
+            onClick={handleOnApprove}
+          >
             {isApprove ? "Approving..." : "Approve"}
           </button>
         </div>

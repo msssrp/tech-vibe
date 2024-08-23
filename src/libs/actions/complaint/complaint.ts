@@ -1,6 +1,9 @@
 import createSupabaseClient from "@/libs/supabase/client";
 import createSupabaseServerClient from "@/libs/supabase/server";
-import { complaintProps } from "@/types/complaint/complaint";
+import {
+  compalintPropsWithArticleAndUser,
+  complaintProps,
+} from "@/types/complaint/complaint";
 
 export async function getTotalOfComplaint() {
   const supabase = await createSupabaseServerClient();
@@ -29,10 +32,16 @@ export async function newComplaint(
   if (error) return console.log(error);
 }
 
-export async function getComplaints(): Promise<complaintProps[] | undefined> {
+export async function getComplaints(): Promise<
+  compalintPropsWithArticleAndUser[] | undefined
+> {
   const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase.from("complaint").select("*");
+  const { data, error } = await supabase.from("complaint").select(`
+    *,
+    user (*),
+    article (*)`);
   if (error) console.log("error from get complaints", error);
+  console.log(data);
 
   if (data) return data;
 }
@@ -72,3 +81,9 @@ export async function updateComplaintStatus(
   complaint_id: string,
   newStatus: string
 ) {}
+
+export const complaintStatuses = [
+  { id: 1, status: "pending", name: "In progress", color: "orange" },
+  { id: 2, status: "complaint", name: "Complaint", color: "green" },
+  { id: 3, status: "delete", name: "Deleted", color: "red" },
+];

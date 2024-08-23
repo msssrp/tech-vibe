@@ -14,7 +14,7 @@ import { articleProps } from "@/types/article/article";
 import { userProps } from "@/types/user/user";
 import DOMPurify from "dompurify";
 import React, { useEffect, useRef, useState } from "react";
-
+const IMAGE_PATH = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
 const useWrite = (
   writeId: string,
   user: userProps,
@@ -48,12 +48,9 @@ const useWrite = (
       if (uploadData.imagePath) {
         const imageUrl = uploadData.imagePath;
         success(imageUrl);
-        handleSetCoverImage(
-          `https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/${imageUrl}`
-        );
-        resolve(
-          `https://cqphjwakpkovcvrouaoz.supabase.co/storage/v1/object/public/Images/${imageUrl}`
-        );
+        handleSetCoverImage(`${IMAGE_PATH}${imageUrl}`);
+        resolve(`${IMAGE_PATH}${imageUrl}`);
+        console.log(IMAGE_PATH, imageUrl);
       }
     });
   };
@@ -135,13 +132,13 @@ const useWrite = (
   const notificationRef = useRef(false);
   useEffect(() => {
     //if (isDesktop) {
-      if (notificationRef.current === false) {
-        tipsNotification("Article tips");
-        howtouseNotification("Article tips");
-        return () => {
-          notificationRef.current = true;
-        };
-      }
+    if (notificationRef.current === false) {
+      tipsNotification("Article tips");
+      howtouseNotification("Article tips");
+      return () => {
+        notificationRef.current = true;
+      };
+    }
     //}
   }, []);
   return {

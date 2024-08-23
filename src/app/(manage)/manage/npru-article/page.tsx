@@ -1,8 +1,11 @@
-import React, { useContext } from "react";
-import { getAllArticles, getNpruArticle } from "@/libs/actions/article/article";
+import React from "react";
+import {
+  getAllArticlesWithUser,
+  getNpruArticleWithUser,
+} from "@/libs/actions/article/article";
 import ArticleTabs from "../../component/ArticleTabs";
 import ArticleStat from "../../component/ArticleStat";
-import ArticleApproveCard from "../../component/ArticleApproveCard";
+import DataTable from "@/components/main/table/DataTable";
 
 const page = async ({
   searchParams,
@@ -11,8 +14,8 @@ const page = async ({
 }) => {
   console.log(searchParams.article);
 
-  const allArticles = await getAllArticles();
-  const npruArticles = await getNpruArticle();
+  const allArticles = await getAllArticlesWithUser();
+  const npruArticles = await getNpruArticleWithUser();
   const inprogressArticles = npruArticles.filter(
     (article) => article.article_status === "pending"
   );
@@ -22,13 +25,6 @@ const page = async ({
   const disapproveArticles = npruArticles.filter(
     (article) => article.article_status === "reject"
   );
-
-  const filterBySearchParams = npruArticles.filter((article) => {
-    if (searchParams && searchParams.article) {
-      return article.article_status === searchParams.article;
-    }
-    return article.article_status === "pending";
-  });
 
   return (
     <div className="flex flex-col space-y-4">
@@ -41,16 +37,13 @@ const page = async ({
         />
         <div className="min-h-screen bg-[#F4F2FB]">
           <ArticleStat
-            allArticle={allArticles.length}
+            allArticle={npruArticles.length}
             inProgress={inprogressArticles.length}
             approve={approveArticles.length}
             disapprove={disapproveArticles.length}
-            npruTab={true}
           />
           <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-5">
-            {filterBySearchParams.map((article) => (
-              <ArticleApproveCard key={article.article_id} article={article} />
-            ))}
+            <DataTable articlesWithUser={npruArticles} />
           </div>
         </div>
       </div>

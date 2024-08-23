@@ -5,34 +5,37 @@ import {
   deleteComplaint,
 } from "@/libs/actions/complaint/complaint";
 import { createNewNotification } from "@/libs/actions/notification/notification";
-import { complaintProps } from "@/types/complaint/complaint";
+import { compalintPropsWithArticleAndUser } from "@/types/complaint/complaint";
 import { Modal, Textarea } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import React, { useState } from "react";
 
 type complaintInteractProps = {
-  complaint: complaintProps;
+  complaintId: string;
+  articleId: string;
   articleTitle: string;
   userId: string;
+  complaintStatus: string;
+  complaintBtnName: string;
 };
 
 const ComplaintInteract: React.FC<complaintInteractProps> = ({
-  complaint,
+  complaintId,
+  complaintStatus,
+  articleId,
   articleTitle,
   userId,
+  complaintBtnName,
 }) => {
   const [modComment, setModComment] = useState("");
   const [opened, { open, close }] = useDisclosure(false);
   const [openedComplaint, { open: openComplaint, close: closeComplaint }] =
     useDisclosure(false);
   const handleComplaint = async () => {
-    const error = await confirmComplaint(complaint.complaint_id, modComment);
+    const error = await confirmComplaint(complaintId, modComment);
     if (error) return console.log(error);
-    const errorArticle = await manageArticleStatus(
-      complaint.article_id,
-      "complaint"
-    );
+    const errorArticle = await manageArticleStatus(articleId, "complaint");
     if (errorArticle) return console.log(error);
     closeComplaint();
     notifications.show({
@@ -51,7 +54,7 @@ const ComplaintInteract: React.FC<complaintInteractProps> = ({
     );
   };
   const handleDeleteComplaint = async () => {
-    const error = await deleteComplaint(complaint.complaint_id);
+    const error = await deleteComplaint(complaintId);
     if (error) return console.log(error);
     close();
     notifications.show({
@@ -69,7 +72,6 @@ const ComplaintInteract: React.FC<complaintInteractProps> = ({
         opened={openedComplaint}
         onClose={closeComplaint}
         size={600}
-        withCloseButton={false}
         centered
       >
         <form
@@ -104,13 +106,7 @@ const ComplaintInteract: React.FC<complaintInteractProps> = ({
         </form>
       </Modal>
 
-      <Modal
-        opened={opened}
-        onClose={close}
-        size={600}
-        withCloseButton={false}
-        centered
-      >
+      <Modal opened={opened} onClose={close} size={600} centered>
         <div className="flex items-center justify-center flex-col space-y-4 px-9 py-3">
           <h1 className="uppercase text-xl font-semibold">complaint article</h1>
           <span className="text-base-content text-center">
@@ -135,18 +131,19 @@ const ComplaintInteract: React.FC<complaintInteractProps> = ({
           </div>
         </div>
       </Modal>
-      {complaint.complaint_status !== "complaint" && (
-        <div className="flex justify-end items-center space-x-4">
-          {complaint.complaint_status !== "delete" && (
-            <button className="btn" onClick={open}>
-              DELETE
-            </button>
-          )}
-
-          <button className="btn bg-orange-500 text-white" onClick={open}>
-            COMPLAINT
-          </button>
-        </div>
+      {complaintStatus !== "complaint" && (
+        <button
+          className={`btn ${
+            complaintBtnName === "In Progress"
+              ? "bg-orange-500"
+              : complaintBtnName === "Deleted"
+              ? "bg-red"
+              : "bg-green-500"
+          } bg-orange-500 text-white btn-sm`}
+          onClick={open}
+        >
+          {complaintBtnName}
+        </button>
       )}
     </>
   );

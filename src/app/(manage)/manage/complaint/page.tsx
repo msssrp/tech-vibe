@@ -1,14 +1,10 @@
 import React from "react";
 import ComplaintTabs from "../../component/ComplaintTabs";
 import ComplaintStat from "../../component/ComplaintStat";
-import ComplaintCard from "./component/ComplaintCard";
 import { getComplaints } from "@/libs/actions/complaint/complaint";
+import DataTable from "@/components/main/complaintTable/DataTable";
 
-const page = async ({
-  searchParams,
-}: {
-  searchParams: { complaint: string };
-}) => {
+const page = async () => {
   const complaints = await getComplaints();
   const harassment =
     complaints &&
@@ -35,14 +31,6 @@ const page = async ({
     harassment &&
     harassment.filter((complaint) => complaint.complaint_status === "delete");
 
-  const filterBySearchParams =
-    harassment &&
-    harassment.filter((complaint) => {
-      if (searchParams && searchParams.complaint) {
-        return complaint.complaint_status === searchParams.complaint;
-      }
-      return complaint.complaint_status === "pending";
-    });
   return (
     <div className="flex flex-col space-y-4">
       {/*Tabs*/}
@@ -61,15 +49,10 @@ const page = async ({
             deleteTotal={harassDeleteTotal ? harassDeleteTotal.length : 0}
           />
           <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-10">
-            {filterBySearchParams && filterBySearchParams.length > 0 ? (
-              filterBySearchParams.map((complaint) => (
-                <ComplaintCard
-                  key={complaint.complaint_id}
-                  complaint={complaint}
-                />
-              ))
+            {harassment ? (
+              <DataTable complaintWithArticelAndUser={harassment} />
             ) : (
-              <div>no complaint on this status yet</div>
+              <span>No Complaint found</span>
             )}
           </div>
         </div>

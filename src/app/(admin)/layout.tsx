@@ -31,7 +31,7 @@ export default async function RootLayout({
   if (!userRole) return redirect("/");
   if (userRole.every((user) => user.user_role_name !== "admin"))
     return redirect("/");
-  const totalUser = await getTotalUser();
+  const totalUser = await getTotalUser(data.user.id);
   const webLogoUrl = await getWebLogoUrl();
   return (
     <div className="drawer lg:drawer-open">
