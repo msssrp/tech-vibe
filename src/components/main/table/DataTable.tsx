@@ -52,7 +52,7 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
       return (
         <>
           {row.original.article_status === "public" ? (
-            <Link href={`/${userWithHyphen}/${articleSlug}`}>
+            <Link id="title-article" href={`/${userWithHyphen}/${articleSlug}`}>
               <span className="font-semibold">
                 {row.original.article_title}
               </span>
