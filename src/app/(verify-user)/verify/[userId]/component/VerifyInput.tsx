@@ -33,6 +33,7 @@ const VerifyInput: React.FC<InputsProps> = ({
         <input
           type="text"
           defaultValue={user_fullname}
+          required={user_fullname ? false : true}
           {...register("fullname")}
           className="bg-white font-medium py-1 pl-1 w-full focus:outline-none focus:border-none"
         />
@@ -75,7 +76,8 @@ const VerifyInput: React.FC<InputsProps> = ({
         <button
           className={`py-1.5 px-4 bg-[#258816] rounded-3xl text-white mt-4 hover:bg-[#1D720C] ${
             isLoading && "bg-[#1D720C]"
-          }`}>
+          }`}
+        >
           {isLoading ? "Creating account..." : "Create account"}
         </button>
       </div>
