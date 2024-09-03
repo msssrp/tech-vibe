@@ -362,7 +362,14 @@ export async function updateArticleById(
   if (error) console.log(error);
 }
 
-export async function deleteArticle(article_id: string) {}
+export async function deleteArticle(articleId: string) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("article")
+    .update({ article_status: "delete" })
+    .eq("article_id", articleId);
+  if (error) console.log(error);
+}
 
 export async function uploadImage(
   write_id: string,
@@ -575,4 +582,5 @@ export const ArticleStatuses = [
   { id: 2, status: "public", name: "Approved", color: "green" },
   { id: 3, status: "reject", name: "Disapproved", color: "red" },
   { id: 4, status: "complaint", name: "Complainted", color: "orange" },
+  { id: 5, status: "delete", name: "Deleted", color: "red" },
 ];
