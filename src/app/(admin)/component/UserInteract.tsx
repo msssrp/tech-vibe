@@ -7,12 +7,13 @@ import {
   insertModeratorRole,
   insertNpruRole,
 } from "@/libs/actions/user/user_role";
+import { updateFullname } from "@/libs/actions/user/userClient";
 import { userRoleProps } from "@/types/user/user_role";
 import { Input, Modal, Switch } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { PiNotePencilDuotone } from "react-icons/pi";
 const IMAGE_PATH = process.env.NEXT_PUBLIC_IMAGE_PATH as string;
 type userCardProps = {
@@ -30,6 +31,7 @@ const UserInteract: React.FC<userCardProps> = ({
   userEmail,
   userRoles,
 }) => {
+  const [userFullName, setUserFullName] = useState(userFullname);
   const [opened, { open, close }] = useDisclosure(false);
   const handleUpdateAdmin = async () => {
     if (
@@ -88,6 +90,15 @@ const UserInteract: React.FC<userCardProps> = ({
       });
     }
   };
+  const handleUpdateUserName = async () => {
+    await updateFullname(userFullName, userId);
+    close();
+    return notifications.show({
+      title: "update status",
+      message: `updated "${userFullname}" to ${userFullName} successfully`,
+      color: "green",
+    });
+  };
   return (
     <>
       <Modal opened={opened} onClose={close} withCloseButton={false} centered>
@@ -110,13 +121,17 @@ const UserInteract: React.FC<userCardProps> = ({
             <Input.Wrapper label="Username">
               <div className="relative">
                 <Input
-                  disabled
                   size="xs"
-                  value={userFullname}
+                  value={userFullName}
+                  onChange={(e) => setUserFullName(e.target.value)}
                   variant="unstyled"
                 />
                 <div className="absolute right-1.5 top-1.5 cursor-pointer">
-                  <PiNotePencilDuotone color="gray" size={20} />
+                  <PiNotePencilDuotone
+                    color="gray"
+                    size={20}
+                    onClick={handleUpdateUserName}
+                  />
                 </div>
               </div>
             </Input.Wrapper>
