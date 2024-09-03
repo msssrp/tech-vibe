@@ -1,11 +1,19 @@
 import React from "react";
-import { getComplaints } from "@/libs/actions/complaint/complaint";
+import {
+  getComplaints,
+  getComplaintsArticles,
+} from "@/libs/actions/complaint/complaint";
 import ComplaintTabs from "@/app/(manage)/component/ComplaintTabs";
 import ComplaintStat from "@/app/(manage)/component/ComplaintStat";
 import DataTable from "@/components/main/complaintTable/DataTable";
 
 const page = async () => {
   const complaints = await getComplaints();
+  const complaintCount = await getComplaintsArticles();
+  const complaintIdsToExclude =
+    complaintCount &&
+    complaintCount.data &&
+    complaintCount.data.map((article) => article.article_id);
   const harassment =
     complaints &&
     complaints.filter(
@@ -21,12 +29,19 @@ const page = async () => {
     complaints.filter((complaint) => complaint.complaint_title === "SPAM");
   const spamPendingTotal =
     spam &&
-    spam.filter((complaint) => complaint.complaint_status === "pending");
-  const spamComplaintTotal =
-    spam &&
-    spam.filter((complaint) => complaint.complaint_status === "complaint");
+    spam.filter(
+      (complaint) =>
+        complaint.complaint_status === "pending" &&
+        !complaintIdsToExclude?.includes(complaint.article_id)
+    );
+
   const spamDeleteTotal =
-    spam && spam.filter((complaint) => complaint.complaint_status === "delete");
+    spam &&
+    spam.filter(
+      (complaint) =>
+        complaint.complaint_status === "delete" &&
+        !complaintIdsToExclude?.includes(complaint.article_id)
+    );
 
   return (
     <div className="flex flex-col space-y-4">
@@ -42,7 +57,7 @@ const page = async () => {
           <ComplaintStat
             allArticle={spam ? spam.length : 0}
             inProgress={spamPendingTotal ? spamPendingTotal.length : 0}
-            complaint={spamComplaintTotal ? spamComplaintTotal.length : 0}
+            complaint={complaintCount?.count ? complaintCount.count : 0}
             deleteTotal={spamDeleteTotal ? spamDeleteTotal.length : 0}
           />
           <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-10">

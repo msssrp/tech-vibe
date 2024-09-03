@@ -1,8 +1,10 @@
 import createSupabaseClient from "@/libs/supabase/client";
 import createSupabaseServerClient from "@/libs/supabase/server";
+import { articleProps } from "@/types/article/article";
 import {
   compalintPropsWithArticleAndUser,
   complaintProps,
+  complaintPropsWithArticle,
 } from "@/types/complaint/complaint";
 
 export async function getTotalOfComplaint() {
@@ -32,6 +34,18 @@ export async function newComplaint(
   if (error) return console.log(error);
 }
 
+export async function getComplaintsArticles(): Promise<
+  { data: articleProps[] | null; count: number | null } | undefined
+> {
+  const supabase = await createSupabaseServerClient();
+  const { data, count, error } = await supabase
+    .from("article")
+    .select("*", { count: "exact" })
+    .eq("article_status", "complaint");
+  if (error) console.log(error);
+  return { data, count };
+}
+
 export async function getComplaints(): Promise<
   compalintPropsWithArticleAndUser[] | undefined
 > {
@@ -39,11 +53,21 @@ export async function getComplaints(): Promise<
   const { data, error } = await supabase.from("complaint").select(`
     *,
     user (*),
-    article (*)`);
+    article (*, user(*))`);
   if (error) console.log("error from get complaints", error);
-  console.log(data);
-
   if (data) return data;
+}
+
+export async function getComplaintByArticleId(
+  articleId: string
+): Promise<complaintPropsWithArticle[] | null> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("complaint")
+    .select("*, article (*, user(*))")
+    .eq("article_id", articleId);
+  if (error) console.log(error);
+  return data;
 }
 
 export async function getComplaintByStatus(status: string) {}
