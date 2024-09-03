@@ -69,6 +69,8 @@ export async function updateFullname(
     .from("user")
     .update({ user_fullname: fullname, user_verify: true })
     .eq("user_id", userId);
+  if (error) console.log(error);
+
   return { error: error };
 }
 
