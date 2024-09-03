@@ -4,11 +4,13 @@ import { Badge } from "@mantine/core";
 import { Metadata } from "next";
 import Image from "next/image";
 import { getArticleByUsernamandPostId } from "@/libs/actions/article/article";
-import FollowText from "../../../[user]/[post_id]/component/FollowText";
-import ArticleContent from "../../../[user]/[post_id]/component/ArticleContent";
-import FollowBtn from "../../../[user]/[post_id]/component/FollowBtn";
+import FollowText from "../../../../[user]/[post_id]/component/FollowText";
+import ArticleContent from "../../../../[user]/[post_id]/component/ArticleContent";
+import FollowBtn from "../../../../[user]/[post_id]/component/FollowBtn";
 import usePreviewPage from "@/hook/usePreview";
 import ApproveBtn from "@/app/(manage)/component/ApproveBtn";
+import { getComplaintByArticleId } from "@/libs/actions/complaint/complaint";
+import ComplaintInteract from "@/app/(manage)/manage/complaint/component/ComplaintInteract";
 
 export async function generateMetadata({
   params,
@@ -53,10 +55,12 @@ const Page = async ({
   params,
   searchParams,
 }: {
-  params: { user: string; post_id: string };
+  params: { complaintId: string; user: string; post_id: string };
   searchParams: { commend: string };
 }) => {
   if (!params.user && !params.post_id) redirect("/");
+  console.log(params);
+
   const userName = params.user;
   const articleNameAndId = params.post_id;
   const splitArticle = articleNameAndId.split("-");
@@ -78,7 +82,11 @@ const Page = async ({
   } = await usePreviewPage(userName, articleTitle, articleId);
   if (!article.pgrst_scalar.created_at || !article.pgrst_scalar.user_id)
     return redirect("/");
-  if (article.pgrst_scalar.article_status !== "pending") return redirect("/");
+  const complaint = await getComplaintByArticleId(
+    article.pgrst_scalar.article_id
+  );
+
+  if (!complaint) return redirect("/");
 
   return (
     <>
@@ -138,11 +146,19 @@ const Page = async ({
             ))}
         </div>
         <div className="flex items-center justify-center">
-          <ApproveBtn
-            articleId={article.pgrst_scalar.article_id}
-            articleTitle={article.pgrst_scalar.article_title}
-            userId={article.pgrst_scalar.user_id}
-          />
+          {complaint.some(
+            (complaint) => complaint.article.article_status === "complaint"
+          ) ? (
+            <div className="btn btn-md">This article have been complainted</div>
+          ) : (
+            <ComplaintInteract
+              complaintId={params.complaintId}
+              articleId={complaint[0].article_id}
+              articleTitle={complaint[0].article.article_title}
+              userId={complaint[0].article.user_id}
+              complaintBtnName={"Manage"}
+            />
+          )}
         </div>
       </div>
       <footer className="bg-[#F5F5F5] mt-5">
