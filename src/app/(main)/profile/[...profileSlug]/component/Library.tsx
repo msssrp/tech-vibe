@@ -22,11 +22,11 @@ type library = {
 
 const Library: React.FC<library> = ({ user, userId, result }) => {
   return (
-    <div className="w-2/3 py-10">
-      <div className="flex items-center space-x-6 mb-2">
+    <div className="lg:w-2/3 py-10">
+      <div className="flex justify-between items-center mb-2">
         <h2 className="text-3xl font-medium">{user.user_fullname}</h2>
       </div>
-      <div className="flex items-center space-x-2 mx-2 sticky top-0 bg-base-100 z-10">
+      <div className="flex items-center space-x-2 md:mx-2 sticky top-0 bg-base-100 z-10">
         <div className="w-full">
           <Tabs defaultValue="Library" color="black">
             <Tabs.List h={60}>
@@ -42,7 +42,7 @@ const Library: React.FC<library> = ({ user, userId, result }) => {
               <Tabs.Tab value="Statistic">
                 <Link href={`/profile/${userId}?tab=Statistic`}>Statistic</Link>
               </Tabs.Tab>
-              <div className="ml-auto flex items-center">
+              <div className="sm:ml-auto sm:flex items-center hidden">
                 <label className="rounded-none border-b flex items-center">
                   <input type="text" className="grow focus:outline-none " />
                   <svg
@@ -61,7 +61,7 @@ const Library: React.FC<library> = ({ user, userId, result }) => {
               </div>
             </Tabs.List>
             <Tabs.Panel value="Library">
-              <div className="pr-11 h-auto overflow-y-scroll no-scrollbar">
+              <div className="lg:pr-11 h-auto overflow-y-scroll no-scrollbar">
                 <div className="space-y-2 Library">
                   {result.map((item) => (
                     <AllArticleCardClient 

@@ -32,13 +32,13 @@ const page = async ({
   return (
     <div className="flex flex-col space-y-4">
       {/*Tabs*/}
-      <div className="flex flex-col">
+      <div className="flex flex-col ">
         <ArticleTabs
           generalArticleNumber={allArticles.length}
           npruArticleNumber={npruArticles.length}
           isActiveAt="Gerneral articles"
         />
-        <div className="min-h-screen bg-[#F4F2FB]">
+        <div className="min-h-screen bg-[#F4F2FB] px-5 lg:px-0 pb-4">
           <ArticleStat
             allArticle={allArticles.length}
             inProgress={inprogressArticles.length}
@@ -46,7 +46,7 @@ const page = async ({
             disapprove={disapproveArticles.length}
             complanint={complaintArticles.length}
           />
-          <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-5">
+          <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-5 px-5 lg:px-0">
             <DataTable articlesWithUser={allArticles} />
           </div>
         </div>

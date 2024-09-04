@@ -25,10 +25,12 @@ const HiddenArticles: React.FC<hiddenArticles> = ({
   userRole,
 }) => {
   return (
-    <div className="w-2/3 py-10">
-      <div className="flex items-center space-x-6 mb-2">
-        <h2 className="text-3xl font-medium">Hidden articles</h2>
-        <div className="badge bg-[#FF9A62] text-white py-5 px-4">Hidden</div>
+    <div className="lg:w-2/3 py-10">
+      <div className="flex items-center space-x-3 sm:space-x-6 mb-2">
+        <h2 className="text-2xl sm:text-3xl font-medium">Hidden articles</h2>
+        <div className="badge bg-[#FF9A62] text-white py-4 sm:py-5 px-3 sm:px-4">
+          Hidden
+        </div>
       </div>
       <div className="flex items-center space-x-2 mx-2 sticky top-0 bg-base-100 z-10">
         <div className="w-full">
@@ -46,7 +48,7 @@ const HiddenArticles: React.FC<hiddenArticles> = ({
               <Tabs.Tab value="Statistic">
                 <Link href={`/profile/${userId}?tab=Statistic`}>Statistic</Link>
               </Tabs.Tab>
-              <div className="ml-auto flex items-center">
+              <div className="sm:ml-auto sm:flex items-center hidden">
                 <label className="rounded-none border-b flex items-center">
                   <input type="text" className="grow focus:outline-none " />
                   <svg
@@ -65,7 +67,7 @@ const HiddenArticles: React.FC<hiddenArticles> = ({
               </div>
             </Tabs.List>
             <Tabs.Panel value="Articles">
-              <div className="pr-11 h-auto overflow-y-scroll no-scrollbar">
+              <div className="lg:pr-11 h-auto overflow-y-scroll no-scrollbar">
                 <div className="space-y-2 ">
                   {articles &&
                     articles.map((article) => (
