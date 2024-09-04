@@ -24,11 +24,11 @@ const page = async () => {
 
           <div className="w-5/6 text-center mt-6">
             <span className="text-sm">
-              Click “Sign In” to agree to Medium’s{" "}
+              Click “Sign In” to agree to TechVibe’s{" "}
               <Link href="/tos" className="underline">
                 Terms of Service
               </Link>{" "}
-              and acknowledge that Medium’s{" "}
+              and acknowledge that TechVibe’s{" "}
               <Link href="/privacy" className="underline">
                 Privacy Policy
               </Link>{" "}
