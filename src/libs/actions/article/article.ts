@@ -577,6 +577,15 @@ export async function getPopularArticles(
   return popularArticles;
 }
 
+export async function updateArticleStatusOnDeleteUser(userId: string) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("article")
+    .update({ article_status: "delete" })
+    .eq("user_id", userId);
+  if (error) console.log(error);
+}
+
 export const ArticleStatuses = [
   { id: 1, status: "pending", name: "In progress", color: "yellow" },
   { id: 2, status: "public", name: "Approved", color: "green" },

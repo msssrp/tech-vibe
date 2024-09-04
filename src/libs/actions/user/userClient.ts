@@ -74,6 +74,15 @@ export async function updateFullname(
   return { error: error };
 }
 
+export async function deleteUser(userId: string) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("user")
+    .update({ user_status: "inactive" })
+    .eq("user_id", userId);
+  if (error) console.log(error);
+}
+
 export const UserProviders = [
   { id: 1, status: "google", name: "google", color: "gray" },
   { id: 2, status: "facebook", name: "facebook", color: "blue" },
