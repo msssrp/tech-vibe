@@ -1,4 +1,4 @@
-import { getArticleById } from "@/libs/actions/article/article";
+import { getArticleByName } from "@/libs/actions/article/article";
 import { getArticleUps } from "@/libs/actions/article/articleStat";
 import { getUser } from "@/libs/actions/user/user";
 import { redirect } from "next/navigation";
@@ -9,17 +9,22 @@ import { getCertificateUri, getUpvotes } from "@/libs/actions/web3/web3";
 
 const imagesPath = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
 
-const page = async ({ params }: { params: { blogId: string } }) => {
+const page = async ({ params }: { params: { articleName: string } }) => {
   const { data } = await getUserSession();
   if (!data.user) {
     return redirect("/");
   }
-
-  const articleData = await getArticleById(params.blogId);
+  const articleName = params.articleName;
+  const replaceHypenArticle = articleName.replace(/-/g, " ");
+  const decodedArticleName = decodeURIComponent(replaceHypenArticle);
+  const articleData = await getArticleByName(decodedArticleName);
+  if (articleData.article_claim === true) {
+    return redirect("/");
+  }
   if (data.user.id !== articleData.user_id) {
     return redirect("/");
   }
-  const { data: articleUps } = await getArticleUps(params.blogId);
+  const { data: articleUps } = await getArticleUps(articleData.article_id);
   const upvotes = await getUpvotes();
 
   if (articleUps < upvotes) {
@@ -30,6 +35,7 @@ const page = async ({ params }: { params: { blogId: string } }) => {
   const certUrl = imagesPath + certPath;
   return (
     <CertificateGen
+      upvote={upvotes}
       userFullName={user.user_fullname}
       articleName={articleData.article_title}
       certificateImageUrl={certUrl}

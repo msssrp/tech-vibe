@@ -6,6 +6,7 @@ import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getCertificateUri } from "@/libs/actions/web3/web3";
+import { updateArticleClaimCertificate } from "@/libs/actions/article/article";
 const useCertificateGen = (articleName: string, userFullName: string) => {
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
   const [loadingState, setLoadingState] = useState("Accept");
@@ -79,6 +80,7 @@ const useCertificateGen = (articleName: string, userFullName: string) => {
             await tx.wait();
             console.log("Transaction hash:", tx.hash);
             setLoadingState("success!!");
+            await updateArticleClaimCertificate(articleName);
             notifications.show({
               title: "Success!",
               message: "Your certificate has been accepted!",

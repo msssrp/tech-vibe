@@ -54,21 +54,30 @@ const useInteractBtn = (user_id: string | undefined, article_id: string) => {
       openReview();
       if (ethereum) {
         const getReviews = async () => {
-          const accounts = await ethereum.request({
-            method: "eth_requestAccounts",
-          });
-          const from = accounts[0];
-          const provider = new ethers.BrowserProvider(ethereum);
-          const runner = await provider.getSigner(from);
-          const contract = new ethers.Contract(
-            contractAddress,
-            contractABI.abi,
-            runner
-          );
-
-          const result = await contract.getAllReviews(article_id);
-
-          setReviewsData(result);
+          try {
+            const accounts = await ethereum.request({
+              method: "eth_requestAccounts",
+            });
+            const from = accounts[0];
+            const provider = new ethers.BrowserProvider(ethereum);
+            const runner = await provider.getSigner(from);
+            const contract = new ethers.Contract(
+              contractAddress,
+              contractABI.abi,
+              runner
+            );
+            const result = await contract.getAllReviews(article_id);
+            setReviewsData(result);
+          } catch (error) {
+            setReviewsData([]);
+            notifications.show({
+              autoClose: false,
+              title: "Something went wrong",
+              message:
+                "Please check your MainNet connection Make sure you are connected to Sepolia Network and try again.",
+              color: "orange",
+            });
+          }
         };
         if (window.ethereum) setIsWalletFound(true);
         getReviews();

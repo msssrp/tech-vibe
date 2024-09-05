@@ -18,7 +18,7 @@ const page = async () => {
           <div className="absolute">
             <div className="">
               <h1 className="my-2 text-gray-800 font-bold text-2xl">
-                Looks like you're account have been deleted
+                Looks like youre account have been deleted
               </h1>
               <p className="my-2 text-gray-800">
                 If you want to recovery your account, please contact our support
