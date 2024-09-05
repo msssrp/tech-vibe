@@ -12,6 +12,7 @@ export type articleProps = {
   created_at?: string;
   updated_at?: string;
   user_id: string;
+  article_claim: boolean;
 };
 
 export type tinyProps = {

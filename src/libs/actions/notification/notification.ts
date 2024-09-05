@@ -46,3 +46,35 @@ export async function createNewNotification(
   const { error } = await supabase.from("notification").insert(insertObject);
   if (error) return console.log(error);
 }
+
+export async function createNewNotificationServer(
+  title: string,
+  type: string,
+  content: string,
+  userId: string,
+  articleTitle?: string
+) {
+  const supabase = await createSupabaseServerClient();
+  let insertObject: notificationInsert = {
+    notification_title: title,
+    notification_type: type,
+    notification_content: content,
+    user_id: userId,
+  };
+
+  if (articleTitle) {
+    insertObject.article_title = articleTitle;
+  }
+  const { data: existNotification, error: getExistsNotification } =
+    await supabase
+      .from("notification")
+      .select("*")
+      .eq("article_title", articleTitle)
+      .eq("user_id", userId);
+  if (getExistsNotification) return console.log(getExistsNotification);
+  if (existNotification.length > 0) {
+    return console.log("Notification already exists");
+  }
+  const { error } = await supabase.from("notification").insert(insertObject);
+  if (error) return console.log(error);
+}

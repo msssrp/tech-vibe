@@ -586,6 +586,15 @@ export async function updateArticleStatusOnDeleteUser(userId: string) {
   if (error) console.log(error);
 }
 
+export async function updateArticleClaimCertificate(articleName: string) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("article")
+    .update({ article_claim: true })
+    .eq("article_title", articleName);
+  if (error) return console.log(error);
+}
+
 export const ArticleStatuses = [
   { id: 1, status: "pending", name: "In progress", color: "yellow" },
   { id: 2, status: "public", name: "Approved", color: "green" },

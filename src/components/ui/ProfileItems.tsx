@@ -9,7 +9,11 @@ type profileProps = {
 const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
   return (
     <div className="text-[#606060] mt-2 flex flex-col space-y-4 px-1">
-      <Link id="profile" href={`/profile/${user_id}`} className="flex mt-3 space-x-2">
+      <Link
+        id="profile"
+        href={`/profile/${user_id}`}
+        className="flex mt-3 space-x-2"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -83,6 +87,24 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
         </svg>
         <span>Statistics</span>
       </Link>
+      <Link href={`/certificate`} className="flex mb-3 space-x-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="#C6C6C6"
+          className="w-5 h-5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"
+          />
+        </svg>
+
+        <span>Certificates</span>
+      </Link>
       {userRoles &&
         userRoles.some(
           (userRole) => userRole.user_role_name === "moderator"
@@ -102,7 +124,7 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
                 d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
               />
             </svg>
-            <span>manage article</span>
+            <span>Manage article</span>
           </Link>
         )}
       {userRoles &&
@@ -122,7 +144,7 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
                 d="M6 13.5V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 9.75V10.5"
               />
             </svg>
-            <span>admin dashboard</span>
+            <span>Admin dashboard</span>
           </Link>
         )}
     </div>

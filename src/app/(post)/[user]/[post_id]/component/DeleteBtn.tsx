@@ -19,7 +19,7 @@ const DeleteBtn: React.FC<DeleteBtnProps> = ({ articleTitle, articleId }) => {
     close();
     return notifications.show({
       title: "Article deleted",
-      message: `Article "${articleTitle}" has been deleted`,
+      message: `Article ${articleTitle} has been deleted`,
       color: "red",
       onClose: () => {
         router.push("/");
@@ -31,7 +31,7 @@ const DeleteBtn: React.FC<DeleteBtnProps> = ({ articleTitle, articleId }) => {
       <Modal opened={opened} onClose={close} centered>
         <div className="flex flex-col items-center justify-center space-y-3 text-center">
           <h1 className="text-xl font-semibold">
-            Delete "{articleTitle}" article?
+            Delete {articleTitle} article?
           </h1>
           <span className="italic text-base">
             This article will be removed after click the confirm button

@@ -13,8 +13,9 @@ import { increaseArticleViews } from "@/libs/actions/article/articleStat";
 import { getArticleByUsernamandPostId } from "@/libs/actions/article/article";
 import Link from "next/link";
 import ArticleContent from "./component/ArticleContent";
-import { MdOutlineDelete } from "react-icons/md";
 import DeleteBtn from "./component/DeleteBtn";
+import { getUpvotes } from "@/libs/actions/web3/web3";
+import { createNewNotificationServer } from "@/libs/actions/notification/notification";
 export async function generateMetadata({
   params,
 }: {
@@ -79,7 +80,7 @@ const Page = async ({
     userFollow,
     day,
     month,
-    data,
+    articleUps,
     UpCount,
     DownCount,
     CommentData,
@@ -94,6 +95,22 @@ const Page = async ({
       article.pgrst_scalar.article_id,
       userSession.data.user.id
     );
+  }
+
+  if (
+    userSession.data.user &&
+    userSession.data.user.id === article.pgrst_scalar.user_id
+  ) {
+    const currentUpVoteSet = await getUpvotes();
+    if (articleUps >= currentUpVoteSet) {
+      await createNewNotificationServer(
+        `Your article reached ${articleUps} upvotes`,
+        "upvote",
+        `Your article ${article.pgrst_scalar.article_title} reached ${articleUps} upvotes. Now you can claim a certificate from the website.`,
+        userSession.data.user.id,
+        article.pgrst_scalar.article_title
+      );
+    }
   }
 
   if (
@@ -146,7 +163,7 @@ const Page = async ({
           <div className="border-t border-b flex justify-between items-center py-3 px-3">
             <div className="flex items-center space-x-4">
               <UpDownsButton
-                articleUp={data}
+                articleUp={articleUps}
                 user_id={userSession.data.user?.id}
                 article_id={article.pgrst_scalar.article_id}
                 userUp={UpCount?.articleStat_ups}
