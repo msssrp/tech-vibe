@@ -1,34 +1,72 @@
-"use client"
-import React from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+// src/app/(main)/search/page.tsx
+"use client";
+import React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import ArticleCard from "./component/ArticleCard";
 
 const SearchPage: React.FC = () => {
   const searchParams = useSearchParams();
-  const query = searchParams.get('q') || '';
+  const query = searchParams.get("q") || "";
   const router = useRouter();
 
-  // Placeholder for search results
-  // In a real application, you would fetch search results from an API or database
   const searchResults = [
-    { id: 1, title: 'Example Article 1', snippet: 'This is a snippet from example article 1.' },
-    { id: 2, title: 'Example Article 2', snippet: 'This is a snippet from example article 2.' },
-  ].filter(result => result.title.toLowerCase().includes(query.toLowerCase()));
+    {
+      article_id: 1,
+      article_title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
+      article_description: "This is a article_description from example article 1.",
+      article_cover:"https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      article_id: 2,
+      article_title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
+      article_description: "This is a article_description from example article 2.",
+      article_cover:"https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      article_id: 3,
+      article_title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
+      article_description: "This is a article_description from example article 2.",
+      article_cover:"https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      article_id: 4,
+      article_title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
+      article_description: "This is a article_description from example article 2.",
+      article_cover:"https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      article_id: 5,
+      article_title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
+      article_description: "This is a article_description from example article 2.",
+      article_cover:"https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      article_id: 6,
+      article_title: "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
+      article_description: "This is a article_description from example article 2.",
+      article_cover:"https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+  ].filter((result) =>
+    result.article_title.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Search Results for "{query}"</h1>
-      {searchResults.length > 0 ? (
-        <ul>
-          {searchResults.map(result => (
-            <li key={result.id} className="mb-4">
-              <h2 className="text-xl font-semibold">{result.title}</h2>
-              <p>{result.snippet}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No results found for "{query}".</p>
-      )}
+    <div className="container mx-auto min-h-screen w-screen p-10">
+      <div className="flex flex-col justify-center items-center">
+        <div className="text-2xl text-base-content uppercase font-semibold flex items-center space-x-2 mb-10">
+          <h1 className="text-[#B4ABAB]">Search Results for </h1>
+          <span className="text-red">{query}</span>
+        </div>
+        {searchResults.length > 0 ? (
+          <div className="flex flex-col -space-y-5 md:space-y-4 md:flex-wrap md:flex-row items-center justify-center w-full h-full md:space-x-6">
+            {searchResults.map((result) => (
+              <ArticleCard key={result.article_id} article={result} />
+            ))}
+          </div>
+        ) : (
+          <p className="mt-10">No results found for {query}</p>
+        )}
+      </div>
     </div>
   );
 };
