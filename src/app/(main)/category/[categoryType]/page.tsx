@@ -17,7 +17,7 @@ export default async function page({
     return (
       <div className="container mx-auto min-h-screen w-screen p-10">
         <div className="flex flex-col justify-center items-center">
-          <div className="text-lg text-base-content uppercase font-semibold flex items-center space-x-2">
+          <div className="text-2xl text-base-content uppercase font-semibold flex items-center space-x-2 mb-10">
             <h1 className="text-[#606060]">TECHNOLOGY ARTICLES BY </h1>
             <span className="text-red">Npru</span>
           </div>
@@ -39,7 +39,7 @@ export default async function page({
     return (
       <div className="container mx-auto min-h-screen w-screen p-10">
         <div className="flex flex-col justify-center items-center">
-          <div className="text-lg text-base-content uppercase font-semibold flex items-center space-x-2">
+          <div className="text-2xl text-base-content uppercase font-semibold flex items-center space-x-2 mb-10">
             <h1 className="text-[#606060]">TECHNOLOGY ARTICLES BY </h1>
             <span className="text-red">Popular articles</span>
           </div>
@@ -63,7 +63,7 @@ export default async function page({
   return (
     <div className="container mx-auto min-h-screen w-screen p-10">
       <div className="flex flex-col justify-center items-center">
-        <div className="text-lg text-base-content uppercase font-semibold flex items-center space-x-2">
+        <div className="text-2xl text-base-content uppercase font-semibold flex items-center space-x-2 mb-10">
           <h1 className="text-[#606060]">TECHNOLOGY ARTICLES BY TAG </h1>
           <span className="text-red">{tagNameWithoutHypen}</span>
         </div>
