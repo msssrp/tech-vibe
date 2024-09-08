@@ -39,10 +39,10 @@ Write Blog Post
     Input Text    id=input-title    ${BLOG_TITLE}
     Wait Until Page Contains Element     id=input-description
     Input Text    id=input-description    ${BLOG_DESCRIPTION}
-    Click Element    xpath=//*[@id="tinymce"]
-    Wait Until Page Contains Element     xpath=//*[@id="tinymce"]
-    Input Text    xpath=//*[@id="tinymce"]    ${BLOG_CONTENT}
-    Choose File    xpath=//input[@name='image']    ${BLOG_IMAGE_PATH}
+    Input Text    xpath=//*[@id="tiny-test"]    test
+    # Click Element    xpath=//*[@id="tinymce"]
+    # Wait Until Page Contains Element     xpath=//*[@id="tinymce"]
+    # Select Frame    //iframe
     # Input Text    xpath=//textarea[@name='content']    ${BLOG_CONTENT}
     # Input Text    id=input-tag    ${BLOG_TAGS}
     # Wait Until Page Contains    ${BALERT_STATUS}    10s
@@ -76,6 +76,13 @@ Go To Proflie
     Click Element    id=profile
     Sleep    2
 
+Go To Manage article
+    [Documentation]    
+    Click Element    id=icon-user-profile
+    Wait Until Page Contains Element    id=manage-article
+    Click Element    id=manage-article
+    Sleep    5
+
 Go To Blog Post
     [Documentation]    Navigate to the specific blog post by title.
     Wait Until Page Contains Element    id=title-article
@@ -92,15 +99,46 @@ Edit Blog Post
     Input Text    id=input-title    ${BLOG_TITLE_EDTE}
 
 
-Go To Manage articles
-    Click Element    id=icon-user-profile
-    Wait Until Page Contains Element    id=profile
-    Click Element    id=manage-articles
-    Sleep    2
-
 Post inprogress
     Click Element    xpath=/html/body/div[3]/div[1]/div[2]/div/div[2]/div[2]/div/div[2]/div/button[3]
 
+Articles to be published
+    Click Element    xpath=/html/body/div[2]/div[1]/div[2]/div/div[2]/div[2]/div/div[1]/button
+    Click Element    xpath=/html/body/div[3]/div/p/div/button[1]
+    Sleep    3
+    Click Element    xpath=/html/body/div[2]/div[1]/div[2]/div/div[2]/div[2]/div/table/tbody/tr[1]/td[2]/a
+    Sleep    4
+
+Approving the article
+    Click Element    id=btn-approve
+
+Confirming the approval of the article
+    Wait Until Page Contains Element    id=btn-confirm-approve
+    # Click Element    id=btn-confirm-approve
+    # Sleep    3
+    # Page Should Contain    Article Approved
+
+Cancellation of approval confirmation
+    Wait Until Page Contains Element    id=btn-cancel-approve
+    Click Element    id=btn-cancel-approve  
+
+Article disapproval
+    Click Element    id=btn-disapprove
+
+Confirmation of disapproval of article
+    Wait Until Page Contains Element    id=btn-confirm-disapprove
+    # Click Element    id=btn-confirm-disapprove
+    Sleep    3
+    # Page Should Contain  
+
+Enter the reason for disapproval
+    Input Text    id=textarea-disapprove    bad
+    # Page Should Contain 
+
+Cancellation of disapproval
+    Wait Until Page Contains Element    id=btn-cancel-disapprove
+    Click Element    id=btn-cancel-disapprove
+      
 
     
 # Publish Blog Post

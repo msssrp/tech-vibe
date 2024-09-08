@@ -10,6 +10,8 @@ Resource    ../resources/keywords.robot
 ${URL_POST}    http://localhost:3000/044-Arpapat-Yipram/The-Role-and-Workflow-of-a-Business-Analyst-647abeb1
 ${BLOG_TITLE2}    The Role and Workflow of a Business Analyst
 
+
+
 *** Test Cases ***
 TC2001 Viewsrticle
     [Documentation]    View article on profile page 
@@ -25,6 +27,8 @@ TC2002 Viewsrticle
     Maximize Browser Window
     Sleep    5
     Check Title blog
+
+
 
 *** Keywords ***
 Check Title blog  

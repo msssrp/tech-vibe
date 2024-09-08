@@ -17,7 +17,9 @@ const TinyEditor: React.FC<tinyProps> = ({
 }) => {
   return (
     <>
-      <Editor
+    <div id="tiny-test">
+      <input type="text" />
+    {/* <Editor
         apiKey="r867q9o4rl69mxxxwmj4ok0xypnt6hswpfhcaeq27kxma3wz"
         onInit={(evt: any, editor: any) => (editorRef.current = editor)}
         onEditorChange={(newContent: any, editor: any) => {
@@ -51,7 +53,9 @@ const TinyEditor: React.FC<tinyProps> = ({
             });
           },
         }}
-      />
+      /> */}
+    </div>
+     
     </>
   );
 };
