@@ -1,11 +1,11 @@
 # Stage 1: install dependencies
-FROM node:22-alpine AS deps
+FROM node:20-alpine AS deps
 WORKDIR /app
 COPY package*.json .
 RUN npm install
 
 # Stage 2: build
-FROM node:22-alpine AS builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY src ./src
@@ -16,7 +16,7 @@ COPY *.json *.d.ts next.config.mjs postcss.config.cjs postcss.config.js tailwind
 RUN npm run build
 
 # Stage 3: run
-FROM node:22-alpine
+FROM node:20-alpine
 WORKDIR /app
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public

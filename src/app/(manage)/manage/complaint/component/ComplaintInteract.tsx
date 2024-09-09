@@ -16,13 +16,11 @@ type complaintInteractProps = {
   articleId: string;
   articleTitle: string;
   userId: string;
-  complaintStatus: string;
   complaintBtnName: string;
 };
 
 const ComplaintInteract: React.FC<complaintInteractProps> = ({
   complaintId,
-  complaintStatus,
   articleId,
   articleTitle,
   userId,
@@ -131,20 +129,9 @@ const ComplaintInteract: React.FC<complaintInteractProps> = ({
           </div>
         </div>
       </Modal>
-      {complaintStatus !== "complaint" && (
-        <button
-          className={`btn ${
-            complaintBtnName === "In Progress"
-              ? "bg-orange-500"
-              : complaintBtnName === "Deleted"
-              ? "bg-red"
-              : "bg-green-500"
-          } bg-orange-500 text-white btn-sm`}
-          onClick={open}
-        >
-          {complaintBtnName}
-        </button>
-      )}
+      <button className={`bg-orange-500 text-white btn btn-md`} onClick={open}>
+        {complaintBtnName}
+      </button>
     </>
   );
 };

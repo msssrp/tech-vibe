@@ -3,16 +3,19 @@ import React from "react";
 import { Notifications } from "@mantine/notifications";
 import Image from "next/image";
 import useCertificateGen from "@/hook/useCertificateGen";
+import { updateArticleClaimCertificate } from "@/libs/actions/article/article";
 
 type certiProps = {
   userFullName: string;
   articleName: string;
   certificateImageUrl: string;
+  upvote: number;
 };
 const CertificateGen: React.FC<certiProps> = ({
   userFullName,
   articleName,
   certificateImageUrl,
+  upvote,
 }) => {
   const { onButtonClick, loadingState } = useCertificateGen(
     articleName,
@@ -29,8 +32,8 @@ const CertificateGen: React.FC<certiProps> = ({
           <span>youre blog</span>
           <span className="italic">{articleName}</span>
           <span>
-            has reach 100 Ups heres is youre certificate by us click accept to
-            get this certificate !!
+            has reached {upvote} Ups. Here is youre certificate from us. Click
+            accept to get youre certificate !!
           </span>
         </div>
         <div className="w-[560px] h-[400px] relative" id="content">

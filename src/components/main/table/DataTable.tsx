@@ -105,7 +105,8 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
               Complainted
             </span>
           );
-
+        case "delete":
+          return <span className="bg-red btn btn-sm text-white">Deleted</span>;
         default:
           return (
             <span className="bg-red btn btn-sm text-white">Disapproved</span>
