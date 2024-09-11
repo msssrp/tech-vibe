@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -6,7 +6,7 @@ import ArticleCard from "./component/ArticleCard";
 import { getArticlesByTitlePattern } from "@/libs/actions/article/article";
 import { articleProps } from "@/types/article/article";
 
-const page: React.FC = async () => {
+const page: React.FC = () => {
   const [articles, setArticles] = useState<articleProps[]>([]);
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";

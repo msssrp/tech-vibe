@@ -580,11 +580,11 @@ export const ArticleStatuses = [
 export async function getArticlesByTitlePattern(
   article_Title: string
 ): Promise<articleProps[]> {
-  const supabase = await createSupabaseServerClient();
+  const supabase = createSupabaseClient();
   const { data, error } = await supabase
     .from("article")
     .select("*")
-    .like("article_title", `%${article_Title}%`);
+    .ilike("article_title", `%${article_Title}%`);
   if (error) console.log("error fetching articles by title pattern:", error);
   return data as articleProps[];
 }

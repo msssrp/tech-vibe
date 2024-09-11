@@ -95,7 +95,9 @@ const UserNavbar: React.FC<userNavbarProps> = ({
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      if (searchQuery.trim() !== "") {
+        router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      }
     }
   };
   return (
@@ -116,6 +118,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({
           <input
             type="text"
             placeholder="Search"
+            required
             className="input h-10 rounded-xl input-bordered w-32 md:w-56 bg-[#F5F4F5] border-none"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
