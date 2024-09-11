@@ -576,3 +576,15 @@ export const ArticleStatuses = [
   { id: 3, status: "reject", name: "Disapproved", color: "red" },
   { id: 4, status: "complaint", name: "Complainted", color: "orange" },
 ];
+
+export async function getArticlesByTitlePattern(
+  article_Title: string
+): Promise<articleProps[]> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .like("article_title", `%${article_Title}%`);
+  if (error) console.log("error fetching articles by title pattern:", error);
+  return data as articleProps[];
+}
