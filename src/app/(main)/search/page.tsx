@@ -6,7 +6,7 @@ import ArticleCard from "./component/ArticleCard";
 import { getArticlesByTitlePattern } from "@/libs/actions/article/article";
 import { articleProps } from "@/types/article/article";
 
-const page: React.FC = () => {
+const page = () => {
   const [articles, setArticles] = useState<articleProps[]>([]);
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";

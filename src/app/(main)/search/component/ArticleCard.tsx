@@ -18,7 +18,9 @@ type ArticleCardProps = {
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   const [users, setUsers] = useState<userProps | null>();
   const [tags, setTags] = useState<tagProps | null>();
-  const [userRoles, setUserRoles] = useState<{ user_role_name: string }[] | null>(null);
+  const [userRoles, setUserRoles] = useState<
+    { user_role_name: string }[] | null
+  >(null);
 
   useEffect(() => {
     const fetchTagsAndUser = async () => {
@@ -66,7 +68,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
         />
         <h3 className="text-xs">{users?.user_fullname || "undefind"}</h3>
         {userRoles &&
-          userRoles.some(role => role.user_role_name === "npru") && (
+          userRoles.some((role) => role.user_role_name === "npru") && (
             <FaCircleCheck color="#952124" size={9} />
           )}
       </Link>

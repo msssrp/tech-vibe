@@ -584,6 +584,7 @@ export async function getArticlesByTitlePattern(
   const { data, error } = await supabase
     .from("article")
     .select("*")
+    .eq("article_status", "public")
     .ilike("article_title", `%${article_Title}%`);
   if (error) console.log("error fetching articles by title pattern:", error);
   return data as articleProps[];
