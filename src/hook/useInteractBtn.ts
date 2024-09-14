@@ -9,7 +9,7 @@ import { useClipboard, useDisclosure } from "@mantine/hooks";
 import { ethers } from "ethers";
 import React, { useState } from "react";
 
-import contractABI from "@/hardhat/artifacts/contracts/BlogReview.sol/BlogReview.json";
+import contractABI from "@/hardhat/artifacts/contracts/BlogReviewCert.sol/BlogReview.json";
 import { UploadedFile } from "@/types/article/article";
 import { notifications } from "@mantine/notifications";
 import { FileWithPath } from "@mantine/dropzone";
