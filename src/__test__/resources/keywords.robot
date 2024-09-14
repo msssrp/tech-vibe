@@ -39,11 +39,12 @@ Write Blog Post
     Input Text    id=input-title    ${BLOG_TITLE}
     Wait Until Page Contains Element     id=input-description
     Input Text    id=input-description    ${BLOG_DESCRIPTION}
+    Sleep    5
     Input Text    xpath=//*[@id="tiny-test"]    test
-    # Click Element    xpath=//*[@id="tinymce"]
-    # Wait Until Page Contains Element     xpath=//*[@id="tinymce"]
+    Click Element    xpath=//*[@id="tinymce"]
+    Wait Until Page Contains Element     xpath=//*[@id="tinymce"]
     # Select Frame    //iframe
-    # Input Text    xpath=//textarea[@name='content']    ${BLOG_CONTENT}
+    Input Text    xpath=//*[@id=tinymce]    ${BLOG_CONTENT}
     # Input Text    id=input-tag    ${BLOG_TAGS}
     # Wait Until Page Contains    ${BALERT_STATUS}    10s
 
@@ -127,23 +128,16 @@ Article disapproval
 
 Confirmation of disapproval of article
     Wait Until Page Contains Element    id=btn-confirm-disapprove
-    # Click Element    id=btn-confirm-disapprove
+    Click Element    id=btn-confirm-disapprove
     Sleep    3
-    # Page Should Contain  
+ 
 
 Enter the reason for disapproval
     Input Text    id=textarea-disapprove    bad
-    # Page Should Contain 
+
 
 Cancellation of disapproval
     Wait Until Page Contains Element    id=btn-cancel-disapprove
     Click Element    id=btn-cancel-disapprove
       
 
-    
-# Publish Blog Post
-#     [Documentation]    Click the publish button to publish the blog post
-#     Click Button    xpath=//button[@type='submit' and text()='Publish']
-#     Wait Until Page Contains    ${ALERT_PUBLISH}
-#     Wait Until Page Contains    ${BLOG_TITLE}
-#     Wait Until Page Contains    Pending articles    

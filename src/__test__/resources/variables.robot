@@ -18,7 +18,7 @@ ${ALERT_TIPS_2}    The article cover will automatically choose when you're uploa
 ${ALERT_TIPS_3}    Article tips 
 ${ALERT_TIPS_4}    Every 5 second When you stop typing the article will automatically saved whether on draft or saved status
 ${ALERT_STATUS}    Article Status Your article has been saved Ready to write
-${ALERT_PUBLISH}    Article Status Your article has been publish wait for the moderator to confirm. You will be redirect to home page in 10 second
+${ALERT_PUBLISH}    Article Approved
 ${ALERT_PERROR}    Error Title , Description , Image cover , Content , Tags are required please make sure you dont forget any of these
 
 
