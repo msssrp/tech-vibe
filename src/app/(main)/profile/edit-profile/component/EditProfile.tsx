@@ -207,7 +207,7 @@ const EditProfile: React.FC<editProfileProps> = ({
                       </div>
                     </div>
                     <div className="pt-8 space-y-4">
-                      <ModalDelete />
+                      <ModalDelete userId={user.user_id} />
                       <p className="text-[#C8C2C2]">
                         Permanently delete your account and all of your content.
                       </p>

@@ -9,7 +9,7 @@ import { useClipboard, useDisclosure } from "@mantine/hooks";
 import { ethers } from "ethers";
 import React, { useState } from "react";
 
-import contractABI from "@/hardhat/artifacts/contracts/BlogReview.sol/BlogReview.json";
+import contractABI from "@/hardhat/artifacts/contracts/BlogReviewCert.sol/BlogReview.json";
 import { UploadedFile } from "@/types/article/article";
 import { notifications } from "@mantine/notifications";
 import { FileWithPath } from "@mantine/dropzone";
@@ -54,21 +54,30 @@ const useInteractBtn = (user_id: string | undefined, article_id: string) => {
       openReview();
       if (ethereum) {
         const getReviews = async () => {
-          const accounts = await ethereum.request({
-            method: "eth_requestAccounts",
-          });
-          const from = accounts[0];
-          const provider = new ethers.BrowserProvider(ethereum);
-          const runner = await provider.getSigner(from);
-          const contract = new ethers.Contract(
-            contractAddress,
-            contractABI.abi,
-            runner
-          );
-
-          const result = await contract.getAllReviews(article_id);
-
-          setReviewsData(result);
+          try {
+            const accounts = await ethereum.request({
+              method: "eth_requestAccounts",
+            });
+            const from = accounts[0];
+            const provider = new ethers.BrowserProvider(ethereum);
+            const runner = await provider.getSigner(from);
+            const contract = new ethers.Contract(
+              contractAddress,
+              contractABI.abi,
+              runner
+            );
+            const result = await contract.getAllReviews(article_id);
+            setReviewsData(result);
+          } catch (error) {
+            setReviewsData([]);
+            notifications.show({
+              autoClose: false,
+              title: "Something went wrong",
+              message:
+                "Please check your MainNet connection Make sure you are connected to Sepolia Network and try again.",
+              color: "orange",
+            });
+          }
         };
         if (window.ethereum) setIsWalletFound(true);
         getReviews();

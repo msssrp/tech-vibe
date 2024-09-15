@@ -13,7 +13,9 @@ import { increaseArticleViews } from "@/libs/actions/article/articleStat";
 import { getArticleByUsernamandPostId } from "@/libs/actions/article/article";
 import Link from "next/link";
 import ArticleContent from "./component/ArticleContent";
-
+import DeleteBtn from "./component/DeleteBtn";
+import { getUpvotes } from "@/libs/actions/web3/web3";
+import { createNewNotificationServer } from "@/libs/actions/notification/notification";
 export async function generateMetadata({
   params,
 }: {
@@ -78,7 +80,7 @@ const Page = async ({
     userFollow,
     day,
     month,
-    data,
+    articleUps,
     UpCount,
     DownCount,
     CommentData,
@@ -93,6 +95,22 @@ const Page = async ({
       article.pgrst_scalar.article_id,
       userSession.data.user.id
     );
+  }
+
+  if (
+    userSession.data.user &&
+    userSession.data.user.id === article.pgrst_scalar.user_id
+  ) {
+    const currentUpVoteSet = await getUpvotes();
+    if (articleUps >= currentUpVoteSet) {
+      await createNewNotificationServer(
+        `Your article reached ${articleUps} upvotes`,
+        "upvote",
+        `Your article ${article.pgrst_scalar.article_title} reached ${articleUps} upvotes. Now you can claim a certificate from the website.`,
+        userSession.data.user.id,
+        article.pgrst_scalar.article_title
+      );
+    }
   }
 
   if (
@@ -145,7 +163,7 @@ const Page = async ({
           <div className="border-t border-b flex justify-between items-center py-3 px-3">
             <div className="flex items-center space-x-4">
               <UpDownsButton
-                articleUp={data}
+                articleUp={articleUps}
                 user_id={userSession.data.user?.id}
                 article_id={article.pgrst_scalar.article_id}
                 userUp={UpCount?.articleStat_ups}
@@ -164,25 +182,31 @@ const Page = async ({
             </div>
             <div className="flex space-x-3 items-center">
               {userSession.data.user?.id === article.pgrst_scalar.user_id && (
-                <Link
-                  id="edit-article"
-                  href={`/edit/${article.pgrst_scalar.article_id}`}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1}
-                    stroke="currentColor"
-                    className="size-5"
+                <>
+                  <Link
+                    id="edit-article"
+                    href={`/edit/${article.pgrst_scalar.article_id}`}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                    />
-                  </svg>
-                </Link>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                      />
+                    </svg>
+                  </Link>
+                  <DeleteBtn
+                    articleId={article.pgrst_scalar.article_id}
+                    articleTitle={article.pgrst_scalar.article_title}
+                  />
+                </>
               )}
               <InteractBtn
                 user_id={userSession.data.user?.id}

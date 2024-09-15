@@ -69,7 +69,18 @@ export async function updateFullname(
     .from("user")
     .update({ user_fullname: fullname, user_verify: true })
     .eq("user_id", userId);
+  if (error) console.log(error);
+
   return { error: error };
+}
+
+export async function deleteUser(userId: string) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("user")
+    .update({ user_status: "inactive" })
+    .eq("user_id", userId);
+  if (error) console.log(error);
 }
 
 export const UserProviders = [
