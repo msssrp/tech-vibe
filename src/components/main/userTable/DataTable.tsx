@@ -112,7 +112,7 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
       cell: ({ row }) => {
         const sortedRoles = sortRoles(row.original.user_role);
         return (
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2 ">
             {sortedRoles.map((role: any) => (
               <Badge
                 key={role.user_role_id}
@@ -185,7 +185,7 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
           columnFilters={columnFilters}
         />
       </div>
-      <Table striped withTableBorder>
+      <Table  striped withTableBorder >
         <Table.Thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <Table.Tr key={headerGroup.id}>
