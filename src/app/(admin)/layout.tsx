@@ -34,12 +34,12 @@ export default async function RootLayout({
   const totalUser = await getTotalUser(data.user.id);
   const webLogoUrl = await getWebLogoUrl();
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer xl:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         <label
           htmlFor="my-drawer-2"
-          className="flex justify-start items-center drawer-button lg:hidden"
+          className="flex justify-start items-center drawer-button xl:hidden"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

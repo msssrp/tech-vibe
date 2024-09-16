@@ -37,13 +37,13 @@ const page = async () => {
       {/*Tabs*/}
       <div className="flex flex-col">
         <UserTabs />
-        <div className="min-h-screen bg-[#F4F2FB]">
+        <div className="min-h-screen bg-[#F4F2FB] px-4 xl:px-0">
           <UserStat
             allUsers={userCount}
             generalUser={generalUser}
             npruUser={npruUser}
           />
-          <div className="flex flex-col lg:flex-row flex-wrap justify-center items-center mt-5 w-full">
+          <div className="flex flex-col lg:flex-row flex-wrap justify-center items-center mt-5 w-full px-4 xl:px-0">
             {data && data.user && user && (
               <DataTable user={user} userSessionId={data.user.id} />
             )}

@@ -82,7 +82,7 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
           alt={"Techvibe user"}
           width={40}
           height={40}
-          className="rounded-full"
+          className="rounded-full hidden lg:block"
         />
       ),
     },
@@ -93,6 +93,9 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
     {
       accessorKey: "user_provider",
       header: "User Provider",
+      cell: ({ row }) => (
+        <div className="hidden sm:block">{row.original.user_provider}</div>
+      ),
     },
     {
       accessorKey: "user_email",
@@ -100,7 +103,7 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
     },
     {
       accessorKey: "user_verify",
-      header: "Verify",
+      header: "Verify" ,
     },
     {
       accessorKey: "user_role",
@@ -185,7 +188,7 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
           columnFilters={columnFilters}
         />
       </div>
-      <Table  striped withTableBorder >
+      <Table striped withTableBorder>
         <Table.Thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <Table.Tr key={headerGroup.id}>
