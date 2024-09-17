@@ -17,40 +17,40 @@ const ArticleStat: React.FC<articleStatProps> = ({
   complanint,
 }) => {
   return (
-    <div className="flex items-center justify-center space-x-6 mt-11">
+    <div className="flex sm:items-center sm:justify-center space-x-2 sm:space-x-6 mt-11 bg-[#F4F2FB] w-full">
       <div className="h-[100px] w-[350px] lg:h-[160px] lg:w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
         <h1 className="text-2xl lg:text-6xl font-semibold text-blue-500">
           {allArticle}
         </h1>
-        <span className="text-sm lg:text-lg">All articles</span>
+        <span className="text-sm lg:text-lg text-nowrap px-2">All articles</span>
       </div>
 
       <div className="h-[100px] w-[350px] lg:h-[160px] lg:w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
         <h1 className="text-2xl lg:text-6xl font-semibold text-yellow-500">
           {inProgress}
         </h1>
-        <span className="text-sm lg:text-lg">In progress</span>
+        <span className="text-sm lg:text-lg text-nowrap px-2">In progress</span>
       </div>
 
       <div className="h-[100px] w-[350px] lg:h-[160px] lg:w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
         <h1 className="text-2xl lg:text-6xl font-semibold text-green-500">
           {approve}
         </h1>
-        <span className="text-sm lg:text-lg">Approved</span>
+        <span className="text-sm lg:text-lg text-nowrap px-2">Approved</span>
       </div>
 
       <div className="h-[100px] w-[350px] lg:h-[160px] lg:w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
         <h1 className="text-2xl lg:text-6xl font-semibold text-[#E0524C]">
           {disapprove}
         </h1>
-        <span className="text-sm lg:text-lg">Disapproved</span>
+        <span className="text-sm lg:text-lg text-nowrap px-2">Disapproved</span>
       </div>
 
       <div className="h-[100px] w-[350px] lg:h-[160px] lg:w-[220px] flex flex-col justify-center space-y-1 items-center bg-white rounded-xl">
         <h1 className="text-2xl lg:text-6xl font-semibold text-orange-500">
           {complanint}
         </h1>
-        <span className="text-sm lg:text-lg">Complainted</span>
+        <span className="text-sm lg:text-lg text-nowrap px-2">Complainted</span>
       </div>
     </div>
   );

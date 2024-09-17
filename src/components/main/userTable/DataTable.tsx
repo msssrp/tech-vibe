@@ -181,7 +181,7 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
   });
 
   return (
-    <div className="mt-10 container mx-auto">
+    <div className="mt-10">
       <div className="flex justify-between items-center mb-3">
         <Filter
           setColumFilters={setColumFilters}
