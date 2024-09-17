@@ -89,21 +89,24 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
     {
       accessorKey: "user_fullname",
       header: "Full Name",
+      cell: ({ row }) => (
+        <div className="text-nowrap w-16 overflow-scroll lg:overflow-auto no-scrollbar">{row.original.user_fullname}</div>
+      ),
     },
     {
       accessorKey: "user_provider",
       header: "User Provider",
-      cell: ({ row }) => (
-        <div className="hidden sm:block">{row.original.user_provider}</div>
-      ),
     },
     {
       accessorKey: "user_email",
       header: "Email",
+      cell: ({ row }) => (
+        <div className="line-clamp-1 w-36 lg:w-auto overflow-scroll lg:overflow-auto no-scrollbar">{row.original.user_email}</div>
+      ),
     },
     {
       accessorKey: "user_verify",
-      header: "Verify" ,
+      header: "Verify",
     },
     {
       accessorKey: "user_role",
@@ -115,9 +118,10 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
       cell: ({ row }) => {
         const sortedRoles = sortRoles(row.original.user_role);
         return (
-          <div className="grid grid-cols-2 gap-2 ">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 overflow-scroll lg:overflow-auto no-scrollbar">
             {sortedRoles.map((role: any) => (
               <Badge
+                className="even:justify-self-auto lg:even:justify-self-end xl:even:justify-self-auto"
                 key={role.user_role_id}
                 color={`${
                   role.user_role_name === "admin"
@@ -142,7 +146,7 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
       cell: ({ row }) => {
         const date = new Date(row.original.created_at);
         const formattedDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-        return formattedDate;
+        return <div className="line-clamp-1">{formattedDate}</div>;
       },
     },
     {
@@ -177,7 +181,7 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
   });
 
   return (
-    <div className="mt-10">
+    <div className="mt-10 container mx-auto">
       <div className="flex justify-between items-center mb-3">
         <Filter
           setColumFilters={setColumFilters}
@@ -232,6 +236,7 @@ const DataTable: React.FC<taskTableProps> = ({ user, userSessionId }) => {
           )}
         </Table.Tbody>
       </Table>
+
       <Pagination
         mt={15}
         total={table.getPageCount()}
