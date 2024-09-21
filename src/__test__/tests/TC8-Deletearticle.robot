@@ -16,7 +16,7 @@ TC80010 Successfully deleted article
     
 
 
-TC80010 Failed to delete the article due to not confirming.
+TC8011 Failed to delete the article due to not confirming.
     [Documentation]  This test case verifies that the deletion process fails if the user does not confirm the deletion action when prompted.  
     Open WebSite
     Login to Blog Site

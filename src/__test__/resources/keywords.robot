@@ -108,20 +108,20 @@ Articles to be published
     Click Element    xpath=/html/body/div[3]/div/p/div/button[1]
     Sleep    3
     Click Element    xpath=/html/body/div[2]/div[1]/div[2]/div/div[2]/div[2]/div/table/tbody/tr[1]/td[2]/a
-    Sleep    4
+    Sleep    5
 
 Approving the article
     Click Element    id=btn-approve
 
 Confirming the approval of the article
     Wait Until Page Contains Element    id=btn-confirm-approve
-    # Click Element    id=btn-confirm-approve
-    # Sleep    3
-    # Page Should Contain    Article Approved
+    Click Element    id=btn-confirm-approve
+    Sleep    3
 
 Cancellation of approval confirmation
     Wait Until Page Contains Element    id=btn-cancel-approve
-    Click Element    id=btn-cancel-approve  
+    Click Element    id=btn-cancel-approve 
+    Sleep    2
 
 Article disapproval
     Click Element    id=btn-disapprove
@@ -129,15 +129,30 @@ Article disapproval
 Confirmation of disapproval of article
     Wait Until Page Contains Element    id=btn-confirm-disapprove
     Click Element    id=btn-confirm-disapprove
-    Sleep    3
+    Sleep    1
  
 
 Enter the reason for disapproval
-    Input Text    id=textarea-disapprove    bad
+    Input Text    id=textarea-disapprove    The article contains inappropriate language.
 
 
 Cancellation of disapproval
     Wait Until Page Contains Element    id=btn-cancel-disapprove
     Click Element    id=btn-cancel-disapprove
-      
+    Sleep    1
 
+Choosing a tag
+
+    Click Element    xpath=/html/body/div[1]/div[2]/div/div[1]/div[1]/div[1]
+    Click Element    xpath=/html/body/div[1]/div[2]/div/div[1]/div[1]/div[1]/ul/button[12]/p
+    Sleep    5
+    Click Element    xpath=/html/body/div[1]/div[2]/div/div[1]/div[1]
+    Click Element    id=title-article
+    Sleep    5
+
+Input search
+    Input Text    id=Input-search    ${BLOG_TITLE2}
+    Press Keys    id=Input-search    ENTER
+    Sleep    5
+    Click Element    xpath=/html/body/div[1]/div[2]/div/div[2]/div/div[2]/a
+    Sleep    5

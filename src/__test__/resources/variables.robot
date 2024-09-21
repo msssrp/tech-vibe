@@ -20,5 +20,8 @@ ${ALERT_TIPS_4}    Every 5 second When you stop typing the article will automati
 ${ALERT_STATUS}    Article Status Your article has been saved Ready to write
 ${ALERT_PUBLISH}    Article Approved
 ${ALERT_PERROR}    Error Title , Description , Image cover , Content , Tags are required please make sure you dont forget any of these
-
+${BLOG_TITLE2}    The Role and Workflow of a Business Analyst
+${URL_POST}    http://localhost:3000/044-Arpapat-Yipram/The-Role-and-Workflow-of-a-Business-Analyst-647abeb1
+${ALERT_DISAPPROVE_WithoutReason}    Validation Error
+${ALERT_DISAPPROVE}    Article Disapproved
 

@@ -16,6 +16,7 @@ TC14003 Manage Article Disapproval
     Article disapproval
     Enter the reason for disapproval
     Confirmation of disapproval of article
+    check alert Article Disapproval
     Capture Page Screenshot    screenshots/ArticleDisapproval/TC14001.png
 
 TC14004 Manage Article Disapproval Without Reason
@@ -26,7 +27,7 @@ TC14004 Manage Article Disapproval Without Reason
     Articles to be published
     Article disapproval
     Confirmation of disapproval of article
-    check alert 
+    check alert Without Reason
     Capture Page Screenshot    screenshots/ArticleDisapproval/TC14002.png
     
 
@@ -39,9 +40,16 @@ TC14005 Manage Article Disapproval Cancelled
     Article disapproval
     Enter the reason for disapproval
     Cancellation of disapproval
+    Check the confirmation of the disapproval cancellation
     Capture Page Screenshot    screenshots/ArticleDisapproval/TC14003.png
 
 *** Keywords ***
-check alert 
+check alert Article Disapproval
+    Page Should Contain    ${ALERT_DISAPPROVE}
     Sleep    2
-    Page Should Contain    Please fill out this field
+check alert Without Reason
+    Page Should Contain    ${ALERT_DISAPPROVE_WithoutReason}
+
+Check the confirmation of the disapproval cancellation
+    Page Should Not Contain Element    id=btn-cancel-disapprove
+    Sleep    2
