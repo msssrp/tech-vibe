@@ -17,6 +17,7 @@ import createSupabaseClient from "@/libs/supabase/client";
 import { getUserRole } from "@/libs/actions/user/user_role";
 import ProfileItemsLoading from "../ui/ProfileItemsLoading";
 import LogoutLoading from "../ui/LogoutLoading";
+import { useRouter } from "next/navigation";
 
 type userNavbarProps = {
   notification: notificationProps[];
@@ -39,6 +40,8 @@ const UserNavbar: React.FC<userNavbarProps> = ({
   const [notificationData, setNotificationData] =
     useState<notificationProps[]>(notification);
   const [userId, setUserId] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
   const supabase = createSupabaseClient();
   const [userRole, setUserRole] = useState<
     { user_role_name: string }[] | null
@@ -89,6 +92,14 @@ const UserNavbar: React.FC<userNavbarProps> = ({
       }
     )
     .subscribe();
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      if (searchQuery.trim() !== "") {
+        router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      }
+    }
+  };
   return (
     <div className="navbar max-w-screen h-2 bg-base-100 border-b z-[9999]">
       <div className="flex-1">
@@ -107,7 +118,11 @@ const UserNavbar: React.FC<userNavbarProps> = ({
           <input
             type="text"
             placeholder="Search"
+            required
             className="input h-10 rounded-xl input-bordered w-32 md:w-56 bg-[#F5F4F5] border-none"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
           />
         </div>
       </div>

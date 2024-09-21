@@ -40,8 +40,8 @@ const SavedArticleCard: React.FC<savedArticleCardProps> = ({
   }, [readlist.readlists_id]);
 
   return (
-    <div className="card card-side rounded-none items-center my-8 px-4 bg-base-200">
-      <div className="card-body px-4 space-y-4">
+    <div className="card card-side rounded-none items-center my-8 px-3 sm:px-4 bg-base-200">
+      <div className="card-body px-2 sm:px-4 sm:space-y-4">
         <div className="flex items-center justify-between">
           <Link
             href={`/profile/${user.user_id}/library/${readlist.readlists_id}`}
@@ -62,10 +62,10 @@ const SavedArticleCard: React.FC<savedArticleCardProps> = ({
                 alt="user Profile"
               />
             </div>
-            <p className="ml-2 ">{user.user_fullname}</p>
+            <p className="ml-2 line-clamp-1">{user.user_fullname}</p>
           </div>
           <div>
-            <ul className="list-disc flex space-x-1">
+            <ul className="list-disc flex space-x-1 ">
               <li>{savedArticles.length} lists</li>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -85,17 +85,17 @@ const SavedArticleCard: React.FC<savedArticleCardProps> = ({
           </div>
         </div>
       </div>
-      <div>
+      <div className="hidden sm:flex">
         {articleCover ? (
           <Image
             height={200}
             width={200}
             src={articleCover}
             alt="Picture"
-            className="w-44"
+            className="w-40"
           />
         ) : (
-          <span className="italic text-sm">
+          <span className="text-sm italic line-clamp-2">
             you didnt add any article on this read list yet.
           </span>
         )}

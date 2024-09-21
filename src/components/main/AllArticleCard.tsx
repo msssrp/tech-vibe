@@ -78,7 +78,7 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
                     key={index}
                     className={`btn btn-sm badge bg-[#F2F2F2] rounded-full `}
                   >
-                    <p className="font-thin">{tag}</p>
+                    <p className="font-thin m-0">{tag}</p>
                   </Link>
                 );
               })}

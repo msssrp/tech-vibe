@@ -16,7 +16,7 @@ const CardNpru: React.FC<NpruAarticlesProps> = async ({ npruAarticles }) => {
   const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
   return (
     <div className="flex justify-center items-center mx-2 ">
-      <div className="card card-compact w-64 bg-base-100 shadow-xl">
+      <div className="card card-compact w-64 h-full bg-base-100 shadow-xl">
         <figure className="w-full h-36 m-0">
           <Image
             width={520}

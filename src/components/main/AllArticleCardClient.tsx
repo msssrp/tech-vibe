@@ -50,7 +50,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
   return (
     <div className="flex flex-col md:flex-row space-x-0 md:space-x-3 border-b mt-5 rounded-none items-center h-auto pb-5">
       <div className="flex flex-col mt-5 space-y-2 px-4 md:w-3/4 w-full h-full">
-        <div className="flex flex-col max-h-32 ">
+        <div className="flex flex-col max-h-32 space-y-2">
           <div className="avatar items-center h-1/3 space-x-1">
             <div className="w-8 rounded-full">
               <Image
@@ -67,7 +67,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
                 <NpruVerify />
               )}
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col space-y-2">
             {isDraft ? (
               <Link
                 href={`/edit/${article.article_id}`}
@@ -109,7 +109,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
           {!isDraft && (
             <div className="flex justify-between items-center w-2/3">
               <div>
-                <p className="text-xs">
+                <p className="text-xs ">
                   {timeToRead} {timeToRead <= 1 ? "min " : "mins "} read
                 </p>
               </div>
@@ -127,7 +127,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
           )}
         </div>
       </div>
-      <div className="flex-1 h-1/2 w-full mt-3 md:mt-0 md:flex-none md:w-36 md:h-20">
+      <div className="flex justify-center items-center sm:flex-1 h-1/2 w-full mt-3 md:mt-0 md:flex-none md:w-36 md:h-20">
         {isDraft ? (
           <Link
             href={`/edit/${article.article_id}`}
@@ -139,7 +139,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
               src={article.article_cover}
               alt={article.article_title}
               loading="lazy"
-              className="w-full h-full object-cover"
+              className="w-60 sm:w-full sm:h-full object-cover px-4 sm:px-0"
             />
           </Link>
         ) : (
@@ -149,7 +149,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
             src={article.article_cover}
             alt={article.article_title}
             loading="lazy"
-            className="w-full h-full object-cover"
+            className="w-60 sm:w-full sm:h-full object-cover px-4 sm:px-0"
           />
         )}
       </div>

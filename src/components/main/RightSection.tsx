@@ -18,7 +18,7 @@ const RightSection: React.FC<RightSectionProps> = async ({ tags }) => {
     <div className="w-full border-l border-white lg:border-neutral-200 lg:w-2/6 lg:py-12 lg:pl-11 pr-2 flex flex-col items-center relative">
       {/* popularArticles */}
       <div className="w-full space-y-3 mb-6 ">
-        <h2 className="uppercase font-semibold text-md">Popular articles</h2>
+        <h2 className="uppercase font-semibold text-base">Popular articles</h2>
         {popularArticles &&
           popularArticles.map((articleslist) => {
             return (
@@ -39,7 +39,7 @@ const RightSection: React.FC<RightSectionProps> = async ({ tags }) => {
       </div>
       {/* npruArticles */}
       <div className="w-full space-y-3 mt-3 mb-6 sticky top-14">
-        <h2 className="uppercase font-semibold text-md">
+        <h2 className="uppercase font-semibold text-base">
           Technology articles By NPRU
         </h2>
         {npruArticles.map((articleslist) => {
@@ -60,7 +60,7 @@ const RightSection: React.FC<RightSectionProps> = async ({ tags }) => {
         </div>
         {/* populartag */}
         <div className="w-full">
-          <h2 className="uppercase font-semibold text-md">Popular tag</h2>
+          <h2 className="uppercase font-semibold text-base">Popular tag</h2>
           <div className="mt-2 ">
             {tags.map((tag, index) => {
               const tagWithHypen = tag.tag_name.replace(/ /g, "-");
@@ -70,7 +70,7 @@ const RightSection: React.FC<RightSectionProps> = async ({ tags }) => {
                   key={index}
                   className={`btn btn-sm badge bg-[#f2f2f2] rounded-full m-1`}
                 >
-                  <p>{tag.tag_name}</p>
+                  <p className="m-0">{tag.tag_name}</p>
                 </Link>
               );
             })}

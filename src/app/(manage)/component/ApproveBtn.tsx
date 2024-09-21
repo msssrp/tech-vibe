@@ -23,15 +23,22 @@ const ApproveBtn: React.FC<approveBtnProps> = ({
   return (
     <div className="flex items-center space-x-3 mr-2 justify-end py-2">
       <button
-        id="btn-disapprove"
+<<<<<<<<< Temporary merge branch 1
+      id="btn-disapprove"
+        className="btn btn-sm text-xs bg-red text-white"
+=========
         className="btn btn-md text-xs bg-red text-white"
+>>>>>>>>> Temporary merge branch 2
         onClick={openDisApprove}
       >
         DISAPPROVE
       </button>
       <button
         id="btn-approve"
+        className="btn bg-green-500 text-white text-xs hover:bg-green-400 btn-sm"
+=========
         className="btn bg-green-500 text-white text-xs hover:bg-green-400 btn-md"
+>>>>>>>>> Temporary merge branch 2
         onClick={openApprove}
       >
         APPROVE
