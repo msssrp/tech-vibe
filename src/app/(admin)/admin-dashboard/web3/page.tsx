@@ -16,7 +16,6 @@ const Page = () => {
   const [certificateUri, setCertificateUri] = useState("");
   const [upvotes, setUpvotes] = useState<number>();
   const [newUpvotes, setNewUpvotes] = useState("");
-  console.log(IMAGE_PATH, certificateUri);
 
   useEffect(() => {
     const getData = async () => {

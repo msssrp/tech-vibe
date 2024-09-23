@@ -52,6 +52,16 @@ interface UploadedFile extends File {
   preview: string;
 }
 
+export type columnDefProps = {
+  tokenId: number;
+  ownerAddress: string;
+  ownerName: string;
+  certificateTitle: string;
+  certificateImageHash: string;
+  blogName: string;
+  timestamp: number;
+};
+
 type Inputs = {
   fullname: string;
   github: string;

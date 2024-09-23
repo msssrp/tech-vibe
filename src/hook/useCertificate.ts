@@ -1,8 +1,7 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
-
-import contractABI from "@/hardhat/artifacts/contracts/BlogReviewCert.sol/BlogReview.json";
 import { notifications } from "@mantine/notifications";
+import contractABI from "@/hardhat/artifacts/contracts/BlogReviewCert.sol/BlogReview.json";
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
 const useCertificate = () => {
   const [certificateData, setCertificateData] = useState<any[]>([]);
@@ -30,7 +29,7 @@ const useCertificate = () => {
             autoClose: false,
             title: "Something went wrong",
             message:
-              "Please check your MainNet connection Make sure you are connected to Sepolia Network and try again.",
+              "Please check your mainnet connection. Make sure you are connected to Rei chain Network and try again.",
             color: "orange",
           });
         }

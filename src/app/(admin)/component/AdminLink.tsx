@@ -5,6 +5,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { GiFox } from "react-icons/gi";
 import { IoSettingsOutline } from "react-icons/io5";
+import { PiCertificateLight } from "react-icons/pi";
 const links = [
   {
     link: "/admin-dashboard",
@@ -25,6 +26,12 @@ const links = [
     textColor: "text-white",
   },
   {
+    link: "/admin-dashboard/certificates",
+    label: "Certificates",
+    icon: <PiCertificateLight size={25} />,
+    textColor: "text-white",
+  },
+  {
     link: "",
     label: "Log out",
     icon: <IoIosLogOut size={25} color="red" />,
@@ -42,7 +49,8 @@ const AdminLink = () => {
       } ${item.label === isActive ? "bg-base-content" : "bg-transparent"}`}
       onClick={() => {
         setIsActive(item.label);
-      }}>
+      }}
+    >
       {item.icon}
       {item.label}
     </Link>
