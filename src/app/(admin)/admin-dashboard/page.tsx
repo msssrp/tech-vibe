@@ -12,7 +12,6 @@ const page = async () => {
   const { data } = await getUserSession();
   if (!data.user) return redirect("/SignIn");
   const userCount = await getTotalUser(data.user.id);
-  console.log(user);
 
   const generalUser =
     user &&
