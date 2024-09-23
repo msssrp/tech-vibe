@@ -37,7 +37,7 @@ const Write: React.FC<WriteProps> = ({
         userRole={userRole}
         webLogoUrl={webLogoUrl}
       />
-      <div className="container mx-auto px-80 pt-10">
+      <div className="container mx-auto px-5 md:px-20 lg:px-40 lg:pt-10">
         <div className="flex items-center justify-center mt-10 divide-x">
           <div className="w-full pl-4 border-b">
             <Textarea
@@ -83,7 +83,7 @@ const Write: React.FC<WriteProps> = ({
         </div>
       </div>
       <div className="mt-5">
-        <div className="container mx-auto px-80 border-none outline-none overflow-auto min-h-96">
+        <div className="container mx-auto px-5 md:px-20 lg:px-40 border-none outline-none overflow-auto min-h-96">
           {isEdit && articleData ? (
             <TinyEditor
               editorRef={editorRef}
@@ -103,10 +103,10 @@ const Write: React.FC<WriteProps> = ({
             />
           )}{" "}
         </div>
-        <div className="container mx-auto px-80 border-none outline-none overflow-auto min-h-96">
+        <div className="container mx-auto px-5 md:px-20 lg:px-40 border-none outline-none overflow-auto">
           <TagsInput
             id="input-tag"
-            className="w-1/3 "
+            className="w-3/4 sm:w-1/3 text-nowrap space-y-2"
             label="Press Enter to submit a tag"
             clearable
             placeholder="enter tag"

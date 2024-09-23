@@ -602,3 +602,16 @@ export const ArticleStatuses = [
   { id: 4, status: "complaint", name: "Complainted", color: "orange" },
   { id: 5, status: "delete", name: "Deleted", color: "red" },
 ];
+
+export async function getArticlesByTitlePattern(
+  article_Title: string
+): Promise<articleProps[]> {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("article_status", "public")
+    .ilike("article_title", `%${article_Title}%`);
+  if (error) console.log("error fetching articles by title pattern:", error);
+  return data as articleProps[];
+}

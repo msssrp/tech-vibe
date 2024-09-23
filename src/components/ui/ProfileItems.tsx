@@ -109,7 +109,7 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
         userRoles.some(
           (userRole) => userRole.user_role_name === "moderator"
         ) && (
-          <Link href={"/manage"} className="flex mb-3 space-x-2">
+          <Link id="manage-article" href={"/manage"} className="flex mb-3 space-x-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -129,7 +129,7 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
         )}
       {userRoles &&
         userRoles.some((userRole) => userRole.user_role_name === "admin") && (
-          <Link href={"/admin-dashboard"} className="flex mb-3 space-x-2">
+          <Link id="admin-dashboard" href={"/admin-dashboard"} className="flex mb-3 space-x-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

@@ -45,7 +45,7 @@ const CardPopular: React.FC<popularArticlesProps> = async ({
               );
             })}
           </span>
-          <Link href={`/${userWithHyphen}/${articleSlug}`} className="card-title cursor-pointer">{popularArticles.article_title}</Link>
+          <Link href={`/${userWithHyphen}/${articleSlug}`} className="card-title cursor-pointer line-clamp-2">{popularArticles.article_title}</Link>
           <p className="line-clamp-2 m-0">{popularArticles.article_description}</p>
           <div className="flex justify-between items-center mt-2">
             <div className="avatar items-center">

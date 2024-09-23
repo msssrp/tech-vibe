@@ -30,7 +30,7 @@ const Profile: React.FC<profileProps> = async ({
   );
   const { user_social } = await getUserSocial(user.user_id);
   return (
-    <div className="w-2/6 py-12 pl-11 pr-2 ">
+    <div className="lg:w-2/6 py-8 lg:py-12 lg:pl-11 lg:pr-2 ">
       <div className="flex flex-col items-center">
         <div className="profile text-center space-y-4 mb-5">
           <div className="avatar">

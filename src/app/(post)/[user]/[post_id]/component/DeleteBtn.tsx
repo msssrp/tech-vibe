@@ -36,15 +36,17 @@ const DeleteBtn: React.FC<DeleteBtnProps> = ({ articleTitle, articleId }) => {
           <span className="italic text-base">
             This article will be removed after click the confirm button
           </span>
-          <button className="btn btn-md bg-white text-black" onClick={close}>
-            Cancel
-          </button>
-          <button
-            className="btn btn-md bg-red text-white"
-            onClick={handleDelete}
-          >
-            Confirm
-          </button>
+          <div className="space-x-4">
+            <button className="btn btn-md bg-white text-black w-24" onClick={close}>
+              Cancel
+            </button>
+            <button
+              className="btn btn-md bg-red text-white w-24"
+              onClick={handleDelete}
+            >
+              Confirm
+            </button>
+          </div>
         </div>
       </Modal>
       <svg

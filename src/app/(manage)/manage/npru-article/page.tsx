@@ -37,7 +37,7 @@ const page = async ({
           npruArticleNumber={npruArticles.length}
           isActiveAt="Article from npru"
         />
-        <div className="min-h-screen bg-[#F4F2FB]">
+        <div className="min-h-screen bg-[#F4F2FB] px-4 overflow-y-auto">
           <ArticleStat
             allArticle={npruArticles.length}
             inProgress={inprogressArticles.length}
@@ -45,7 +45,7 @@ const page = async ({
             disapprove={disapproveArticles.length}
             complanint={complaintArticles.length}
           />
-          <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-5">
+          <div className="flex flex-col lg:flex-row flex-wrap w-full justify-center items-center mt-5 px-5 lg:px-0">
             <DataTable articlesWithUser={npruArticles} />
           </div>
         </div>

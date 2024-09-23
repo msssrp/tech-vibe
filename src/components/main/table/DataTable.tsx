@@ -53,18 +53,20 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
         <>
           {row.original.article_status === "public" ? (
             <Link href={`/${userWithHyphen}/${articleSlug}`}>
-              <span className="font-semibold">
+              <span className="font-semibold line-clamp-2">
                 {row.original.article_title}
               </span>
             </Link>
           ) : row.original.article_status === "pending" ? (
             <Link href={`preview/${userWithHyphen}/${articleSlug}`}>
-              <span className="font-semibold">
+              <span className="font-semibold line-clamp-2">
                 {row.original.article_title}
               </span>
             </Link>
           ) : (
-            <span className="font-semibold">{row.original.article_title}</span>
+            <span className="font-semibold line-clamp-2">
+              {row.original.article_title}
+            </span>
           )}
         </>
       );
@@ -73,6 +75,11 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
   {
     accessorKey: "user.user_fullname",
     header: "Name",
+    cell: ({ row }) => (
+      <span className="line-clamp-1">
+        {row.original.user.user_fullname}
+      </span>
+    ),
   },
   {
     accessorKey: "created_at",
@@ -80,7 +87,7 @@ const columns: ColumnDef<articlePropsWithUser>[] = [
     cell: ({ row }) => {
       const date = new Date(row.original.created_at);
       const formattedDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-      return formattedDate;
+      return <span className="text-nowrap">{formattedDate}</span>;
     },
   },
   {
@@ -144,7 +151,7 @@ const DataTable: React.FC<taskTableProps> = ({ articlesWithUser }) => {
   });
 
   return (
-    <div className="mt-10">
+    <div className="mt-10 bg-[#F4F2FB]">
       <div className="flex justify-between items-center mb-3">
         <Filter
           setColumFilters={setColumFilters}
