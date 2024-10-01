@@ -6,7 +6,7 @@ import ArticleCard from "./component/ArticleCard";
 import { getArticlesByTitlePattern } from "@/libs/actions/article/article";
 import { articleProps } from "@/types/article/article";
 
-const page = () => {
+const Page = () => {
   const [articles, setArticles] = useState<articleProps[]>([]);
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
@@ -45,4 +45,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
