@@ -18,6 +18,7 @@ export const useEditorStore = create<EditorState>((set) => ({
     article_content: "",
     article_status: "",
     user_id: "",
+    article_claim: false,
   },
   updateArticle: (updatedArticle) =>
     set((state) => ({
