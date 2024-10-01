@@ -86,7 +86,7 @@ const FilterDisplayArticle: React.FC<filterDisplayArticleProps> = ({
     return router.push(pathname + "?" + params.toString());
   };
   return (
-    <div className="flex items-center space-x-2 border-b px-2 sticky top-0 bg-base-100 z-[10]">
+    <div className="flex items-center space-x-2 border-b sm:px-2 sticky top-0 bg-base-100 z-[10]">
       <div className="dropdown">
         <div
           tabIndex={0}
@@ -110,7 +110,7 @@ const FilterDisplayArticle: React.FC<filterDisplayArticleProps> = ({
         </div>
         <ul
           tabIndex={0}
-          className="dropdown-content z-[1] menu p-3 shadow bg-base-100 rounded-box w-96 flex flex-row"
+          className="dropdown-content z-[1] menu p-3 shadow bg-base-100 rounded-box w-[21rem] sm:w-96 flex flex-row"
         >
           {initTag.map((tag, index) => (
             <button

@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { Badge } from "@mantine/core";
 import { Metadata } from "next";
 import Image from "next/image";
-import { increaseArticleViews } from "@/libs/actions/article/articleStat";
 import { getArticleByUsernamandPostId } from "@/libs/actions/article/article";
 import FollowText from "../../../[user]/[post_id]/component/FollowText";
 import ArticleContent from "../../../[user]/[post_id]/component/ArticleContent";

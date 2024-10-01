@@ -16,6 +16,7 @@ import FilterStatus from "./FilterStatus";
 import { TbArrowsSort } from "react-icons/tb";
 import { compalintPropsWithArticleAndUser } from "@/types/complaint/complaint";
 import ComplaintInteract from "@/app/(manage)/manage/complaint/component/ComplaintInteract";
+import Link from "next/link";
 
 type taskTableProps = {
   complaintWithArticelAndUser: compalintPropsWithArticleAndUser[];
@@ -26,18 +27,39 @@ const columns: ColumnDef<compalintPropsWithArticleAndUser>[] = [
     accessorKey: "article_cover",
     header: "",
     cell: ({ row }) => (
-      <Image
-        src={row.original.article.article_cover}
-        alt={row.original.article.article_title}
-        width={150}
-        height={150}
-        className="rounded-lg"
-      />
+      <div className="h-24 w-40 relative">
+        <Image
+          src={row.original.article.article_cover}
+          alt={row.original.article.article_title}
+          layout="fill"
+          objectFit="cover"
+          className="rounded-lg"
+        />
+      </div>
     ),
   },
   {
     accessorKey: "article.article_title",
     header: "Articles",
+    cell: ({ row }) => {
+      const userWithHyphen = row.original.article.user.user_fullname
+        .replace(/ /g, "-")
+        .replace(/-$/, "");
+      const articleTitleWithHypen = row.original.article.article_title
+        .replace(/ /g, "-")
+        .replace(/\//, "&");
+      const firstArticleId = row.original.article_id.split("-")[0];
+      const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
+      return (
+        <Link
+          href={`/complaint-preview/${row.original.complaint_id}/${userWithHyphen}/${articleSlug}`}
+        >
+          <span className="font-semibold">
+            {row.original.article.article_title}
+          </span>
+        </Link>
+      );
+    },
   },
   {
     accessorKey: "user.user_fullname",
@@ -62,47 +84,35 @@ const columns: ColumnDef<compalintPropsWithArticleAndUser>[] = [
     cell: ({ row }) => {
       const {
         complaint_status,
-        complaint_id,
-        article_id,
         article,
         article: { article_title, user_id },
       } = row.original;
-
+      if (article.article_status === "complaint") {
+        return (
+          <button className="btn btn-sm bg-green-500 text-white">
+            {article.article_status}
+          </button>
+        );
+      }
       switch (complaint_status) {
         case "pending":
           return (
-            <ComplaintInteract
-              complaintId={complaint_id}
-              complaintStatus={complaint_status}
-              articleId={article_id}
-              articleTitle={article_title}
-              userId={user_id}
-              complaintBtnName="In Progress"
-            />
-          );
-        case "complaint":
-          return (
-            <button className="btn btn-sm bg-green-500 text-white">
+            <button className="btn btn-sm bg-orange-500 text-white">
               {complaint_status}
             </button>
           );
         default:
           return (
-            <ComplaintInteract
-              complaintId={complaint_id}
-              complaintStatus={complaint_status}
-              articleId={article_id}
-              articleTitle={article_title}
-              userId={user_id}
-              complaintBtnName="Deleted"
-            />
+            <button className="btn btn-sm bg-red text-white">
+              {complaint_status}
+            </button>
           );
       }
     },
   },
   {
     accessorKey: "complaint_mod_comment",
-    header: "Moderator comment",
+    header: "Comment",
     cell: ({ row }) => {
       if (!row.original.complaint_mod_comment) return "-";
       return row.original.complaint_mod_comment;

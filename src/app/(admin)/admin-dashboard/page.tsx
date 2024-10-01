@@ -12,7 +12,6 @@ const page = async () => {
   const { data } = await getUserSession();
   if (!data.user) return redirect("/SignIn");
   const userCount = await getTotalUser(data.user.id);
-  console.log(user);
 
   const generalUser =
     user &&
@@ -37,7 +36,7 @@ const page = async () => {
       {/*Tabs*/}
       <div className="flex flex-col">
         <UserTabs />
-        <div className="min-h-screen bg-[#F4F2FB]">
+        <div className="min-h-screen bg-[#F4F2FB] px-4 overflow-y-auto">
           <UserStat
             allUsers={userCount}
             generalUser={generalUser}

@@ -362,7 +362,14 @@ export async function updateArticleById(
   if (error) console.log(error);
 }
 
-export async function deleteArticle(article_id: string) {}
+export async function deleteArticle(articleId: string) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("article")
+    .update({ article_status: "delete" })
+    .eq("article_id", articleId);
+  if (error) console.log(error);
+}
 
 export async function uploadImage(
   write_id: string,
@@ -570,9 +577,41 @@ export async function getPopularArticles(
   return popularArticles;
 }
 
+export async function updateArticleStatusOnDeleteUser(userId: string) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("article")
+    .update({ article_status: "delete" })
+    .eq("user_id", userId);
+  if (error) console.log(error);
+}
+
+export async function updateArticleClaimCertificate(articleName: string) {
+  const supabase = createSupabaseClient();
+  const { error } = await supabase
+    .from("article")
+    .update({ article_claim: true })
+    .eq("article_title", articleName);
+  if (error) return console.log(error);
+}
+
 export const ArticleStatuses = [
   { id: 1, status: "pending", name: "In progress", color: "yellow" },
   { id: 2, status: "public", name: "Approved", color: "green" },
   { id: 3, status: "reject", name: "Disapproved", color: "red" },
   { id: 4, status: "complaint", name: "Complainted", color: "orange" },
+  { id: 5, status: "delete", name: "Deleted", color: "red" },
 ];
+
+export async function getArticlesByTitlePattern(
+  article_Title: string
+): Promise<articleProps[]> {
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from("article")
+    .select("*")
+    .eq("article_status", "public")
+    .ilike("article_title", `%${article_Title}%`);
+  if (error) console.log("error fetching articles by title pattern:", error);
+  return data as articleProps[];
+}

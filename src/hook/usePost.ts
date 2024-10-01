@@ -42,7 +42,9 @@ const usePostPage = async (
     article.pgrst_scalar.user_id,
     userSession?.data?.user?.id
   );
-  const { data } = await getArticleUps(article.pgrst_scalar.article_id);
+  const { data: articleUps } = await getArticleUps(
+    article.pgrst_scalar.article_id
+  );
   const UpCount = await getUserUps(
     article.pgrst_scalar.article_id,
     userSession.data.user?.id
@@ -63,7 +65,7 @@ const usePostPage = async (
     UserFollowers,
     CommentData,
     userFollow,
-    data,
+    articleUps,
     UpCount,
     DownCount,
   };

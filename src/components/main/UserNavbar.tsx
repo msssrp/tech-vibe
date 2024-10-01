@@ -15,6 +15,9 @@ import ProfileItems from "../ui/ProfileItems";
 import { notificationProps } from "@/types/notification/notification";
 import createSupabaseClient from "@/libs/supabase/client";
 import { getUserRole } from "@/libs/actions/user/user_role";
+import ProfileItemsLoading from "../ui/ProfileItemsLoading";
+import LogoutLoading from "../ui/LogoutLoading";
+import { useRouter } from "next/navigation";
 
 type userNavbarProps = {
   notification: notificationProps[];
@@ -37,6 +40,8 @@ const UserNavbar: React.FC<userNavbarProps> = ({
   const [notificationData, setNotificationData] =
     useState<notificationProps[]>(notification);
   const [userId, setUserId] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
   const supabase = createSupabaseClient();
   const [userRole, setUserRole] = useState<
     { user_role_name: string }[] | null
@@ -87,6 +92,14 @@ const UserNavbar: React.FC<userNavbarProps> = ({
       }
     )
     .subscribe();
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      if (searchQuery.trim() !== "") {
+        router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      }
+    }
+  };
   return (
     <div className="navbar max-w-screen h-2 bg-base-100 border-b z-[9999]">
       <div className="flex-1">
@@ -105,33 +118,47 @@ const UserNavbar: React.FC<userNavbarProps> = ({
           <input
             type="text"
             placeholder="Search"
+            required
             className="input h-10 rounded-xl input-bordered w-32 md:w-56 bg-[#F5F4F5] border-none"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
           />
         </div>
       </div>
       <div className="flex-none lg:mr-3">
-        <Link
-          href={`/write/[uid]/[user_id]`}
-          as={`/write/${uid}/${user_id}`}
-          className="mr-4 flex items-center space-x-2.5"
-          id="write-article"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="#C9C9C8"
-            className="w-6 h-6"
+        {isLoading ? (
+          <span className="loading loading-infinity loading-md mr-4 space-x-2.5"></span>
+        ) : (
+          <Link
+            href={`/write/[uid]/[user_id]`}
+            as={`/write/${uid}/${user_id}`}
+            className="mr-4 flex items-center space-x-2.5"
+            id="write-article"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-            />
-          </svg>
-          <span className="uppercase text-[#616160] text-xs" id="write-article">write</span>
-        </Link>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="#C9C9C8"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+              />
+            </svg>
+            <span
+              className="uppercase text-[#616160] text-xs"
+              id="write-article"
+            >
+              write
+            </span>
+          </Link>
+        )}
+
         <div className="dropdown dropdown-end z-[30]">
           <div className="mr-4 relative" tabIndex={0} role="button">
             <svg
@@ -172,7 +199,8 @@ const UserNavbar: React.FC<userNavbarProps> = ({
           </div>
         </div>
         <div className="dropdown dropdown-end z-30">
-          <div id="icon-user-profile"
+          <div
+            id="icon-user-profile"
             tabIndex={0}
             role="button"
             className="btn btn-ghost btn-circle avatar"
@@ -215,25 +243,33 @@ const UserNavbar: React.FC<userNavbarProps> = ({
                 {isLoading ? <NameLoading /> : <span>{user_fullname}</span>}
               </div>
             </div>
-            <ProfileItems user_id={user_id} userRoles={userRole} />
+            {isLoading ? (
+              <ProfileItemsLoading />
+            ) : (
+              <ProfileItems user_id={user_id} userRoles={userRole} />
+            )}
             <div className="border-t mt-4">
-              <div className="flex mt-3 space-x-2 items-center cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="#952124"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
-                  />
-                </svg>
-                <LogOut />
-              </div>
+              {isLoading ? (
+                <LogoutLoading />
+              ) : (
+                <div className="flex mt-3 space-x-2 items-center cursor-pointer">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="#952124"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+                    />
+                  </svg>
+                  <LogOut />
+                </div>
+              )}
             </div>
           </ul>
         </div>

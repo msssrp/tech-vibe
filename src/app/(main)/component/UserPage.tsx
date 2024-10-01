@@ -17,7 +17,7 @@ const UserPage: React.FC<userPageProps> = async ({
 }) => {
   const tags = await getAllTags();
   return (
-    <div className="container mx-auto px-5 lg:px-60">
+    <div className="container mx-auto px-5 sm:px-16 xl:px-60">
       <div className="flex flex-col lg:flex-row divide-x h-auto relative">
         {/* left */}
         <div className="w-full lg:w-2/3 py-3 md:py-6 lg:py-10">

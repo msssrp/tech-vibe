@@ -25,3 +25,14 @@ export async function getTotalUser(
 
   return count;
 }
+
+export async function getUserActive(userId: string) {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("user")
+    .select("user_status")
+    .eq("user_id", userId)
+    .single();
+  if (error) console.log(error);
+  return data;
+}

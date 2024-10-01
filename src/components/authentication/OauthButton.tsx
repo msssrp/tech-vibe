@@ -12,6 +12,7 @@ import { GiFox } from "react-icons/gi";
 import { Modal, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ethers } from "ethers";
+import { notifications } from "@mantine/notifications";
 const OauthButton = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [loginState, setLoginState] = useState("");
@@ -104,22 +105,33 @@ const OauthButton = () => {
   const handleSubmit = async () => {
     const resp = await handleLoginWeb3(nonceValue, walletAddrValue, email);
     setShowEmailInput(false);
-    console.log(resp);
     if (resp.error) {
       setLoginState(resp.error);
-      return setTimeout(() => {
-        close();
-        setEmail("");
-      }, 3000);
+      return notifications.show({
+        title: "Something went wrong",
+        autoClose: false,
+        message: resp.error,
+        color: "red",
+        onClose: () => {
+          close();
+          setEmail("");
+        },
+      });
     }
     setLoginState(resp.success);
-    return setTimeout(() => {
-      document.location.reload();
-    }, 2000);
+    return notifications.show({
+      title: "Success",
+      message: resp.success,
+      color: "green",
+      onClose: () => {
+        document.location.reload();
+      },
+    });
   };
   return (
     <>
-      <button id="signin-google"
+      <button
+        id="signin-google"
         onClick={handleGoogleSignUp}
         className="w-3/4 h-14 border flex justify-center items-center bg-[#F1F1F1] rounded-lg mb-3"
       >

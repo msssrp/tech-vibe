@@ -31,8 +31,8 @@ export default async function RootLayout({
   const userFollowNumber = await getUserFollower(user.user_id);
   const popularArticles = await getPopularArticles(4);
   return (
-    <div className="container mx-auto px-44">
-      <div className="flex divide-x h-auto relative">
+    <div className="container mx-auto px-5 md:px-12 lg:px-16 xl:px-40">
+      <div className="flex flex-col lg:flex-row divide-y lg:divide-x h-auto relative">
         {children}
         <Profile
           popularArticles={popularArticles}

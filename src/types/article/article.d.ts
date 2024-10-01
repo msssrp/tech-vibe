@@ -12,6 +12,7 @@ export type articleProps = {
   created_at?: string;
   updated_at?: string;
   user_id: string;
+  article_claim: boolean;
 };
 
 export type tinyProps = {
@@ -50,6 +51,16 @@ export type reviewProps = {
 interface UploadedFile extends File {
   preview: string;
 }
+
+export type columnDefProps = {
+  tokenId: number;
+  ownerAddress: string;
+  ownerName: string;
+  certificateTitle: string;
+  certificateImageHash: string;
+  blogName: string;
+  timestamp: number;
+};
 
 type Inputs = {
   fullname: string;

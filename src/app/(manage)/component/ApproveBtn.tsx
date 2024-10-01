@@ -23,13 +23,15 @@ const ApproveBtn: React.FC<approveBtnProps> = ({
   return (
     <div className="flex items-center space-x-3 mr-2 justify-end py-2">
       <button
-        className="btn btn-md text-xs bg-red text-white"
+      id="btn-disapprove"
+        className="btn btn-sm text-xs bg-red text-white"
         onClick={openDisApprove}
       >
         DISAPPROVE
       </button>
       <button
-        className="btn bg-green-500 text-white text-xs hover:bg-green-400 btn-md"
+        id="btn-approve"
+        className="btn bg-green-500 text-white text-xs hover:bg-green-400 btn-sm"
         onClick={openApprove}
       >
         APPROVE

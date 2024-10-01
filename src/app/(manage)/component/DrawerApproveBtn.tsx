@@ -63,10 +63,11 @@ const DrawerApproveBtn: React.FC<drawerProps> = ({
           decision.
         </span>
         <div className="flex items-center space-x-3 justify-center">
-          <button className="btn" onClick={close}>
+          <button id="btn-cancel-approve" className="btn" onClick={close}>
             CANCEL
           </button>
           <button
+            id="btn-confirm-approve"
             className={`btn ${
               isApprove ? "bg-green-400" : "bg-green-500"
             } text-white hover:bg-green-400`}

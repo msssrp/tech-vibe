@@ -43,7 +43,8 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
             <button
               onClick={() =>
                 clipboard.copy(`${gateway_url}/ipfs/${certData[4]}`)
-              }>
+              }
+            >
               {clipboard.copied ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +52,8 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1}
                   stroke="currentColor"
-                  className="w-6 h-6">
+                  className="w-6 h-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -65,7 +67,8 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1}
                   stroke="currentColor"
-                  className="w-6 h-6">
+                  className="w-6 h-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -81,7 +84,8 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.3}
                 stroke="currentColor"
-                className="w-6 h-6">
+                className="w-6 h-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -119,14 +123,16 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
           </span>
           <a
             href={`https://testnets.opensea.io/assets/sepolia/${contractAddress}/${certificateId}`}
-            target="_blank">
+            target="_blank"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6">
+              className="w-6 h-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -155,7 +161,8 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1}
                 stroke="currentColor"
-                className="w-6 h-6">
+                className="w-6 h-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -169,7 +176,8 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1}
                 stroke="currentColor"
-                className="w-6 h-6">
+                className="w-6 h-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -179,15 +187,17 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
             )}
           </button>
           <a
-            href={`https://sepolia.etherscan.io/address/${ownerOfToken}`}
-            target="_blank">
+            href={`https://reiscan.com/address/${ownerOfToken}`}
+            target="_blank"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6">
+              className="w-6 h-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
