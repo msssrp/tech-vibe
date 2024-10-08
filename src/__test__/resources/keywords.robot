@@ -30,7 +30,6 @@ Login to Blog Site
 
 Write Blog Post 
     [Documentation]    Fill in the blog post form with provided data
-    Click Element    id=write-article
     Wait Until Page Contains    ${ALERT_TIPS_1}
     Wait Until Page Contains    ${ALERT_TIPS_2}
     Wait Until Page Contains    ${ALERT_TIPS_3}
@@ -85,20 +84,31 @@ Go To Manage article
     Sleep    5
 
 Go To Blog Post
-    [Documentation]    Navigate to the specific blog post by title.
     Wait Until Page Contains Element    id=title-article
-    Sleep    10
+    Sleep    8
     Click Element    id=title-article
-    Sleep    10
+    Sleep    8
 
 Edit Blog Post
-    [Documentation]    Edit the existing blog post and republish it.
     Wait Until Page Contains Element    id=edit-article 
     Click Element    id=edit-article
+    Sleep    15
     Wait Until Page Contains Element    id=input-title
     Clear Element Text    id=input-title
     Input Text    id=input-title    ${BLOG_TITLE_EDTE}
+    Sleep    15
+    Click Button    id=btn-publish
+    Sleep    2
 
+Failed to edit blog post
+    Wait Until Page Contains Element    id=edit-article 
+    Click Element    id=edit-article
+    Sleep    15
+    Wait Until Page Contains Element    id=input-title
+    Clear Element Text    id=input-title
+    Sleep    15
+    Click Button    id=btn-publish
+    Sleep    2
 
 Post inprogress
     Click Element    xpath=/html/body/div[3]/div[1]/div[2]/div/div[2]/div[2]/div/div[2]/div/button[3]
@@ -156,3 +166,15 @@ Input search
     Sleep    5
     Click Element    xpath=/html/body/div[1]/div[2]/div/div[2]/div/div[2]/a
     Sleep    5
+
+Delete article
+    Click Element    id=delete-btn
+    Wait Until Page Contains Element    xpath=/html/body/div[4]/div/div/div[2]/section/div/div/button
+    Click Element    xpath=/html/body/div[4]/div/div/div[2]/section/div/div/button
+    Sleep    2
+
+Fail delete article    
+    Click Element    id=delete-btn
+    Wait Until Page Contains Element    xpath=/html/body/div[4]/div/div/div[2]/section/div/div/button
+    Click Element    xpath=/html/body/div[4]/div/div/div[2]/section/header/button
+    Sleep    2

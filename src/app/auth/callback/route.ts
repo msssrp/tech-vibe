@@ -31,7 +31,7 @@ export async function GET(request: Request) {
     );
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      return NextResponse.redirect("http://localhost:3000");
+      return NextResponse.redirect("https://techvibe.app");
     }
   }
 

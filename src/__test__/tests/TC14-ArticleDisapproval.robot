@@ -7,17 +7,7 @@ Resource    ../resources/variables.robot
 Resource    ../resources/keywords.robot
 
 *** Test Cases ***
-TC14003 Manage Article Disapproval
-    [Documentation]    This test case verifies that a user can disapprove an article successfully.
-    Open WebSite
-    Login to Blog Site
-    Go To Manage article
-    Articles to be published
-    Article disapproval
-    Enter the reason for disapproval
-    Confirmation of disapproval of article
-    check alert Article Disapproval
-    Capture Page Screenshot    screenshots/ArticleDisapproval/TC14001.png
+
 
 TC14004 Manage Article Disapproval Without Reason
     [Documentation]    This test case verifies that the article cannot be disapproved if no reason for disapproval is provided.
@@ -42,6 +32,18 @@ TC14005 Manage Article Disapproval Cancelled
     Cancellation of disapproval
     Check the confirmation of the disapproval cancellation
     Capture Page Screenshot    screenshots/ArticleDisapproval/TC14003.png
+
+TC14003 Manage Article Disapproval
+    [Documentation]    This test case verifies that a user can disapprove an article successfully.
+    Open WebSite
+    Login to Blog Site
+    Go To Manage article
+    Articles to be published
+    Article disapproval
+    Enter the reason for disapproval
+    Confirmation of disapproval of article
+    check alert Article Disapproval
+    Capture Page Screenshot    screenshots/ArticleDisapproval/TC14001.png
 
 *** Keywords ***
 check alert Article Disapproval

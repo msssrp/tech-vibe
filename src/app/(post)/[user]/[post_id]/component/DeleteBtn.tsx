@@ -45,6 +45,7 @@ const DeleteBtn: React.FC<DeleteBtnProps> = ({ articleTitle, articleId }) => {
         </div>
       </Modal>
       <svg
+        id="delete-btn"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

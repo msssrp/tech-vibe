@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0.1 (Python 3.12.4 on win32)" generated="2024-09-26T03:00:13.945001" rpa="false" schemaversion="5">
+<suite id="s1" name="TC8-Editearticle" source="D:\tech-vibe\src\__test__\tests\TC8-Editearticle.robot">
+<test id="s1-t1" name="TC8008 Edit Article Successfully" line="11">
+<kw name="Open WebSite" owner="keywords">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:00:14.231881" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:3000'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-09-26T03:00:14.231881" elapsed="6.884274"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2024-09-26T03:00:21.116155" elapsed="0.042119"/>
+</kw>
+<doc>Open the specified website and maximize the browser window.</doc>
+<status status="PASS" start="2024-09-26T03:00:14.230864" elapsed="6.927410"/>
+</kw>
+<kw name="Login to Blog Site" owner="keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:00:21.160282" level="INFO">Clicking element 'id=btn-login'.</msg>
+<arg>id=btn-login</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:00:21.160282" elapsed="0.182948"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath=/html/body/div[2]/div/div/h1</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:00:21.344318" elapsed="2.309884"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:00:23.655244" level="INFO">Clicking element 'xpath=/html/body/div[2]/div/div/div/button[1]'.</msg>
+<arg>xpath=/html/body/div[2]/div/div/div/button[1]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:00:23.655244" elapsed="2.022645"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath=//*[@id="identifierId"]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:00:25.677889" elapsed="0.013312"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:00:25.692545" level="INFO">Typing text '644259044@webmail.npru.ac.th' into text field 'xpath=//*[@id="identifierId"]'.</msg>
+<arg>xpath=//*[@id="identifierId"]</arg>
+<arg>${GOOGLE_USERNAME}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:00:25.692545" elapsed="0.265980"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:00:25.959698" level="INFO">Clicking element 'xpath=//*[@id="identifierNext"]/div/button'.</msg>
+<arg>xpath=//*[@id="identifierNext"]/div/button</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:00:25.959698" elapsed="0.212192"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath=//*[@id="password"]/div[1]/div/div[1]/input</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2024-09-26T03:00:26.171890" elapsed="2.327284"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:00:28.499174" level="INFO">Typing text '1739902024001' into text field 'xpath=//*[@id="password"]/div[1]/div/div[1]/input'.</msg>
+<arg>xpath=//*[@id="password"]/div[1]/div/div[1]/input</arg>
+<arg>${GOOGLE_PASSWORD}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:00:28.499174" elapsed="0.152794"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:00:28.653107" level="INFO">Clicking element 'xpath=//*[@id="passwordNext"]/div/button'.</msg>
+<arg>xpath=//*[@id="passwordNext"]/div/button</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:00:28.651968" elapsed="0.233792"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:00:28.885760" elapsed="3.043105"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:00:31.929865" level="INFO">Clicking button 'xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button'.</msg>
+<arg>xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:00:31.928865" elapsed="6.368575"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath=/html/body/div[1]/div[2]/div/div[1]/div[1]/div[2]/div[1]/button</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:00:38.297440" elapsed="0.044997"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:00:43.343283" level="INFO">Slept 5 seconds.</msg>
+<arg>5</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:00:38.342437" elapsed="5.000846"/>
+</kw>
+<doc>Log in to the blog site using Google credentials.</doc>
+<status status="PASS" start="2024-09-26T03:00:21.159282" elapsed="22.184001"/>
+</kw>
+<kw name="Go To Proflie" owner="keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:00:43.345035" level="INFO">Clicking element 'id=icon-user-profile'.</msg>
+<arg>id=icon-user-profile</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:00:43.345035" elapsed="0.055706"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>id=profile</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:00:43.400741" elapsed="0.015199"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:00:43.415940" level="INFO">Clicking element 'id=profile'.</msg>
+<arg>id=profile</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:00:43.415940" elapsed="0.063214"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:00:45.481235" level="INFO">Slept 2 seconds.</msg>
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:00:43.480346" elapsed="2.000889"/>
+</kw>
+<doc>Navigate to the user profile page.</doc>
+<status status="PASS" start="2024-09-26T03:00:43.343283" elapsed="2.138462"/>
+</kw>
+<kw name="Go To Blog Post" owner="keywords">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>id=title-article</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:00:45.482770" elapsed="0.016398"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:00:53.501079" level="INFO">Slept 8 seconds.</msg>
+<arg>8</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:00:45.500675" elapsed="8.000404"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:00:53.502089" level="INFO">Clicking element 'id=title-article'.</msg>
+<arg>id=title-article</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:00:53.501079" elapsed="0.067820"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:01:01.570490" level="INFO">Slept 8 seconds.</msg>
+<arg>8</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:00:53.568899" elapsed="8.001591"/>
+</kw>
+<status status="PASS" start="2024-09-26T03:00:45.481745" elapsed="16.088745"/>
+</kw>
+<kw name="Edit Blog Post" owner="keywords">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>id=edit-article</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:01:01.572054" elapsed="0.012134"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:01.584188" level="INFO">Clicking element 'id=edit-article'.</msg>
+<arg>id=edit-article</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:01:01.584188" elapsed="0.064112"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:01:16.648699" level="INFO">Slept 15 seconds.</msg>
+<arg>15</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:01:01.648300" elapsed="15.000399"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>id=input-title</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:01:16.648699" elapsed="0.014603"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>id=input-title</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:01:16.663302" elapsed="0.049758"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:16.714474" level="INFO">Typing text 'The Role of a Business Analyst v.2' into text field 'id=input-title'.</msg>
+<arg>id=input-title</arg>
+<arg>${BLOG_TITLE_EDTE}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:01:16.713060" elapsed="0.678949"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:01:32.392479" level="INFO">Slept 15 seconds.</msg>
+<arg>15</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:01:17.392009" elapsed="15.000470"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:32.392479" level="INFO">Clicking button 'id=btn-publish'.</msg>
+<arg>id=btn-publish</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:01:32.392479" elapsed="0.081188"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:01:34.475192" level="INFO">Slept 2 seconds.</msg>
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:01:32.475017" elapsed="2.000175"/>
+</kw>
+<status status="PASS" start="2024-09-26T03:01:01.570490" elapsed="32.904702"/>
+</kw>
+<kw name="Check alert post publish">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:34.497108" level="INFO">Current page contains text 'Article Status'.</msg>
+<arg>${ALERT_PUBLISHPOST}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2024-09-26T03:01:34.477271" elapsed="0.019837"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:01:37.497238" level="INFO">Slept 3 seconds.</msg>
+<arg>3</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:01:34.497108" elapsed="3.000130"/>
+</kw>
+<status status="PASS" start="2024-09-26T03:01:34.476228" elapsed="3.021010"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:37.763054" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/Editarticle/TC8008.png"&gt;&lt;img src="screenshots/Editarticle/TC8008.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>screenshots/Editarticle/TC8008.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2024-09-26T03:01:37.498183" elapsed="0.264871"/>
+</kw>
+<doc>This test case verifies that a user can successfully edit and save changes to an article.</doc>
+<status status="PASS" start="2024-09-26T03:00:14.229488" elapsed="83.534239"/>
+</test>
+<test id="s1-t2" name="TC8009 Edit Article Failed Due to Incomplete Title" line="21">
+<kw name="Open WebSite" owner="keywords">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:37.766754" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:3000'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-09-26T03:01:37.765743" elapsed="7.028812"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2024-09-26T03:01:44.794555" elapsed="0.048160"/>
+</kw>
+<doc>Open the specified website and maximize the browser window.</doc>
+<status status="PASS" start="2024-09-26T03:01:37.765743" elapsed="7.076972"/>
+</kw>
+<kw name="Login to Blog Site" owner="keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:44.845468" level="INFO">Clicking element 'id=btn-login'.</msg>
+<arg>id=btn-login</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:01:44.844454" elapsed="0.176725"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath=/html/body/div[2]/div/div/h1</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:01:45.021179" elapsed="2.448461"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:47.470146" level="INFO">Clicking element 'xpath=/html/body/div[2]/div/div/div/button[1]'.</msg>
+<arg>xpath=/html/body/div[2]/div/div/div/button[1]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:01:47.470146" elapsed="1.418299"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath=//*[@id="identifierId"]</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:01:48.888445" elapsed="0.016276"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:48.904721" level="INFO">Typing text '644259044@webmail.npru.ac.th' into text field 'xpath=//*[@id="identifierId"]'.</msg>
+<arg>xpath=//*[@id="identifierId"]</arg>
+<arg>${GOOGLE_USERNAME}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:01:48.904721" elapsed="0.259514"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:49.165370" level="INFO">Clicking element 'xpath=//*[@id="identifierNext"]/div/button'.</msg>
+<arg>xpath=//*[@id="identifierNext"]/div/button</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:01:49.165370" elapsed="0.202955"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath=//*[@id="password"]/div[1]/div/div[1]/input</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2024-09-26T03:01:49.368325" elapsed="4.060486"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:53.429811" level="INFO">Typing text '1739902024001' into text field 'xpath=//*[@id="password"]/div[1]/div/div[1]/input'.</msg>
+<arg>xpath=//*[@id="password"]/div[1]/div/div[1]/input</arg>
+<arg>${GOOGLE_PASSWORD}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:01:53.428811" elapsed="0.172925"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:53.602750" level="INFO">Clicking element 'xpath=//*[@id="passwordNext"]/div/button'.</msg>
+<arg>xpath=//*[@id="passwordNext"]/div/button</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:01:53.601736" elapsed="0.205267"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:01:53.808338" elapsed="3.263495"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:01:57.072834" level="INFO">Clicking button 'xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button'.</msg>
+<arg>xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:01:57.071833" elapsed="6.055937"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>xpath=/html/body/div[1]/div[2]/div/div[1]/div[1]/div[2]/div[1]/button</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:02:03.127770" elapsed="0.045465"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:02:08.175011" level="INFO">Slept 5 seconds.</msg>
+<arg>5</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:02:03.174580" elapsed="5.000431"/>
+</kw>
+<doc>Log in to the blog site using Google credentials.</doc>
+<status status="PASS" start="2024-09-26T03:01:44.844454" elapsed="23.330557"/>
+</kw>
+<kw name="Go To Proflie" owner="keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:02:08.177068" level="INFO">Clicking element 'id=icon-user-profile'.</msg>
+<arg>id=icon-user-profile</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:02:08.177068" elapsed="0.066755"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>id=profile</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:02:08.243823" elapsed="0.021108"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:02:08.264931" level="INFO">Clicking element 'id=profile'.</msg>
+<arg>id=profile</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:02:08.264931" elapsed="0.061739"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:02:10.327025" level="INFO">Slept 2 seconds.</msg>
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:02:08.326670" elapsed="2.000355"/>
+</kw>
+<doc>Navigate to the user profile page.</doc>
+<status status="PASS" start="2024-09-26T03:02:08.176068" elapsed="2.150957"/>
+</kw>
+<kw name="Go To Blog Post" owner="keywords">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>id=title-article</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:02:10.329592" elapsed="0.014578"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:02:18.345352" level="INFO">Slept 8 seconds.</msg>
+<arg>8</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:02:10.344170" elapsed="8.001182"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:02:18.345882" level="INFO">Clicking element 'id=title-article'.</msg>
+<arg>id=title-article</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:02:18.345882" elapsed="0.068316"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:02:26.415396" level="INFO">Slept 8 seconds.</msg>
+<arg>8</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:02:18.415271" elapsed="8.000125"/>
+</kw>
+<status status="PASS" start="2024-09-26T03:02:10.328592" elapsed="16.086804"/>
+</kw>
+<kw name="Failed to edit blog post" owner="keywords">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>id=edit-article</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:02:26.416406" elapsed="0.023957"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:02:26.441470" level="INFO">Clicking element 'id=edit-article'.</msg>
+<arg>id=edit-article</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-09-26T03:02:26.441470" elapsed="0.057694"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:02:41.499697" level="INFO">Slept 15 seconds.</msg>
+<arg>15</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:02:26.499164" elapsed="15.000533"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>id=input-title</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-09-26T03:02:41.500213" elapsed="0.014147"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:02:41.515373" level="INFO">Sending key(s) ('CTRL+A',) to id=input-title element.</msg>
+<msg time="2024-09-26T03:02:41.811223" level="INFO">Pressing special key CONTROL down.</msg>
+<msg time="2024-09-26T03:02:41.811223" level="INFO">Sending key A</msg>
+<msg time="2024-09-26T03:02:41.811223" level="INFO">Releasing special key CONTROL.</msg>
+<arg>id=input-title</arg>
+<arg>CTRL+A</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-09-26T03:02:41.514360" elapsed="0.332839"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:02:41.848434" level="INFO">Sending key(s) ('BACKSPACE',) to id=input-title element.</msg>
+<msg time="2024-09-26T03:02:42.148260" level="INFO">Pressing special key BACKSPACE to element.</msg>
+<msg time="2024-09-26T03:02:42.148260" level="INFO">Releasing special key BACKSPACE.</msg>
+<arg>id=input-title</arg>
+<arg>BACKSPACE</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-09-26T03:02:41.847199" elapsed="0.364948"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-26T03:02:57.213590" level="INFO">Slept 15 seconds.</msg>
+<arg>15</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-26T03:02:42.213160" elapsed="15.000430"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-09-26T03:02:57.214606" level="INFO">Clicking button 'id=btn-publish'.</msg>
+<msg time="2024-09-26T03:02:57.217685" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=129.0.6668.59)
+Stacktrace:
+	GetHandleVerifier [0x00007FF60CAFB125+29573]
+	(No symbol) [0x00007FF60CA6FF50]
+	(No symbol) [0x00007FF60C92B6EA]
+	(No symbol) [0x00007FF60C8FFCD5]
+	(No symbol) [0x00007FF60C9AEF67]
+	(No symbol) [0x00007FF60C9C7FC1]
+	(No symbol) [0x00007FF60C9A70A3]
+	(No symbol) [0x00007FF60C9712DF]
+	(No symbol) [0x00007FF60C972441]
+	GetHandleVerifier [0x00007FF60CE2C76D+3377613]
+	GetHandleVerifier [0x00007FF60CE77B67+3685831]
+	GetHandleVerifier [0x00007FF60CE6CF8B+3641835]
+	GetHandleVerifier [0x00007FF60CBBB2A6+816390]
+	(No symbol) [0x00007FF60CA7B25F]
+	(No symbol) [0x00007FF60CA77084]
+	(No symbol) [0x00007FF60CA77220]
+	(No symbol) [0x00007FF60CA6607F]
+	BaseThreadInitThunk [0x00007FF891F7257D+29]
+	RtlUserThreadStart [0x00007FF8933EAF28+40]
+</msg>
+<msg time="2024-09-26T03:02:57.221713" level="FAIL">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=129.0.6668.59)
+Stacktrace:
+	GetHandleVerifier [0x00007FF60CAFB125+29573]
+	(No symbol) [0x00007FF60CA6FF50]
+	(No symbol) [0x00007FF60C92B6EA]
+	(No symbol) [0x00007FF60C8FFCD5]
+	(No symbol) [0x00007FF60C9AEF67]
+	(No symbol) [0x00007FF60C9C7FC1]
+	(No symbol) [0x00007FF60C9A70A3]
+	(No symbol) [0x00007FF60C9712DF]
+	(No symbol) [0x00007FF60C972441]
+	GetHandleVerifier [0x00007FF60CE2C76D+3377613]
+	GetHandleVerifier [0x00007FF60CE77B67+3685831]
+	GetHandleVerifier [0x00007FF60CE6CF8B+3641835]
+	GetHandleVerifier [0x00007FF60CBBB2A6+816390]
+	(No symbol) [0x00007FF60CA7B25F]
+	(No symbol) [0x00007FF60CA77084]
+	(No symbol) [0x00007FF60CA77220]
+	(No symbol) [0x00007FF60CA6607F]
+	BaseThreadInitThunk [0x00007FF891F7257D+29]
+	RtlUserThreadStart [0x00007FF8933EAF28+40]
+</msg>
+<arg>id=btn-publish</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="FAIL" start="2024-09-26T03:02:57.214606" elapsed="0.016616">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=129.0.6668.59)
+Stacktrace:
+	GetHandleVerifier [0x00007FF60CAFB125+29573]
+	(No symbol) [0x00007FF60CA6FF50]
+	(No symbol) [0x00007FF60C92B6EA]
+	(No symbol) [0x00007FF60C8FFCD5]
+	(No symbol) [0x00007FF60C9AEF67]
+	(No symbol) [0x00007FF60C9C7FC1]
+	(No symbol) [0x00007FF60C9A70A3]
+	(No symbol) [0x00007FF60C9712DF]
+	(No symbol) [0x00007FF60C972441]
+	GetHandleVerifier [0x00007FF60CE2C76D+3377613]
+	GetHandleVerifier [0x00007FF60CE77B67+3685831]
+	GetHandleVerifier [0x00007FF60CE6CF8B+3641835]
+	GetHandleVerifier [0x00007FF60CBBB2A6+816390]
+	(No symbol) [0x00007FF60CA7B25F]
+	(No symbol) [0x00007FF60CA77084]
+	(No symbol) [0x00007FF60CA77220]
+	(No symbol) [0x00007FF60CA6607F]
+	BaseThreadInitThunk [0x00007FF891F7257D+29]
+	RtlUserThreadStart [0x00007FF8933EAF28+40]
+</status>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-09-26T03:02:57.231222" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2024-09-26T03:02:26.416406" elapsed="30.815835">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=129.0.6668.59)
+Stacktrace:
+	GetHandleVerifier [0x00007FF60CAFB125+29573]
+	(No symbol) [0x00007FF60CA6FF50]
+	(No symbol) [0x00007FF60C92B6EA]
+	(No symbol) [0x00007FF60C8FFCD5]
+	(No symbol) [0x00007FF60C9AEF67]
+	(No symbol) [0x00007FF60C9C7FC1]
+	(No symbol) [0x00007FF60C9A70A3]
+	(No symbol) [0x00007FF60C9712DF]
+	(No symbol) [0x00007FF60C972441]
+	GetHandleVerifier [0x00007FF60CE2C76D+3377613]
+	GetHandleVerifier [0x00007FF60CE77B67+3685831]
+	GetHandleVerifier [0x00007FF60CE6CF8B+3641835]
+	GetHandleVerifier [0x00007FF60CBBB2A6+816390]
+	(No symbol) [0x00007FF60CA7B25F]
+	(No symbol) [0x00007FF60CA77084]
+	(No symbol) [0x00007FF60CA77220]
+	(No symbol) [0x00007FF60CA6607F]
+	BaseThreadInitThunk [0x00007FF891F7257D+29]
+	RtlUserThreadStart [0x00007FF8933EAF28+40]
+</status>
+</kw>
+<kw name="Check alert fails publish">
+<status status="NOT RUN" start="2024-09-26T03:02:57.232241" elapsed="0.000000"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<arg>screenshots/Editarticle/TC8009.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="NOT RUN" start="2024-09-26T03:02:57.232241" elapsed="0.001223"/>
+</kw>
+<doc>This test case verifies that an article cannot be edited and saved if the title is incomplete or missing.</doc>
+<status status="FAIL" start="2024-09-26T03:01:37.764578" elapsed="79.468886">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=129.0.6668.59)
+Stacktrace:
+	GetHandleVerifier [0x00007FF60CAFB125+29573]
+	(No symbol) [0x00007FF60CA6FF50]
+	(No symbol) [0x00007FF60C92B6EA]
+	(No symbol) [0x00007FF60C8FFCD5]
+	(No symbol) [0x00007FF60C9AEF67]
+	(No symbol) [0x00007FF60C9C7FC1]
+	(No symbol) [0x00007FF60C9A70A3]
+	(No symbol) [0x00007FF60C9712DF]
+	(No symbol) [0x00007FF60C972441]
+	GetHandleVerifier [0x00007FF60CE2C76D+3377613]
+	GetHandleVerifier [0x00007FF60CE77B67+3685831]
+	GetHandleVerifier [0x00007FF60CE6CF8B+3641835]
+	GetHandleVerifier [0x00007FF60CBBB2A6+816390]
+	(No symbol) [0x00007FF60CA7B25F]
+	(No symbol) [0x00007FF60CA77084]
+	(No symbol) [0x00007FF60CA77220]
+	(No symbol) [0x00007FF60CA6607F]
+	BaseThreadInitThunk [0x00007FF891F7257D+29]
+	RtlUserThreadStart [0x00007FF8933EAF28+40]
+</status>
+</test>
+<status status="FAIL" start="2024-09-26T03:00:13.947060" elapsed="163.289956"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="1" skip="0" id="s1" name="TC8-Editearticle">TC8-Editearticle</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2024-09-26T03:02:57.217685" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=129.0.6668.59)
+Stacktrace:
+	GetHandleVerifier [0x00007FF60CAFB125+29573]
+	(No symbol) [0x00007FF60CA6FF50]
+	(No symbol) [0x00007FF60C92B6EA]
+	(No symbol) [0x00007FF60C8FFCD5]
+	(No symbol) [0x00007FF60C9AEF67]
+	(No symbol) [0x00007FF60C9C7FC1]
+	(No symbol) [0x00007FF60C9A70A3]
+	(No symbol) [0x00007FF60C9712DF]
+	(No symbol) [0x00007FF60C972441]
+	GetHandleVerifier [0x00007FF60CE2C76D+3377613]
+	GetHandleVerifier [0x00007FF60CE77B67+3685831]
+	GetHandleVerifier [0x00007FF60CE6CF8B+3641835]
+	GetHandleVerifier [0x00007FF60CBBB2A6+816390]
+	(No symbol) [0x00007FF60CA7B25F]
+	(No symbol) [0x00007FF60CA77084]
+	(No symbol) [0x00007FF60CA77220]
+	(No symbol) [0x00007FF60CA6607F]
+	BaseThreadInitThunk [0x00007FF891F7257D+29]
+	RtlUserThreadStart [0x00007FF8933EAF28+40]
+</msg>
+</errors>
+</robot>
