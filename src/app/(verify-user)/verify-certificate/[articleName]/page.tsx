@@ -26,6 +26,7 @@ const page = async ({ params }: { params: { articleName: string } }) => {
   }
   const { data: articleUps } = await getArticleUps(articleData.article_id);
   const upvotes = await getUpvotes();
+  console.log(articleUps, upvotes);
 
   if (articleUps < upvotes) {
     return redirect("/");

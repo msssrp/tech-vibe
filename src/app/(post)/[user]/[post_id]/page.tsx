@@ -102,6 +102,8 @@ const Page = async ({
     userSession.data.user.id === article.pgrst_scalar.user_id
   ) {
     const currentUpVoteSet = await getUpvotes();
+    console.log(currentUpVoteSet, articleUps);
+
     if (articleUps >= currentUpVoteSet) {
       await createNewNotificationServer(
         `Your article reached ${articleUps} upvotes`,
