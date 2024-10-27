@@ -6,7 +6,7 @@ import ArticleCard from "./component/ArticleCard";
 import { getArticlesByTitlePattern } from "@/libs/actions/article/article";
 import { articleProps } from "@/types/article/article";
 
-const page = () => {
+const Page = () => {
   const [articles, setArticles] = useState<articleProps[]>([]);
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
@@ -25,14 +25,14 @@ const page = () => {
   }, [query]);
 
   return (
-    <div className="container mx-auto min-h-screen w-screen p-10">
+    <div className="container mx-auto min-h-screen w-screen py-10 sm:p-10">
       <div className="flex flex-col justify-center items-center">
-        <div className="text-2xl text-base-content uppercase font-semibold flex items-center space-x-2 mb-10">
+        <div className="text-xl sm:text-2xl text-base-content uppercase font-semibold flex items-center space-x-2 mb-10">
           <h1 className="text-[#B4ABAB]">Search Results for </h1>
           <span className="text-red">{query}</span>
         </div>
         {articles && articles.length > 0 ? (
-          <div className="flex flex-col -space-y-5 md:space-y-4 md:flex-wrap md:flex-row items-center justify-center w-full h-full md:space-x-6">
+          <div className="flex flex-col md:space-y-4 md:flex-wrap md:flex-row items-center justify-center w-full h-full md:space-x-6">
             {articles.map((article) => (
               <ArticleCard key={article.article_id} article={article} />
             ))}
@@ -45,4 +45,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

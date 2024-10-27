@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 
-import contractABI from "@/hardhat/artifacts/contracts/BlogReview.sol/BlogReview.json";
+import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 import { useClipboard } from "@mantine/hooks";
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
 const useCertificateSection = (certificateId: string) => {

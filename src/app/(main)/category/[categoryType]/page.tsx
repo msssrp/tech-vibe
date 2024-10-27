@@ -15,13 +15,14 @@ export default async function page({
   if (params.categoryType === "npru-articles") {
     const articles = await getNpruArticle();
     return (
-      <div className="container mx-auto min-h-screen w-screen p-10">
+      <div className="container mx-auto min-h-screen w-screen py-10 sm:p-10">
         <div className="flex flex-col justify-center items-center">
-          <div className="text-2xl text-base-content uppercase font-semibold flex items-center space-x-2 mb-10">
-            <h1 className="text-[#606060]">TECHNOLOGY ARTICLES BY </h1>
-            <span className="text-red">Npru</span>
+          <div className="text-xl sm:text-2xl text-base-content uppercase font-semibold flex items-center space-x-2 mb-10 px-4 text-center">
+            <h1 className="text-[#606060]">
+              TECHNOLOGY ARTICLES BY <span className="text-red">npru</span>
+            </h1>
           </div>
-          <div className="flex flex-col -space-y-5 md:space-y-4 md:flex-wrap md:flex-row items-center justify-center w-full h-full md:space-x-6">
+          <div className="flex flex-col md:space-y-4 md:flex-wrap md:flex-row items-center justify-center w-full h-full md:space-x-6">
             {articles.map((article) => (
               <ArticleCard
                 key={article.article_id}
@@ -37,13 +38,15 @@ export default async function page({
   if (params.categoryType === "popular-articles") {
     const articles = await getPopularArticles();
     return (
-      <div className="container mx-auto min-h-screen w-screen p-10">
+      <div className="container mx-auto min-h-screen w-screen py-10 sm:p-10">
         <div className="flex flex-col justify-center items-center">
-          <div className="text-2xl text-base-content uppercase font-semibold flex items-center space-x-2 mb-10">
-            <h1 className="text-[#606060]">TECHNOLOGY ARTICLES BY </h1>
-            <span className="text-red">Popular articles</span>
+          <div className="text-xl sm:text-2xl text-base-content uppercase font-semibold flex items-center space-x-2 mb-10 px-4 text-center">
+            <h1 className="text-[#606060]">
+              TECHNOLOGY ARTICLES BY{" "}
+              <span className="text-red">Popular articles</span>
+            </h1>
           </div>
-          <div className="flex flex-col -space-y-5 md:space-y-4 md:flex-wrap md:flex-row items-center justify-center w-full h-full md:space-x-6">
+          <div className="flex flex-col md:space-y-4 md:flex-wrap md:flex-row items-center justify-center w-full h-full md:space-x-6">
             {articles &&
               articles.map((article) => (
                 <ArticleCard
@@ -61,13 +64,15 @@ export default async function page({
   const articles = await getArticleByTag(params.categoryType);
   const tagNameWithoutHypen = params.categoryType.replace(/-/g, " ");
   return (
-    <div className="container mx-auto min-h-screen w-screen p-10">
+    <div className="container mx-auto min-h-screen w-screen py-10 sm:p-10">
       <div className="flex flex-col justify-center items-center">
-        <div className="text-2xl text-base-content uppercase font-semibold flex items-center space-x-2 mb-10">
-          <h1 className="text-[#606060]">TECHNOLOGY ARTICLES BY TAG </h1>
-          <span className="text-red">{tagNameWithoutHypen}</span>
+        <div className="text-xl sm:text-2xl text-base-content uppercase font-semibold flex items-center space-x-2 mb-10 px-4 text-center">
+          <h1 className="text-[#606060]">
+            TECHNOLOGY ARTICLES BY TAG{" "}
+            <span className="text-red">{tagNameWithoutHypen}</span>
+          </h1>
         </div>
-        <div className="flex flex-col -space-y-5 md:space-y-4 md:flex-wrap md:flex-row items-center justify-center w-full h-full md:space-x-6">
+        <div className="flex flex-col md:space-y-4 md:flex-wrap md:flex-row items-center justify-center w-full h-full md:space-x-6">
           {articles && articles.length > 0 ? (
             articles.map((article) => (
               <ArticleCard

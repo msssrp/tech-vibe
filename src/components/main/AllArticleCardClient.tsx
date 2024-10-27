@@ -49,7 +49,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
   const timeToRead = calculateReadingTime(article.article_content);
   return (
     <div className="flex flex-col md:flex-row space-x-0 md:space-x-3 border-b mt-5 rounded-none items-center h-auto pb-5">
-      <div className="flex flex-col mt-5 space-y-2 px-4 md:w-3/4 w-full h-full">
+      <div className="flex flex-col mt-5 space-y-6 sm:space-y-2 px-4 md:w-3/4 w-full h-full">
         <div className="flex flex-col max-h-32 space-y-2">
           <div className="avatar items-center h-1/3 space-x-1">
             <div className="w-8 rounded-full">
@@ -107,7 +107,7 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
               })}
           </div>
           {!isDraft && (
-            <div className="flex justify-between items-center w-2/3">
+            <div className="flex justify-end sm:justify-between items-center w-2/3 space-x-2 sm:space-x-0">
               <div>
                 <p className="text-xs ">
                   {timeToRead} {timeToRead <= 1 ? "min " : "mins "} read

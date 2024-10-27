@@ -31,7 +31,7 @@ export default async function RootLayout({
   return (
     <div>
       <MainNavbar webLogoUrl={webLogoUrl} />
-      <div className="mt-16"></div>
+      <div className="mt-32"></div>
       {children}
       <Footer />
     </div>

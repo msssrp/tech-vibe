@@ -28,6 +28,7 @@ const useWrite = (
     article_description: "",
     article_title: "",
     user_id: user.user_id,
+    article_claim: false,
   });
   const [navStatus, setNavStatus] = useState("");
   const [tagValue, setTagValue] = useState<string[]>([]);

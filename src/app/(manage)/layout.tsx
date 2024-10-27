@@ -35,7 +35,7 @@ export default async function RootLayout({
     return redirect("/");
   const webLogoUrl = await getWebLogoUrl();
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer xl:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         <label

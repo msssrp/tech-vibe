@@ -38,7 +38,7 @@ const page = async ({
           npruArticleNumber={npruArticles.length}
           isActiveAt="Gerneral articles"
         />
-        <div className="min-h-screen bg-[#F4F2FB] px-5 lg:px-0 pb-4">
+        <div className="min-h-screen bg-[#F4F2FB] px-4 overflow-y-auto">
           <ArticleStat
             allArticle={allArticles.length}
             inProgress={inprogressArticles.length}

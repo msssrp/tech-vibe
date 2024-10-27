@@ -58,7 +58,7 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
           <Link
             id="title-article"
             href={`/${userWithHyphen}/${articleSlug}`}
-            className="card-title text-xl flex-1"
+            className="card-title md:text-lg xl:text-xl flex-1"
           >
             {article.article_title}
           </Link>
@@ -83,9 +83,9 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
                 );
               })}
           </div>
-          <div className="flex justify-between items-center w-2/3">
+          <div className="flex justify-end sm:justify-between items-center w-2/3 space-x-2 sm:space-x-0 lg:space-x-2">
             <div>
-              <p className="text-xs">
+              <p className="text-xs text-nowrap">
                 {timeToRead} {timeToRead <= 1 ? "min " : "mins "}read
               </p>
             </div>
