@@ -56,6 +56,7 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
         </div>
         <div className="flex flex-col">
           <Link
+            id="title-article"
             href={`/${userWithHyphen}/${articleSlug}`}
             className="card-title md:text-lg xl:text-xl flex-1"
           >
