@@ -1,457 +1,303 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0.1 (Python 3.12.4 on win32)" generated="2024-10-07T16:43:32.616825" rpa="false" schemaversion="5">
-<suite id="s1" name="TC2-Viewarticle" source="D:\tech-vibe\src\__test__\tests\TC2-Viewarticle.robot">
-<test id="s1-t1" name="TC2001 View Article on Profile Page" line="12">
+<robot generator="Robot 7.0.1 (Python 3.12.4 on win32)" generated="2024-10-09T15:08:43.643422" rpa="false" schemaversion="5">
+<suite id="s1" name="TC14-ArticleApproval" source="D:\tech-vibe\src\__test__\tests\TC14-ArticleApproval.robot">
+<test id="s1-t1" name="TC14001 Approve Article Successfully" line="12">
 <kw name="Open WebSite" owner="keywords">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-10-07T16:43:32.911380" level="INFO">Opening browser 'Chrome' to base url 'https://techvibe.app'.</msg>
+<msg time="2024-10-09T15:08:43.930576" level="INFO">Opening browser 'Chrome' to base url 'https://techvibe.app'.</msg>
 <arg>${URL}</arg>
 <arg>${BROWSER}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-10-07T16:43:32.911380" elapsed="2.352815"/>
+<status status="PASS" start="2024-10-09T15:08:43.930576" elapsed="6.288477"/>
 </kw>
 <kw name="Maximize Browser Window" owner="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2024-10-07T16:43:35.265208" elapsed="0.043977"/>
+<status status="PASS" start="2024-10-09T15:08:50.220080" elapsed="0.056471"/>
 </kw>
 <doc>Open the specified website and maximize the browser window.</doc>
-<status status="PASS" start="2024-10-07T16:43:32.909789" elapsed="2.399396"/>
+<status status="PASS" start="2024-10-09T15:08:43.929572" elapsed="6.346979"/>
 </kw>
 <kw name="Login to Blog Site" owner="keywords">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-10-07T16:43:35.311528" level="INFO">Clicking element 'id=btn-login'.</msg>
-<msg time="2024-10-07T16:43:35.476299" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-10-07T16:43:35.476299" level="FAIL">Element with locator 'id=btn-login' not found.</msg>
+<msg time="2024-10-09T15:08:50.278825" level="INFO">Clicking element 'id=btn-login'.</msg>
 <arg>id=btn-login</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="FAIL" start="2024-10-07T16:43:35.310282" elapsed="0.169957">Element with locator 'id=btn-login' not found.</status>
+<status status="PASS" start="2024-10-09T15:08:50.278825" elapsed="0.121573"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>xpath=/html/body/div[2]/div/div/h1</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.480239" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:08:50.401411" elapsed="0.872551"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:08:51.275435" level="INFO">Clicking element 'xpath=/html/body/div[2]/div/div/div/button[1]'.</msg>
 <arg>xpath=/html/body/div[2]/div/div/div/button[1]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.481288" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:08:51.275435" elapsed="2.426557"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>xpath=//*[@id="identifierId"]</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.481288" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:08:53.703427" elapsed="0.021705"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:08:53.725132" level="INFO">Typing text '644259044@webmail.npru.ac.th' into text field 'xpath=//*[@id="identifierId"]'.</msg>
 <arg>xpath=//*[@id="identifierId"]</arg>
 <arg>${GOOGLE_USERNAME}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.481288" elapsed="0.000529"/>
+<status status="PASS" start="2024-10-09T15:08:53.725132" elapsed="0.277340"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:08:54.003482" level="INFO">Clicking element 'xpath=//*[@id="identifierNext"]/div/button'.</msg>
 <arg>xpath=//*[@id="identifierNext"]/div/button</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.481817" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:08:54.003482" elapsed="0.216176"/>
 </kw>
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>xpath=//*[@id="password"]/div[1]/div/div[1]/input</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.481817" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:08:54.219658" elapsed="4.933695"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:08:59.154379" level="INFO">Typing text '1739902024001' into text field 'xpath=//*[@id="password"]/div[1]/div/div[1]/input'.</msg>
 <arg>xpath=//*[@id="password"]/div[1]/div/div[1]/input</arg>
 <arg>${GOOGLE_PASSWORD}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.481817" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:08:59.153353" elapsed="0.245041"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:08:59.399408" level="INFO">Clicking element 'xpath=//*[@id="passwordNext"]/div/button'.</msg>
 <arg>xpath=//*[@id="passwordNext"]/div/button</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.481817" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:08:59.399408" elapsed="0.114529"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.481817" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:08:59.515357" elapsed="4.626490"/>
 </kw>
 <kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:09:04.142880" level="INFO">Clicking button 'xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button'.</msg>
 <arg>xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button</arg>
 <doc>Clicks the button identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.481817" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:09:04.141847" elapsed="4.825630"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>xpath=/html/body/div[1]/div[2]/div/div[1]/div[1]/div[2]/div[1]/button</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.482850" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:09:08.968517" elapsed="0.035384"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-10-09T15:09:14.005772" level="INFO">Slept 5 seconds.</msg>
+<arg>5</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-10-09T15:09:09.003901" elapsed="5.001871"/>
+</kw>
+<doc>Log in to the blog site using Google credentials.</doc>
+<status status="PASS" start="2024-10-09T15:08:50.277562" elapsed="23.728720"/>
+</kw>
+<kw name="Go To Manage article" owner="keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:09:14.007292" level="INFO">Clicking element 'id=icon-user-profile'.</msg>
+<arg>id=icon-user-profile</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-09T15:09:14.007292" elapsed="0.073069"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>id=manage-article</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-10-09T15:09:14.080361" elapsed="0.018669"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:09:14.100328" level="INFO">Clicking element 'id=manage-article'.</msg>
+<arg>id=manage-article</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-09T15:09:14.099030" elapsed="0.071627"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-10-09T15:09:19.171112" level="INFO">Slept 5 seconds.</msg>
+<arg>5</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-10-09T15:09:14.170657" elapsed="5.000455"/>
+</kw>
+<status status="PASS" start="2024-10-09T15:09:14.007292" elapsed="5.163820"/>
+</kw>
+<kw name="Articles to be published" owner="keywords">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:09:19.172595" level="INFO">Clicking element 'xpath=/html/body/div[2]/div[1]/div[2]/div/div[2]/div[2]/div/div[1]/button'.</msg>
+<msg time="2024-10-09T15:09:19.428002" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-10-09T15:09:19.428002" level="FAIL">Element with locator 'xpath=/html/body/div[2]/div[1]/div[2]/div/div[2]/div[2]/div/div[1]/button' not found.</msg>
+<arg>xpath=/html/body/div[2]/div[1]/div[2]/div/div[2]/div[2]/div/div[1]/button</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="FAIL" start="2024-10-09T15:09:19.172595" elapsed="0.258134">Element with locator 'xpath=/html/body/div[2]/div[1]/div[2]/div/div[2]/div[2]/div/div[1]/button' not found.</status>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>xpath=/html/body/div[3]/div/p/div/button[1]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-10-09T15:09:19.430729" elapsed="0.001041"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>3</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-10-09T15:09:19.431770" elapsed="0.000000"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>xpath=/html/body/div[2]/div[1]/div[2]/div/div[2]/div[2]/div/table/tbody/tr[1]/td[2]/a</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-10-09T15:09:19.431770" elapsed="0.000000"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
 <arg>5</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.482850" elapsed="0.000000"/>
+<status status="NOT RUN" start="2024-10-09T15:09:19.431770" elapsed="0.000000"/>
 </kw>
-<doc>Log in to the blog site using Google credentials.</doc>
-<status status="FAIL" start="2024-10-07T16:43:35.310282" elapsed="0.172568">Element with locator 'id=btn-login' not found.</status>
+<status status="FAIL" start="2024-10-09T15:09:19.171112" elapsed="0.260658">Element with locator 'xpath=/html/body/div[2]/div[1]/div[2]/div/div[2]/div[2]/div/div[1]/button' not found.</status>
 </kw>
-<kw name="Go To Proflie" owner="keywords">
-<doc>Navigate to the user profile page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.482850" elapsed="0.000000"/>
+<kw name="Approving the article" owner="keywords">
+<status status="NOT RUN" start="2024-10-09T15:09:19.432777" elapsed="0.000000"/>
 </kw>
-<kw name="Go To Blog Post" owner="keywords">
-<status status="NOT RUN" start="2024-10-07T16:43:35.483850" elapsed="0.000000"/>
+<kw name="Confirming the approval of the article" owner="keywords">
+<status status="NOT RUN" start="2024-10-09T15:09:19.433756" elapsed="0.000000"/>
 </kw>
-<kw name="Check Title blog">
-<status status="NOT RUN" start="2024-10-07T16:43:35.483850" elapsed="0.000000"/>
+<kw name="Check alert publish">
+<status status="NOT RUN" start="2024-10-09T15:09:19.433756" elapsed="0.000000"/>
 </kw>
 <kw name="Capture Page Screenshot" owner="SeleniumLibrary">
-<arg>screenshots/Viwearticle/TC2001.png</arg>
+<arg>screenshots/ArticleApproval/TC14001.png</arg>
 <doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:35.483850" elapsed="0.000000"/>
+<status status="NOT RUN" start="2024-10-09T15:09:19.433756" elapsed="0.000000"/>
 </kw>
-<doc>Verify that a user can view an article from their profile page.</doc>
-<status status="FAIL" start="2024-10-07T16:43:32.908384" elapsed="2.576462">Element with locator 'id=btn-login' not found.</status>
+<doc>This test case verifies that a user can successfully approve an article in the system.</doc>
+<status status="FAIL" start="2024-10-09T15:08:43.928560" elapsed="35.506660">Element with locator 'xpath=/html/body/div[2]/div[1]/div[2]/div/div[2]/div[2]/div/div[1]/button' not found.</status>
 </test>
-<test id="s1-t2" name="TC2002 View Article via Search" line="22">
+<test id="s1-t2" name="TC14002 Manage Article Approval Cancelled" line="22">
 <kw name="Open WebSite" owner="keywords">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-10-07T16:43:35.486908" level="INFO">Opening browser 'Chrome' to base url 'https://techvibe.app'.</msg>
+<msg time="2024-10-09T15:09:19.437670" level="INFO">Opening browser 'Chrome' to base url 'https://techvibe.app'.</msg>
 <arg>${URL}</arg>
 <arg>${BROWSER}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-10-07T16:43:35.486908" elapsed="2.807841"/>
+<status status="PASS" start="2024-10-09T15:09:19.437670" elapsed="6.344381"/>
 </kw>
 <kw name="Maximize Browser Window" owner="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2024-10-07T16:43:38.294749" elapsed="0.056264"/>
+<status status="PASS" start="2024-10-09T15:09:25.782051" elapsed="0.039444"/>
 </kw>
 <doc>Open the specified website and maximize the browser window.</doc>
-<status status="PASS" start="2024-10-07T16:43:35.486908" elapsed="2.864105"/>
+<status status="PASS" start="2024-10-09T15:09:19.436259" elapsed="6.385236"/>
 </kw>
 <kw name="Login to Blog Site" owner="keywords">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-10-07T16:43:38.354014" level="INFO">Clicking element 'id=btn-login'.</msg>
-<msg time="2024-10-07T16:43:38.551502" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-10-07T16:43:38.551502" level="FAIL">Element with locator 'id=btn-login' not found.</msg>
+<msg time="2024-10-09T15:09:25.823495" level="INFO">Clicking element 'id=btn-login'.</msg>
 <arg>id=btn-login</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="FAIL" start="2024-10-07T16:43:38.353013" elapsed="0.199489">Element with locator 'id=btn-login' not found.</status>
+<status status="PASS" start="2024-10-09T15:09:25.822495" elapsed="0.084413"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>xpath=/html/body/div[2]/div/div/h1</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.552502" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:09:25.907908" elapsed="0.861073"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:09:26.768981" level="INFO">Clicking element 'xpath=/html/body/div[2]/div/div/div/button[1]'.</msg>
 <arg>xpath=/html/body/div[2]/div/div/div/button[1]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.552502" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:09:26.768981" elapsed="2.517124"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>xpath=//*[@id="identifierId"]</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.552502" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:09:29.287213" elapsed="0.026293"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:09:29.314665" level="INFO">Typing text '644259044@webmail.npru.ac.th' into text field 'xpath=//*[@id="identifierId"]'.</msg>
 <arg>xpath=//*[@id="identifierId"]</arg>
 <arg>${GOOGLE_USERNAME}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.553499" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:09:29.314665" elapsed="0.299145"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:09:29.614791" level="INFO">Clicking element 'xpath=//*[@id="identifierNext"]/div/button'.</msg>
 <arg>xpath=//*[@id="identifierNext"]/div/button</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.553499" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:09:29.613810" elapsed="0.246064"/>
 </kw>
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>xpath=//*[@id="password"]/div[1]/div/div[1]/input</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.553499" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:09:29.859874" elapsed="4.501034"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:09:34.361908" level="INFO">Typing text '1739902024001' into text field 'xpath=//*[@id="password"]/div[1]/div/div[1]/input'.</msg>
 <arg>xpath=//*[@id="password"]/div[1]/div/div[1]/input</arg>
 <arg>${GOOGLE_PASSWORD}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.553499" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:09:34.360908" elapsed="0.175787"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:09:34.536695" level="INFO">Clicking element 'xpath=//*[@id="passwordNext"]/div/button'.</msg>
 <arg>xpath=//*[@id="passwordNext"]/div/button</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.553499" elapsed="0.000000"/>
+<status status="PASS" start="2024-10-09T15:09:34.536695" elapsed="0.243788"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<msg time="2024-10-09T15:09:39.996635" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-6.png"&gt;&lt;img src="selenium-screenshot-6.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-10-09T15:09:39.996635" level="FAIL">Element 'xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button' did not appear in 5 seconds.</msg>
 <arg>xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.553499" elapsed="0.000000"/>
+<status status="FAIL" start="2024-10-09T15:09:34.780483" elapsed="5.217535">Element 'xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button' did not appear in 5 seconds.</status>
 </kw>
 <kw name="Click Button" owner="SeleniumLibrary">
 <arg>xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button</arg>
 <doc>Clicks the button identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.553499" elapsed="0.000000"/>
+<status status="NOT RUN" start="2024-10-09T15:09:39.998018" elapsed="0.001272"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>xpath=/html/body/div[1]/div[2]/div/div[1]/div[1]/div[2]/div[1]/button</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.554919" elapsed="0.000000"/>
+<status status="NOT RUN" start="2024-10-09T15:09:39.999290" elapsed="0.000000"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
 <arg>5</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.554919" elapsed="0.000000"/>
+<status status="NOT RUN" start="2024-10-09T15:09:39.999290" elapsed="0.000000"/>
 </kw>
 <doc>Log in to the blog site using Google credentials.</doc>
-<status status="FAIL" start="2024-10-07T16:43:38.352013" elapsed="0.202906">Element with locator 'id=btn-login' not found.</status>
+<status status="FAIL" start="2024-10-09T15:09:25.822495" elapsed="14.177320">Element 'xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button' did not appear in 5 seconds.</status>
 </kw>
-<kw name="Input search" owner="keywords">
-<status status="NOT RUN" start="2024-10-07T16:43:38.555947" elapsed="0.000000"/>
+<kw name="Go To Manage article" owner="keywords">
+<status status="NOT RUN" start="2024-10-09T15:09:39.999815" elapsed="0.000000"/>
 </kw>
-<kw name="Check Title blog">
-<status status="NOT RUN" start="2024-10-07T16:43:38.555947" elapsed="0.000000"/>
+<kw name="Articles to be published" owner="keywords">
+<status status="NOT RUN" start="2024-10-09T15:09:39.999815" elapsed="0.001333"/>
 </kw>
-<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
-<arg>screenshots/Viwearticle/TC2002.png</arg>
-<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:38.556935" elapsed="0.000000"/>
+<kw name="Approving the article" owner="keywords">
+<status status="NOT RUN" start="2024-10-09T15:09:40.001148" elapsed="0.000000"/>
 </kw>
-<doc>Verify that a user can view an article by searching for it.</doc>
-<status status="FAIL" start="2024-10-07T16:43:35.485831" elapsed="3.071104">Element with locator 'id=btn-login' not found.</status>
-</test>
-<test id="s1-t3" name="TC2003 View Article via Tag" line="31">
-<kw name="Open WebSite" owner="keywords">
-<kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-10-07T16:43:38.559301" level="INFO">Opening browser 'Chrome' to base url 'https://techvibe.app'.</msg>
-<arg>${URL}</arg>
-<arg>${BROWSER}</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-10-07T16:43:38.559301" elapsed="1.752497"/>
-</kw>
-<kw name="Maximize Browser Window" owner="SeleniumLibrary">
-<doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2024-10-07T16:43:40.311798" elapsed="0.046122"/>
-</kw>
-<doc>Open the specified website and maximize the browser window.</doc>
-<status status="PASS" start="2024-10-07T16:43:38.559301" elapsed="1.798619"/>
-</kw>
-<kw name="Login to Blog Site" owner="keywords">
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-10-07T16:43:40.359049" level="INFO">Clicking element 'id=btn-login'.</msg>
-<msg time="2024-10-07T16:43:40.576447" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-10-07T16:43:40.576447" level="FAIL">Element with locator 'id=btn-login' not found.</msg>
-<arg>id=btn-login</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="FAIL" start="2024-10-07T16:43:40.359049" elapsed="0.218399">Element with locator 'id=btn-login' not found.</status>
-</kw>
-<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
-<arg>xpath=/html/body/div[2]/div/div/h1</arg>
-<doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.578447" elapsed="0.000000"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<arg>xpath=/html/body/div[2]/div/div/div/button[1]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.578447" elapsed="0.000000"/>
-</kw>
-<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="identifierId"]</arg>
-<doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.578447" elapsed="0.000000"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="identifierId"]</arg>
-<arg>${GOOGLE_USERNAME}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.578447" elapsed="0.000000"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="identifierNext"]/div/button</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.578447" elapsed="0.000000"/>
-</kw>
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="password"]/div[1]/div/div[1]/input</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.578447" elapsed="0.001001"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="password"]/div[1]/div/div[1]/input</arg>
-<arg>${GOOGLE_PASSWORD}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.579448" elapsed="0.000000"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="passwordNext"]/div/button</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.579448" elapsed="0.000000"/>
-</kw>
-<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button</arg>
-<doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.579448" elapsed="0.000000"/>
-</kw>
-<kw name="Click Button" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button</arg>
-<doc>Clicks the button identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.579448" elapsed="0.000000"/>
-</kw>
-<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
-<arg>xpath=/html/body/div[1]/div[2]/div/div[1]/div[1]/div[2]/div[1]/button</arg>
-<doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.580447" elapsed="0.000000"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<arg>5</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.580447" elapsed="0.000000"/>
-</kw>
-<doc>Log in to the blog site using Google credentials.</doc>
-<status status="FAIL" start="2024-10-07T16:43:40.359049" elapsed="0.221398">Element with locator 'id=btn-login' not found.</status>
-</kw>
-<kw name="Choosing a tag" owner="keywords">
-<status status="NOT RUN" start="2024-10-07T16:43:40.581447" elapsed="0.000000"/>
-</kw>
-<kw name="Check Title blog">
-<status status="NOT RUN" start="2024-10-07T16:43:40.581447" elapsed="0.000000"/>
+<kw name="Cancellation of approval confirmation" owner="keywords">
+<status status="NOT RUN" start="2024-10-09T15:09:40.001148" elapsed="0.000000"/>
 </kw>
 <kw name="Capture Page Screenshot" owner="SeleniumLibrary">
-<arg>screenshots/Viwearticle/TC2003.png</arg>
+<arg>screenshots/ArticleApproval/TC14002.png</arg>
 <doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:40.581447" elapsed="0.000000"/>
+<status status="NOT RUN" start="2024-10-09T15:09:40.001148" elapsed="0.000000"/>
 </kw>
-<doc>Verify that a user can view an article by selecting a tag.</doc>
-<status status="FAIL" start="2024-10-07T16:43:38.557932" elapsed="2.024515">Element with locator 'id=btn-login' not found.</status>
+<doc>This test case verifies that the approval process is cancelled when the user clicks the "Cancel" button.</doc>
+<status status="FAIL" start="2024-10-09T15:09:19.436259" elapsed="20.566213">Element 'xpath=//*[@id="yDmH0d"]/c-wiz/div/div[3]/div/div/div[2]/div/div/button' did not appear in 5 seconds.</status>
 </test>
-<test id="s1-t4" name="TC2004 View Article via Direct URL" line="40">
-<kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-10-07T16:43:40.584447" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:3000/044-Arpapat-Yipram/The-Role-and-Workflow-of-a-Business-Analyst-647abeb1'.</msg>
-<msg time="2024-10-07T16:43:47.090373" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-10-07T16:43:47.090373" level="FAIL">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=129.0.6668.90)
-Stacktrace:
-	GetHandleVerifier [0x00007FF6416DB645+29573]
-	(No symbol) [0x00007FF641650470]
-	(No symbol) [0x00007FF64150B6EA]
-	(No symbol) [0x00007FF6415036ED]
-	(No symbol) [0x00007FF6414F4459]
-	(No symbol) [0x00007FF6414F6202]
-	(No symbol) [0x00007FF6414F471F]
-	(No symbol) [0x00007FF6414F3FAB]
-	(No symbol) [0x00007FF6414F3EEA]
-	(No symbol) [0x00007FF6414F1D65]
-	(No symbol) [0x00007FF6414F23DC]
-	(No symbol) [0x00007FF64150E821]
-	(No symbol) [0x00007FF6415A94DE]
-	(No symbol) [0x00007FF6415872FA]
-	(No symbol) [0x00007FF6415A86BC]
-	(No symbol) [0x00007FF6415870A3]
-	(No symbol) [0x00007FF6415512DF]
-	(No symbol) [0x00007FF641552441]
-	GetHandleVerifier [0x00007FF641A0C58D+3375821]
-	GetHandleVerifier [0x00007FF641A57987+3684039]
-	GetHandleVerifier [0x00007FF641A4CDAB+3640043]
-	GetHandleVerifier [0x00007FF64179B7C6+816390]
-	(No symbol) [0x00007FF64165B77F]
-	(No symbol) [0x00007FF6416575A4]
-	(No symbol) [0x00007FF641657740]
-	(No symbol) [0x00007FF64164659F]
-	BaseThreadInitThunk [0x00007FF891F7257D+29]
-	RtlUserThreadStart [0x00007FF8933EAF28+40]
-</msg>
-<arg>${URL_POST}</arg>
-<arg>${BROWSER}</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="FAIL" start="2024-10-07T16:43:40.584447" elapsed="6.509101">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=129.0.6668.90)
-Stacktrace:
-	GetHandleVerifier [0x00007FF6416DB645+29573]
-	(No symbol) [0x00007FF641650470]
-	(No symbol) [0x00007FF64150B6EA]
-	(No symbol) [0x00007FF6415036ED]
-	(No symbol) [0x00007FF6414F4459]
-	(No symbol) [0x00007FF6414F6202]
-	(No symbol) [0x00007FF6414F471F]
-	(No symbol) [0x00007FF6414F3FAB]
-	(No symbol) [0x00007FF6414F3EEA]
-	(No symbol) [0x00007FF6414F1D65]
-	(No symbol) [0x00007FF6414F23DC]
-	(No symbol) [0x00007FF64150E821]
-	(No symbol) [0x00007FF6415A94DE]
-	(No symbol) [0x00007FF6415872FA]
-	(No symbol) [0x00007FF6415A86BC]
-	(No symbol) [0x00007FF6415870A3]
-	(No symbol) [0x00007FF6415512DF]
-	(No symbol) [0x00007FF641552441]
-	GetHandleVerifier [0x00007FF641A0C58D+3375821]
-	GetHandleVerifier [0x00007FF641A57987+3684039]
-	GetHandleVerifier [0x00007FF641A4CDAB+3640043]
-	GetHandleVerifier [0x00007FF64179B7C6+816390]
-	(No symbol) [0x00007FF64165B77F]
-	(No symbol) [0x00007FF6416575A4]
-	(No symbol) [0x00007FF641657740]
-	(No symbol) [0x00007FF64164659F]
-	BaseThreadInitThunk [0x00007FF891F7257D+29]
-	RtlUserThreadStart [0x00007FF8933EAF28+40]
-</status>
-</kw>
-<kw name="Maximize Browser Window" owner="SeleniumLibrary">
-<doc>Maximizes current browser window.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:47.093548" elapsed="0.000000"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<arg>5</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:47.093548" elapsed="0.000000"/>
-</kw>
-<kw name="Check Title blog">
-<status status="NOT RUN" start="2024-10-07T16:43:47.094550" elapsed="0.000000"/>
-</kw>
-<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
-<arg>screenshots/Viwearticle/TC2004.png</arg>
-<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
-<status status="NOT RUN" start="2024-10-07T16:43:47.094550" elapsed="0.000000"/>
-</kw>
-<doc>Verify that a user can view an article by accessing its direct URL.</doc>
-<status status="FAIL" start="2024-10-07T16:43:40.583447" elapsed="6.512104">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=129.0.6668.90)
-Stacktrace:
-	GetHandleVerifier [0x00007FF6416DB645+29573]
-	(No symbol) [0x00007FF641650470]
-	(No symbol) [0x00007FF64150B6EA]
-	(No symbol) [0x00007FF6415036ED]
-	(No symbol) [0x00007FF6414F4459]
-	(No symbol) [0x00007FF6414F6202]
-	(No symbol) [0x00007FF6414F471F]
-	(No symbol) [0x00007FF6414F3FAB]
-	(No symbol) [0x00007FF6414F3EEA]
-	(No symbol) [0x00007FF6414F1D65]
-	(No symbol) [0x00007FF6414F23DC]
-	(No symbol) [0x00007FF64150E821]
-	(No symbol) [0x00007FF6415A94DE]
-	(No symbol) [0x00007FF6415872FA]
-	(No symbol) [0x00007FF6415A86BC]
-	(No symbol) [0x00007FF6415870A3]
-	(No symbol) [0x00007FF6415512DF]
-	(No symbol) [0x00007FF641552441]
-	GetHandleVerifier [0x00007FF641A0C58D+3375821]
-	GetHandleVerifier [0x00007FF641A57987+3684039]
-	GetHandleVerifier [0x00007FF641A4CDAB+3640043]
-	GetHandleVerifier [0x00007FF64179B7C6+816390]
-	(No symbol) [0x00007FF64165B77F]
-	(No symbol) [0x00007FF6416575A4]
-	(No symbol) [0x00007FF641657740]
-	(No symbol) [0x00007FF64164659F]
-	BaseThreadInitThunk [0x00007FF891F7257D+29]
-	RtlUserThreadStart [0x00007FF8933EAF28+40]
-</status>
-</test>
-<status status="FAIL" start="2024-10-07T16:43:32.619339" elapsed="14.481832"/>
+<status status="FAIL" start="2024-10-09T15:08:43.645422" elapsed="56.358185"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="4" skip="0">All Tests</stat>
+<stat pass="0" fail="2" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="4" skip="0" id="s1" name="TC2-Viewarticle">TC2-Viewarticle</stat>
+<stat pass="0" fail="2" skip="0" id="s1" name="TC14-ArticleApproval">TC14-ArticleApproval</stat>
 </suite>
 </statistics>
 <errors>
+<msg time="2024-10-09T15:08:43.926303" level="ERROR">Error in file 'D:\tech-vibe\src\__test__\tests\TC14-ArticleApproval.robot' on line 8: Error in file 'D:\tech-vibe\src\__test__\tests\TC14-ArticleDisapproval.robot' on line 9: Resource file with 'Test Cases' section is invalid.</msg>
 </errors>
 </robot>
