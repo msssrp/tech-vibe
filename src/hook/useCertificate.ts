@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { notifications } from "@mantine/notifications";
-import contractABI from "@/hardhat/artifacts/contracts/BlogReviewCert.sol/BlogReview.json";
+import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
 const useCertificate = () => {
   const [certificateData, setCertificateData] = useState<any[]>([]);
