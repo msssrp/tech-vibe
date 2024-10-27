@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 import CertificateCard from "../component/CertificateCard";
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
-const page = () => {
+const Page = () => {
   const [certificateId, setCertificateId] = useState<string>("");
   const [ownerName, setOwnerName] = useState<string>("");
   const [certificateHash, setCertificateHash] = useState<string>("");
@@ -142,4 +142,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
