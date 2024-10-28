@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import CertificateCard from "./component/CertificateCard";
 import useCertificate from "@/hook/useCertificate";
+import SwitchNet from "@/components/web3/SwitchNet";
 
 const Page = () => {
   const {
@@ -13,11 +14,13 @@ const Page = () => {
   } = useCertificate();
   return (
     <div className="container mx-auto flex flex-col space-y-9 mt-6 h-screen">
-      <div className="w-full flex justify-center items-center">
+      <div className="w-full flex flex-col space-y-5 justify-center items-center">
+        <SwitchNet />
         <div className="w-2/3 mx-auto">
           <label
             htmlFor="default-search"
-            className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
+            className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+          >
             Search
           </label>
           <div className="relative">
@@ -27,7 +30,8 @@ const Page = () => {
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
-                viewBox="0 0 20 20">
+                viewBox="0 0 20 20"
+              >
                 <path
                   stroke="currentColor"
                   strokeLinecap="round"

@@ -10,29 +10,37 @@ const useCertificateSection = (certificateId: string) => {
   const [ownerOfToken, setOwnerOfToken] = useState("");
   const [currentUrl, setCurrentUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
   const ethereum = typeof window !== "undefined" && window.ethereum;
   useEffect(() => {
     if (ethereum) {
       const getCertData = async () => {
-        const accounts = await ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const from = accounts[0];
-        const provider = new ethers.BrowserProvider(ethereum);
-        const runner = await provider.getSigner(from);
-        const contract = new ethers.Contract(
-          contractAddress,
-          contractABI.abi,
-          runner
-        );
-        const result = await contract.getCertificate(certificateId);
-        const tokenurl = await contract.tokenURI(certificateId);
-        const tokenOwner = await contract.ownerOf(certificateId);
-        setCertData(result);
-        setTokenUrl(tokenurl);
-        setOwnerOfToken(tokenOwner);
-        setCurrentUrl(window.location.href);
-        setIsLoading(false);
+        try {
+          const accounts = await ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          const from = accounts[0];
+          const provider = new ethers.BrowserProvider(ethereum);
+          const runner = await provider.getSigner(from);
+          const contract = new ethers.Contract(
+            contractAddress,
+            contractABI.abi,
+            runner
+          );
+          const result = await contract.getCertificate(certificateId);
+          const tokenurl = await contract.tokenURI(certificateId);
+          const tokenOwner = await contract.ownerOf(certificateId);
+          setCertData(result);
+          setTokenUrl(tokenurl);
+          setOwnerOfToken(tokenOwner);
+          setCurrentUrl(window.location.href);
+          setIsLoading(false);
+        } catch (error: any) {
+          console.log(error.code);
+          if (error.code === "BAD_DATA") {
+            return setError("Please verify mainnet connection");
+          }
+        }
       };
       getCertData();
     }
@@ -56,6 +64,7 @@ const useCertificateSection = (certificateId: string) => {
     clipboard,
     certData,
     contractAddress,
+    error,
   };
 };
 

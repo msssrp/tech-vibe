@@ -55,7 +55,7 @@ const FilterStatus: React.FC<FilterProps> = ({
   return (
     <Popover position="right-start" withArrow shadow="md">
       <Popover.Target>
-        <Button>
+        <Button id="btn-filter-status">
           <FaFilter />
         </Button>
       </Popover.Target>
