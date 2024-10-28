@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import React, { useState } from "react";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 import CertificateCard from "../component/CertificateCard";
+import SwitchNet from "@/components/web3/SwitchNet";
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
 const Page = () => {
   const [certificateId, setCertificateId] = useState<string>("");
@@ -67,6 +68,9 @@ const Page = () => {
         }
       } catch (error: any) {
         console.log(error);
+        if (error.code === "BAD_DATA") {
+          return setError("Please verify mainnet connection and try again.");
+        }
         notifications.show({
           title: "Something went wrong",
           message: error.message,
@@ -84,7 +88,8 @@ const Page = () => {
   };
 
   return (
-    <div className="w-full h-screen container mx-auto mt-5">
+    <div className="w-full h-screen container mx-auto mt-5 flex flex-col space-y-5">
+      <SwitchNet />
       <form
         className="flex flex-col items-center space-y-4"
         onSubmit={handleVerify}
