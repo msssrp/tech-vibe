@@ -4,8 +4,7 @@ import { toBlob } from "html-to-image";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { getCertificateUri } from "@/libs/actions/web3/web3";
+import { useState } from "react";
 import { updateArticleClaimCertificate } from "@/libs/actions/article/article";
 const useCertificateGen = (articleName: string, userFullName: string) => {
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
@@ -77,7 +76,7 @@ const useCertificateGen = (articleName: string, userFullName: string) => {
               const tx = await contract.mintCertificate(
                 from,
                 userFullName,
-                "100 ups certificate",
+                "Certificate of Merit for Engaging Content",
                 uploadData.IpfsHash,
                 `ipfs://${metadataUploadData.IpfsHash}`,
                 articleName

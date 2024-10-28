@@ -93,8 +93,8 @@ const Page = () => {
               onChange={(e) => setNewUpvotes(e.currentTarget.value)}
             />
             <span className="text-base-content text-xs">
-              Number of upvotes that website will generate certificate for
-              author default is: {upvotes}
+              Number of official upvotes that website will generate certificate
+              for author default is: {upvotes}
             </span>
           </div>
           <button

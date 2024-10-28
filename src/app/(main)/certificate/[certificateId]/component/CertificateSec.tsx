@@ -20,9 +20,18 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
     currentUrl,
     fullDate,
     yearCert,
+    error,
   } = useCertificateSection(certificateId);
+
+  if (error) {
+    return (
+      <div className="container mx-auto text-center mt-5">
+        {error} and try again.
+      </div>
+    );
+  }
   return (
-    <div className="container max-w-[1100px] mx-auto flex space-x-7 justify-center mt-6">
+    <div className="container max-w-[1100px] mx-auto flex space-x-7 justify-center">
       <div className="flex flex-col w-1/2 space-y-4">
         <div className="w-full flex flex-col items-start justify-start">
           <div className="h-[350px] w-full">
@@ -116,10 +125,10 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
           />
         </div>
       </div>
-      <div className="w-1/2 flex flex-col space-y-4 mt-12">
+      <div className="w-1/2 flex flex-col space-y-4 mt-6">
         <div className="flex items-center space-x-3">
           <span className="text-2xl font-semibold">
-            {certData[3]} # {certificateId}
+            Certificate of Merit for Engaging Content # {certificateId}
           </span>
           <a
             href={`https://testnets.opensea.io/assets/sepolia/${contractAddress}/${certificateId}`}
@@ -222,7 +231,10 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
             data={certificateId}
             withBtn={true}
           />
-          <InformationSection title="Certificate type" data={certData[3]} />
+          <InformationSection
+            title="Certificate type"
+            data={"Certificate of Merit for Engaging Content"}
+          />
           <InformationSection title="Blog Name" data={certData[5]} />
           <InformationSection title="Owner Name" data={certData[2]} />
           <InformationSection title="Year" data={yearCert} />
