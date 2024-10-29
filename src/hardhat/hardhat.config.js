@@ -12,6 +12,9 @@ module.exports = {
       },
     },
   },
+  ignition: {
+    requiredConfirmations: 1,
+  },
   networks: {
     rei: {
       url: `https://rei-rpc.moonrhythm.io`,

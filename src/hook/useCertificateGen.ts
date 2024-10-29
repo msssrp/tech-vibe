@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { toBlob } from "html-to-image";
 
-import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
+import contractABI from "@/hardhat/artifacts/contracts/Certificate.sol/Certificate.json";
 import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -52,6 +52,9 @@ const useCertificateGen = (articleName: string, userFullName: string) => {
               // Upload metadata to Pinata
               const metadata = {
                 name: `Certificate's ${articleName}`,
+                title: "Certificate of Merit for Engaging Content",
+                blogName: articleName,
+                author: userFullName,
                 description: `Certificate for 100 ups on ${articleName} blog`,
                 image: `ipfs://${uploadData.IpfsHash}`,
               };
@@ -75,11 +78,7 @@ const useCertificateGen = (articleName: string, userFullName: string) => {
               // Interacting with the smart contract
               const tx = await contract.mintCertificate(
                 from,
-                userFullName,
-                "Certificate of Merit for Engaging Content",
-                uploadData.IpfsHash,
-                `ipfs://${metadataUploadData.IpfsHash}`,
-                articleName
+                `ipfs://${metadataUploadData.IpfsHash}`
               );
 
               await tx.wait();

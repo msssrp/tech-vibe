@@ -28,6 +28,7 @@ const useCertificate = () => {
           );
           const result = await contract.getAllCertificates();
           setCertificateData(result);
+          console.log(result);
         } catch (error) {
           setCertificateData([]);
           notifications.show({
