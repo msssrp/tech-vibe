@@ -4,7 +4,7 @@ import { articleProps } from "@/types/article/article";
 import { getUser } from "@/libs/actions/user/user";
 import Link from "next/link";
 import { getArticleTags } from "@/libs/actions/tag/tag";
-import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
+import InteractBtn from "@/app/(main)/(post)/[user]/[post_id]/component/InteractBtn";
 import { calculateReadingTime } from "@/libs/getReadingTimeOnArticle";
 import { getUserRoleOnServer } from "@/libs/actions/user/user_role";
 import { FaCircleCheck } from "react-icons/fa6";

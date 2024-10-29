@@ -39,6 +39,18 @@ const ethChainData = {
   blockExplorerUrls: ["https://etherscan.io"],
 };
 
+const sepoliaChainData = {
+  chainId: "0xaa36a7", // Sepolia testnet ID in hex
+  chainName: "Ethereum Sepolia",
+  nativeCurrency: {
+    name: "Sepolia ETH",
+    symbol: "ETH",
+    decimals: 18,
+  },
+  rpcUrls: ["https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID"],
+  blockExplorerUrls: ["https://sepolia.etherscan.io"],
+};
+
 const polygonMainnet = {
   chainId: "0x89", // 137 in decimal
   chainName: "Polygon Mainnet",
@@ -153,6 +165,7 @@ const SwitchNet = () => {
       try {
         const chainIdMap: { [key: string]: string } = {
           ETH: ethChainData.chainId,
+          ETHSepolia: sepoliaChainData.chainId,
           BSC: bscMainnet.chainId,
           Polygon: polygonMainnet.chainId,
           Avax: avaxCChain.chainId,
@@ -226,6 +239,7 @@ const SwitchNet = () => {
   const chainDataMap = {
     REI: { id: reiChainData.chainId, displayName: "REI Chain" },
     ETH: { id: ethChainData.chainId, displayName: "Ethereum" },
+    ETHSepolia: { id: sepoliaChainData.chainId, displayName: "ETH Sepolia" },
     BSC: { id: bscMainnet.chainId, displayName: "Binance Smart Chain" },
     Polygon: { id: polygonMainnet.chainId, displayName: "Polygon" },
     Avax: { id: avaxCChain.chainId, displayName: "Avalanche" },

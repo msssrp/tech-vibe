@@ -1,5 +1,5 @@
 "use client";
-import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
+import InteractBtn from "@/app/(main)/(post)/[user]/[post_id]/component/InteractBtn";
 import { getArticleTagsFromClient } from "@/libs/actions/tag/tag";
 import { calculateReadingTime } from "@/libs/getReadingTimeOnArticle";
 import { articleProps } from "@/types/article/article";
@@ -76,7 +76,8 @@ const AllArticleCardClient: React.FC<allArticleCardClientProps> = ({
                 {article.article_title}
               </Link>
             ) : (
-              <Link id="title-article"
+              <Link
+                id="title-article"
                 href={`/${userWithHyphen}/${articleSlug}`}
                 className="card-title text-xl flex-1"
               >
