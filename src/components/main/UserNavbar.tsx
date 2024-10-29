@@ -129,6 +129,7 @@ const UserNavbar: React.FC<userNavbarProps> = ({
         </Link>
         <div className="form-control">
           <input
+            id="Input-search"
             type="text"
             placeholder="Search"
             required
