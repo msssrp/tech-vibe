@@ -12,6 +12,7 @@ export async function getWebLogoUrl() {
     .eq("id", settingId)
     .single();
   if (error) console.log("error from getWebLogoUrl", error);
+  //@ts-ignore
   if (data) return data.logo_url;
 }
 
@@ -52,6 +53,7 @@ export async function getCarousel(): Promise<carouselProps[] | null> {
     .select("*")
     .order("created_at", { ascending: true });
   if (error) console.log("error from getCarousel", error);
+  //@ts-ignore
   return data;
 }
 

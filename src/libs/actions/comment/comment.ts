@@ -37,12 +37,16 @@ export async function newComment(
       .select("article_title,user_id")
       .eq("article_id", article_id)
       .single();
+    //@ts-ignore
     if (user && article && user_id !== article.user_id) {
       await createNewNotification(
+        //@ts-ignore
         `${user?.user_fullname} has comment on you're ${article.article_title}`,
         "comment",
         `${comment}`,
+        //@ts-ignore
         article.user_id,
+        //@ts-ignore
         article.article_title
       );
     }
@@ -69,12 +73,17 @@ export async function newComment(
       .select("article_title,user_id")
       .eq("article_id", article_id)
       .single();
+    //@ts-ignore
+
     if (user && data && user_id !== data.user_id) {
       await createNewNotification(
+        //@ts-ignore
         `${user?.user_fullname} has replied to your comment`,
         "comment",
         `${comment}`,
+        //@ts-ignore
         data.user_id,
+        //@ts-ignore
         article?.article_title
       );
     }

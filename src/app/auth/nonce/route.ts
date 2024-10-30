@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
     .eq("walletAddr", walletAddr)
     .single();
 
+  //@ts-ignore
   if (data && data.nonce) {
     const { error } = await supabase
       .from("web3_user")

@@ -12,10 +12,7 @@ contract BlogCertificate is ERC721, ERC721URIStorage, Ownable {
     struct BlogCertData {
         uint64 tokenId;
         address owner;
-        string ownerName;
-        string title;
         string ipfsHash;
-        string blogName;
         uint timestamp;
     }
 
@@ -32,11 +29,7 @@ contract BlogCertificate is ERC721, ERC721URIStorage, Ownable {
 
     function mintCertificate(
         address owner, 
-        string memory ownerName, 
-        string memory title, 
-        string memory ipfsHash, 
-        string memory ipfstokenURI, 
-        string memory blogName
+        string memory ipfstokenURI
     ) public returns (uint256) {
         // Increment the counter to generate a new unique tokenId
         _tokenIdCounter.increment();
@@ -44,7 +37,7 @@ contract BlogCertificate is ERC721, ERC721URIStorage, Ownable {
         
         _safeMint(owner, tokenId);
         _setTokenURI(tokenId, ipfstokenURI);
-        _blogCertData.push(BlogCertData(tokenId, owner, ownerName, title, ipfsHash, blogName, block.timestamp));
+        _blogCertData.push(BlogCertData(tokenId, owner, ipfstokenURI, block.timestamp));
         return tokenId;
     }
 
@@ -59,6 +52,26 @@ contract BlogCertificate is ERC721, ERC721URIStorage, Ownable {
             }
         }
         revert("Certificate not found for the provided tokenId");
+    }
+
+    function getCertificatesByOwner(address owner) public view returns (BlogCertData[] memory) {
+        uint count = 0;
+        for (uint i = 0; i < _blogCertData.length; i++) {
+            if (_blogCertData[i].owner == owner) {
+                count++;
+            }
+        }
+
+        BlogCertData[] memory certificates = new BlogCertData[](count);
+        uint index = 0;
+        for (uint i = 0; i < _blogCertData.length; i++) {
+            if (_blogCertData[i].owner == owner) {
+                certificates[index] = _blogCertData[i];
+                index++;
+            }
+        }
+
+        return certificates;
     }
 
     // Revoke the certificate by marking the tokenId as revoked, burning the token, and removing it from the data array
@@ -117,20 +130,22 @@ contract BlogCertificate is ERC721, ERC721URIStorage, Ownable {
     }
       
     function verifyCertificate(
-        uint256 tokenId,
-        address owner,
-        string memory ipfsHash
+    uint256 tokenId,
+    string memory ipfsHash
     ) public view returns (bool) {
         if (!_exists(tokenId)) return false;
-        if (ownerOf(tokenId) != owner) return false;
         if (_revokedCertificates[uint64(tokenId)]) return false;
+
         for (uint i = 0; i < _blogCertData.length; i++) {
-        if (_blogCertData[i].tokenId == tokenId) {
-            if (keccak256(abi.encodePacked(_blogCertData[i].ipfsHash)) == keccak256(abi.encodePacked(ipfsHash))) {
-                return true;
+            if (_blogCertData[i].tokenId == tokenId) {
+                if (keccak256(abi.encodePacked(_blogCertData[i].ipfsHash)) == keccak256(abi.encodePacked(ipfsHash))) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
-    }
-        return true; 
-    }
+        return false;
+}
+
 }

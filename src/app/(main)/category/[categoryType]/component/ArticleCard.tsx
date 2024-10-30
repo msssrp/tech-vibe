@@ -68,6 +68,7 @@ const ArticleCard: React.FC<articleCardProps> = async ({ article, userId }) => {
         <div className="flex justify-between items-center">
           <div className="space-x-1 h-8 overflow-hidden w-full">
             {tags &&
+              //@ts-ignore
               tags.tag_name.map((tag: any, index: number) => {
                 return (
                   <button

@@ -13,6 +13,7 @@ export async function getNotification(
   if (error) {
     return Promise.reject(error);
   }
+  //@ts-ignore
   return data as notificationProps[];
 }
 

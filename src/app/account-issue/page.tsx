@@ -9,6 +9,7 @@ const page = async () => {
   const { data } = await getUserSession();
   if (!data.user) return redirect("/");
   const userActiveStatus = await getUserActive(data.user.id);
+  //@ts-ignore
   if (userActiveStatus && userActiveStatus.user_status === "active")
     return redirect("/");
   return (

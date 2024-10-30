@@ -5,22 +5,28 @@ import React, { useState } from "react";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 import CertificateCard from "../component/CertificateCard";
 import SwitchNet from "@/components/web3/SwitchNet";
+import { Textarea } from "@mantine/core";
+import { certificateData } from "@/types/article/article";
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
 const Page = () => {
   const [certificateId, setCertificateId] = useState<string>("");
-  const [ownerName, setOwnerName] = useState<string>("");
   const [certificateHash, setCertificateHash] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const [certificateData, setCertificateData] = useState({
+  const [certificateData, setCertificateData] = useState<certificateData>({
     tokenId: "",
     ownerAddress: "",
-    ownerName: "",
-    certificateTitle: "",
-    certificateImageHash: "",
+    ipfsUrl: "",
+    timestamp: 0,
   });
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!certificateId || !ownerName || !certificateHash) {
+    setCertificateData({
+      tokenId: "",
+      ownerAddress: "",
+      ipfsUrl: "",
+      timestamp: 0,
+    });
+    if (!certificateId || !certificateHash) {
       setError("Please fill all the fields");
       return;
     }
@@ -41,10 +47,8 @@ const Page = () => {
         );
         const checkCertificate = await contract.verifyCertificate(
           certificateId,
-          ownerName,
           certificateHash
         );
-        console.log(checkCertificate);
         if (checkCertificate) {
           const result = await contract.getCertificate(certificateId);
           notifications.show({
@@ -55,9 +59,8 @@ const Page = () => {
           setCertificateData({
             tokenId: result[0],
             ownerAddress: result[1],
-            ownerName: result[2],
-            certificateTitle: result[3],
-            certificateImageHash: result[4],
+            ipfsUrl: result[2],
+            timestamp: result[3],
           });
         } else {
           notifications.show({
@@ -70,6 +73,13 @@ const Page = () => {
         console.log(error);
         if (error.code === "BAD_DATA") {
           return setError("Please verify mainnet connection and try again.");
+        } else if (
+          error.code === "UNSUPPORTED_OPERATION" ||
+          error.code === "INVALID_ARGUMENT"
+        ) {
+          return setError(
+            "Please check all the information ownser address should be 0x 42 chars long and certificate id should be a number"
+          );
         }
         notifications.show({
           title: "Something went wrong",
@@ -95,35 +105,29 @@ const Page = () => {
         onSubmit={handleVerify}
       >
         <h1 className="text-3xl font-bold">Verify Certificate</h1>
-        <div className="flex w-1/3 space-x-4">
-          <input
-            type="text"
-            placeholder="Certificate ID"
-            className="border border-gray-300 rounded-md p-2 mt-4 w-1/3"
-            onChange={(e) => {
-              setCertificateId(e.target.value);
-              return setError("");
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Owner Address"
-            className="border border-gray-300 rounded-md p-2 mt-4 w-full"
-            onChange={(e) => {
-              setOwnerName(e.target.value);
-              return setError("");
-            }}
-          />
+        <div className="w-1/3 space-y-3 flex flex-col">
+          <div className="w-full flex flex-col space-y-4">
+            <Textarea
+              autosize
+              label="Certificate ID"
+              className="w-full"
+              onChange={(e) => {
+                setCertificateId(e.target.value);
+                return setError("");
+              }}
+            />
+            <Textarea
+              autosize
+              label="Certificate Hash"
+              className="w-full"
+              onChange={(e) => {
+                setCertificateHash(e.target.value);
+                return setError("");
+              }}
+            />
+          </div>
         </div>
-        <input
-          type="text"
-          placeholder="Certificate Hash"
-          className="border border-gray-300 rounded-md p-2 mt-4 w-1/3"
-          onChange={(e) => {
-            setCertificateHash(e.target.value);
-            return setError("");
-          }}
-        />
+
         {error && <p className="text-red">{error}</p>}
         <button
           className="bg-blue-500 text-white rounded-md p-2 mt-4"
@@ -136,10 +140,7 @@ const Page = () => {
         <div className="flex items-center justify-center">
           <CertificateCard
             tokenId={certificateData.tokenId}
-            ownerAddress={certificateData.ownerAddress}
-            ownerName={certificateData.ownerName}
-            certificateTitle={certificateData.certificateTitle}
-            certificateImageHash={certificateData.certificateImageHash}
+            ipfsUrlHash={certificateData.ipfsUrl}
           />
         </div>
       )}

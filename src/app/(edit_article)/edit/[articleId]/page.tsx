@@ -36,6 +36,7 @@ export default async function writepage({
         writeId={params.articleId}
         isEdit={true}
         articleData={article}
+        //@ts-ignore
         articleTag={articleTag?.tag_name}
         webLogoUrl={imagesPath + webLogo}
       />

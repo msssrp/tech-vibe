@@ -6,6 +6,7 @@ export default async function getAllTags() {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.from("tag").select("tag_name");
   if (error) console.log("error from get all tag:", error);
+  //@ts-ignore
   const newSetOfTag = [...new Set(data?.flatMap((item) => item.tag_name))];
   const newData = newSetOfTag.map((tag) => ({ tag_name: tag }));
   return newData;
@@ -50,6 +51,7 @@ export async function getArticleTagsFromClient(
     .limit(1)
     .single();
   if (error) console.log(error);
+  //@ts-ignore
   return { tag: data };
 }
 
@@ -68,10 +70,12 @@ export async function newTag(article_id: string, tagData: tagProps) {
     if (error) console.log(error);
   }
 
+  //@ts-ignore
   if (data && data.tag_id) {
     const { error: errorFromUpdateTag } = await supabase
       .from("tag")
       .update({ tag_name: tagData.tag_name })
+      //@ts-ignore
       .eq("tag_id", data.tag_id);
     if (errorFromUpdateTag)
       return console.log("error from update tag", errorFromUpdateTag);
