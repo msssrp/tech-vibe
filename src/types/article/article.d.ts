@@ -96,3 +96,12 @@ export type FilterProps = {
     value: string;
   }[];
 };
+
+export type ipfsData = {
+  author: string
+  blogName: string
+  description: string
+  image: string
+  name: string
+  title: string
+}

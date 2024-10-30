@@ -1,7 +1,6 @@
 import { ethers } from "ethers";
 import { toBlob } from "html-to-image";
-
-import contractABI from "@/hardhat/artifacts/contracts/Certificate.sol/Certificate.json";
+import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json"
 import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
