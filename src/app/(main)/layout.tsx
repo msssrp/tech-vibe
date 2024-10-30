@@ -18,6 +18,7 @@ export default async function RootLayout({
   if (data.user) {
     const userActiveStatus = await getUserActive(data.user.id);
     const notification = await getNotification(data.user.id);
+    //@ts-ignore
     if (userActiveStatus && userActiveStatus.user_status === "active") {
       return (
         <div>

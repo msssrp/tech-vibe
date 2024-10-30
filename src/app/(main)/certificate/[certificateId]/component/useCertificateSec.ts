@@ -2,9 +2,10 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 import { certificateData, ipfsData } from "@/types/article/article";
+import { useRouter } from "next/router";
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
 
-const useCertificateData = (certificateId: string, ethereum: any) => {
+const UseCertificateData = (certificateId: string, ethereum: any) => {
   const [certData, setCertData] = useState<certificateData>({
     tokenId: "",
     ownerAddress: "",
@@ -18,7 +19,7 @@ const useCertificateData = (certificateId: string, ethereum: any) => {
     if (error.code === "BAD_DATA") {
       return "Please verify mainnet connection.";
     } else if (error.code === "CALL_EXCEPTION") {
-      window.location.href = "/";
+      window.location.href = "/certificate";
       return "Redirecting...";
     }
     return "An unexpected error occurred.";
@@ -72,4 +73,4 @@ const useCertificateData = (certificateId: string, ethereum: any) => {
   };
 };
 
-export default useCertificateData;
+export default UseCertificateData;

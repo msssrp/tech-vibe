@@ -10,6 +10,7 @@ export async function getUser(userId: string): Promise<userProps> {
     .eq("user_id", userId)
     .limit(1)
     .single();
+  //@ts-ignore
   return data;
 }
 

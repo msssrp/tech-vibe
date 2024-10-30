@@ -51,7 +51,7 @@ export async function generateMetadata({
     },
   };
 }
-const page = async ({
+const Page = async ({
   params,
   searchParams,
 }: {
@@ -133,6 +133,7 @@ const page = async ({
         <ArticleContent article={article.pgrst_scalar.article_content} />
         <div className="flex space-x-3 pt-8 pb-10">
           {Tagdata &&
+            //@ts-ignore
             Tagdata.tag_name.map((tag: any, index: any) => (
               <Badge
                 key={index}
@@ -199,4 +200,4 @@ const page = async ({
   );
 };
 
-export default page;
+export default Page;

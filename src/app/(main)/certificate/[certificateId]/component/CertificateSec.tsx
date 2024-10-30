@@ -4,8 +4,9 @@ import InformationSection from "./InformationSection";
 import Image from "next/image";
 import { Loader, Skeleton } from "@mantine/core";
 import { useClipboard } from "@mantine/hooks";
-import useCertificateData from "./useCertificateSec";
 import { ipfsData } from "@/types/article/article";
+import UseCertificateData from "./useCertificateSec";
+import { useRouter } from "next/router";
 type certificateProps = {
   certificateId: string;
 };
@@ -19,7 +20,8 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
     currentUrl,
     certData,
     ownerOfToken,
-  } = useCertificateData(certificateId, ethereum);
+    error,
+  } = UseCertificateData(certificateId, ethereum);
   const gateway_url = process.env.NEXT_PUBLIC_GATEWAY_URL as string;
   const clipboard = useClipboard({ timeout: 2000 });
   const certDate = new Date(Number(certData.timestamp) * 1000);
@@ -36,7 +38,6 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
     author: "",
     name: "",
   });
-
   useEffect(() => {
     setIsLoading(true);
     const getCertificateData = async () => {

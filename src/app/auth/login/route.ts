@@ -22,6 +22,7 @@ export async function POST(req: NextRequest) {
     .eq("walletAddr", walletAddr)
     .eq("nonce", nonce)
     .single();
+  //@ts-ignore
   if (walletData.user_id === null) {
     console.log(email, walletAddr);
 

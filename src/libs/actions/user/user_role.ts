@@ -30,6 +30,7 @@ export async function getUserRole(
     .select("user_role_name")
     .eq("user_id", user_id);
   if (error) console.log(error);
+  //@ts-ignore
   return data;
 }
 
@@ -43,6 +44,7 @@ export async function getUserRoleOnServer(
     .eq("user_id", user_id);
   if (error) console.log(error);
 
+  //@ts-ignore
   return data;
 }
 

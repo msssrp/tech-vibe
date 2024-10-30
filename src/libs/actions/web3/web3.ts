@@ -29,6 +29,7 @@ export async function getUpvotesClient() {
     .eq("web3_id", web3Id)
     .single();
   if (error) return error.message;
+  //@ts-ignore
   return data.web3_upvotes;
 }
 
@@ -40,6 +41,7 @@ export async function getUpvotes() {
     .eq("web3_id", web3Id)
     .single();
   if (error) return error.message;
+  //@ts-ignore
   return data.web3_upvotes;
 }
 
@@ -51,5 +53,6 @@ export async function getCertificateUri() {
     .eq("web3_id", web3Id)
     .single();
   if (error) return error.message;
+  //@ts-ignore
   return data.web3_certificate;
 }

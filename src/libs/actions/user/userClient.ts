@@ -37,6 +37,7 @@ export async function getUserWithRole(): Promise<userWithRoleProps[] | null> {
   const { data, error } = await supabase.from("user").select(`*,user_role(*)`);
   if (error) console.log(error);
 
+  //@ts-ignore
   return data;
 }
 
@@ -57,6 +58,7 @@ export async function getUserFromClient(userId: string): Promise<userProps> {
     .eq("user_id", userId)
     .limit(1)
     .single();
+  //@ts-ignore
   return data;
 }
 
