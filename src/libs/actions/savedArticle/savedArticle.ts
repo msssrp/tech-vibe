@@ -25,6 +25,7 @@ export async function getSavedArticleByReadlistId(
     .select("*")
     .eq("readlists_id", readlists_id);
   if (error) console.log(error);
+  //@ts-ignore
   return data;
 }
 
@@ -37,6 +38,7 @@ export async function getSavedArticleByReadlistIdOnServer(
     .select("*")
     .eq("readlists_id", readlists_id);
   if (error) console.log(error);
+  //@ts-ignore
   return data;
 }
 

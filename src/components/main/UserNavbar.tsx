@@ -62,36 +62,49 @@ const UserNavbar: React.FC<userNavbarProps> = ({
     getUserFromSupabase();
   }, [updateLoading, updateUserState]);
 
-  supabase
-    .channel("notification-channel")
-    .on(
-      "postgres_changes",
-      { event: "*", schema: "public", table: "notification" },
-      (payload: any) => {
-        setNotificationData((prevData) => {
-          if (userId !== payload.new.user_id) return prevData;
-          const index =
-            Array.isArray(prevData) &&
-            prevData.findIndex(
-              (item) => item.notification_id === payload.new.notification_id
-            );
-          if (index === -1) {
-            return [...prevData, payload.new];
-          } else {
-            return (
-              prevData &&
-              prevData.map((item, i) => {
-                if (i === index) {
-                  return payload.new;
-                }
-                return item;
-              })
-            );
-          }
-        });
-      }
-    )
-    .subscribe();
+  useEffect(() => {
+    if (!userId) return;
+
+    const subscription = supabase
+      .channel("notification-channel")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "notification" },
+        (payload: any) => {
+          setNotificationData((prevData) => {
+            console.log(payload);
+
+            if (userId !== payload.new.user_id) return prevData;
+
+            const index =
+              Array.isArray(prevData) &&
+              prevData.findIndex(
+                (item) => item.notification_id === payload.new.notification_id
+              );
+
+            if (index === -1) {
+              return [...prevData, payload.new];
+            } else {
+              return (
+                prevData &&
+                prevData.map((item, i) => {
+                  if (i === index) {
+                    return payload.new;
+                  }
+                  return item;
+                })
+              );
+            }
+          });
+        }
+      )
+      .subscribe();
+
+    // Cleanup function to unsubscribe when component unmounts
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [userId, supabase]);
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {

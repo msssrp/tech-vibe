@@ -7,7 +7,7 @@ import { getArticleTagsFromClient } from "@/libs/actions/tag/tag";
 import { tagProps } from "@/types/tag/tag";
 import { userProps } from "@/types/user/user";
 import { getUserFromClient } from "@/libs/actions/user/userClient";
-import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
+import InteractBtn from "@/app/(main)/(post)/[user]/[post_id]/component/InteractBtn";
 import { getUserRole } from "@/libs/actions/user/user_role";
 import { FaCircleCheck } from "react-icons/fa6";
 

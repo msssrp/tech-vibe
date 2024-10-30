@@ -43,6 +43,7 @@ export async function getComplaintsArticles(): Promise<
     .select("*", { count: "exact" })
     .eq("article_status", "complaint");
   if (error) console.log(error);
+  //@ts-ignore
   return { data, count };
 }
 
@@ -55,6 +56,7 @@ export async function getComplaints(): Promise<
     user (*),
     article (*, user(*))`);
   if (error) console.log("error from get complaints", error);
+  //@ts-ignore
   if (data) return data;
 }
 
@@ -67,6 +69,7 @@ export async function getComplaintByArticleId(
     .select("*, article (*, user(*))")
     .eq("article_id", articleId);
   if (error) console.log(error);
+  //@ts-ignore
   return data;
 }
 

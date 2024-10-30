@@ -5,7 +5,6 @@ import { getArticleTags } from "@/libs/actions/tag/tag";
 import Image from "next/image";
 import Link from "next/link";
 
-
 type popularArticlesProps = {
   popularArticles: articleProps;
 };
@@ -16,10 +15,22 @@ const CardPopular: React.FC<popularArticlesProps> = async ({
   const user = await getUser(popularArticles.user_id);
   const tags = await getArticleTags(popularArticles.article_id);
   const userWithHyphen = user.user_fullname.replace(/ /g, "-");
-  const articleTitleWithHypen = popularArticles.article_title.replace(/ /g, "-");
+  const articleTitleWithHypen = popularArticles.article_title.replace(
+    / /g,
+    "-"
+  );
   const firstArticleId = popularArticles.article_id.split("-")[0];
   const articleSlug = articleTitleWithHypen + "-" + firstArticleId;
-
+  const renderTags = () => {
+    // @ts-ignore
+    return tags?.tag_name.map((tag: any, index: number) => {
+      return (
+        <div key={index} className="btn btn-sm badge bg-[#F2F2F2] rounded-full">
+          <p className="font-thin m-0">{tag}</p>
+        </div>
+      );
+    });
+  };
   return (
     <div className="flex justify-center ">
       <div className="card card-compact w-80 sm:w-[30rem] bg-base-100 drop-shadow-sm rounded-t-[50px] rounded-md border">
@@ -33,20 +44,16 @@ const CardPopular: React.FC<popularArticlesProps> = async ({
           />
         </figure>
         <div className="card-body">
-          <span className="space-x-1 line-clamp-1">
-            {tags?.tag_name.map((tag: any, index: number) => {
-              return (
-                <div
-                  key={index}
-                  className={`btn btn-sm badge bg-[#F2F2F2] rounded-full `}
-                >
-                  <p className="font-thin m-0">{tag}</p>
-                </div>
-              );
-            })}
-          </span>
-          <Link href={`/${userWithHyphen}/${articleSlug}`} className="card-title cursor-pointer line-clamp-2">{popularArticles.article_title}</Link>
-          <p className="line-clamp-2 m-0">{popularArticles.article_description}</p>
+          <span className="space-x-1 line-clamp-1">{renderTags()}</span>
+          <Link
+            href={`/${userWithHyphen}/${articleSlug}`}
+            className="card-title cursor-pointer line-clamp-2"
+          >
+            {popularArticles.article_title}
+          </Link>
+          <p className="line-clamp-2 m-0">
+            {popularArticles.article_description}
+          </p>
           <div className="flex justify-between items-center mt-2">
             <div className="avatar items-center">
               <div className="w-8 rounded-full">

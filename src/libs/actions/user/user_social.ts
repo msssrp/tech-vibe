@@ -14,6 +14,7 @@ export async function getUserSocial(
   if (error) {
     console.log(error);
   }
+  //@ts-ignore
   return { user_social: userSocial };
 }
 

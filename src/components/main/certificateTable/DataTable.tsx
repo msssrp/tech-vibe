@@ -27,11 +27,8 @@ const DataTable: React.FC<dataTableProps> = ({ certificates }) => {
       const mappedData = certificates.map((item) => ({
         tokenId: item[0] as number,
         ownerAddress: item[1] as string,
-        ownerName: item[2] as string,
-        certificateTitle: item[3] as string,
-        certificateImageHash: item[4] as string,
-        blogName: item[5] as string,
-        timestamp: item[6] as number,
+        ipfsHash: item[2] as string,
+        timestamp: item[3] as number,
       }));
       setData(mappedData);
     }
@@ -42,16 +39,20 @@ const DataTable: React.FC<dataTableProps> = ({ certificates }) => {
       header: "Token ID",
     },
     {
-      accessorKey: "certificateTitle",
-      header: "Certificate Title",
-    },
-    {
-      accessorKey: "blogName",
-      header: "Blog Name",
-    },
-    {
-      accessorKey: "ownerName",
-      header: "Owner",
+      accessorKey: "ipfsHash",
+      header: "IPFS Hash",
+      cell: ({ row }) => {
+        const cid = row.original.ipfsHash.replace("ipfs://", "");
+        return (
+          <a
+            href={`https://ipfs.io/ipfs/${cid}`}
+            target="_blank"
+            className="underline"
+          >
+            {cid}
+          </a>
+        );
+      },
     },
     {
       accessorKey: "ownerAddress",

@@ -1,4 +1,4 @@
-import InteractBtn from "@/app/(post)/[user]/[post_id]/component/InteractBtn";
+import InteractBtn from "@/app/(main)/(post)/[user]/[post_id]/component/InteractBtn";
 import { getArticleTags } from "@/libs/actions/tag/tag";
 import { getUser } from "@/libs/actions/user/user";
 import { getUserRoleOnServer } from "@/libs/actions/user/user_role";
@@ -68,6 +68,7 @@ const ArticleCard: React.FC<articleCardProps> = async ({ article, userId }) => {
         <div className="flex justify-between items-center">
           <div className="space-x-1 h-8 overflow-hidden w-full">
             {tags &&
+              //@ts-ignore
               tags.tag_name.map((tag: any, index: number) => {
                 return (
                   <button

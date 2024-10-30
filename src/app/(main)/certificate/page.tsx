@@ -1,17 +1,17 @@
 "use client";
-import { ethers } from "ethers";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CertificateCard from "./component/CertificateCard";
 import useCertificate from "@/hook/useCertificate";
 import SwitchNet from "@/components/web3/SwitchNet";
-
 const Page = () => {
   const {
     setCertificateByName,
     certificateByName,
     filterdCertificates,
     certificateData,
+    isLoading,
   } = useCertificate();
+
   return (
     <div className="container mx-auto flex flex-col space-y-9 mt-6 h-screen">
       <div className="w-full flex flex-col space-y-5 justify-center items-center">
@@ -46,22 +46,23 @@ const Page = () => {
               id="default-search"
               onChange={(e) => setCertificateByName(e.target.value)}
               className="block w-full p-4 ps-10 text-sm focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500   "
-              placeholder="Search Certificate By Name..."
+              placeholder="Search Certificate By Owner address..."
             />
           </div>
         </div>
       </div>
       <div className="flex justify-center items-center flex-wrap">
-        {certificateByName && filterdCertificates.length > 0 ? (
+        {isLoading ? (
+          <div>
+            <p>Loading...</p>
+          </div>
+        ) : certificateByName && filterdCertificates.length > 0 ? (
           <>
             {filterdCertificates.map((result, index) => (
               <CertificateCard
                 key={index}
                 tokenId={result[0]}
-                ownerAddress={result[1]}
-                ownerName={result[2]}
-                certificateTitle={result[3]}
-                certificateImageHash={result[4]}
+                ipfsUrlHash={result[2]}
               />
             ))}
           </>
@@ -71,21 +72,14 @@ const Page = () => {
               <CertificateCard
                 key={index}
                 tokenId={result[0]}
-                ownerAddress={result[1]}
-                ownerName={result[2]}
-                certificateTitle={result[3]}
-                certificateImageHash={result[4]}
+                ipfsUrlHash={result[2]}
               />
             ))}
           </>
         ) : (
-          <>
-            {filterdCertificates && filterdCertificates.length === 0 && (
-              <div>
-                <p>No certificate found</p>
-              </div>
-            )}
-          </>
+          <div>
+            <p>No certificate found</p>
+          </div>
         )}
       </div>
     </div>

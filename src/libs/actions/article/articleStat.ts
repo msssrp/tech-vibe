@@ -24,7 +24,9 @@ export async function increaseArticleViews(
     .eq("user_id", currentUser_id)
     .single();
   if (Aerror) console.log(Aerror);
+  //@ts-ignore
   if (data && data.articleStat_views >= 0) {
+    //@ts-ignore
     const newViewsCount = data.articleStat_views + 1;
 
     const { error } = await supabase
@@ -154,6 +156,7 @@ export async function getAllArticlesViews(userId: string) {
     const { data: articleViews, error } = await supabase
       .from("article_statistics")
       .select("articleStat_views")
+      //@ts-ignore
       .eq("article_id", article.article_id);
     if (error) {
       console.log("error from articleViewsPromise", error);
@@ -167,6 +170,7 @@ export async function getAllArticlesViews(userId: string) {
       return (
         sum +
         articleViewArray.reduce(
+          //@ts-ignore
           (innerSum, articleView) => innerSum + articleView.articleStat_views,
           0
         )
@@ -190,6 +194,7 @@ export async function getAllArticleUps(userId: string) {
     const { data: articleUps, error } = await supabase
       .from("article_statistics")
       .select("articleStat_ups")
+      //@ts-ignore
       .eq("article_id", article.article_id);
     if (error) {
       console.log("error from articleUpsPromise", error);
@@ -203,6 +208,7 @@ export async function getAllArticleUps(userId: string) {
       return (
         sum +
         articleUpsArray.reduce(
+          //@ts-ignore
           (innerSum, articleView) => innerSum + articleView.articleStat_ups,
           0
         )
@@ -226,6 +232,7 @@ export async function getArticlesViewsWithDate(userId: string) {
     const { data: articleViews, error } = await supabase
       .from("article_statistics")
       .select("articleStat_views,articleStat_ups,articleStat_createdAt")
+      //@ts-ignore
       .eq("article_id", article.article_id);
     if (error) {
       console.log("error from articleViewsPromise", error);
@@ -235,13 +242,16 @@ export async function getArticlesViewsWithDate(userId: string) {
   });
   const articleViewsWithDate = await Promise.all(articleViewsPromise);
   const flattenedViews = articleViewsWithDate.flat().map((view) => {
+    //@ts-ignore
     const date = new Date(view?.articleStat_createdAt);
     const formattedDate = date.toLocaleDateString("en-US", {
       month: "short",
       day: "2-digit",
     });
     return {
+      //@ts-ignore
       views: view?.articleStat_views,
+      //@ts-ignore
       ups: view?.articleStat_ups,
       date: formattedDate,
     };

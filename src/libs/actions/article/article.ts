@@ -17,6 +17,7 @@ export async function getArticles(): Promise<articleProps[]> {
     .order("created_at", { ascending: false });
   if (error) console.log(error);
 
+  //@ts-ignore
   return data as articleProps[];
 }
 
@@ -34,6 +35,7 @@ export async function getAllArticle(): Promise<articleProps[]> {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.from("article").select("*");
   if (error) throw new Error(error.message);
+  //@ts-ignore
   return data as articleProps[];
 }
 
@@ -46,6 +48,7 @@ export async function getAllArticleByUserId(
     .select("*")
     .eq("user_id", userId);
   if (error) throw new Error(error.message);
+  //@ts-ignore
   return data as articleProps[];
 }
 
@@ -62,6 +65,7 @@ export async function getArticleByStatusOnUserId(
     .eq("user_id", userId);
   if (error) console.log("error from getArticleByStatusOnUserId", error);
 
+  //@ts-ignore
   return data as articleProps[];
 }
 
@@ -74,6 +78,7 @@ export async function getArticleCoverByArticleId(articleId: string) {
     .single();
 
   if (error) console.log("error from getArticleCoverByArticleId", error);
+  //@ts-ignore
   return data?.article_cover;
 }
 
@@ -81,6 +86,7 @@ export async function getAllArticles(): Promise<articleProps[]> {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.from("article").select("*");
   if (error) throw new Error(error.message);
+  //@ts-ignore
   return data as articleProps[];
 }
 
@@ -93,6 +99,7 @@ export async function getAllArticlesWithUser(): Promise<
     user (*)`);
   if (error) throw new Error(error.message);
 
+  //@ts-ignore
   return data;
 }
 
@@ -110,6 +117,7 @@ export async function getNpruArticleWithUser(): Promise<
     return [];
   }
 
+  //@ts-ignore
   const userIds = userRoles.map((role) => role.user_id);
   const { data: articles, error: articlesError } = await supabase
     .from("article")
@@ -126,6 +134,7 @@ export async function getNpruArticleWithUser(): Promise<
     return [];
   }
 
+  //@ts-ignore
   return articles;
 }
 
@@ -141,6 +150,7 @@ export async function getNpruArticle(): Promise<articleProps[]> {
     return [];
   }
 
+  //@ts-ignore
   const userIds = userRoles.map((role) => role.user_id);
   const { data: articles, error: articlesError } = await supabase
     .from("article")
@@ -153,6 +163,7 @@ export async function getNpruArticle(): Promise<articleProps[]> {
     return [];
   }
 
+  //@ts-ignore
   return articles as articleProps[];
 }
 
@@ -168,6 +179,7 @@ export async function getNpruArticleOnUserPage(): Promise<articleProps[]> {
     return [];
   }
 
+  //@ts-ignore
   const userIds = userRoles.map((role) => role.user_id);
   const { data: articles, error: articlesError } = await supabase
     .from("article")
@@ -181,6 +193,7 @@ export async function getNpruArticleOnUserPage(): Promise<articleProps[]> {
     return [];
   }
 
+  //@ts-ignore
   return articles as articleProps[];
 }
 
@@ -196,6 +209,7 @@ export async function getNpruArticleOnClient(): Promise<articleProps[]> {
     return [];
   }
 
+  //@ts-ignore
   const userIds = userRoles.map((role) => role.user_id);
   const { data: articles, error: articlesError } = await supabase
     .from("article")
@@ -207,6 +221,7 @@ export async function getNpruArticleOnClient(): Promise<articleProps[]> {
     return [];
   }
 
+  //@ts-ignore
   return articles as articleProps[];
 }
 
@@ -222,6 +237,7 @@ export async function getArticleById(
     .single();
   if (error) console.log("error from getarticleById", error);
 
+  //@ts-ignore
   return data;
 }
 
@@ -237,6 +253,7 @@ export async function getArticleByIdOnServer(
     .single();
   if (error) console.log("error from getarticleById", error);
 
+  //@ts-ignore
   return data;
 }
 
@@ -252,6 +269,7 @@ export async function getArticleByIdWithPublicStatus(
     .limit(1)
     .single();
 
+  //@ts-ignore
   return data;
 }
 
@@ -263,6 +281,7 @@ export async function getArticleByUserId(userId: string) {
     .eq("user_id", userId)
     .eq("article_status", "public");
   if (error) console.log(error);
+  //@ts-ignore
   return data as articleProps[];
 }
 
@@ -274,6 +293,7 @@ export async function getArticleByUserIdOnServer(userId: string) {
     .eq("user_id", userId)
     .eq("article_status", "public");
   if (error) console.log(error);
+  //@ts-ignore
   return data as articleProps[];
 }
 
@@ -287,6 +307,7 @@ export async function getArticleByName(
     .eq("article_title", article_Title)
     .limit(1)
     .single();
+  //@ts-ignore
   return data;
 }
 
@@ -322,6 +343,7 @@ export async function getAuthorIdByArticleId(
     .eq("article_id", article_id)
     .limit(1)
     .single();
+  //@ts-ignore
   return data?.user_id;
 }
 
@@ -407,6 +429,7 @@ export async function getFollowingArticle(userId: string) {
   if (!dataFollowing) return { error: "You didnt follow any people yet" };
   const flatternedUserIds = dataFollowing
     .flat()
+    //@ts-ignore
     .map((item) => item.user_follow_id);
   const promises = flatternedUserIds.map(async (id) => {
     const articles = await getArticleByUserId(id);
@@ -433,6 +456,7 @@ export async function getArticleByTag(tag: string) {
   const articleIdFromTag = await Promise.all(promise);
   const flatternedArticleIds = articleIdFromTag
     .flat()
+    //@ts-ignore
     .map((item) => item?.article_id);
   const uniqeArticleIds = new Set(flatternedArticleIds);
   const articlePromises = Array.from(uniqeArticleIds).map(async (id) => {
@@ -460,6 +484,7 @@ export async function getArticleByFollowingUserAndTag(
   if (!dataFollowing) return { error: "You didnt follow any people yet" };
   const flatternedUserIds = dataFollowing
     .flat()
+    //@ts-ignore
     .map((item) => item.user_follow_id);
 
   const articleIdFromUserIdPromises = flatternedUserIds.map(async (id) => {
@@ -476,6 +501,7 @@ export async function getArticleByFollowingUserAndTag(
   const articleId = await Promise.all(articleIdFromUserIdPromises);
   const flatternedArticleIdFromPromise = articleId
     .flat()
+    //@ts-ignore
     .map((id) => id?.article_id);
 
   const articleFromTagPromises = flatternedArticleIdFromPromise.map(
@@ -493,6 +519,7 @@ export async function getArticleByFollowingUserAndTag(
 
   const flatternedArticleIdFromTag = articleIdFromTag
     .flat()
+    //@ts-ignore
     .map((id) => id?.article_id);
 
   const tagArray = tag.split("-");
@@ -508,6 +535,7 @@ export async function getArticleByFollowingUserAndTag(
           .containedBy("tag_name", tagArrayData);
         if (tagError) console.log("error from tagPromise ", tagError);
         if (tagData && tagData.length > 0) {
+          //@ts-ignore
           return tagData.map((item) => item.article_id);
         }
         return [];
@@ -536,6 +564,7 @@ export async function getRandomArticles(): Promise<articleProps[] | null> {
     .select("*")
     .eq("article_status", "public");
   if (error) console.log("error from get popularArticle ", error);
+  //@ts-ignore
   return data;
 }
 
@@ -551,6 +580,7 @@ export async function getPopularArticles(
   const viewCounts =
     articleIds &&
     articleIds.reduce<Record<string, number>>((acc, log) => {
+      //@ts-ignore
       acc[log.article_id] = (acc[log.article_id] || 0) + 1;
       return acc;
     }, {});
@@ -613,5 +643,6 @@ export async function getArticlesByTitlePattern(
     .eq("article_status", "public")
     .ilike("article_title", `%${article_Title}%`);
   if (error) console.log("error fetching articles by title pattern:", error);
+  //@ts-ignore
   return data as articleProps[];
 }

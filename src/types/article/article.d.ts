@@ -55,10 +55,7 @@ interface UploadedFile extends File {
 export type columnDefProps = {
   tokenId: number;
   ownerAddress: string;
-  ownerName: string;
-  certificateTitle: string;
-  certificateImageHash: string;
-  blogName: string;
+  ipfsHash: string;
   timestamp: number;
 };
 
@@ -95,4 +92,20 @@ export type FilterProps = {
     id: string;
     value: string;
   }[];
+};
+
+export type certificateData = {
+  tokenId: string;
+  ownerAddress: string;
+  ipfsUrl: string;
+  timestamp: number;
+};
+
+export type ipfsData = {
+  author: string;
+  blogName: string;
+  description: string;
+  image: string;
+  name: string;
+  title: string;
 };

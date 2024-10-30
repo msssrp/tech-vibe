@@ -168,12 +168,15 @@ const Page = async ({
                 articleUp={articleUps}
                 user_id={userSession.data.user?.id}
                 article_id={article.pgrst_scalar.article_id}
+                //@ts-ignore
                 userUp={UpCount?.articleStat_ups}
+                //@ts-ignore
                 userDown={DownCount?.articleStat_downs}
               />
               <div>
                 {CommentData && (
                   <DrawerComment
+                    //@ts-ignore
                     comment={CommentData}
                     article_id={article.pgrst_scalar.article_id}
                     user_id={userSession?.data?.user?.id}
@@ -222,6 +225,7 @@ const Page = async ({
         <ArticleContent article={article.pgrst_scalar.article_content} />
         <div className="flex space-x-3 pt-8 pb-10">
           {Tagdata &&
+            //@ts-ignore
             Tagdata.tag_name.map((tag: any, index: any) => (
               <Badge
                 key={index}

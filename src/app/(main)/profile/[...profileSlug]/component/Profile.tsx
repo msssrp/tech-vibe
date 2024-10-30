@@ -7,7 +7,7 @@ import Image from "next/image";
 import { userProps } from "@/types/user/user";
 import { articleProps } from "@/types/article/article";
 import RightArticleCard from "@/components/main/rightSectionComponent/RightArticleCard";
-import FollowBtn from "@/app/(post)/[user]/[post_id]/component/FollowBtn";
+import FollowBtn from "@/app/(main)/(post)/[user]/[post_id]/component/FollowBtn";
 import { getUserThatFollowing } from "@/libs/actions/user/user_following";
 import { getUserSocial } from "@/libs/actions/user/user_social";
 

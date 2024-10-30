@@ -1,13 +1,13 @@
 import { Eip1193Provider, ethers } from "ethers";
 import React, { useEffect, useState } from "react";
-import { notifications } from "@mantine/notifications";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
+import { notifications } from "@mantine/notifications";
+const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
 interface EthereumProvider extends Eip1193Provider {
   on: (event: string, callback: (chainId: string) => void) => void;
   removeListener: (event: string, callback: (chainId: string) => void) => void;
 }
-const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
-const useCertificate = () => {
+const useMyCertificate = () => {
   const [certificateData, setCertificateData] = useState<any[]>([]);
   const ethereum = (typeof window !== "undefined" &&
     window.ethereum) as EthereumProvider;
@@ -28,7 +28,7 @@ const useCertificate = () => {
             contractABI.abi,
             runner
           );
-          const result = await contract.getAllCertificates();
+          const result = await contract.getCertificatesByOwner(from);
           setCertificateData(result);
         } catch (error) {
           setCertificateData([]);
@@ -60,19 +60,7 @@ const useCertificate = () => {
       }
     };
   }, [ethereum]);
-
-  const [certificateByName, setCertificateByName] = useState<string>("");
-
-  const filterdCertificates = certificateData.filter((result) =>
-    result[1].toLowerCase().includes(certificateByName.toLowerCase())
-  );
-  return {
-    setCertificateByName,
-    filterdCertificates,
-    certificateByName,
-    certificateData,
-    isLoading,
-  };
+  return { isLoading, certificateData };
 };
 
-export default useCertificate;
+export default useMyCertificate;
