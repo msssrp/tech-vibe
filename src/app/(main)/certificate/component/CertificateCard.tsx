@@ -18,36 +18,37 @@ const CertificateCard: React.FC<certificateProps> = ({
     description: "",
     image: "",
     name: "",
-    title: ""
-  })
+    title: "",
+  });
+
   useEffect(() => {
     const getIPFSData = async () => {
-      const ipfsUrl = ipfsUrlHash
-
-      const cid = ipfsUrl.replace("ipfs://", "")
-      const IPFSURI = `https://ipfs.io/ipfs/${cid}`
-      const result = await fetch(IPFSURI)
-      if (!result.ok) return console.log(result.status)
-      const data = await result.json() as ipfsData
-      const imageCid = data.image.replace("ipfs://", "")
+      const ipfsUrl = ipfsUrlHash;
+      const cid = ipfsUrl.replace("ipfs://", "");
+      const IPFSURI = `https://ipfs.io/ipfs/${cid}`;
+      const result = await fetch(IPFSURI);
+      if (!result.ok) return console.log(result);
+      const data = (await result.json()) as ipfsData;
+      const imageCid = data.image.replace("ipfs://", "");
       setCertificateHashData({
         author: data.author,
         blogName: data.blogName,
         description: data.description,
         image: imageCid,
         name: data.name,
-        title: data.title
-      })
-    }
-    getIPFSData()
-  }, [])
+        title: data.title,
+      });
+    };
+    getIPFSData();
+  }, []);
 
   return (
     <Card
       shadow="sm"
       padding="sm"
       component="a"
-      className="w-96 h-[300px] mt-4 mr-10">
+      className="w-96 h-[300px] mt-4 mr-10"
+    >
       <Card.Section>
         <Image
           src={`${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${certificateHashData.image}`}

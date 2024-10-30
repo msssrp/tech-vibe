@@ -6,29 +6,27 @@ import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertific
 import CertificateCard from "../component/CertificateCard";
 import SwitchNet from "@/components/web3/SwitchNet";
 import { Textarea } from "@mantine/core";
+import { certificateData } from "@/types/article/article";
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
 const Page = () => {
   const [certificateId, setCertificateId] = useState<string>("");
-  const [ownerName, setOwnerName] = useState<string>("");
   const [certificateHash, setCertificateHash] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const [certificateData, setCertificateData] = useState({
+  const [certificateData, setCertificateData] = useState<certificateData>({
     tokenId: "",
     ownerAddress: "",
-    ownerName: "",
-    certificateTitle: "",
-    certificateImageHash: "",
+    ipfsUrl: "",
+    timestamp: 0,
   });
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
     setCertificateData({
       tokenId: "",
       ownerAddress: "",
-      ownerName: "",
-      certificateTitle: "",
-      certificateImageHash: "",
+      ipfsUrl: "",
+      timestamp: 0,
     });
-    if (!certificateId || !ownerName || !certificateHash) {
+    if (!certificateId || !certificateHash) {
       setError("Please fill all the fields");
       return;
     }
@@ -49,10 +47,8 @@ const Page = () => {
         );
         const checkCertificate = await contract.verifyCertificate(
           certificateId,
-          ownerName,
           certificateHash
         );
-        console.log(checkCertificate);
         if (checkCertificate) {
           const result = await contract.getCertificate(certificateId);
           notifications.show({
@@ -63,9 +59,8 @@ const Page = () => {
           setCertificateData({
             tokenId: result[0],
             ownerAddress: result[1],
-            ownerName: result[2],
-            certificateTitle: result[3],
-            certificateImageHash: result[4],
+            ipfsUrl: result[2],
+            timestamp: result[3],
           });
         } else {
           notifications.show({
@@ -111,11 +106,11 @@ const Page = () => {
       >
         <h1 className="text-3xl font-bold">Verify Certificate</h1>
         <div className="w-1/3 space-y-3 flex flex-col">
-          <div className="w-full flex space-x-4">
+          <div className="w-full flex flex-col space-y-4">
             <Textarea
               autosize
               label="Certificate ID"
-              className="w-1/3 min-w-[50px]"
+              className="w-full"
               onChange={(e) => {
                 setCertificateId(e.target.value);
                 return setError("");
@@ -123,23 +118,14 @@ const Page = () => {
             />
             <Textarea
               autosize
-              label="Owner Address"
-              className="min-w-[400px] w-full"
+              label="Certificate Hash"
+              className="w-full"
               onChange={(e) => {
-                setOwnerName(e.target.value);
+                setCertificateHash(e.target.value);
                 return setError("");
               }}
             />
           </div>
-          <Textarea
-            autosize
-            label="Certificate Hash"
-            className="p-2 w-full"
-            onChange={(e) => {
-              setCertificateHash(e.target.value);
-              return setError("");
-            }}
-          />
         </div>
 
         {error && <p className="text-red">{error}</p>}
@@ -154,10 +140,7 @@ const Page = () => {
         <div className="flex items-center justify-center">
           <CertificateCard
             tokenId={certificateData.tokenId}
-            ownerAddress={certificateData.ownerAddress}
-            ownerName={certificateData.ownerName}
-            certificateTitle={certificateData.certificateTitle}
-            certificateImageHash={certificateData.certificateImageHash}
+            ipfsUrlHash={certificateData.ipfsUrl}
           />
         </div>
       )}

@@ -9,6 +9,7 @@ const Page = () => {
     certificateByName,
     filterdCertificates,
     certificateData,
+    isLoading,
   } = useCertificate();
 
   return (
@@ -45,13 +46,17 @@ const Page = () => {
               id="default-search"
               onChange={(e) => setCertificateByName(e.target.value)}
               className="block w-full p-4 ps-10 text-sm focus:outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500   "
-              placeholder="Search Certificate By Name..."
+              placeholder="Search Certificate By Owner address..."
             />
           </div>
         </div>
       </div>
       <div className="flex justify-center items-center flex-wrap">
-        {certificateByName && filterdCertificates.length > 0 ? (
+        {isLoading ? (
+          <div>
+            <p>Loading...</p>
+          </div>
+        ) : certificateByName && filterdCertificates.length > 0 ? (
           <>
             {filterdCertificates.map((result, index) => (
               <CertificateCard
@@ -72,13 +77,9 @@ const Page = () => {
             ))}
           </>
         ) : (
-          <>
-            {filterdCertificates && filterdCertificates.length === 0 && (
-              <div>
-                <p>No certificate found</p>
-              </div>
-            )}
-          </>
+          <div>
+            <p>No certificate found</p>
+          </div>
         )}
       </div>
     </div>

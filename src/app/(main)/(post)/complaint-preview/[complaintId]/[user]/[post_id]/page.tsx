@@ -51,7 +51,7 @@ export async function generateMetadata({
     },
   };
 }
-const Page = async ({
+const page = async ({
   params,
   searchParams,
 }: {
@@ -199,4 +199,4 @@ const Page = async ({
   );
 };
 
-export default Page;
+export default page;
