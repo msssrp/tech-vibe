@@ -16,7 +16,7 @@ const Noticard: React.FC<NoticardProps> = ({
       .replace(/\//, "&");
     return (
       <Link
-        href={`/verify-certificate/${articleTitleSlug}`}
+        href={`certificate/verify-certificate/${articleTitleSlug}`}
         className="flex border-b justify-around p-2"
       >
         <div className="mr-3">

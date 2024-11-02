@@ -10,6 +10,12 @@ type notitabsProps = {
 };
 
 const NotiTabs: React.FC<notitabsProps> = ({ notification, userId }) => {
+  const sortedNotification =
+    notification &&
+    notification.sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    ); // Sort by timestamp, descending
   const commentNotification =
     notification &&
     notification.filter(

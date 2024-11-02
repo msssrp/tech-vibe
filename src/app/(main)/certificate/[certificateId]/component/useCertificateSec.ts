@@ -2,10 +2,34 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 import { certificateData, ipfsData } from "@/types/article/article";
-import { useRouter } from "next/router";
-const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+import { RPC_URLS } from "../../context/Certificate";
 
-const UseCertificateData = (certificateId: string, ethereum: any) => {
+const UseCertificateData = (certificateId: string, provider: string) => {
+  const rpcProvider = new ethers.JsonRpcProvider(provider);
+  const getContractAddress = (provider: string) => {
+    let contractAddress;
+
+    switch (provider) {
+      case RPC_URLS.polygon:
+        contractAddress = process.env
+          .NEXT_PUBLIC_POLYGON_CONTRACT_ADDRESS as string;
+        break;
+      case RPC_URLS.avalanche:
+        contractAddress = process.env
+          .NEXT_PUBLIC_AVAX_CONTRACT_ADDRESS as string;
+        break;
+      default:
+        contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+    }
+
+    return contractAddress;
+  };
+  const contractAddress = getContractAddress(provider);
+  const contract = new ethers.Contract(
+    contractAddress,
+    contractABI.abi,
+    rpcProvider
+  );
   const [certData, setCertData] = useState<certificateData>({
     tokenId: "",
     ownerAddress: "",
@@ -27,17 +51,6 @@ const UseCertificateData = (certificateId: string, ethereum: any) => {
   useEffect(() => {
     const getCertData = async () => {
       try {
-        const accounts = await ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const from = accounts[0];
-        const provider = new ethers.BrowserProvider(ethereum);
-        const runner = await provider.getSigner(from);
-        const contract = new ethers.Contract(
-          contractAddress,
-          contractABI.abi,
-          runner
-        );
         const result = await contract.getCertificate(certificateId);
         const tokenOwner = await contract.ownerOf(certificateId);
 
@@ -54,10 +67,8 @@ const UseCertificateData = (certificateId: string, ethereum: any) => {
       }
     };
 
-    if (ethereum && certificateId) {
-      getCertData();
-    }
-  }, [ethereum, certificateId]);
+    getCertData();
+  }, [provider]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     if (!error && certData) setIsLoading(false);

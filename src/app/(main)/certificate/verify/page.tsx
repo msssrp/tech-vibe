@@ -1,15 +1,40 @@
 "use client";
 import { notifications } from "@mantine/notifications";
 import { ethers } from "ethers";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 import CertificateCard from "../component/CertificateCard";
 import SwitchNet from "@/components/web3/SwitchNet";
 import { Textarea } from "@mantine/core";
 import { certificateData } from "@/types/article/article";
-const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+import { CertificateContext, RPC_URLS } from "../context/Certificate";
 const Page = () => {
-  const [certificateId, setCertificateId] = useState<string>("");
+  const { provider } = useContext(CertificateContext);
+  const getContractAddress = () => {
+    let contractAddress;
+
+    switch (provider) {
+      case RPC_URLS.polygon:
+        contractAddress = process.env
+          .NEXT_PUBLIC_POLYGON_CONTRACT_ADDRESS as string;
+        break;
+      case RPC_URLS.avalanche:
+        contractAddress = process.env
+          .NEXT_PUBLIC_AVAX_CONTRACT_ADDRESS as string;
+        break;
+      default:
+        contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+    }
+
+    return contractAddress;
+  };
+  const rpcProvider = new ethers.JsonRpcProvider(provider);
+  const contractAddress = getContractAddress();
+  const contract = new ethers.Contract(
+    contractAddress,
+    contractABI.abi,
+    rpcProvider
+  );
   const [certificateHash, setCertificateHash] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [certificateData, setCertificateData] = useState<certificateData>({
@@ -26,7 +51,7 @@ const Page = () => {
       ipfsUrl: "",
       timestamp: 0,
     });
-    if (!certificateId || !certificateHash) {
+    if (!certificateHash) {
       setError("Please fill all the fields");
       return;
     }
@@ -34,23 +59,11 @@ const Page = () => {
     const ethereum = typeof window !== "undefined" && window.ethereum;
     if (ethereum) {
       try {
-        const accounts = await ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const from = accounts[0];
-        const provider = new ethers.BrowserProvider(ethereum);
-        const runner = await provider.getSigner(from);
-        const contract = new ethers.Contract(
-          contractAddress,
-          contractABI.abi,
-          runner
-        );
         const checkCertificate = await contract.verifyCertificate(
-          certificateId,
           certificateHash
         );
         if (checkCertificate) {
-          const result = await contract.getCertificate(certificateId);
+          const result = await contract.getCertificate(checkCertificate[0]);
           notifications.show({
             title: "Certificate Verified",
             message: "Certificate is valid",
@@ -70,7 +83,7 @@ const Page = () => {
           });
         }
       } catch (error: any) {
-        console.log(error);
+        console.log(error.code);
         if (error.code === "BAD_DATA") {
           return setError("Please verify mainnet connection and try again.");
         } else if (
@@ -80,10 +93,12 @@ const Page = () => {
           return setError(
             "Please check all the information ownser address should be 0x 42 chars long and certificate id should be a number"
           );
+        } else if (error.code === "CALL_EXCEPTION") {
+          return setError("Certificate not found");
         }
         notifications.show({
-          title: "Something went wrong",
-          message: error.message,
+          title: "Certificate",
+          message: "Certificate invalid",
           color: "red",
         });
       }
@@ -107,15 +122,6 @@ const Page = () => {
         <h1 className="text-3xl font-bold">Verify Certificate</h1>
         <div className="w-1/3 space-y-3 flex flex-col">
           <div className="w-full flex flex-col space-y-4">
-            <Textarea
-              autosize
-              label="Certificate ID"
-              className="w-full"
-              onChange={(e) => {
-                setCertificateId(e.target.value);
-                return setError("");
-              }}
-            />
             <Textarea
               autosize
               label="Certificate Hash"

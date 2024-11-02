@@ -28,7 +28,7 @@ const usePostPage = async (
   );
 
   const user = await getUser(article.pgrst_scalar.user_id);
-  const { day, month } = convertTime(
+  const { day, month, year } = convertTime(
     article.pgrst_scalar.created_at ? article.pgrst_scalar.created_at : ""
   );
   const Tagdata = await getArticleTags(article.pgrst_scalar.article_id);
@@ -68,6 +68,7 @@ const usePostPage = async (
     articleUps,
     UpCount,
     DownCount,
+    year,
   };
 };
 

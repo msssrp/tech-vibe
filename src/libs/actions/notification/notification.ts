@@ -64,13 +64,14 @@ export async function createNewNotificationServer(
   };
 
   if (articleTitle) {
-    insertObject.article_title = articleTitle;
+    insertObject.article_title = `${articleTitle}`;
   }
   const { data: existNotification, error: getExistsNotification } =
     await supabase
       .from("notification")
       .select("*")
-      .eq("article_title", articleTitle)
+      .eq("notification_type", `upvote`)
+      .eq("article_title", `${articleTitle}`)
       .eq("user_id", userId);
   if (getExistsNotification) return console.log(getExistsNotification);
   if (existNotification.length > 0) {

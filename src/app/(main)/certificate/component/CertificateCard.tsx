@@ -3,6 +3,7 @@ import { Card, Image, Text } from "@mantine/core";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
+const gateway_url = process.env.NEXT_PUBLIC_GATEWAY_URL as string;
 type certificateProps = {
   tokenId: string;
   ipfsUrlHash: string;
@@ -25,7 +26,7 @@ const CertificateCard: React.FC<certificateProps> = ({
     const getIPFSData = async () => {
       const ipfsUrl = ipfsUrlHash;
       const cid = ipfsUrl.replace("ipfs://", "");
-      const IPFSURI = `https://ipfs.io/ipfs/${cid}`;
+      const IPFSURI = `${gateway_url}/ipfs/${cid}`;
       const result = await fetch(IPFSURI);
       if (!result.ok) return console.log(result);
       const data = (await result.json()) as ipfsData;

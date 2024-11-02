@@ -1,65 +1,60 @@
-import { Eip1193Provider, ethers } from "ethers";
-import React, { useEffect, useState } from "react";
+import { ethers } from "ethers";
+import { useEffect, useState } from "react";
 import { notifications } from "@mantine/notifications";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
-interface EthereumProvider extends Eip1193Provider {
-  on: (event: string, callback: (chainId: string) => void) => void;
-  removeListener: (event: string, callback: (chainId: string) => void) => void;
-}
-const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
-const useCertificate = () => {
+import { RPC_URLS } from "@/app/(main)/certificate/context/Certificate";
+
+const useCertificate = (provider: string) => {
+  const getContractAddress = (provider: string) => {
+    let contractAddress;
+
+    switch (provider) {
+      case RPC_URLS.polygon:
+        contractAddress = process.env
+          .NEXT_PUBLIC_POLYGON_CONTRACT_ADDRESS as string;
+        break;
+      case RPC_URLS.avalanche:
+        contractAddress = process.env
+          .NEXT_PUBLIC_AVAX_CONTRACT_ADDRESS as string;
+        break;
+      default:
+        contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+    }
+
+    return contractAddress;
+  };
+  const contractAddress = getContractAddress(provider);
+  const rpcProvider = new ethers.JsonRpcProvider(provider);
+  const contract = new ethers.Contract(
+    contractAddress,
+    contractABI.abi,
+    rpcProvider
+  );
   const [certificateData, setCertificateData] = useState<any[]>([]);
-  const ethereum = (typeof window !== "undefined" &&
-    window.ethereum) as EthereumProvider;
   const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
     const getCert = async () => {
-      if (ethereum) {
-        setIsLoading(true);
-        try {
-          const accounts = await ethereum.request({
-            method: "eth_requestAccounts",
-          });
-          const from = accounts[0];
-          const provider = new ethers.BrowserProvider(ethereum);
-          const runner = await provider.getSigner(from);
-          const contract = new ethers.Contract(
-            contractAddress,
-            contractABI.abi,
-            runner
-          );
-          const result = await contract.getAllCertificates();
-          setCertificateData(result);
-        } catch (error) {
-          setCertificateData([]);
-          notifications.show({
-            title: "Something went wrong",
-            message:
-              "Please check your mainnet connection. Make sure you are connected to Rei chain Network and try again.",
-            color: "orange",
-          });
-        } finally {
-          setIsLoading(false);
-        }
+      setIsLoading(true);
+      try {
+        const result = await contract.getAllCertificates();
+        setCertificateData(result);
+      } catch (error) {
+        console.log(error);
+
+        setCertificateData([]);
+        notifications.show({
+          title: "Certificate",
+          message:
+            "There is no certificate available on this chain, please switch to another chain",
+          color: "orange",
+        });
+      } finally {
+        setIsLoading(false);
       }
     };
 
     getCert();
-
-    const handleChainChanged = () => {
-      getCert();
-    };
-
-    if (ethereum) {
-      ethereum.on("chainChanged", handleChainChanged);
-    }
-
-    return () => {
-      if (ethereum) {
-        ethereum.removeListener("chainChanged", handleChainChanged);
-      }
-    };
-  }, [ethereum]);
+  }, [provider]);
 
   const [certificateByName, setCertificateByName] = useState<string>("");
 

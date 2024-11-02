@@ -10,8 +10,10 @@ type RevokeBtnProps = {
 };
 
 const RevokeBtn: React.FC<RevokeBtnProps> = ({ tokenId, setData }) => {
+  const [isClicked, setIsClicked] = React.useState(false);
   const revokeCertificate = async () => {
     try {
+      setIsClicked(true);
       const ethereum = typeof window !== "undefined" && window.ethereum;
       if (ethereum) {
         const accounts = await ethereum.request({
@@ -44,6 +46,8 @@ const RevokeBtn: React.FC<RevokeBtnProps> = ({ tokenId, setData }) => {
             message: `You are not the owner of this token`,
             color: "red",
           });
+        } finally {
+          setIsClicked(false);
         }
       }
     } catch (error) {
@@ -53,12 +57,15 @@ const RevokeBtn: React.FC<RevokeBtnProps> = ({ tokenId, setData }) => {
           "Please check your mainnet connection. Make sure you are connected to Rei chain Network and try again.",
         color: "orange",
       });
+    } finally {
+      setIsClicked(false);
     }
   };
   return (
     <button
       className="btn btn-sm bg-red text-white"
       onClick={() => revokeCertificate()}
+      disabled={isClicked}
     >
       Revoke
     </button>

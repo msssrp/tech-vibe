@@ -16,7 +16,9 @@ export function convertTime(time: string) {
   const timeStamp = new Date(time);
   const day = timeStamp.getDate();
   const month = timeStamp.getMonth() + 1;
-  return { day: day, month: months[month - 1] };
+  const year = timeStamp.getFullYear(); // Extract the year
+
+  return { year: year, day: day, month: months[month - 1] };
 }
 
 export function convertTimeWithHM(time: string) {
