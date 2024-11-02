@@ -6,7 +6,7 @@ import CertificateTab from "./component/CertificateTab";
 import useCertificate from "@/hook/useCertificate";
 import SwitchNetAdmin from "./component/SwitchNetAdmin";
 
-export const RPC_URLS = {
+const RPC_URLS = {
   sepolia:
     "https://light-delicate-energy.ethereum-sepolia.quiknode.pro/d37f6796b28cace29d313c06a9565bdb64f06c48",
   bsc: "https://light-delicate-energy.bsc.quiknode.pro/d37f6796b28cace29d313c06a9565bdb64f06c48",
