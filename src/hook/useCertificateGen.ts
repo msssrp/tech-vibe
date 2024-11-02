@@ -1,12 +1,32 @@
 import { ethers } from "ethers";
 import { toBlob } from "html-to-image";
-import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json"
+import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { updateArticleClaimCertificate } from "@/libs/actions/article/article";
+import { RPC_URLS } from "@/app/(main)/certificate/context/Certificate";
 const useCertificateGen = (articleName: string, userFullName: string) => {
-  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+  const ethereum = window.ethereum;
+  const getContractAddress = async () => {
+    const chainId = await ethereum.request({ method: "eth_chainId" });
+
+    let contractAddress;
+    switch (chainId) {
+      case "0xa86a": // Avalanche Mainnet
+        contractAddress = process.env
+          .NEXT_PUBLIC_AVAX_CONTRACT_ADDRESS as string;
+        break;
+      case "0x89": // Polygon Mainnet
+        contractAddress = process.env
+          .NEXT_PUBLIC_POLYGON_CONTRACT_ADDRESS as string;
+        break;
+      default:
+        contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+    }
+
+    return contractAddress;
+  };
   const [loadingState, setLoadingState] = useState("Accept");
   const router = useRouter();
   const onButtonClick = async () => {
@@ -34,13 +54,14 @@ const useCertificateGen = (articleName: string, userFullName: string) => {
           if (uploadData.IpfsHash) {
             try {
               setLoadingState("working at smartcontract...");
-              const ethereum = window.ethereum;
+
               const accounts = await ethereum.request({
                 method: "eth_requestAccounts",
               });
               const from = accounts[0];
               const provider = new ethers.BrowserProvider(ethereum);
               const runner = await provider.getSigner(from);
+              const contractAddress = await getContractAddress();
               const contract = new ethers.Contract(
                 contractAddress,
                 contractABI.abi,

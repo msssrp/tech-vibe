@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { Notifications } from "@mantine/notifications";
 import Image from "next/image";
 import useCertificateGen from "@/hook/useCertificateGen";
+import SwitchNetWork from "@/components/web3/SwitchNetwork";
 
 type certiProps = {
   userFullName: string;
@@ -32,16 +32,16 @@ const CertificateGen: React.FC<certiProps> = ({
 
   return (
     <>
-      <Notifications />
+      <SwitchNetWork />
       <div className="container mx-auto flex flex-col items-center justify-center space-y-7 mt-6">
         <div className="flex flex-col space-y-3 items-center">
-          <span className="text-xl font-semibold">Congratulation 🎉🎉</span>
+          <span className="text-xl font-semibold">Congratulations 🎉🎉</span>
           <p className="font-semibold">{userFullName}</p>
-          <span>youre blog</span>
+          <span>Your article</span>
           <span className="italic">{articleName}</span>
           <span>
-            has reached {upvote} official upvotes. Here is youre certificate
-            from us. Click accept to get youre certificate !!
+            has deeply engaged your readers. Here is your certificate of merit
+            for engaging content from us. Click accept to get your certificate.
           </span>
         </div>
         <div className="w-[560px] h-[400px] relative" id="content">

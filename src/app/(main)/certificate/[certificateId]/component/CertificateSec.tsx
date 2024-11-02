@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InformationSection from "./InformationSection";
 import Image from "next/image";
 import { Loader, Skeleton } from "@mantine/core";
@@ -7,12 +7,13 @@ import { useClipboard } from "@mantine/hooks";
 import { ipfsData } from "@/types/article/article";
 import UseCertificateData from "./useCertificateSec";
 import { useRouter } from "next/router";
+import { CertificateContext } from "../../context/Certificate";
 type certificateProps = {
   certificateId: string;
 };
 
 const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
-  const ethereum = typeof window !== "undefined" && window.ethereum;
+  const { provider } = useContext(CertificateContext);
   const {
     setIsLoading,
     isLoading,
@@ -21,7 +22,7 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
     certData,
     ownerOfToken,
     error,
-  } = UseCertificateData(certificateId, ethereum);
+  } = UseCertificateData(certificateId, provider);
   const gateway_url = process.env.NEXT_PUBLIC_GATEWAY_URL as string;
   const clipboard = useClipboard({ timeout: 2000 });
   const certDate = new Date(Number(certData.timestamp) * 1000);
@@ -38,6 +39,7 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
     author: "",
     name: "",
   });
+  const cidIpfs = certData.ipfsUrl.replace("ipfs://", "");
   useEffect(() => {
     setIsLoading(true);
     const getCertificateData = async () => {
@@ -157,7 +159,7 @@ const CertificateSec: React.FC<certificateProps> = ({ certificateId }) => {
               />
               <InformationSection
                 title="Token URI"
-                data={`${certData.ipfsUrl}`}
+                data={`${gateway_url}/ipfs/${cidIpfs}`}
                 withBtn={true}
                 showView={true}
               />

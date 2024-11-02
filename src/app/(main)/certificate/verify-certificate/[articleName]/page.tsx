@@ -6,6 +6,8 @@ import React from "react";
 import CertificateGen from "./component/CertificateGen";
 import getUserSession from "@/libs/actions/user/auth/getSession";
 import { getCertificateUri, getUpvotes } from "@/libs/actions/web3/web3";
+import { getWebLogoUrl } from "@/libs/actions/setting/webSetting";
+import VerifyNavbar from "@/components/main/VerifyNavbar";
 
 const imagesPath = process.env.NEXT_PUBLIC_IMAGES_PATH as string;
 
@@ -34,13 +36,18 @@ const page = async ({ params }: { params: { articleName: string } }) => {
   const user = await getUser(articleData.user_id);
   const certPath = await getCertificateUri();
   const certUrl = imagesPath + certPath;
+  const logoUrl = await getWebLogoUrl();
+  const webLogoUrl = imagesPath + logoUrl;
   return (
-    <CertificateGen
-      upvote={upvotes}
-      userFullName={user.user_fullname}
-      articleName={articleData.article_title}
-      certificateImageUrl={certUrl}
-    />
+    <div>
+      <VerifyNavbar webLogoUrl={webLogoUrl} />
+      <CertificateGen
+        upvote={upvotes}
+        userFullName={user.user_fullname}
+        articleName={articleData.article_title}
+        certificateImageUrl={certUrl}
+      />
+    </div>
   );
 };
 

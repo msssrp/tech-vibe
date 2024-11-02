@@ -9,6 +9,7 @@ import { calculateReadingTime } from "@/libs/getReadingTimeOnArticle";
 import { getUserRoleOnServer } from "@/libs/actions/user/user_role";
 import { FaCircleCheck } from "react-icons/fa6";
 import NpruVerify from "../ui/NpruVerify";
+import { redirect } from "next/navigation";
 type AllArticlesProps = {
   article: articleProps;
   user_id?: string;
@@ -18,6 +19,7 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
   article,
   user_id,
 }) => {
+  if (!user_id) return redirect("/");
   const user = await getUser(article.user_id);
   const tags = await getArticleTags(article.article_id);
   const userRole = await getUserRoleOnServer(user.user_id);

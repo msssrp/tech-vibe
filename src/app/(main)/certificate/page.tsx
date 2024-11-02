@@ -1,16 +1,18 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import CertificateCard from "./component/CertificateCard";
 import useCertificate from "@/hook/useCertificate";
 import SwitchNet from "@/components/web3/SwitchNet";
+import { CertificateContext } from "./context/Certificate";
 const Page = () => {
+  const { provider } = useContext(CertificateContext);
   const {
     setCertificateByName,
     certificateByName,
     filterdCertificates,
     certificateData,
     isLoading,
-  } = useCertificate();
+  } = useCertificate(provider);
 
   return (
     <div className="container mx-auto flex flex-col space-y-9 mt-6 h-screen">
@@ -67,18 +69,29 @@ const Page = () => {
             ))}
           </>
         ) : certificateData && certificateByName === "" ? (
-          <>
-            {certificateData.map((result, index) => (
-              <CertificateCard
-                key={index}
-                tokenId={result[0]}
-                ipfsUrlHash={result[2]}
-              />
-            ))}
-          </>
+          certificateData.length > 0 ? (
+            <>
+              {certificateData.map((result, index) => (
+                <CertificateCard
+                  key={index}
+                  tokenId={result[0]}
+                  ipfsUrlHash={result[2]}
+                />
+              ))}
+            </>
+          ) : (
+            <div>
+              <p>
+                There is no certificate available on this chain, please switch
+                to another chain
+              </p>
+            </div>
+          )
         ) : (
           <div>
-            <p>No certificate found</p>
+            <p>
+              Owner address not match to any certificates, please try another
+            </p>
           </div>
         )}
       </div>
