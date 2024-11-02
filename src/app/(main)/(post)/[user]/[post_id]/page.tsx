@@ -86,6 +86,7 @@ const Page = async ({
     CommentData,
     Tagdata,
     UserFollowers,
+    year,
   } = await usePostPage(userName, articleTitle, articleId);
   if (!article.pgrst_scalar.created_at || !article.pgrst_scalar.user_id)
     redirect("/");
@@ -106,15 +107,14 @@ const Page = async ({
 
     if (articleUps >= currentUpVoteSet) {
       await createNewNotificationServer(
-        `Your article reached ${articleUps} upvotes`,
+        `Congratulations!`,
         "upvote",
-        `Your article ${article.pgrst_scalar.article_title} reached ${articleUps} upvotes. Now you can claim a certificate from the website.`,
+        `Your article ${article.pgrst_scalar.article_title} has reached a new upvote milestone. Now you can claim a certificate of merit for engaging content.`,
         userSession.data.user.id,
         article.pgrst_scalar.article_title
       );
     }
   }
-
   if (
     article.pgrst_scalar.article_status !== "public" &&
     article.pgrst_scalar.user_id !== userSession.data.user?.id
@@ -159,6 +159,7 @@ const Page = async ({
               <div className="text-[#616160] flex space-x-2">
                 <p>{month}</p>
                 <p> {day}</p>
+                <p>{year}</p>
               </div>
             </div>
           </div>

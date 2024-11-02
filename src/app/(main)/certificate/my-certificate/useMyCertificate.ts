@@ -2,7 +2,6 @@ import { Eip1193Provider, ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 import { notifications } from "@mantine/notifications";
-const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
 interface EthereumProvider extends Eip1193Provider {
   on: (event: string, callback: (chainId: string) => void) => void;
   removeListener: (event: string, callback: (chainId: string) => void) => void;
@@ -12,6 +11,25 @@ const useMyCertificate = () => {
   const ethereum = (typeof window !== "undefined" &&
     window.ethereum) as EthereumProvider;
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const getContractAddress = async () => {
+    const chainId = await ethereum.request({ method: "eth_chainId" });
+
+    let contractAddress;
+    switch (chainId) {
+      case "0xa86a": // Avalanche Mainnet
+        contractAddress = process.env
+          .NEXT_PUBLIC_AVAX_CONTRACT_ADDRESS as string;
+        break;
+      case "0x89": // Polygon Mainnet
+        contractAddress = process.env
+          .NEXT_PUBLIC_POLYGON_CONTRACT_ADDRESS as string;
+        break;
+      default:
+        contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+    }
+
+    return contractAddress;
+  };
   useEffect(() => {
     const getCert = async () => {
       if (ethereum) {
@@ -23,6 +41,7 @@ const useMyCertificate = () => {
           const from = accounts[0];
           const provider = new ethers.BrowserProvider(ethereum);
           const runner = await provider.getSigner(from);
+          const contractAddress = await getContractAddress();
           const contract = new ethers.Contract(
             contractAddress,
             contractABI.abi,

@@ -105,7 +105,10 @@ const ProfileItems: React.FC<profileProps> = ({ user_id, userRoles }) => {
 
         <span>List all certificates</span>
       </Link>
-      <Link href={`/my-certificate`} className="flex mb-3 space-x-2">
+      <Link
+        href={`/certificate/my-certificate`}
+        className="flex mb-3 space-x-2"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

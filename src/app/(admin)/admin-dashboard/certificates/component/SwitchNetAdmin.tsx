@@ -6,9 +6,11 @@ import {
 import { ethers } from "ethers";
 import React, { useContext } from "react";
 
-const SwitchNet = () => {
-  const { provider, setProvider } = useContext(CertificateContext);
+type SwtichNetAdminProps = {
+  setProvider: (provider: string) => void;
+};
 
+const SwitchNetAdmin: React.FC<SwtichNetAdminProps> = ({ setProvider }) => {
   const [activeProvider, setActiveProvider] = React.useState<string>("sepolia");
 
   const handleSwitch = (network: string) => {
@@ -61,4 +63,4 @@ const SwitchNet = () => {
   );
 };
 
-export default SwitchNet;
+export default SwitchNetAdmin;

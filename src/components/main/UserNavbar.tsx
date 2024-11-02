@@ -100,7 +100,6 @@ const UserNavbar: React.FC<userNavbarProps> = ({
       )
       .subscribe();
 
-    // Cleanup function to unsubscribe when component unmounts
     return () => {
       subscription.unsubscribe();
     };
