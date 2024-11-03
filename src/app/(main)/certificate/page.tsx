@@ -5,14 +5,14 @@ import useCertificate from "@/hook/useCertificate";
 import SwitchNet from "@/components/web3/SwitchNet";
 import { CertificateContext } from "./context/Certificate";
 const Page = () => {
-  const { provider } = useContext(CertificateContext);
+  const { setProvider, provider } = useContext(CertificateContext);
   const {
     setCertificateByName,
     certificateByName,
     filterdCertificates,
     certificateData,
     isLoading,
-  } = useCertificate(provider);
+  } = useCertificate(provider, setProvider);
 
   return (
     <div className="container mx-auto flex flex-col space-y-9 mt-6 h-screen">
@@ -65,6 +65,7 @@ const Page = () => {
                 key={index}
                 tokenId={result[0]}
                 ipfsUrlHash={result[2]}
+                provider={provider}
               />
             ))}
           </>
@@ -76,6 +77,7 @@ const Page = () => {
                   key={index}
                   tokenId={result[0]}
                   ipfsUrlHash={result[2]}
+                  provider={provider}
                 />
               ))}
             </>

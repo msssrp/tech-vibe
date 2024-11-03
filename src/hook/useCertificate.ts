@@ -1,10 +1,14 @@
 import { ethers } from "ethers";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { notifications } from "@mantine/notifications";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 import { RPC_URLS } from "@/app/(main)/certificate/context/Certificate";
+import { useSearchParams } from "next/navigation";
 
-const useCertificate = (provider: string) => {
+const useCertificate = (
+  provider: string,
+  setProvider: React.Dispatch<SetStateAction<string>>
+) => {
   const getContractAddress = (provider: string) => {
     let contractAddress;
 
@@ -23,16 +27,37 @@ const useCertificate = (provider: string) => {
 
     return contractAddress;
   };
-  const contractAddress = getContractAddress(provider);
-  const rpcProvider = new ethers.JsonRpcProvider(provider);
-  const contract = new ethers.Contract(
-    contractAddress,
-    contractABI.abi,
-    rpcProvider
-  );
   const [certificateData, setCertificateData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const contractAddress = getContractAddress(provider);
+  const searchParams = useSearchParams();
+  const search = searchParams.get("chain");
+
   useEffect(() => {
+    switch (search) {
+      case "avax":
+        setProvider(RPC_URLS.avalanche);
+        setCertificateData([]);
+        break;
+      case "polygon":
+        setProvider(RPC_URLS.polygon);
+        setCertificateData([]);
+        break;
+      default:
+        setProvider(RPC_URLS.sepolia);
+        setCertificateData([]);
+        break;
+    }
+  }, [search]);
+
+  useEffect(() => {
+    if (!provider) return;
+    const rpcProvider = new ethers.JsonRpcProvider(provider);
+    const contract = new ethers.Contract(
+      contractAddress,
+      contractABI.abi,
+      rpcProvider
+    );
     const getCert = async () => {
       setIsLoading(true);
       try {

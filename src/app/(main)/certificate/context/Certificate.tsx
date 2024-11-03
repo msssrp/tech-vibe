@@ -2,7 +2,6 @@ import { createContext, Dispatch, SetStateAction, useState } from "react";
 export const RPC_URLS = {
   sepolia:
     "https://light-delicate-energy.ethereum-sepolia.quiknode.pro/d37f6796b28cace29d313c06a9565bdb64f06c48",
-  bsc: "https://light-delicate-energy.bsc.quiknode.pro/d37f6796b28cace29d313c06a9565bdb64f06c48",
   polygon:
     "https://light-delicate-energy.matic.quiknode.pro/d37f6796b28cace29d313c06a9565bdb64f06c48",
   avalanche:
@@ -15,7 +14,7 @@ interface CertificateContextType {
 }
 
 export const CertificateContext = createContext<CertificateContextType>({
-  provider: RPC_URLS.sepolia,
+  provider: "",
   setProvider: () => "",
 });
 
@@ -24,7 +23,7 @@ export const CertificateProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [provider, setProvider] = useState(RPC_URLS.sepolia);
+  const [provider, setProvider] = useState("");
   return (
     <CertificateContext.Provider value={{ provider, setProvider }}>
       {children}
