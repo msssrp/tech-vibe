@@ -2,16 +2,19 @@ import { ipfsData } from "@/types/article/article";
 import { Card, Image, Text } from "@mantine/core";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { RPC_URLS } from "../context/Certificate";
 
 const gateway_url = process.env.NEXT_PUBLIC_GATEWAY_URL as string;
 type certificateProps = {
   tokenId: string;
   ipfsUrlHash: string;
+  provider: string;
 };
 
 const CertificateCard: React.FC<certificateProps> = ({
   tokenId,
   ipfsUrlHash,
+  provider,
 }) => {
   const [certificateHashData, setCertificateHashData] = useState<ipfsData>({
     author: "",
@@ -21,6 +24,21 @@ const CertificateCard: React.FC<certificateProps> = ({
     name: "",
     title: "",
   });
+  const [linkProvider, setLinkProvider] = useState<string>("");
+
+  useEffect(() => {
+    switch (provider) {
+      case RPC_URLS.avalanche:
+        setLinkProvider("avax");
+        break;
+      case RPC_URLS.polygon:
+        setLinkProvider("polygon");
+        break;
+      default:
+        setLinkProvider("sepolia");
+        break;
+    }
+  }, [provider]);
 
   useEffect(() => {
     const getIPFSData = async () => {
@@ -63,7 +81,10 @@ const CertificateCard: React.FC<certificateProps> = ({
           {certificateHashData.author}
         </Text>
 
-        <Link href={`/certificate/${tokenId}`} className="text-blue-500">
+        <Link
+          href={`/certificate/${tokenId}?chain=${linkProvider}`}
+          className="text-blue-500"
+        >
           More
         </Link>
       </div>
