@@ -35,6 +35,7 @@ const Page = () => {
     contractABI.abi,
     rpcProvider
   );
+  const [certificateId, setCertificateId] = useState<string>("");
   const [certificateHash, setCertificateHash] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [certificateData, setCertificateData] = useState<certificateData>({
@@ -51,7 +52,7 @@ const Page = () => {
       ipfsUrl: "",
       timestamp: 0,
     });
-    if (!certificateHash) {
+    if (!certificateId || !certificateHash) {
       setError("Please fill all the fields");
       return;
     }
@@ -59,14 +60,17 @@ const Page = () => {
     const ethereum = typeof window !== "undefined" && window.ethereum;
     if (ethereum) {
       try {
+        const certificateHashWithIpfs = `ipfs://${certificateHash}`;
         const checkCertificate = await contract.verifyCertificate(
-          certificateHash
+          certificateId,
+          certificateHashWithIpfs
         );
         if (checkCertificate) {
-          const result = await contract.getCertificate(checkCertificate[0]);
+          const result = await contract.getCertificate(certificateId);
           notifications.show({
             title: "Certificate Verified",
-            message: "Certificate is valid",
+            message:
+              "The certificate data you provided is authentic and matches the official record on the blockchain.",
             color: "green",
           });
           setCertificateData({
@@ -77,8 +81,9 @@ const Page = () => {
           });
         } else {
           notifications.show({
-            title: "Invalid Certificate",
-            message: "Certificate is not valid",
+            title: "Certificate Verification Failed",
+            message:
+              "The certificate data provided does not match the blockchain record, indicating potential inconsistency or error.",
             color: "red",
           });
         }
@@ -97,8 +102,9 @@ const Page = () => {
           return setError("Certificate not found");
         }
         notifications.show({
-          title: "Certificate",
-          message: "Certificate invalid",
+          title: "Certificate Verification Failed",
+          message:
+            "The certificate data provided does not match the blockchain record, indicating potential inconsistency or error.",
           color: "red",
         });
       }
@@ -124,6 +130,15 @@ const Page = () => {
           <div className="w-full flex flex-col space-y-4">
             <Textarea
               autosize
+              label="Certificate ID"
+              className="w-full"
+              onChange={(e) => {
+                setCertificateId(e.target.value);
+                return setError("");
+              }}
+            />
+            <Textarea
+              autosize
               label="Certificate Hash"
               className="w-full"
               onChange={(e) => {
@@ -147,6 +162,7 @@ const Page = () => {
           <CertificateCard
             tokenId={certificateData.tokenId}
             ipfsUrlHash={certificateData.ipfsUrl}
+            provider={provider}
           />
         </div>
       )}

@@ -18,7 +18,7 @@ const RPC_URLS = {
 
 const Page = () => {
   const [provider, setProvider] = useState(RPC_URLS.sepolia);
-  const { certificateData } = useCertificate(provider);
+  const { certificateData } = useCertificate(provider, setProvider);
 
   return (
     <div className="flex flex-col space-y-4">

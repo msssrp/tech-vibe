@@ -130,15 +130,22 @@ contract BlogCertificate is ERC721, ERC721URIStorage, Ownable {
     }
       
     function verifyCertificate(
-        string memory ipfsHash
-    ) public view returns (BlogCertData memory) {
+    uint256 tokenId,
+    string memory ipfsHash
+    ) public view returns (bool) {
+        if (!_exists(tokenId)) return false;
+        if (_revokedCertificates[uint64(tokenId)]) return false;
+
         for (uint i = 0; i < _blogCertData.length; i++) {
-            if (keccak256(abi.encodePacked(_blogCertData[i].ipfsHash)) == keccak256(abi.encodePacked(ipfsHash))) {
-                return _blogCertData[i];
+            if (_blogCertData[i].tokenId == tokenId) {
+                if (keccak256(abi.encodePacked(_blogCertData[i].ipfsHash)) == keccak256(abi.encodePacked(ipfsHash))) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
-        // Return a default struct if no match is found
-        return BlogCertData(0, address(0), "", 0);
+        return false;
     }
 
 }

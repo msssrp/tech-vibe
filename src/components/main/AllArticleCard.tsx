@@ -21,6 +21,7 @@ const AllArticleCard: React.FC<AllArticlesProps> = async ({
 }) => {
   if (!user_id) return redirect("/");
   const user = await getUser(article.user_id);
+  if (!user || !user.user_id) return redirect("/");
   const tags = await getArticleTags(article.article_id);
   const userRole = await getUserRoleOnServer(user.user_id);
   const userWithHyphen = user.user_fullname

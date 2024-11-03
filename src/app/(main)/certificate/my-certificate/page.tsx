@@ -23,6 +23,7 @@ const Page = () => {
               key={index}
               tokenId={result[0]}
               ipfsUrlHash={result[2]}
+              provider={provider}
             />
           ))
         ) : (

@@ -1,11 +1,15 @@
 import { ethers } from "ethers";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
-import { certificateData, ipfsData } from "@/types/article/article";
+import { certificateData } from "@/types/article/article";
 import { RPC_URLS } from "../../context/Certificate";
+import { useSearchParams } from "next/navigation";
 
-const UseCertificateData = (certificateId: string, provider: string) => {
-  const rpcProvider = new ethers.JsonRpcProvider(provider);
+const UseCertificateData = (
+  certificateId: string,
+  provider: string,
+  setProvider: React.Dispatch<SetStateAction<string>>
+) => {
   const getContractAddress = (provider: string) => {
     let contractAddress;
 
@@ -25,11 +29,7 @@ const UseCertificateData = (certificateId: string, provider: string) => {
     return contractAddress;
   };
   const contractAddress = getContractAddress(provider);
-  const contract = new ethers.Contract(
-    contractAddress,
-    contractABI.abi,
-    rpcProvider
-  );
+
   const [certData, setCertData] = useState<certificateData>({
     tokenId: "",
     ownerAddress: "",
@@ -43,17 +43,69 @@ const UseCertificateData = (certificateId: string, provider: string) => {
     if (error.code === "BAD_DATA") {
       return "Please verify mainnet connection.";
     } else if (error.code === "CALL_EXCEPTION") {
-      window.location.href = "/certificate";
-      return "Redirecting...";
+      return "Invalid certificate ID";
     }
     return "An unexpected error occurred.";
   };
+
+  const searchParams = useSearchParams();
+  const search = searchParams.get("chain");
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
+    switch (search) {
+      case "avax":
+        setProvider(RPC_URLS.avalanche);
+        setCertData({
+          tokenId: "",
+          ownerAddress: "",
+          ipfsUrl: "",
+          timestamp: 0,
+        });
+        setError(null);
+        break;
+      case "polygon":
+        setProvider(RPC_URLS.polygon);
+        setCertData({
+          tokenId: "",
+          ownerAddress: "",
+          ipfsUrl: "",
+          timestamp: 0,
+        });
+        setError(null);
+        break;
+      default:
+        setProvider(RPC_URLS.sepolia);
+        setCertData({
+          tokenId: "",
+          ownerAddress: "",
+          ipfsUrl: "",
+          timestamp: 0,
+        });
+        setError(null);
+        break;
+    }
+  }, [search]);
+
+  useEffect(() => {
+    if (!provider) return;
+    setError(null);
+    setCertData({
+      tokenId: "",
+      ownerAddress: "",
+      ipfsUrl: "",
+      timestamp: 0,
+    });
+    const rpcProvider = new ethers.JsonRpcProvider(provider);
+    const contract = new ethers.Contract(
+      contractAddress,
+      contractABI.abi,
+      rpcProvider
+    );
     const getCertData = async () => {
       try {
+        setIsLoading(true);
         const result = await contract.getCertificate(certificateId);
         const tokenOwner = await contract.ownerOf(certificateId);
-
         setCertData({
           tokenId: result[0],
           ownerAddress: result[1],
@@ -62,17 +114,23 @@ const UseCertificateData = (certificateId: string, provider: string) => {
         });
         setOwnerOfToken(tokenOwner);
         setCurrentUrl(window.location.href);
+        setError(null);
       } catch (error: any) {
+        setCertData({
+          tokenId: "",
+          ownerAddress: "",
+          ipfsUrl: "",
+          timestamp: 0,
+        });
+        setOwnerOfToken("");
         setError(handleError(error));
       }
     };
 
     getCertData();
-  }, [provider]);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    if (!error && certData) setIsLoading(false);
-  }, [certData, error]);
+  }, [provider, certificateId]);
+  console.log(certData, ownerOfToken, error);
+
   return {
     setIsLoading,
     isLoading,
