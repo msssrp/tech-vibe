@@ -41,7 +41,7 @@ const CertificateCard: React.FC<certificateProps> = ({
       });
     };
     getIPFSData();
-  }, []);
+  }, [tokenId]);
 
   return (
     <Card

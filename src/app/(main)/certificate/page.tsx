@@ -3,16 +3,16 @@ import React, { useContext } from "react";
 import CertificateCard from "./component/CertificateCard";
 import useCertificate from "@/hook/useCertificate";
 import SwitchNet from "@/components/web3/SwitchNet";
-import { CertificateContext } from "./context/Certificate";
+import { CertificateContext, RPC_URLS } from "./context/Certificate";
 const Page = () => {
-  const { provider } = useContext(CertificateContext);
+  const { setProvider, provider } = useContext(CertificateContext);
   const {
     setCertificateByName,
     certificateByName,
     filterdCertificates,
     certificateData,
     isLoading,
-  } = useCertificate(provider);
+  } = useCertificate(provider, setProvider);
 
   return (
     <div className="container mx-auto flex flex-col space-y-9 mt-6 h-screen">

@@ -3,8 +3,7 @@ import {
   CertificateContext,
   RPC_URLS,
 } from "@/app/(main)/certificate/context/Certificate";
-import { ethers } from "ethers";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 const SwitchNet = () => {
   const { provider, setProvider } = useContext(CertificateContext);
@@ -24,6 +23,16 @@ const SwitchNet = () => {
         setProvider(RPC_URLS.sepolia);
     }
   };
+
+  useEffect(() => {
+    if (provider === RPC_URLS.avalanche) {
+      setActiveProvider("avalanche");
+    } else if (provider === RPC_URLS.polygon) {
+      setActiveProvider("polygon");
+    } else {
+      setActiveProvider("sepolia");
+    }
+  }, [provider]);
 
   return (
     <div className="flex items-center space-x-4 flex-wrap justify-center">
