@@ -31,6 +31,8 @@ const DataTable: React.FC<dataTableProps> = ({ certificates }) => {
         timestamp: item[3] as number,
       }));
       setData(mappedData);
+    } else {
+      setData([]);
     }
   }, [certificates]);
   const columns: ColumnDef<columnDefProps>[] = [

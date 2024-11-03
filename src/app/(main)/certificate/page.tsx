@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import CertificateCard from "./component/CertificateCard";
 import useCertificate from "@/hook/useCertificate";
 import SwitchNet from "@/components/web3/SwitchNet";
-import { CertificateContext, RPC_URLS } from "./context/Certificate";
+import { CertificateContext } from "./context/Certificate";
 const Page = () => {
   const { setProvider, provider } = useContext(CertificateContext);
   const {

@@ -14,7 +14,7 @@ interface CertificateContextType {
 }
 
 export const CertificateContext = createContext<CertificateContextType>({
-  provider: RPC_URLS.sepolia,
+  provider: "",
   setProvider: () => "",
 });
 
@@ -23,7 +23,7 @@ export const CertificateProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [provider, setProvider] = useState(RPC_URLS.sepolia);
+  const [provider, setProvider] = useState("");
   return (
     <CertificateContext.Provider value={{ provider, setProvider }}>
       {children}
