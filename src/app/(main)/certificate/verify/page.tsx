@@ -162,6 +162,7 @@ const Page = () => {
           <CertificateCard
             tokenId={certificateData.tokenId}
             ipfsUrlHash={certificateData.ipfsUrl}
+            provider={provider}
           />
         </div>
       )}
