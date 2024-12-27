@@ -17,9 +17,10 @@ import { columnDefProps } from "@/types/article/article";
 
 type dataTableProps = {
   certificates: any[];
+  provider: string;
 };
 
-const DataTable: React.FC<dataTableProps> = ({ certificates }) => {
+const DataTable: React.FC<dataTableProps> = ({ certificates, provider }) => {
   const [data, setData] = useState<columnDefProps[]>();
 
   useEffect(() => {
@@ -70,7 +71,13 @@ const DataTable: React.FC<dataTableProps> = ({ certificates }) => {
     {
       header: "Action",
       cell: ({ row }) => {
-        return <RevokeBtn tokenId={row.original.tokenId} setData={setData} />;
+        return (
+          <RevokeBtn
+            tokenId={row.original.tokenId}
+            setData={setData}
+            provider={provider}
+          />
+        );
       },
     },
   ];
