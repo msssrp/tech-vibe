@@ -95,6 +95,8 @@ const Page = () => {
           error.code === "UNSUPPORTED_OPERATION" ||
           error.code === "INVALID_ARGUMENT"
         ) {
+          console.log(error);
+
           return setError(
             "Please check all the information ownser address should be 0x 42 chars long and certificate id should be a number"
           );
