@@ -31,7 +31,7 @@ const Page = () => {
           </div>
           <CertificateStat allCertificates={certificateData.length} />
           <div className="flex flex-col lg:flex-row flex-wrap justify-center items-center mt-5 w-full">
-            <DataTable certificates={certificateData} />
+            <DataTable certificates={certificateData} provider={provider} />
           </div>
         </div>
       </div>
