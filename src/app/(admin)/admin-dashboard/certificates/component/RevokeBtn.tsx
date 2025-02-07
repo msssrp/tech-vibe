@@ -3,19 +3,43 @@ import React from "react";
 import contractABI from "@/hardhat/artifacts/contracts/BlogCert.sol/BlogCertificate.json";
 import { notifications } from "@mantine/notifications";
 import { columnDefProps } from "@/types/article/article";
-const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+import { RPC_URLS } from "@/app/(main)/certificate/context/Certificate";
 type RevokeBtnProps = {
   tokenId: number;
   setData: React.Dispatch<React.SetStateAction<columnDefProps[] | undefined>>;
+  provider: string;
 };
 
-const RevokeBtn: React.FC<RevokeBtnProps> = ({ tokenId, setData }) => {
+const RevokeBtn: React.FC<RevokeBtnProps> = ({
+  tokenId,
+  setData,
+  provider,
+}) => {
   const [isClicked, setIsClicked] = React.useState(false);
+  const getContractAddress = () => {
+    let contractAddress;
+
+    switch (provider) {
+      case RPC_URLS.polygon:
+        contractAddress = process.env
+          .NEXT_PUBLIC_POLYGON_CONTRACT_ADDRESS as string;
+        break;
+      case RPC_URLS.avalanche:
+        contractAddress = process.env
+          .NEXT_PUBLIC_AVAX_CONTRACT_ADDRESS as string;
+        break;
+      default:
+        contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+    }
+
+    return contractAddress;
+  };
   const revokeCertificate = async () => {
     try {
       setIsClicked(true);
       const ethereum = typeof window !== "undefined" && window.ethereum;
       if (ethereum) {
+        const contractAddress = getContractAddress();
         const accounts = await ethereum.request({
           method: "eth_requestAccounts",
         });
@@ -51,6 +75,8 @@ const RevokeBtn: React.FC<RevokeBtnProps> = ({ tokenId, setData }) => {
         }
       }
     } catch (error) {
+      console.log(error);
+
       notifications.show({
         title: "Something went wrong",
         message:
