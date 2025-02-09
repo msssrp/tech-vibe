@@ -10,8 +10,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY src ./src
 COPY public ./public
-ARG ENV_FILE
-RUN echo ${ENV_FILE} > ./.env
+COPY .env ./.env
 COPY *.json *.d.ts next.config.mjs postcss.config.cjs postcss.config.js tailwind.config.ts ./
 RUN npm run build
 

@@ -6,7 +6,7 @@ export async function handlerGoogle() {
   await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `https://techvibe.app/auth/callback`,
+      redirectTo: `http://localhost:3000/auth/callback`,
       queryParams: {
         access_type: "offline",
         prompt: "consent",
@@ -19,7 +19,7 @@ export async function handlerGithub() {
   await supabase.auth.signInWithOAuth({
     provider: "github",
     options: {
-      redirectTo: `https://techvibe.app/auth/callback`,
+      redirectTo: `http://localhost:3000/auth/callback`,
       queryParams: {
         access_type: "offline",
         prompt: "consent",
@@ -33,7 +33,7 @@ export async function handlerFacebook() {
   await supabase.auth.signInWithOAuth({
     provider: "facebook",
     options: {
-      redirectTo: `https://techvibe.app/auth/callback`,
+      redirectTo: `http://localhost:3000/auth/callback`,
       queryParams: {
         access_type: "offline",
         prompt: "consent",

@@ -31,10 +31,10 @@ export async function GET(request: Request) {
     );
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      return NextResponse.redirect("https://techvibe.app");
+      return NextResponse.redirect("http://localhost:3000");
     }
   }
 
   // return the user to an error page with instructions
-  return NextResponse.redirect("https://techvibe.app/error");
+  return NextResponse.redirect("http://localhost:3000/error");
 }

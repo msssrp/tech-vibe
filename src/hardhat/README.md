@@ -8,3 +8,6 @@ Try running some of the following tasks:
 npx compile
 npx hardhat ignition deploy --network rei ./ignition/modules/BlogCert.js
 ```
+
+test
+sepolia 0x1443728D7Fce10b55b79e6cB9DD35919a919aC44

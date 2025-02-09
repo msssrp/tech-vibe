@@ -1,0 +1,3 @@
+exit
+(await ethers.provider.getBalance("0x317fC4b53d9fa6dE4407d16b0014F4d866a67fEe")).toString()
+node -v
